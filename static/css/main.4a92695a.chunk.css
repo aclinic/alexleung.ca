@@ -1,0 +1,2 @@
+@import url(https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap);:root{--ff-primary:"Lato",sans-serif;--transition:all 0.2s linear;--max-width:1170px;--clr-white:#fff;--clr-hover:#718093;--clr-black:#2f3640;--clr-highlight:#00d131}*{box-sizing:border-box;margin:0;padding:0}img{width:100%}.section-center{width:90vw;max-width:1170px;max-width:var(--max-width);margin:0 auto}@media screen and (min-width:992px){.section-center{width:70vw}}.toggle-button{position:absolute;right:1rem;top:1rem}
+/*# sourceMappingURL=main.4a92695a.chunk.css.map */
