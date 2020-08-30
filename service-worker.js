@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/aclinal.github.io/precache-manifest.a3ea25b17bfad34e8b66bc79554b6e50.js"
+  "/alexleung.ca-v2/precache-manifest.fc0a98f1c98ad0b71c0db95d7a0374cc.js"
 );
 
 self.addEventListener('message', (event) => {
@@ -33,7 +33,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/aclinal.github.io/index.html"), {
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/alexleung.ca-v2/index.html"), {
 
   blacklist: [/^\/_/,/\/[^\/?]+\.[^\/]+$/],
 });
