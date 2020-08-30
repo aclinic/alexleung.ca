@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/alexleung.ca-v2/precache-manifest.fc0a98f1c98ad0b71c0db95d7a0374cc.js"
+  "/alexleung.ca-v2/precache-manifest.51048ef1874f06130babb0ce957a49ea.js"
 );
 
 self.addEventListener('message', (event) => {
