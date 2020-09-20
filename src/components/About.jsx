@@ -9,7 +9,7 @@ const About = () => {
       <Title title='About Me' />
       <AboutCenter>
         <AboutInfo>
-          My formal training is in electrical engineering but have since pivoted into the fast-paced and dynamic field of software engineering. My current interests lie in applying effective software design in creating solutions to practical problems. In my free time I enjoy keeping up with my craft, reading, and spending time with my dogs. <br /><br />
+          I'm formally trained in electrical engineering but I really enjoy the fast-paced and dynamic discipline of software engineering. My current interests lie in applying effective software design to craft solutions for practical problems. In my spare time I enjoy keeping up with my craft, reading, and enjoying time with doges. <br /><br />
 
           <Skills />
         </AboutInfo>

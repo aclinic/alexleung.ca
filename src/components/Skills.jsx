@@ -5,7 +5,7 @@ import { skills } from '../constants/skills';
 const Skills = () => {
   return (
     <>
-      Here are a few technologies I've been working with:
+      Here are a few things that I like:
         <SkillList>
           {skills.map(({ skill }) => (
             <li key={skill}>{skill}</li>
