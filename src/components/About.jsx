@@ -9,12 +9,11 @@ const About = () => {
       <Title title='About Me' />
       <AboutCenter>
         <AboutInfo>
-          {'Trained in electrical engineering, but I actually love '
-            + 'writing software. My current interests are in applying '
-            + 'software design techniques to craft beautiful, compelling, '
+          {'Trained in electrical engineering but passionate for software. '
+            + 'I love applying effective software design to craft beautiful, compelling, '
             + 'and intuitive solutions for everyday engineering problems. Beyond '
             + 'keeping up with my craft, in my spare time I enjoy reading, playing '
-            + 'chess & go, and spending time with doges.'}
+            + 'chess & go, and spending time with doges 🐶.'}
 
           <br /><br />
 
