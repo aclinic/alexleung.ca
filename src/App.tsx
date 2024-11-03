@@ -1,4 +1,3 @@
-import React from "react";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./components/colour-theme/globalStyles";
 import { lightTheme, darkTheme } from "./components/colour-theme/Themes";

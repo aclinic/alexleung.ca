@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   body {
@@ -9,4 +9,4 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.5;
     position:relative;
   }
-  `
+  `;
