@@ -1,11 +1,10 @@
 export const skills = [
-  {skill: 'C++ 14'},
-  {skill: 'Java 11'},
-  {skill: 'Javascript'},
-  {skill: 'HTML / CSS'},
-  {skill: 'SQL'},
-  {skill: 'Agile Scrum'},
-  {skill: 'Embedded Systems'},
-  {skill: 'Distributed Systems'},
-  {skill: 'Electric Power Systems'}
+  { skill: "Modern C++" },
+  { skill: "Java & Kotlin" },
+  { skill: "Typescript & Javascript" },
+  { skill: "HTML & CSS" },
+  { skill: "Database Design" },
+  { skill: "Distributed Systems" },
+  { skill: "Embedded Systems" },
+  { skill: "Clean Architecture" },
 ];

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import { SiCashapp } from 'react-icons/si';
+import { FcEngineering } from "react-icons/fc";
 
 const Home = () => {
   return (
@@ -13,7 +13,7 @@ const Home = () => {
           </TextAnimation>
           <TextAnimation bottom>
             <h3>
-              A software engineer with <span>Cash App <SiCashapp className='cashapp-icon' /></span>
+              Software Engineer <FcEngineering className='engineering-icon' />
             </h3>
           </TextAnimation>
         </HomeInfo>
@@ -59,8 +59,7 @@ const HomeInfo = styled.div`
     display:inline-block;
   }
 
-  .cashapp-icon{
-    color:var(--clr-highlight);
+  .engineering-icon{
     vertical-align: middle;
     margin-left:0.3rem;
     margin-bottom:0.2rem;

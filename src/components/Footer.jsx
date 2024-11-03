@@ -12,7 +12,7 @@ const Footer = () => {
           </IconsList>
         ))
       }
-      <p>Copyright &copy; {new Date().getFullYear()} Alex Leung</p>
+      <p>Copyright &copy; 2020, 2024 Alex Leung</p>
     </FooterStyled>
   )
 }
