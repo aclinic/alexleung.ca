@@ -12,15 +12,23 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: 📦 Checkout
         uses: actions/checkout@v4
 
-      - name: Install and Build 🔧
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: 🏗️ Install Dependencies
         run: |
           yarn install
+
+      - name: 🏗️ Build
+        run: |
           yarn build
 
-      - name: Deploy 🚀
+      - name: 🚢 Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           BRANCH: gh-pages
