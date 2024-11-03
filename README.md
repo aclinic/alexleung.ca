@@ -8,11 +8,12 @@ This is a second version of <a href='https://alexleung.ca'>alexleung.ca</a> made
 
 1. Clone this repo
 
-2. Install dependencies
+1. Install dependencies
 
+    `nvm use`
     `yarn install`
 
-3. Start the development server
+1. Start the development server
 
     `yarn start`
 
