@@ -10,17 +10,17 @@ This is a second version of <a href='https://alexleung.ca'>alexleung.ca</a> made
 
 2. Install dependencies
 
-    `npm install`
+    `yarn install`
 
 3. Start the development server
 
-    `npm start`
+    `yarn start`
 
 ## :ship: Deployment
 
 1. Ensure the `CNAME` is correct, then deploy
 
-    `npm run deploy`
+    `yarn deploy`
 
 ## :clipboard: Project src Folder Structure
 ```bash
