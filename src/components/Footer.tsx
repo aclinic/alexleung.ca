@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { data } from "../constants/socialLinks";
+import { data } from "@/constants/socialLinks";
 
 const Footer = () => {
   return (

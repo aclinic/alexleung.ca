@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { skills } from "../constants/skills";
+import { skills } from "@/constants/skills";
 
 const Skills = () => {
   return (

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Title from "./Title";
-import Skills from "./Skills";
+import Title from "@/components/Title";
+import Skills from "@/components/Skills";
 
 const About = () => {
   return (
