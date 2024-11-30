@@ -9,7 +9,7 @@ const Footer = () => {
           <a href={link.url}>{link.icon}</a>
         </IconsList>
       ))}
-      <p>Copyright &copy; 2020, 2024 Alex Leung</p>
+      <p>Copyright &copy; 2020, 2022, 2024 Alex Leung</p>
     </FooterStyled>
   );
 };
