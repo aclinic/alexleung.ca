@@ -1,6 +1,6 @@
 # alexleung.ca-v2
 
-This is a second version of <a href='https://alexleung.ca'>alexleung.ca</a> made with Create React App.
+This is a second version of <a href='https://alexleung.ca'>alexleung.ca</a> made with Create React App + Craco.
 
 ![Homepage screenshot](./public/assets/screenshot.png)
 

@@ -1,4 +1,4 @@
-import { FaTwitter, FaLinkedinIn, FaInstagram, FaGithub } from "react-icons/fa";
+import { FaBluesky, FaXTwitter, FaLinkedinIn, FaInstagram, FaGithub } from "react-icons/fa6";
 
 export const data = [
   {
@@ -13,11 +13,16 @@ export const data = [
   },
   {
     id: 3,
-    icon: <FaTwitter />,
-    url: "https://www.twitter.com/acl1n1c",
+    icon: <FaXTwitter />,
+    url: "https://www.x.com/acl1n1c",
   },
   {
     id: 4,
+    icon: <FaBluesky />,
+    url: "https://bsky.app/profile/aclinic.bsky.social",
+  },
+  {
+    id: 5,
     icon: <FaInstagram />,
     url: "https://www.instagram.com/rootpanda",
   },
