@@ -1,105 +1,23 @@
-import styled from "styled-components";
 import { FcEngineering } from "react-icons/fc";
 
 const Home = () => {
   return (
-    <HomeStyled>
-      <HomeCenter className="section-center">
-        <HomeInfo>
-          <TextAnimation>
-            <p>Hi, my name is</p>
-            <h1>alex leung</h1>
-          </TextAnimation>
-          <TextAnimation bottom={true}>
-            <h3>
-              Software Engineer <FcEngineering className="engineering-icon" />
+    <section className="h-screen relative">
+      <div className="section-center h-full flex items-center">
+        <div>
+          <div className="animate-showTopText opacity-0 translate-y-full" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
+            <p className="text-[1.1rem] md:text-[1.5rem] mb-4 text-hover tracking-[0.08rem]">Hi, my name is</p>
+            <h1 className="inline-block font-black uppercase text-4xl md:text-8xl tracking-[0.2rem] leading-[0.9] mb-4 md:pb-4">alex leung</h1>
+          </div>
+          <div className="animate-showTopText opacity-0 translate-y-full" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+            <h3 className="text-[1.2rem] md:text-[2rem]">
+              Software Engineer <FcEngineering className="inline-block align-middle ml-[0.3rem] mb-[0.2rem]" />
             </h3>
-          </TextAnimation>
-        </HomeInfo>
-      </HomeCenter>
-    </HomeStyled>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
-
-const HomeStyled = styled.section`
-  height: 100vh;
-  position: relative;
-`;
-
-const HomeCenter = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-`;
-
-const HomeInfo = styled.div`
-  h1 {
-    display: inline-block;
-    font-weight: 900;
-    text-transform: uppercase;
-    font-size: 4rem;
-    letter-spacing: 0.2rem;
-    line-height: 0.9;
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-  }
-
-  p {
-    font-size: 1.1rem;
-    margin: 0 0 1rem;
-    color: var(--clr-hover);
-    letter-spacing: 0.08rem;
-  }
-
-  span {
-    display: inline-block;
-  }
-
-  .engineering-icon {
-    vertical-align: middle;
-    margin-left: 0.3rem;
-    margin-bottom: 0.2rem;
-  }
-
-  @media (min-width: 768px) {
-    h1 {
-      font-size: 8rem;
-      padding-bottom: 1rem;
-    }
-
-    h3 {
-      font-size: 2rem;
-    }
-
-    p {
-      font-size: 1.5rem;
-    }
-  }
-`;
-
-type TextAnimationProps = {
-  bottom?: boolean;
-};
-const TextAnimation = styled.div<TextAnimationProps>`
-  animation: showTopText 1s;
-  animation-delay: ${(props) => (props.bottom ? "0.8s" : "0.5s")};
-  animation-fill-mode: forwards;
-  opacity: 0;
-  transform: translate(0, 100%);
-
-  @keyframes showTopText {
-    0% {
-      transform: translate(0, 100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translate(0, 0);
-      opacity: 1;
-    }
-  }
-`;
 
 export default Home;

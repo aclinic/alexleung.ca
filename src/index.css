@@ -1,42 +1,34 @@
-/*=============== 
-Fonts
-===============*/
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap');
-:root {
-  --ff-primary: 'Lato', sans-serif;
-  --transition: all 0.2s linear;
-  --max-width: 1170px;
-  --clr-white: #fff;
-  --clr-hover: #718093;
-  --clr-black: #2f3640;
-  --clr-highlight: #00D131;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-img {
-  width: 100%;
-}
-
-/* section */
-.section-center {
-  width: 90vw;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-@media screen and (min-width: 992px) {
-  .section-center {
-    width: 70vw;
+@layer base {
+  * {
+    @apply box-border m-0 p-0;
+  }
+  
+  img {
+    @apply w-full;
+  }
+  
+  body {
+    @apply font-lato leading-normal relative;
   }
 }
 
-.toggle-button {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
+@layer components {
+  .section-center {
+    @apply w-[90vw] max-w-content mx-auto;
+  }
+  
+  @media screen and (min-width: 992px) {
+    .section-center {
+      @apply w-[70vw];
+    }
+  }
+  
+  .toggle-button {
+    @apply absolute right-4 top-4;
+  }
 }

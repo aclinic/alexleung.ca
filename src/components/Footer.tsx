@@ -1,37 +1,16 @@
-import styled from "styled-components";
 import { data } from "@/constants/socialLinks";
 
 const Footer = () => {
   return (
-    <FooterStyled className="section-center">
+    <section className="section-center pt-20 pb-4 text-center">
       {data.map((link) => (
-        <IconsList key={link.id}>
-          <a href={link.url}>{link.icon}</a>
-        </IconsList>
+        <li key={link.id} className="list-none inline-block mx-2 mb-4 xl:hidden">
+          <a href={link.url} className="text-[1.4rem] text-black dark:text-white">{link.icon}</a>
+        </li>
       ))}
-      <p>Copyright &copy; 2020, 2022, 2024 Alex Leung</p>
-    </FooterStyled>
+      <p>Copyright &copy; 2020 - 2025 Alex Leung</p>
+    </section>
   );
 };
-
-const FooterStyled = styled.section`
-  padding: 5rem 0 1rem;
-  text-align: center;
-`;
-
-const IconsList = styled.li`
-  list-style-type: none;
-  display: inline-block;
-  margin: 0 0.5rem 1rem;
-
-  a {
-    font-size: 1.4rem;
-    color: ${({ theme }) => theme.text};
-  }
-
-  @media (min-width: 1100px) {
-    display: none;
-  }
-`;
 
 export default Footer;

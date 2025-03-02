@@ -1,6 +1,4 @@
-import { ThemeProvider } from "styled-components";
-import { GlobalStyles } from "@/components/colour-theme/globalStyles";
-import { lightTheme, darkTheme } from "@/components/colour-theme/Themes";
+import { useEffect } from "react";
 import useDarkMode from "@/components/colour-theme/useDarkMode";
 import Home from "@/components/Home";
 import About from "@/components/About";
@@ -13,18 +11,23 @@ import "@/index.css";
 const App = () => {
   const [theme, themeToggler] = useDarkMode();
 
-  const themeMode = theme === "light" ? lightTheme : darkTheme;
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   return (
-    <ThemeProvider theme={themeMode}>
-      <GlobalStyles />
-      <Toggle toggleTheme={themeToggler} />
+    <div className="bg-white text-black dark:bg-black dark:text-white transition-all duration-500 ease-linear min-h-screen">
+      <Toggle toggleTheme={themeToggler} theme={theme} />
       <SocialLinks />
       <Home />
       <About />
       <Contact />
       <Footer />
-    </ThemeProvider>
+    </div>
   );
 };
 
