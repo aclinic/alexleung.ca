@@ -8,12 +8,52 @@ const About = () => {
       <Title title="About Me" />
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
         <div className="text-left leading-relaxed text-lg mb-8">
-          <p className="mb-6">
-            I love applying effective software design to craft beautiful,
-            compelling, and intuitive solutions to engineering problems. In my
-            spare time I enjoy playing tennis 🎾, reading 📚, hiking 🏔️, rock
-            climbing 🧗, and spending time with furmily 🐱.
-          </p>
+          <div className="mb-6 flex items-start gap-3">
+            <span className="text-xl mt-1 flex-shrink-0">🧍‍♂️</span>
+            <p className="text-lg leading-relaxed">
+              I&apos;m a Software Engineer at Jetson, where we&apos;re focused
+              on transforming homes across North America by replacing outdated,
+              fossil-fueled systems with advanced electric heat pumps.
+              Previously, I&apos;ve worked at Google, Cash App, and
+              North/Thalmic Labs, building systems that span the full technology
+              spectrum. I&apos;ve also served as a hands-on front-line technical
+              manager and cross-functional lead.
+            </p>
+          </div>
+
+          <div className="mb-6 flex items-start gap-3">
+            <span className="text-xl mt-1 flex-shrink-0">🎓</span>
+            <p className="text-lg leading-relaxed">
+              My journey started with a BASc from Waterloo and MSEE from Georgia
+              Tech, beginning in power systems and control engineering at GE,
+              then gradually moving up the stack—from hardware to firmware to
+              native Android, web systems, and distributed systems.
+            </p>
+          </div>
+
+          <div className="mb-6 flex items-start gap-3">
+            <span className="text-xl mt-1 flex-shrink-0">💻</span>
+            <p className="text-lg leading-relaxed">
+              My technical philosophy centers on getting things working first,
+              then getting them right - so long as we avoid one-way doors. I
+              believe in fast iteration and focusing on high-impact changes. I
+              enjoy applying foundation models to solve hard problems. When
+              approaching complex problems in an ambiguous domain, I seek to
+              understand first, then decompose into manageable subproblems,
+              explore the solution space, and move forward decisively even when
+              information is limited.
+            </p>
+          </div>
+
+          <div className="mb-6 flex items-start gap-3">
+            <span className="text-xl mt-1 flex-shrink-0">😍</span>
+            <p className="text-lg leading-relaxed">
+              What drives me is building things that people love, getting stuff
+              done, and continuously learning new things. In my spare time I
+              enjoy playing tennis 🎾, reading 📚, hiking 🏔️, rock climbing 🧗,
+              and spending time with furmily 🐱.
+            </p>
+          </div>
 
           <Skills />
         </div>

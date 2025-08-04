@@ -11,7 +11,7 @@ const Home = () => {
           </div>
           <div className="animate-showTopText opacity-0 translate-y-full" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
             <h2 className="text-xl md:text-3xl">
-              Software Engineer <FcEngineering className="inline-block align-middle ml-1 mb-1" />
+              Software & AI Engineer <FcEngineering className="inline-block align-middle ml-1 mb-1" />
             </h2>
           </div>
         </div>
