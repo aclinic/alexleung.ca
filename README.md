@@ -74,3 +74,19 @@ src/
     ├── skills.ts            # Skills data and configuration
     └── socialLinks.tsx      # Social media links configuration
 ```
+
+## :memo: Site Analysis & Improvement Recommendations
+
+### 🚀 High Priority
+- **Fix Viewport Metadata Warning**: Move viewport config from metadata to viewport export in layout.tsx
+- **Update Browserslist Data**: Run `npx update-browserslist-db@latest` for optimal browser compatibility
+- **Improve Contact Section**: Replace email obfuscation with proper contact form or mailto link
+
+### 🎯 Medium Priority
+- **Performance Optimizations**: Add lazy loading for images, loading states, consider service worker
+- **Accessibility Enhancements**: Add proper heading hierarchy, improve keyboard navigation, better alt text
+- **Analytics Integration**: Consider privacy-friendly analytics (Plausible, Fathom)
+
+### 🔧 Low Priority
+- **Code Organization**: Extract magic strings, add error boundaries, consider TypeScript strict mode
+- **SEO Enhancements**: Add blog/portfolio sections, improve Open Graph images, add JSON-LD for projects
