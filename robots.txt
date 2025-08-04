@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow crawling of Next.js build assets
+Disallow: /_next/
+
+# Sitemap location
+Sitemap: https://alexleung.ca/sitemap.xml
