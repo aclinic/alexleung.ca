@@ -4,7 +4,7 @@ const Skills = () => {
   return (
     <>
       Here are a few technical areas that I enjoy working in:
-      <ul className="grid grid-cols-[repeat(2,minmax(130px,200px))] gap-x-4 list-none mt-4 p-0">
+      <ul className="grid grid-cols-2 gap-x-4 list-none mt-4 p-0">
         {skills.map(({ skill }) => (
           <li
             key={skill}
