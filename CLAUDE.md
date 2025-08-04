@@ -1,10 +1,10 @@
-# CLAUDE.md - Alex Leung Portfolio Website
+# CLAUDE.md - Portfolio Website Project
 
 > **Note**: This file should be updated whenever significant changes are made to the website structure, content, or technical stack to ensure it remains accurate and useful for development work.
 
-## Website Overview
+## Project Overview
 
-This is Alex Leung's personal portfolio website - a clean, modern single-page application showcasing his work as a Software Engineer and AI Engineer. The site features a minimalist design with dark/light mode toggle and smooth animations.
+This is a personal portfolio website - a clean, modern single-page application showcasing work as a Software Engineer and AI Engineer. The site features a minimalist design with dark/light mode toggle and smooth animations.
 
 ## Technical Stack
 
@@ -34,36 +34,15 @@ This is Alex Leung's personal portfolio website - a clean, modern single-page ap
 4. **Performance**: Next.js Image optimization, WebP images, static export
 5. **Animations**: CSS-based animations for text reveals and transitions
 
-## Personal Information (Alex Leung)
+## Content Structure
 
-- **Role**: Software Engineer & AI Engineer
-- **Education**: University of Waterloo & Georgia Tech (Electrical Engineering)
-- **Location**: Kitchener, Ontario, Canada
-- **Contact**: mail [at] alexleung.ca
-- **Interests**: Tennis, reading, hiking, rock climbing, cats ("furmily")
+The website is structured as a single-page application with the following sections:
 
-### Technical Expertise
-
-Alex specializes in:
-
-- AI & Agentic Applications
-- Distributed Systems Architecture
-- System Design & Clean Architecture
-- Python & Machine Learning
-- TypeScript/JavaScript, React/Next.js
-- Java/Kotlin, Modern C++
-- AWS & Cloud Infrastructure
-- Docker & Containerization
-- Database Design & Optimization
-- Embedded Systems Development
-
-### Social Presence
-
-- LinkedIn: https://www.linkedin.com/in/aclinic
-- GitHub: https://www.github.com/aclinic
-- Twitter/X: https://www.x.com/acl1n1c
-- Bluesky: https://bsky.app/profile/aclinic.bsky.social
-- Instagram: https://www.instagram.com/rootpanda
+- **Hero Section**: Professional introduction and title
+- **About Section**: Personal background, interests, and technical skills showcase
+- **Contact Section**: Email contact and social media links
+- **Skills Data**: Technical competencies defined in `src/constants/skills.ts`
+- **Social Links**: Platform links configured in `src/constants/socialLinks.tsx`
 
 ## Development Commands
 
@@ -80,31 +59,16 @@ Alex specializes in:
 - Images stored in `public/assets/` with WebP format for optimization
 - Email obfuscation used in contact section for spam protection
 
-## Current Issues & Improvements (from README)
+## Current Issues & Improvements
 
-### High Priority
-
-- Fix viewport metadata warning (move to viewport export)
-- Update browserslist data
-- Improve contact section (replace email obfuscation)
-
-### Medium Priority
-
-- Performance optimizations (lazy loading, service worker)
-- Accessibility enhancements
-- Analytics integration
-
-### Low Priority
-
-- Code organization improvements
-- SEO enhancements (blog/portfolio sections)
+See README.md for current todos and improvements.
 
 ## Website Sections
 
 1. **Hero/Home** - Name, title, and professional identity
-2. **About** - Personal introduction with photos of Alex and his cat Galactica
+2. **About** - Personal introduction with photos
 3. **Skills** - Technical competencies in grid format
 4. **Contact** - Email and social media links
 5. **Footer** - Additional site information
 
-This is a well-crafted, professional portfolio site demonstrating modern web development practices and showcasing Alex's technical expertise in software engineering and AI.
+This is a well-crafted, professional portfolio site demonstrating modern web development practices and showcasing technical expertise in software engineering and AI.
