@@ -77,11 +77,6 @@ src/
 
 ## :memo: Site Analysis & Improvement Recommendations
 
-### 🚀 High Priority
-- **Fix Viewport Metadata Warning**: Move viewport config from metadata to viewport export in layout.tsx
-- **Update Browserslist Data**: Run `npx update-browserslist-db@latest` for optimal browser compatibility
-- **Improve Contact Section**: Replace email obfuscation with proper contact form or mailto link
-
 ### 🎯 Medium Priority
 - **Performance Optimizations**: Add lazy loading for images, loading states, consider service worker
 - **Accessibility Enhancements**: Add proper heading hierarchy, improve keyboard navigation, better alt text

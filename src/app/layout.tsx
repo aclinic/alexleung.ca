@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 
@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   publisher: "Alex Leung",
   robots: "index, follow",
   metadataBase: new URL("https://alexleung.ca"),
-  viewport: "width=device-width, initial-scale=1",
   alternates: {
     canonical: "/",
   },
@@ -40,6 +39,11 @@ export const metadata: Metadata = {
     description:
       "Alex Leung - Software Engineer specializing in systems design, distributed systems, AI engineering, and full-stack development. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
