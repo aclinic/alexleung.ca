@@ -1,4 +1,4 @@
-# alexleung.ca-v2
+# alexleung.ca
 
 Personal portfolio website built with Next.js, TypeScript, and Tailwind CSS. Deployed to GitHub Pages using static export.
 
