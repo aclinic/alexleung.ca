@@ -10,16 +10,16 @@ Personal portfolio website built with Next.js, TypeScript, and Tailwind CSS. Dep
 
 1. Install dependencies
 
-    ```bash
-    nvm use
-    yarn install
-    ```
+   ```bash
+   nvm use
+   yarn install
+   ```
 
 1. Start the development server
 
-    ```bash
-    yarn dev
-    ```
+   ```bash
+   yarn dev
+   ```
 
 ## :ship: Deployment
 
@@ -27,9 +27,9 @@ The site is automatically deployed to GitHub Pages using static export. To deplo
 
 1. Ensure the `CNAME` is correct, then build and deploy
 
-    ```bash
-    yarn deploy
-    ```
+   ```bash
+   yarn deploy
+   ```
 
 ## :gear: Architecture
 
@@ -75,13 +75,16 @@ src/
     └── socialLinks.tsx      # Social media links configuration
 ```
 
-## :memo: Site Analysis & Improvement Recommendations
+## :memo: Improvements & Future Work
 
 ### 🎯 Medium Priority
-- **Performance Optimizations**: Add lazy loading for images, loading states, consider service worker
-- **Accessibility Enhancements**: Add proper heading hierarchy, improve keyboard navigation, better alt text
+
 - **Analytics Integration**: Consider privacy-friendly analytics (Plausible, Fathom)
+- **Performance**: Consider service worker for offline functionality
+- **Accessibility**: Improve keyboard navigation, add focus indicators
 
 ### 🔧 Low Priority
-- **Code Organization**: Extract magic strings, add error boundaries, consider TypeScript strict mode
+
+- **Code Organization**: Extract magic strings to constants, add error boundaries, improve component structure
 - **SEO Enhancements**: Add blog/portfolio sections, improve Open Graph images, add JSON-LD for projects
+- **Development Experience**: Add pre-commit hooks, improve build scripts, consider Prettier integration
