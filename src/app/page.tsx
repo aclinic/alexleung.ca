@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from "react";
 import useDarkMode from "@/components/colour-theme/useDarkMode";
 import Home from "@/components/Home";
@@ -6,9 +8,8 @@ import SocialLinks from "@/components/SocialLinks";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 import Toggle from "@/components/colour-theme/Toggler";
-import "@/index.css";
 
-const App = () => {
+export default function Page() {
   const [theme, themeToggler] = useDarkMode();
 
   useEffect(() => {
@@ -29,6 +30,4 @@ const App = () => {
       <Footer />
     </div>
   );
-};
-
-export default App;
+}

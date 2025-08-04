@@ -1,5 +1,6 @@
 import Title from "@/components/Title";
 import Skills from "@/components/Skills";
+import Image from "next/image";
 
 const About = () => {
   return (
@@ -15,7 +16,7 @@ const About = () => {
 
           <Skills />
         </div>
-        <img src="assets/about.jpg" alt="Alex and Galactica" />
+        <Image src="/assets/about.jpg" alt="Alex and Galactica" width={400} height={400} />
       </div>
     </section>
   );

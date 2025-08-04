@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 const useDarkMode = (): [string, () => void] => {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const preference = prefersDark ? "dark" : "light";
-
-  const [theme, setTheme] = useState(preference);
+  // Initialize with 'light' as default for SSR
+  const [theme, setTheme] = useState("light");
 
   const setMode = (mode: string) => {
-    window.localStorage.setItem("theme", mode);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("theme", mode);
+    }
     setTheme(mode);
   };
 
@@ -16,8 +16,22 @@ const useDarkMode = (): [string, () => void] => {
   };
 
   useEffect(() => {
-    const localTheme = window.localStorage.getItem("theme");
-    localTheme && setTheme(localTheme);
+    // Only run on client side
+    if (typeof window !== "undefined") {
+      // Check for saved theme in localStorage
+      const localTheme = window.localStorage.getItem("theme");
+
+      if (localTheme) {
+        setTheme(localTheme);
+      } else {
+        // Check system preference if no saved theme
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const preference = prefersDark ? "dark" : "light";
+        setTheme(preference);
+      }
+    }
   }, []);
 
   return [theme, themeToggler];
