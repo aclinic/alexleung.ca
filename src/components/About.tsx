@@ -6,6 +6,7 @@ const About = () => {
   return (
     <section className="section-center pt-20">
       <Title title="About Me" />
+
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
         <div className="text-left leading-relaxed text-lg mb-8">
           <div className="mb-6 flex items-start gap-3">
@@ -26,7 +27,7 @@ const About = () => {
             <p className="text-lg leading-relaxed">
               My journey started with a BASc from Waterloo and MSEE from Georgia
               Tech, beginning in power systems and control engineering at GE,
-              then gradually moving up the stack—from hardware to firmware to
+              then gradually moving up the stack - from hardware to firmware to
               native Android, web systems, and distributed systems.
             </p>
           </div>
@@ -54,8 +55,6 @@ const About = () => {
               and spending time with furmily 🐱.
             </p>
           </div>
-
-          <Skills />
         </div>
         <div className="flex flex-col gap-4 md:gap-6">
           <Image
@@ -78,6 +77,8 @@ const About = () => {
           />
         </div>
       </div>
+
+      <Skills />
     </section>
   );
 };
