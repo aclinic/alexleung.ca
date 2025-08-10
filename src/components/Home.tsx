@@ -9,7 +9,7 @@ const Home = () => {
             className="animate-showTopText opacity-0 translate-y-full"
             style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
           >
-            <p className="text-lg md:text-xl mb-4 text-hover tracking-wider">
+            <p className="text-lg md:text-xl mb-4 tracking-wider">
               Hi, my name is
             </p>
             <h1 className="inline-block font-black uppercase text-4xl md:text-8xl tracking-[0.2rem] leading-[0.9] mb-4 md:pb-4">

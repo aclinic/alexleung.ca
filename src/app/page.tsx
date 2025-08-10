@@ -29,7 +29,7 @@ export default function Page() {
   }
 
   return (
-    <div className="bg-white text-black dark:bg-black dark:text-white transition-all duration-500 ease-linear min-h-screen">
+    <div className="bg-white text-black dark:bg-black dark:text-white transition-colors duration-500 ease-linear min-h-screen bg-[url('/assets/background.webp')] bg-cover bg-center bg-fixed bg-no-repeat bg-overlay">
       <Toggle toggleTheme={themeToggler} theme={theme} />
       <SocialLinks />
       <Home />
