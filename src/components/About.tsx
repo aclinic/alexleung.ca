@@ -15,10 +15,10 @@ const About = () => {
               I&apos;m a Software Engineer at Jetson, where we&apos;re focused
               on transforming homes across North America by replacing outdated,
               fossil-fueled systems with advanced electric heat pumps.
-              Previously, I&apos;ve worked at Google, Cash App, and
-              North/Thalmic Labs, building systems that span the full technology
-              spectrum. I&apos;ve also served as a hands-on front-line technical
-              manager and cross-functional lead.
+              Previously, I was a Staff Software Engineer at Google and served
+              as a Tech Lead / Manager (TL/M) at both Google and Cash App,
+              building systems that span the full technology spectrum and
+              leading cross-functional teams to deliver high-impact products.
             </p>
           </div>
 
@@ -29,6 +29,18 @@ const About = () => {
               Tech, beginning in power systems and control engineering at GE,
               then gradually moving up the stack - from hardware to firmware to
               native Android, web systems, and distributed systems.
+            </p>
+          </div>
+
+          <div className="mb-6 flex items-start gap-3">
+            <span className="text-xl mt-1 flex-shrink-0">🚀</span>
+            <p className="text-lg leading-relaxed">
+              As a technical leader, I&apos;ve architected and scaled
+              distributed systems, led cross-functional product teams, and
+              mentored engineers across multiple levels. I&apos;ve driven
+              technical strategy and execution for large-scale platforms,
+              managing both technical complexity and organizational alignment to
+              deliver high-impact results.
             </p>
           </div>
 
@@ -57,6 +69,15 @@ const About = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4 md:gap-6">
+          <Image
+            src="/assets/about_portrait_mountain.webp"
+            alt="Alex Leung on a scenic mountain overlook, enjoying the outdoors and mountain views during a hiking adventure"
+            width={400}
+            height={267}
+            loading="lazy"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyLDSEsAy2kZTNL4a4VNPgABNVMm1kEhQXEmQr/AMHkABFxXjQW0iyRwwq"
+          />
           <Image
             src="/assets/about_portrait.webp"
             alt="Alex Leung standing on a mountain trail during a hiking adventure, wearing outdoor gear and smiling at the camera"

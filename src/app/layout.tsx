@@ -3,9 +3,9 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Alex Leung | Software Engineer | AI Engineer",
+  title: "Alex Leung | Staff Software Engineer | AI Lead",
   description:
-    "Alex Leung - Software Engineer specializing in systems design, distributed systems, AI engineering, and full-stack development. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+    "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
   keywords:
     "Alex Leung, software engineer, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
   authors: [{ name: "Alex Leung" }],
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Alex Leung | Software Engineer | AI Engineer",
+    title: "Alex Leung | Staff Software Engineer | AI Lead",
     description:
-      "Alex Leung - Software Engineer specializing in systems design, distributed systems, AI engineering, and full-stack development. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+      "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
     type: "website",
     url: "https://alexleung.ca",
     siteName: "Alex Leung",
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Alex Leung | Software Engineer | AI Engineer",
+    title: "Alex Leung | Staff Software Engineer | AI Lead",
     description:
-      "Alex Leung - Software Engineer specializing in systems design, distributed systems, AI engineering, and full-stack development. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+      "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
   },
 };
 
@@ -68,9 +68,9 @@ export default function RootLayout({
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Alex Leung",
-      jobTitle: "Software Engineer",
+      jobTitle: "Staff Software Engineer",
       description:
-        "Software Engineer specializing in full-stack web development and systems design",
+        "Staff Software Engineer and AI Lead with experience architecting distributed systems and leading cross-functional teams at Google and Cash App",
       url: "https://alexleung.ca",
       sameAs: [
         "https://www.linkedin.com/in/aclinic",
