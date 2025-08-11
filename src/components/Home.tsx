@@ -20,8 +20,8 @@ const Home = () => {
             className="animate-showTopText opacity-0 translate-y-full"
             style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
           >
-            <h2 className="text-xl md:text-3xl">
-              Staff Software Engineer & AI Lead{" "}
+            <h2 className="text-lg md:text-2xl">
+              Staff Engineer & Engineering Lead, P.Eng.{" "}
               <FcEngineering className="inline-block align-middle ml-1 mb-1" />
             </h2>
           </div>
