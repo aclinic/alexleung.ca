@@ -5,9 +5,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
   description:
-    "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+    "Alex Leung - Staff Software Engineer with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Professional Engineer (P.Eng.) with Professional Engineers Ontario and Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
   keywords:
-    "Alex Leung, software engineer, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
+    "Alex Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
   authors: [{ name: "Alex Leung" }],
   creator: "Alex Leung",
   publisher: "Alex Leung",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
     description:
-      "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+      "Alex Leung - Staff Software Engineer with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Professional Engineer (P.Eng.) with Professional Engineers Ontario and Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
     type: "website",
     url: "https://alexleung.ca",
     siteName: "Alex Leung",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
     description:
-      "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+      "Alex Leung - Staff Software Engineer with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Professional Engineer (P.Eng.) with Professional Engineers Ontario and Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
     images: [
       {
         url: "/assets/screenshot.png",
@@ -75,9 +75,9 @@ export default function RootLayout({
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Alex Leung",
-      jobTitle: "Staff Engineer & Engineering Lead",
+      jobTitle: "Staff Engineer & Engineering Lead, P.Eng.",
       description:
-        "Staff Software Engineer and AI Lead with experience architecting distributed systems and leading cross-functional teams at Google and Cash App",
+        "Staff Software Engineer with experience architecting distributed systems and leading cross-functional teams at Google and Cash App. Licensed Professional Engineer (P.Eng.) with Professional Engineers Ontario.",
       url: "https://alexleung.ca",
       sameAs: [
         "https://www.linkedin.com/in/aclinic",
@@ -132,6 +132,26 @@ export default function RootLayout({
           name: "Remote",
         },
       },
+      hasCredential: [
+        {
+          "@type": "EducationalOccupationalCredential",
+          name: "Professional Engineer (P.Eng.)",
+          description: "Licensed Professional Engineer in Ontario, Canada",
+          credentialCategory: "Professional License",
+          recognizedBy: {
+            "@type": "Organization",
+            name: "Professional Engineers Ontario",
+            url: "https://www.peo.on.ca",
+            description:
+              "Professional Engineers Ontario (PEO) is the licensing body for professional engineers in Ontario, Canada",
+          },
+          about: [
+            "Professional Engineering",
+            "Engineering Ethics",
+            "Engineering Practice",
+          ],
+        },
+      ],
     },
   ];
 
