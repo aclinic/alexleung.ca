@@ -1,5 +1,6 @@
 import Title from "@/components/Title";
 import Skills from "@/components/Skills";
+import ExternalLink from "@/components/ExternalLink";
 import Image from "next/image";
 
 export default function About() {
@@ -12,11 +13,17 @@ export default function About() {
           <div className="mb-6 flex items-start gap-3">
             <span className="text-xl mt-1 flex-shrink-0">🧍‍♂️</span>
             <p className="lg:text-lg leading-relaxed">
-              I&apos;m a Software Engineer at Jetson, where we&apos;re focused
-              on transforming homes across North America by replacing outdated,
-              fossil-fueled systems with advanced electric heat pumps.
-              Previously, I was a Staff Software Engineer at Google and served
-              as a Tech Lead / Manager (TL/M) at both Google and Cash App,
+              I&apos;m a Software Engineer at{" "}
+              <ExternalLink href="https://jetsonhome.com">Jetson</ExternalLink>,
+              where we&apos;re focused on transforming homes across North
+              America by replacing outdated, fossil-fueled systems with advanced
+              electric heat pumps. Previously, I was a Staff Software Engineer
+              at{" "}
+              <ExternalLink href="https://arvr.google.com/">
+                Google
+              </ExternalLink>{" "}
+              and served as a Tech Lead / Manager (TL/M) at both Google and{" "}
+              <ExternalLink href="https://cash.app/">Cash App</ExternalLink>,
               building systems that span the full technology spectrum and
               leading cross-functional teams to deliver high-impact products.
             </p>
@@ -26,10 +33,13 @@ export default function About() {
             <span className="text-xl mt-1 flex-shrink-0">🎓</span>
             <p className="md:text-lg leading-relaxed">
               My journey started with a BASc from Waterloo and MSEE from Georgia
-              Tech, beginning in power systems and control engineering at GE,
-              then gradually moving up the stack - from hardware to firmware to
-              native Android, web systems, and distributed systems. I have held
-              a P.Eng. license from the PEO since 2017.
+              Tech, beginning in power systems and control engineering at{" "}
+              <ExternalLink href="https://www.gevernova.com/grid-solutions/">
+                GE
+              </ExternalLink>
+              , then gradually moving up the stack - from hardware to firmware
+              to native Android, web systems, and distributed systems. I have
+              held a P.Eng. license from the PEO since 2017.
             </p>
           </div>
 

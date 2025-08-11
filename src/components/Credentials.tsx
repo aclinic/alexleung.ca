@@ -1,4 +1,5 @@
 import Title from "@/components/Title";
+import ExternalLink from "@/components/ExternalLink";
 
 export default function Credentials() {
   return (
@@ -15,7 +16,9 @@ export default function Credentials() {
                 Professional Engineer (P.Eng.)
               </h3>
               <p className="text-lg mb-2">
-                Professional Engineers Ontario (PEO)
+                <ExternalLink href="https://www.peo.on.ca">
+                  Professional Engineers Ontario (PEO)
+                </ExternalLink>
               </p>
               <p className="text-gray-300 leading-relaxed">
                 Licensed Professional Engineer bringing engineering discipline,
@@ -32,7 +35,9 @@ export default function Credentials() {
           <div className="p-6 bg-white/5 rounded-lg backdrop-blur-sm border border-white/10">
             <div className="mb-4">
               <h3 className="text-xl font-semibold mb-1">
-                Georgia Institute of Technology
+                <ExternalLink href="https://ece.gatech.edu/">
+                  Georgia Institute of Technology
+                </ExternalLink>
               </h3>
               <p className="text-lg text-yellow-300 font-medium">
                 MSECE, Electrical & Computer Engineering
@@ -56,7 +61,9 @@ export default function Credentials() {
           <div className="p-6 bg-white/5 rounded-lg backdrop-blur-sm border border-white/10">
             <div className="mb-4">
               <h3 className="text-xl font-semibold mb-1">
-                University of Waterloo
+                <ExternalLink href="https://uwaterloo.ca/electrical-computer-engineering/">
+                  University of Waterloo
+                </ExternalLink>
               </h3>
               <p className="text-lg text-yellow-300 font-medium">
                 BASc, Electrical Engineering & Pure Mathematics
