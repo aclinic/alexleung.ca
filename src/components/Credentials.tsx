@@ -74,8 +74,8 @@ export default function Credentials() {
               <p className="text-lg font-medium text-green-300">92.3% CGPA</p>
               <div className="text-sm text-blue-300">
                 <p>• With Distinction</p>
-                <p>• Dean's Honours List</p>
-                <p>• 8x Term Dean's Honours List</p>
+                <p>• Dean&apos;s Honours List</p>
+                <p>• 8x Term Dean&apos;s Honours List</p>
               </div>
             </div>
             <div>
