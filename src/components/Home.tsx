@@ -1,6 +1,6 @@
 import { FcEngineering } from "react-icons/fc";
 
-const Home = () => {
+export default function Home() {
   return (
     <section className="h-screen relative">
       <div className="section-center h-full flex items-center">
@@ -29,6 +29,4 @@ const Home = () => {
       </div>
     </section>
   );
-};
-
-export default Home;
+}

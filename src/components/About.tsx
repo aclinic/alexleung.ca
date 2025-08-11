@@ -2,7 +2,7 @@ import Title from "@/components/Title";
 import Skills from "@/components/Skills";
 import Image from "next/image";
 
-const About = () => {
+export default function About() {
   return (
     <section className="section-center pt-20">
       <Title title="About Me" />
@@ -103,6 +103,4 @@ const About = () => {
       <Skills className="mt-12" />
     </section>
   );
-};
-
-export default About;
+}

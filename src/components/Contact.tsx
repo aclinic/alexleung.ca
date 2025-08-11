@@ -1,6 +1,6 @@
 import Title from "@/components/Title";
 
-const Contact = () => {
+export default function Contact() {
   return (
     <section className="section-center py-20 text-center">
       <Title title="Get In Touch" />
@@ -10,6 +10,4 @@ const Contact = () => {
       </p>
     </section>
   );
-};
-
-export default Contact;
+}
