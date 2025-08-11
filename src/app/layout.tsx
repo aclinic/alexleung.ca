@@ -3,7 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Alex Leung | Staff Software Engineer | AI Lead",
+  title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
   description:
     "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
   keywords:
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Alex Leung | Staff Software Engineer | AI Lead",
+    title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
     description:
       "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
     type: "website",
@@ -34,10 +34,16 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary",
-    title: "Alex Leung | Staff Software Engineer | AI Lead",
+    card: "summary_large_image",
+    title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
     description:
       "Alex Leung - Staff Software Engineer and AI Lead with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+    images: [
+      {
+        url: "/assets/screenshot.png",
+        alt: "Alex Leung - Software Engineer and AI Engineer",
+      },
+    ],
   },
 };
 
@@ -62,13 +68,14 @@ export default function RootLayout({
       author: {
         "@type": "Person",
         name: "Alex Leung",
+        url: "https://alexleung.ca",
       },
     },
     {
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Alex Leung",
-      jobTitle: "Staff Software Engineer",
+      jobTitle: "Staff Engineer & Engineering Lead",
       description:
         "Staff Software Engineer and AI Lead with experience architecting distributed systems and leading cross-functional teams at Google and Cash App",
       url: "https://alexleung.ca",
@@ -106,7 +113,25 @@ export default function RootLayout({
         "Full-stack Development",
         "Systems Design",
         "Electrical Engineering",
+        "Technical Leadership",
+        "Cross-functional Team Management",
+        "Product Development",
       ],
+      worksFor: [
+        {
+          "@type": "Organization",
+          name: "Jetson",
+          url: "https://jetsonhome.com",
+        },
+      ],
+      hasOccupation: {
+        "@type": "Occupation",
+        name: "Staff Engineer & Engineering Lead",
+        occupationLocation: {
+          "@type": "Place",
+          name: "Remote",
+        },
+      },
     },
   ];
 
