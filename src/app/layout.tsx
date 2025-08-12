@@ -57,22 +57,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: "Alex Leung",
-      url: "https://alexleung.ca",
-      description:
-        "Personal website of Alex Leung, Software Engineer and AI Engineer",
-      author: {
-        "@type": "Person",
-        name: "Alex Leung",
-        url: "https://alexleung.ca",
-      },
-    },
-    {
-      "@context": "https://schema.org",
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: "Alex Leung - Staff Engineer & Engineering Lead",
+    url: "https://alexleung.ca",
+    description:
+      "Personal website of Alex Leung, Staff Software Engineer and AI Engineer specializing in distributed systems and technical leadership.",
+    mainEntity: {
       "@type": "Person",
       name: "Alex Leung",
       alternateName: [
@@ -133,8 +125,8 @@ export default function RootLayout({
         "@type": "Occupation",
         name: "Staff Engineer & Engineering Lead",
         occupationLocation: {
-          "@type": "Place",
-          name: "Remote",
+          "@type": "Country",
+          name: "Canada",
         },
       },
       hasCredential: [
@@ -158,7 +150,7 @@ export default function RootLayout({
         },
       ],
     },
-  ];
+  };
 
   return (
     <html lang="en">
