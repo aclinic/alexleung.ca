@@ -8,7 +8,12 @@ export default function Footer() {
           key={link.id}
           className="list-none inline-block mx-2 mb-4 lg:hidden"
         >
-          <a href={link.url} className="text-xl text-white">
+          <a
+            href={link.url}
+            className="text-xl text-white"
+            rel="me noopener"
+            target="_blank"
+          >
             {link.icon}
           </a>
         </li>

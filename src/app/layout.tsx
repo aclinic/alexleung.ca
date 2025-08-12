@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Alex Leung - Staff Software Engineer with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Professional Engineer (P.Eng.) with Professional Engineers Ontario and Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
   keywords:
-    "Alex Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
+    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
   authors: [{ name: "Alex Leung" }],
   creator: "Alex Leung",
   publisher: "Alex Leung",
@@ -75,6 +75,11 @@ export default function RootLayout({
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Alex Leung",
+      alternateName: [
+        "Alexander Leung",
+        "Alexander Clayton Leung",
+        "Alex C Leung",
+      ],
       jobTitle: "Staff Engineer & Engineering Lead, P.Eng.",
       description:
         "Staff Software Engineer with experience architecting distributed systems and leading cross-functional teams at Google and Cash App. Licensed Professional Engineer (P.Eng.) with Professional Engineers Ontario.",

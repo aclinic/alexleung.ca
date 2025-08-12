@@ -8,7 +8,12 @@ export default function SocialLinks() {
     >
       {data.map((link) => (
         <li key={link.id} className="list-none my-2">
-          <a href={link.url} className="text-xl text-hover">
+          <a
+            href={link.url}
+            className="text-xl text-hover"
+            rel="me noopener"
+            target="_blank"
+          >
             {link.icon}
           </a>
         </li>

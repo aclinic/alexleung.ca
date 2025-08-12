@@ -32,8 +32,9 @@ export default function About() {
           <div className="mb-6 flex items-start gap-3">
             <span className="text-xl mt-1 flex-shrink-0">🎓</span>
             <p className="md:text-lg leading-relaxed">
-              My journey started with a BASc from Waterloo and MSEE from Georgia
-              Tech, beginning in power systems and control engineering at{" "}
+              My journey started with a BASc from Waterloo and MSECE from
+              Georgia Tech, beginning in power systems and control engineering
+              at{" "}
               <ExternalLink href="https://www.gevernova.com/grid-solutions/">
                 GE
               </ExternalLink>
