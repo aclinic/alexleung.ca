@@ -4,10 +4,13 @@ import * as schemadts from "schema-dts";
 import "./globals.css";
 import { PropsWithChildren } from "react";
 
+const title = "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.";
+const description =
+  "Alex Leung - Staff Software Engineer, Engineering Lead, and Professional Engineer. Architecting distributed systems and AI solutions. Proven leader of cross-functional teams.";
+
 export const metadata: Metadata = {
-  title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
-  description:
-    "Alex Leung - Staff Software Engineer with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Professional Engineer (P.Eng.) with Professional Engineers Ontario and Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+  title: title,
+  description: description,
   keywords:
     "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
   authors: [{ name: "Alex Leung" }],
@@ -19,9 +22,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
-    description:
-      "Alex Leung - Staff Software Engineer with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Professional Engineer (P.Eng.) with Professional Engineers Ontario and Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+    title: title,
+    description: description,
     type: "website",
     url: "https://alexleung.ca",
     siteName: "Alex Leung",
@@ -31,19 +33,18 @@ export const metadata: Metadata = {
         url: "/assets/screenshot.png",
         width: 1200,
         height: 630,
-        alt: "Alex Leung - Software Engineer and AI Engineer",
+        alt: title,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
-    description:
-      "Alex Leung - Staff Software Engineer with technical leadership experience at Google and Cash App. Specializes in distributed systems, AI engineering, and leading cross-functional teams. Professional Engineer (P.Eng.) with Professional Engineers Ontario and Electrical Engineering graduate from University of Waterloo and Georgia Tech.",
+    title: title,
+    description: description,
     images: [
       {
         url: "/assets/screenshot.png",
-        alt: "Alex Leung - Software Engineer and AI Engineer",
+        alt: title,
       },
     ],
   },
@@ -79,10 +80,9 @@ function buildProfilePageSchema(): schemadts.WithContext<schemadts.ProfilePage> 
   return {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    name: "Alex Leung - Staff Engineer & Engineering Lead",
+    name: title,
     url: "https://alexleung.ca",
-    description:
-      "Personal website of Alex Leung, Staff Software Engineer and AI Engineer specializing in distributed systems and technical leadership.",
+    description: description,
     mainEntity: {
       "@type": "Person",
       name: "Alex Leung",
@@ -95,17 +95,16 @@ function buildProfilePageSchema(): schemadts.WithContext<schemadts.ProfilePage> 
         {
           "@type": "ImageObject",
           url: "https://alexleung.ca/assets/about_portrait.webp",
-          caption: "Alex Leung - Software Engineer and AI Engineer",
+          caption: "Alex Leung in nature",
         },
         {
           "@type": "ImageObject",
           url: "https://alexleung.ca/assets/about_portrait_mountain.webp",
-          caption: "Alex Leung - Professional Engineer",
+          caption: "Alex Leung's portrait on a mountain",
         },
       ],
       jobTitle: "Staff Engineer & Engineering Lead, P.Eng.",
-      description:
-        "Staff Software Engineer with experience architecting distributed systems and leading cross-functional teams at Google and Cash App. Licensed Professional Engineer (P.Eng.) with Professional Engineers Ontario.",
+      description: description,
       url: "https://alexleung.ca",
       sameAs: [
         "https://www.linkedin.com/in/aclinic",
