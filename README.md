@@ -100,30 +100,29 @@ src/
 - ✅ Responsive design with professional styling
 - ✅ Static export optimized for GitHub Pages
 
-### Planned Improvements (from TODO.txt)
+### Planned Improvements
 
-#### Content & Messaging
+#### High Priority (Professional Impact)
 
-- [ ] Expand professional context with specific software engineering/AI experience
-- [ ] Add brief career journey or key milestones
-- [ ] Include technical philosophy/approach statement
+- [ ] **Expand professional context with specific software engineering/AI experience**
+  - Critical for showcasing actual expertise beyond credentials
+- [ ] **Add brief career journey or key milestones**
+  - Establishes credibility and experience progression
 
-#### Structure & Layout
+#### Medium Priority (Content & UX)
 
 - [ ] Balance text-image ratio in About section
+- [ ] Include technical philosophy/approach statement
 - [ ] Organize content into subsections (Professional, Personal, Technical)
 - [ ] Add subheadings or visual separators
+- [ ] Improve accessibility (heading hierarchy, ARIA labels)
 
-#### Visual & UX
+#### Low Priority (Enhancements)
 
 - [ ] Add subtle image captions for context
+- [ ] Optimize mobile text-to-image ratio
 - [ ] Implement staggered animations for text/images
 - [ ] Consider hover effects or expandable sections
-- [ ] Optimize mobile text-to-image ratio
-
-#### Technical Enhancements
-
-- [ ] Improve accessibility (heading hierarchy, ARIA labels)
 - [ ] Add privacy-friendly analytics integration
 - [ ] Consider service worker for offline functionality
 
