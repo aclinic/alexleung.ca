@@ -47,6 +47,27 @@ export const metadata: Metadata = {
       },
     ],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/assets/icons/ios/16.png", sizes: "16x16", type: "image/png" },
+      { url: "/assets/icons/ios/32.png", sizes: "32x32", type: "image/png" },
+      { url: "/assets/icons/ios/192.png", sizes: "192x192", type: "image/png" },
+      { url: "/assets/icons/ios/512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/assets/icons/ios/180.png", sizes: "180x180", type: "image/png" },
+      { url: "/assets/icons/ios/152.png", sizes: "152x152", type: "image/png" },
+      { url: "/assets/icons/ios/144.png", sizes: "144x144", type: "image/png" },
+      { url: "/assets/icons/ios/120.png", sizes: "120x120", type: "image/png" },
+      { url: "/assets/icons/ios/114.png", sizes: "114x114", type: "image/png" },
+      { url: "/assets/icons/ios/76.png", sizes: "76x76", type: "image/png" },
+      { url: "/assets/icons/ios/72.png", sizes: "72x72", type: "image/png" },
+      { url: "/assets/icons/ios/60.png", sizes: "60x60", type: "image/png" },
+      { url: "/assets/icons/ios/57.png", sizes: "57x57", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
