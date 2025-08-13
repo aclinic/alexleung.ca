@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { JsonLd } from "react-schemaorg";
+import * as schemadts from "schema-dts";
 import "./globals.css";
+import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
   title: "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.",
@@ -52,12 +54,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const structuredData = {
+function buildProfilePageSchema(): schemadts.WithContext<schemadts.ProfilePage> {
+  return {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     name: "Alex Leung - Staff Engineer & Engineering Lead",
@@ -163,17 +161,13 @@ export default function RootLayout({
       ],
     },
   };
+}
 
+export default function RootLayout({ children }: PropsWithChildren<{}>) {
   return (
     <html lang="en">
       <body>
-        <Script
-          id="structured-data"
-          type="application/ld+json"
-          strategy="beforeInteractive"
-        >
-          {JSON.stringify(structuredData)}
-        </Script>
+        <JsonLd item={buildProfilePageSchema()} />
         {children}
       </body>
     </html>
