@@ -1,25 +1,113 @@
 {
+  "id": "https://alexleung.ca/",
   "short_name": "Alex Leung",
-  "name": "Alex Leung's Personal Website",
+  "name": "Alex Leung - Staff Engineer & Engineering Lead, P.Eng.",
+  "description": "Professional portfolio of Alex Leung, Staff Engineer & Engineering Lead, P.Eng. - showcasing expertise in software engineering and AI.",
+  "lang": "en",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "sizes": "256x256 128x128 64x64 32x32 16x16",
+      "type": "image/x-icon",
+      "purpose": "any"
     },
     {
-      "src": "logo192.png",
+      "src": "assets/icons/ios/192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
-      "src": "logo512.png",
+      "src": "assets/icons/android/android-launchericon-192-192.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/ios/512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/android/android-launchericon-512-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/ios/144.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/ios/256.png",
+      "type": "image/png",
+      "sizes": "256x256",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/ios/1024.png",
+      "type": "image/png",
+      "sizes": "1024x1024",
+      "purpose": "any"
     }
   ],
-  "start_url": ".",
+  "scope": "/",
+  "start_url": "/?utm_source=pwa",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "dir": "ltr",
+  "theme_color": "#1f2937",
+  "background_color": "#ffffff",
+  "categories": ["portfolio", "business", "professional"],
+  "shortcuts": [
+    {
+      "name": "About",
+      "short_name": "About",
+      "description": "Learn about Alex Leung",
+      "url": "/#about",
+      "icons": [
+        {
+          "src": "assets/icons/ios/192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Credentials",
+      "short_name": "Credentials",
+      "description": "View professional credentials",
+      "url": "/#credentials",
+      "icons": [
+        {
+          "src": "assets/icons/ios/192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "assets/icons/ios/192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshot.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Alex Leung - Professional Portfolio"
+    }
+  ]
 }
