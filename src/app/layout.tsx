@@ -72,6 +72,18 @@ export default function RootLayout({
         "Alexander Clayton Leung",
         "Alex C Leung",
       ],
+      image: [
+        {
+          "@type": "ImageObject",
+          url: "https://alexleung.ca/assets/about_portrait.webp",
+          caption: "Alex Leung - Software Engineer and AI Engineer",
+        },
+        {
+          "@type": "ImageObject",
+          url: "https://alexleung.ca/assets/about_portrait_mountain.webp",
+          caption: "Alex Leung - Professional Engineer",
+        },
+      ],
       jobTitle: "Staff Engineer & Engineering Lead, P.Eng.",
       description:
         "Staff Software Engineer with experience architecting distributed systems and leading cross-functional teams at Google and Cash App. Licensed Professional Engineer (P.Eng.) with Professional Engineers Ontario.",
