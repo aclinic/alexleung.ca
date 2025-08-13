@@ -50,9 +50,18 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      {
+        url: "/favicon.ico",
+        sizes: "256x256 128x128 64x64 48x48 32x32 16x16",
+        type: "image/x-icon",
+      },
       { url: "/assets/icons/ios/16.png", sizes: "16x16", type: "image/png" },
       { url: "/assets/icons/ios/32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/assets/icons/windows11/Square44x44Logo.targetsize-96.png",
+        sizes: "96x96",
+        type: "image/png",
+      },
       { url: "/assets/icons/ios/192.png", sizes: "192x192", type: "image/png" },
       { url: "/assets/icons/ios/512.png", sizes: "512x512", type: "image/png" },
     ],
@@ -69,6 +78,9 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/manifest.json",
+  appleWebApp: {
+    title: "Alex Leung",
+  },
 };
 
 export const viewport: Viewport = {
