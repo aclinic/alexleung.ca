@@ -2,7 +2,7 @@ import { FcEngineering } from "react-icons/fc";
 
 export default function Home() {
   return (
-    <section className="h-screen relative">
+    <section id="home" className="h-screen relative">
       <div className="section-center h-full flex items-center">
         <div>
           <div

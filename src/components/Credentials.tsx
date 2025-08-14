@@ -4,7 +4,7 @@ import ExternalLink from "@/components/ExternalLink";
 export default function Credentials() {
   return (
     <section className="section-center pt-20">
-      <Title title="Credentials" />
+      <Title title="Credentials" id="credentials" />
 
       <div className="pt-8">
         {/* P.Eng. Credential */}

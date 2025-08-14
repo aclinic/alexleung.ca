@@ -115,7 +115,6 @@ src/
 - [ ] Include technical philosophy/approach statement
 - [ ] Organize content into subsections (Professional, Personal, Technical)
 - [ ] Add subheadings or visual separators
-- [ ] Improve accessibility (heading hierarchy, ARIA labels)
 
 #### Low Priority (Enhancements)
 

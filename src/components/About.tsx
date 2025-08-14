@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function About() {
   return (
     <section className="section-center pt-20">
-      <Title title="About Me" />
+      <Title title="About Me" id="about" />
 
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
         <div className="text-left leading-relaxed text-lg mb-8">
