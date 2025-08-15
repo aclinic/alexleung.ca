@@ -6,51 +6,68 @@
   "lang": "en",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "256x256 128x128 64x64 48x48 32x32 16x16",
+      "src": "/favicon.ico",
+      "sizes": "48x48 32x32 16x16",
       "type": "image/x-icon",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/ios/192.png",
-      "type": "image/png",
-      "sizes": "192x192",
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/android/android-launchericon-192-192.png",
+      "src": "/apple-icon.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/assets/icons/ios/512.png",
-      "type": "image/png",
-      "sizes": "512x512",
+      "sizes": "1024x1024",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/android/android-launchericon-512-512.png",
+      "src": "/icon1.png",
       "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
+      "sizes": "16x16",
+      "purpose": "any"
     },
     {
-      "src": "/assets/icons/ios/144.png",
+      "src": "/icon2.png",
+      "type": "image/png",
+      "sizes": "32x32",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon3.png",
+      "type": "image/png",
+      "sizes": "48x48",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon4.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon5.png",
       "type": "image/png",
       "sizes": "144x144",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/ios/256.png",
+      "src": "/icon6.png",
       "type": "image/png",
-      "sizes": "256x256",
+      "sizes": "180x180",
       "purpose": "any"
     },
     {
-      "src": "/assets/icons/ios/1024.png",
+      "src": "/icon7.png",
       "type": "image/png",
-      "sizes": "1024x1024",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon8.png",
+      "type": "image/png",
+      "sizes": "512x512",
       "purpose": "any"
     }
   ],
@@ -71,7 +88,7 @@
       "url": "/#about",
       "icons": [
         {
-          "src": "assets/icons/ios/192.png",
+          "src": "icon7.png",
           "sizes": "192x192"
         }
       ]
@@ -83,7 +100,7 @@
       "url": "/#credentials",
       "icons": [
         {
-          "src": "assets/icons/ios/192.png",
+          "src": "icon7.png",
           "sizes": "192x192"
         }
       ]
@@ -95,7 +112,7 @@
       "url": "/#contact",
       "icons": [
         {
-          "src": "assets/icons/ios/192.png",
+          "src": "icon7.png",
           "sizes": "192x192"
         }
       ]
