@@ -92,7 +92,7 @@ function buildProfilePageSchema(): schemadts.WithContext<schemadts.ProfilePage> 
       sameAs: [
         "https://www.linkedin.com/in/aclinic",
         "https://www.github.com/aclinic",
-        "https://www.x.com/acl1n1c",
+        "https://www.x.com/aclyxpse",
         "https://bsky.app/profile/aclinic.bsky.social",
         "https://www.instagram.com/rootpanda",
       ],

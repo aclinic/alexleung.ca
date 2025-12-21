@@ -1,4 +1,10 @@
-import { FaBluesky, FaXTwitter, FaLinkedinIn, FaInstagram, FaGithub } from "react-icons/fa6";
+import {
+  FaBluesky,
+  FaXTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+  FaGithub,
+} from "react-icons/fa6";
 
 export const data = [
   {
@@ -16,7 +22,7 @@ export const data = [
   {
     id: 3,
     icon: <FaXTwitter />,
-    url: "https://www.x.com/acl1n1c",
+    url: "https://www.x.com/aclyxpse",
     label: "X (Twitter) Profile",
   },
   {
