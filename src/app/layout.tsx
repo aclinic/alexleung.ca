@@ -59,110 +59,92 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-function buildProfilePageSchema(): schemadts.WithContext<schemadts.ProfilePage> {
+function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
   return {
     "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    name: title,
+    "@type": "Person",
+    // This ID is the "Digital Fingerprint" that tells Google this is an ENTITY, not just a page
+    "@id": "https://alexleung.ca/#person",
+    name: "Alex Leung",
+    alternateName: [
+      "Alexander Leung",
+      "Alexander Clayton Leung",
+      "Alex C Leung",
+    ],
     url: "https://alexleung.ca",
-    description: description,
-    mainEntity: {
-      "@type": "Person",
-      name: "Alex Leung",
-      alternateName: [
-        "Alexander Leung",
-        "Alexander Clayton Leung",
-        "Alex C Leung",
-      ],
-      image: [
-        {
-          "@type": "ImageObject",
-          url: "https://alexleung.ca/assets/about_portrait.webp",
-          caption: "Alex Leung in nature",
-        },
-        {
-          "@type": "ImageObject",
-          url: "https://alexleung.ca/assets/about_portrait_mountain.webp",
-          caption: "Alex Leung's portrait on a mountain",
-        },
-      ],
-      jobTitle: "Staff Engineer & Engineering Lead, P.Eng.",
-      description: description,
-      url: "https://alexleung.ca",
-      sameAs: [
-        "https://www.linkedin.com/in/aclinic",
-        "https://www.github.com/aclinic",
-        "https://www.x.com/aclyxpse",
-        "https://bsky.app/profile/aclinic.bsky.social",
-        "https://www.instagram.com/rootpanda",
-      ],
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Kitchener",
-        addressRegion: "Ontario",
-        addressCountry: "Canada",
-      },
-      alumniOf: [
-        {
-          "@type": "EducationalOrganization",
-          name: "University of Waterloo",
-          description: "Electrical Engineering",
-        },
-        {
-          "@type": "EducationalOrganization",
-          name: "Georgia Institute of Technology",
-          description: "Electrical Engineering",
-        },
-      ],
-      knowsAbout: [
-        "Software Engineering",
-        "Distributed Systems",
-        "Embedded Systems",
-        "AI Engineering",
-        "Web Development",
-        "Full-stack Development",
-        "Systems Design",
-        "Electrical Engineering",
-        "Technical Leadership",
-        "Cross-functional Team Management",
-        "Product Development",
-      ],
-      worksFor: [
-        {
-          "@type": "Organization",
-          name: "Jetson",
-          url: "https://jetsonhome.com",
-        },
-      ],
-      hasOccupation: {
-        "@type": "Occupation",
-        name: "Staff Engineer & Engineering Lead",
-        occupationLocation: {
-          "@type": "Country",
-          name: "Canada",
-        },
-      },
-      hasCredential: [
-        {
-          "@type": "EducationalOccupationalCredential",
-          name: "Professional Engineer (P.Eng.)",
-          description: "Licensed Professional Engineer in Ontario, Canada",
-          credentialCategory: "Professional License",
-          recognizedBy: {
-            "@type": "Organization",
-            name: "Professional Engineers Ontario",
-            url: "https://www.peo.on.ca",
-            description:
-              "Professional Engineers Ontario (PEO) is the licensing body for professional engineers in Ontario, Canada",
-          },
-          about: [
-            "Professional Engineering",
-            "Engineering Ethics",
-            "Engineering Practice",
-          ],
-        },
-      ],
+    // Links the Person to the Webpage as the primary subject
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://alexleung.ca",
     },
+    image: [
+      {
+        "@type": "ImageObject",
+        url: "https://alexleung.ca/assets/about_portrait.webp",
+        caption: "Alex Leung",
+      },
+      {
+        "@type": "ImageObject",
+        url: "https://alexleung.ca/assets/about_portrait_mountain.webp",
+        caption: "Alex Leung's portrait on a mountain",
+      },
+    ],
+    jobTitle: "Staff Engineer & Engineering Lead",
+    description: description,
+    sameAs: [
+      "https://www.linkedin.com/in/aclinic",
+      "https://www.github.com/aclinic",
+      "https://www.x.com/aclyxpse",
+      "https://bsky.app/profile/aclinic.bsky.social",
+      "https://www.instagram.com/rootpanda",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Waterloo",
+      addressRegion: "Ontario",
+      addressCountry: "Canada",
+    },
+    alumniOf: [
+      {
+        "@type": "CollegeOrUniversity",
+        name: "University of Waterloo",
+        sameAs: "https://en.wikipedia.org/wiki/University_of_Waterloo",
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        name: "Georgia Institute of Technology",
+        sameAs: "https://en.wikipedia.org/wiki/Georgia_Institute_of_Technology",
+      },
+    ],
+    knowsAbout: [
+      "Software Engineering",
+      "Distributed Systems",
+      "Embedded Systems",
+      "AI Engineering",
+      "Web Development",
+      "Systems Design",
+      "Electrical Engineering",
+      "Technical Leadership",
+    ],
+    worksFor: {
+      "@type": "Organization",
+      name: "Jetson",
+      url: "https://jetsonhome.com",
+    },
+    hasCredential: [
+      {
+        "@type": "EducationalOccupationalCredential",
+        name: "Professional Engineer (P.Eng.)",
+        credentialCategory: "Professional License",
+        recognizedBy: {
+          "@type": "Organization",
+          name: "Professional Engineers Ontario",
+          url: "https://www.peo.on.ca",
+          sameAs:
+            "https://en.wikipedia.org/wiki/Professional_Engineers_Ontario",
+        },
+      },
+    ],
   };
 }
 
@@ -170,7 +152,7 @@ export default function RootLayout({ children }: PropsWithChildren<{}>) {
   return (
     <html lang="en">
       <body>
-        <JsonLd item={buildProfilePageSchema()} />
+        <JsonLd item={buildPersonSchema()} />
         {children}
       </body>
     </html>
