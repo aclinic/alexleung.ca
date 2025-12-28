@@ -97,6 +97,7 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
       "https://www.x.com/aclyxpse",
       "https://bsky.app/profile/aclinic.bsky.social",
       "https://www.instagram.com/rootpanda",
+      "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
     ],
     address: {
       "@type": "PostalAddress",
@@ -142,6 +143,29 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
           url: "https://www.peo.on.ca",
           sameAs:
             "https://en.wikipedia.org/wiki/Professional_Engineers_Ontario",
+        },
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        name: "Master of Science in Electrical and Computer Engineering",
+        credentialCategory: "Degree",
+        educationalLevel: "Master's Degree",
+        recognizedBy: {
+          "@type": "CollegeOrUniversity",
+          name: "Georgia Institute of Technology",
+          sameAs:
+            "https://en.wikipedia.org/wiki/Georgia_Institute_of_Technology",
+        },
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        name: "Bachelor of Applied Science in Electrical Engineering",
+        credentialCategory: "Degree",
+        educationalLevel: "Bachelor's Degree",
+        recognizedBy: {
+          "@type": "CollegeOrUniversity",
+          name: "University of Waterloo",
+          sameAs: "https://en.wikipedia.org/wiki/University_of_Waterloo",
         },
       },
     ],
