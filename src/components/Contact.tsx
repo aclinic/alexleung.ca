@@ -6,7 +6,7 @@ export default function Contact() {
       <Title title="Get In Touch" id="contact" />
       <p>
         If you want to get in touch with me, send an email to{" "}
-        <strong>mail [at] alexleung.ca</strong> or reach out on social media.
+        <strong>alex [at] alexleung.ca</strong> or reach out on social media.
       </p>
     </section>
   );
