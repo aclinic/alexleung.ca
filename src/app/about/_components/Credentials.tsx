@@ -1,10 +1,10 @@
-import Title from "@/components/Title";
 import ExternalLink from "@/components/ExternalLink";
+import { Subtitle } from "@/components/Subtitle";
 
-export default function Credentials() {
+export function Credentials() {
   return (
-    <section className="section-center pt-20">
-      <Title title="Credentials" id="credentials" />
+    <section className="section-center">
+      <Subtitle title="Credentials" id="credentials" />
 
       <div className="pt-8">
         {/* P.Eng. Credential */}

@@ -4,16 +4,20 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --header-height: 4.5rem;
+  }
+
   * {
     @apply box-border m-0 p-0;
   }
-  
+
   img {
     @apply w-full;
   }
-  
+
   body {
-    @apply font-lato leading-normal relative;
+    @apply font-lato leading-normal relative text-white;
   }
   
   /* Background image overlay for better text readability */

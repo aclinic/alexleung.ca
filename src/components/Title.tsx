@@ -1,16 +1,14 @@
-type TitleProps = {
+export type TitleProps = {
   title: string;
   id?: string;
 };
 
-export default function Title({ title, id }: TitleProps) {
+export function Title({ title, id }: TitleProps) {
   return (
-    <div
-      className="text-lg xl:text-3xl flex justify-center mx-auto mb-12 
-                    before:content-[''] before:block before:h-px before:w-[90%] max-[500px]:before:w-[40%] before:bg-gray-300 before:relative before:top-5 xl:before:top-9
-                    after:content-[''] after:block after:h-px after:w-[90%] max-[500px]:after:w-[40%] after:bg-gray-300 after:relative after:top-5 xl:after:top-9"
-    >
-      <h2 id={id} className="block w-full text-center">{title}</h2>
+    <div className="text-2xl xl:text-4xl flex justify-center mx-auto my-12">
+      <h1 id={id} className="block w-full text-center">
+        {title}
+      </h1>
     </div>
   );
 }

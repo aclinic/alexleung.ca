@@ -1,18 +1,17 @@
-import Title from "@/components/Title";
-import Skills from "@/components/Skills";
 import ExternalLink from "@/components/ExternalLink";
 import Image from "next/image";
+import { Subtitle } from "@/components/Subtitle";
 
-export default function About() {
+export function Journey() {
   return (
-    <section className="section-center pt-20">
-      <Title title="About Me" id="about" />
+    <section className="section-center">
+      <Subtitle title="My Journey" id="about" />
 
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
-        <div className="text-left leading-relaxed text-lg mb-8">
+        <div className="text-left leading-relaxed text-md lg:text-lg mb-8">
           <div className="mb-6 flex items-start gap-3">
             <span className="text-xl mt-1 flex-shrink-0">🧍‍♂️</span>
-            <p className="lg:text-lg leading-relaxed">
+            <p className="leading-relaxed">
               I&apos;m a Software Engineer at{" "}
               <ExternalLink href="https://jetsonhome.com">Jetson</ExternalLink>,
               where we&apos;re focused on transforming homes across North
@@ -31,7 +30,7 @@ export default function About() {
 
           <div className="mb-6 flex items-start gap-3">
             <span className="text-xl mt-1 flex-shrink-0">🎓</span>
-            <p className="md:text-lg leading-relaxed">
+            <p className="leading-relaxed">
               My journey started with a BASc from Waterloo and MSECE from
               Georgia Tech, beginning in power systems and control engineering
               at{" "}
@@ -46,7 +45,7 @@ export default function About() {
 
           <div className="mb-6 flex items-start gap-3">
             <span className="text-xl mt-1 flex-shrink-0">🚀</span>
-            <p className="md:text-lg leading-relaxed">
+            <p className="leading-relaxed">
               As a technical leader, I&apos;ve architected and scaled
               distributed systems, led cross-functional product teams, and
               mentored engineers across multiple levels. I&apos;ve driven
@@ -58,7 +57,7 @@ export default function About() {
 
           <div className="mb-6 flex items-start gap-3">
             <span className="text-xl mt-1 flex-shrink-0">💻</span>
-            <p className="md:text-lg leading-relaxed">
+            <p className="leading-relaxed">
               My technical philosophy centers on getting things working first,
               then getting them right - so long as we avoid one-way doors. I
               believe in fast iteration and focusing on high-impact changes. I
@@ -72,7 +71,7 @@ export default function About() {
 
           <div className="mb-6 flex items-start gap-3">
             <span className="text-xl mt-1 flex-shrink-0">😍</span>
-            <p className="md:text-lg leading-relaxed">
+            <p className="leading-relaxed">
               What drives me is building things that people love, getting stuff
               done, and continuously learning new things. In my spare time I
               enjoy playing tennis 🎾, reading 📚, hiking 🏔️, rock climbing 🧗,
@@ -80,6 +79,7 @@ export default function About() {
             </p>
           </div>
         </div>
+
         <div className="flex flex-col gap-4 md:gap-6">
           <Image
             src="/assets/about_portrait_mountain.webp"
@@ -110,8 +110,6 @@ export default function About() {
           />
         </div>
       </div>
-
-      <Skills className="mt-12" />
     </section>
   );
 }

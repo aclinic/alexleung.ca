@@ -2,7 +2,7 @@ import { data } from "@/constants/socialLinks";
 
 export default function Footer() {
   return (
-    <section className="section-center pt-20 pb-4 text-center">
+    <section className="section-center py-4 text-center">
       <ul>
         {data.map((link) => (
           <li

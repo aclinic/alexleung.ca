@@ -1,9 +1,9 @@
 import { FcEngineering } from "react-icons/fc";
 
-export default function Home() {
+export function Hero() {
   return (
-    <section id="home" className="h-screen relative">
-      <div className="section-center h-full flex items-center">
+    <section id="home" className="flex-grow flex items-center justify-center">
+      <div className="section-center">
         <div>
           <div
             className="animate-showTopText opacity-0 translate-y-full"
