@@ -1,8 +1,8 @@
 {
   "id": "https://alexleung.ca/",
   "short_name": "Alex Leung",
-  "name": "Alex Leung - Staff Engineer & Engineering Lead, P.Eng.",
-  "description": "Professional portfolio of Alex Leung, Staff Engineer & Engineering Lead, P.Eng. - showcasing expertise in software engineering and AI.",
+  "name": "Alex Leung - Software Engineer",
+  "description": "Professional portfolio of Alex Leung, Staff Software Engineer & Engineering Lead, P.Eng.",
   "lang": "en",
   "icons": [
     {
@@ -85,7 +85,7 @@
       "name": "About",
       "short_name": "About",
       "description": "Learn about Alex Leung",
-      "url": "/#about",
+      "url": "/about",
       "icons": [
         {
           "src": "icon7.png",
@@ -94,10 +94,10 @@
       ]
     },
     {
-      "name": "Credentials",
-      "short_name": "Credentials",
-      "description": "View professional credentials",
-      "url": "/#credentials",
+      "name": "What I'm Doing Now",
+      "short_name": "Now",
+      "description": "Current focus and activities",
+      "url": "/now",
       "icons": [
         {
           "src": "icon7.png",
@@ -109,7 +109,7 @@
       "name": "Contact",
       "short_name": "Contact",
       "description": "Get in touch",
-      "url": "/#contact",
+      "url": "/contact",
       "icons": [
         {
           "src": "icon7.png",
