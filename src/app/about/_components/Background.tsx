@@ -10,13 +10,20 @@ export function Journey() {
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
         <div className="text-left leading-relaxed text-md lg:text-lg mb-8">
           <div className="mb-6 flex items-start gap-3">
-            <span className="text-xl mt-1 flex-shrink-0">🧍‍♂️</span>
+            <span className="text-xl mt-1 flex-shrink-0">👋</span>
+            <p className="leading-relaxed">
+              Hi! I&apos;m Alex, and I&apos;m so glad you&apos;re here!
+            </p>
+          </div>
+
+          <div className="mb-6 flex items-start gap-3">
+            <span className="text-xl mt-1 flex-shrink-0">💼</span>
             <p className="leading-relaxed">
               Currently, I&apos;m at{" "}
               <ExternalLink href="https://jetsonhome.com">Jetson</ExternalLink>,
               electrifying North American homes with vertically integrated
-              energy solutions. My previous experience spans developing AR/AI
-              hardware at{" "}
+              energy solutions. My previous experience includes developing AR/AI
+              Glasses at{" "}
               <ExternalLink href="https://arvr.google.com/">
                 Google
               </ExternalLink>{" "}
@@ -30,17 +37,17 @@ export function Journey() {
             <p className="leading-relaxed">
               I specialize in building and scaling distributed systems that
               serve millions of users. My leadership philosophy is simple: make
-              it work, then make it right. I’ve led cross-functional teams of up
-              to 15 engineers, focusing on fast iteration, high-impact changes,
-              and the strategic use of AI to solve complex problems. I thrive in
-              ambiguity by decomposing large-scale challenges into actionable
-              paths, ensuring both technical excellence and organizational
-              alignment.
+              it work, then make it right. I&apos;ve led cross-functional teams
+              of up to 15 engineers, focusing on fast iteration, high-impact
+              changes, and the strategic use of AI to solve complex problems. I
+              thrive in ambiguity by decomposing large-scale challenges into
+              actionable paths, ensuring both technical excellence and
+              organizational alignment.
             </p>
           </div>
 
           <div className="mb-6 flex items-start gap-3">
-            <span className="text-xl mt-1 flex-shrink-0">😍</span>
+            <span className="text-xl mt-1 flex-shrink-0">❤️</span>
             <p className="leading-relaxed">
               What drives me is building things people love, getting stuff done,
               and continuously learning. In my spare time, I enjoy playing
