@@ -4,7 +4,7 @@ import { skills } from "@/constants/skills";
 export function Skills({ className }: { className?: string }) {
   return (
     <section className="section-center">
-      <Subtitle title="Interests" id="interests" />
+      <Subtitle title="Technical Interests" id="technicalinterests" />
       <div className={`flex flex-col text-md lg:text-lg ${className}`}>
         Here are a few technical areas that I enjoy working in:
         <ul className="grid grid-cols-1 lg:grid-cols-4 gap-x-4 list-none mt-4 p-0">

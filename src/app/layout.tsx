@@ -7,7 +7,7 @@ import SocialLinks from "@/components/SocialLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const title = "Alex Leung | Staff Engineer & Engineering Lead, P.Eng.";
+const title = "Alex Leung | Staff Software Engineer & Engineering Lead, P.Eng.";
 const description =
   "Alex Leung - Staff Software Engineer, Engineering Lead, and Professional Engineer. Architecting distributed systems and AI solutions. Proven leader of cross-functional teams.";
 
@@ -92,7 +92,7 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
         caption: "Alex Leung's portrait on a mountain",
       },
     ],
-    jobTitle: "Staff Engineer & Engineering Lead",
+    jobTitle: "Staff Software Engineer",
     description: description,
     sameAs: [
       "https://www.linkedin.com/in/aclinic",

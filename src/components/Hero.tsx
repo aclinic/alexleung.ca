@@ -13,7 +13,7 @@ export function Hero() {
               Hi, my name is
             </p>
             <h1 className="inline-block font-black uppercase text-4xl md:text-8xl tracking-[0.2rem] leading-[0.9] mb-4 md:pb-4">
-              alex leung
+              Alex Leung
             </h1>
           </div>
           <div
@@ -21,7 +21,7 @@ export function Hero() {
             style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
           >
             <h2 className="text-lg md:text-2xl">
-              Staff Engineer & Engineering Lead, P.Eng.{" "}
+              Staff Software Engineer | Engineering Lead | P.Eng.{" "}
               <FcEngineering className="inline-block align-middle ml-1 mb-1" />
             </h2>
           </div>
