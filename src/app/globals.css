@@ -63,30 +63,18 @@
   }
 
   /* Subtitle Divider Lines */
-  .divider-lines::before,
-  .divider-lines::after {
-    @apply content-[''] block h-px w-[90%] bg-gray-300 relative;
+  .divider-lines-centered {
+    @apply flex items-center gap-4;
+  }
+
+  .divider-lines-centered::before,
+  .divider-lines-centered::after {
+    @apply content-[''] flex-1 h-px bg-gray-300;
   }
 
   @media (max-width: 500px) {
-    .divider-lines::before,
-    .divider-lines::after {
-      @apply w-[40%];
-    }
-  }
-
-  .divider-lines::before {
-    @apply top-5;
-  }
-
-  .divider-lines::after {
-    @apply top-5;
-  }
-
-  @media (min-width: 1280px) {
-    .divider-lines::before,
-    .divider-lines::after {
-      @apply top-9;
+    .divider-lines-centered {
+      @apply gap-2;
     }
   }
 
