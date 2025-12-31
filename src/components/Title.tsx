@@ -5,7 +5,7 @@ export type TitleProps = {
 
 export function Title({ title, id }: TitleProps) {
   return (
-    <div className="text-2xl xl:text-4xl flex justify-center mx-auto my-12">
+    <div className="section-title">
       <h1 id={id} className="block w-full text-center">
         {title}
       </h1>

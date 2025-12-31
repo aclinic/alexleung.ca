@@ -46,10 +46,10 @@ export default function Header() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`text-lg hover:text-gray-300 transition-colors ${
+                className={`nav-link ${
                   isActive(link.href)
-                    ? "text-white font-semibold"
-                    : "text-gray-400"
+                    ? "nav-link--active"
+                    : "nav-link--inactive"
                 }`}
               >
                 {link.label}
@@ -84,10 +84,10 @@ export default function Header() {
                   <Link
                     href={link.href}
                     onClick={closeMenu}
-                    className={`block px-8 py-4 text-xl hover:bg-white/5 transition-all ${
+                    className={`mobile-nav-link ${
                       isActive(link.href)
-                        ? "text-white font-semibold bg-white/10"
-                        : "text-gray-400"
+                        ? "mobile-nav-link--active"
+                        : "mobile-nav-link--inactive"
                     }`}
                   >
                     {link.label}

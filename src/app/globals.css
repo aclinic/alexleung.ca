@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,10 +19,10 @@
   body {
     @apply font-lato leading-normal relative text-white;
   }
-  
+
   /* Background image overlay for better text readability */
   .bg-overlay::before {
-    content: '';
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
@@ -32,7 +32,7 @@
     z-index: -1;
     pointer-events: none;
   }
-  
+
   .dark .bg-overlay::before {
     background: rgba(0, 0, 0, 0.85);
   }
@@ -42,14 +42,76 @@
   .section-center {
     @apply w-[90vw] max-w-content mx-auto;
   }
-  
+
   @media screen and (min-width: 992px) {
     .section-center {
       @apply w-[70vw];
     }
   }
-  
+
   .toggle-button {
     @apply absolute right-4 top-4;
+  }
+
+  /* Section Spacing Utilities */
+  .section-title {
+    @apply text-2xl xl:text-4xl flex justify-center mx-auto my-12;
+  }
+
+  .section-subtitle {
+    @apply text-xl xl:text-2xl flex justify-center mx-auto my-8;
+  }
+
+  /* Subtitle Divider Lines */
+  .divider-lines::before,
+  .divider-lines::after {
+    @apply content-[''] block h-px w-[90%] bg-gray-300 relative;
+  }
+
+  @media (max-width: 500px) {
+    .divider-lines::before,
+    .divider-lines::after {
+      @apply w-[40%];
+    }
+  }
+
+  .divider-lines::before {
+    @apply top-5;
+  }
+
+  .divider-lines::after {
+    @apply top-5;
+  }
+
+  @media (min-width: 1280px) {
+    .divider-lines::before,
+    .divider-lines::after {
+      @apply top-9;
+    }
+  }
+
+  /* Navigation Link Styles */
+  .nav-link {
+    @apply text-lg hover:text-gray-300 transition-colors;
+  }
+
+  .nav-link--active {
+    @apply text-white font-semibold;
+  }
+
+  .nav-link--inactive {
+    @apply text-gray-400;
+  }
+
+  .mobile-nav-link {
+    @apply block px-8 py-4 text-xl hover:bg-white/5 transition-all;
+  }
+
+  .mobile-nav-link--active {
+    @apply text-white font-semibold bg-white/10;
+  }
+
+  .mobile-nav-link--inactive {
+    @apply text-gray-400;
   }
 }
