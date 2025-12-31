@@ -60,12 +60,12 @@ export default function NowPage() {
         </p>
 
         <section className="section-center">
-          <div className="text-left leading-relaxed text-md lg:text-lg space-y-8">
+          <div className="text-left leading-relaxed text-body space-y-8">
             {/* Top of mind */}
             <div className="flex items-start gap-3">
               <span className="text-xl mt-1 flex-shrink-0">🚀</span>
               <div>
-                <h3 className="text-lg lg:text-xl font-semibold mb-2">
+                <h3 className="text-heading-sm font-semibold mb-2">
                   Top of Mind
                 </h3>
                 <p className="leading-relaxed">
@@ -80,7 +80,7 @@ export default function NowPage() {
             <div className="flex items-start gap-3">
               <span className="text-xl mt-1 flex-shrink-0">📚</span>
               <div>
-                <h3 className="text-lg lg:text-xl font-semibold mb-2">
+                <h3 className="text-heading-sm font-semibold mb-2">
                   Currently Reading
                 </h3>
                 <p className="leading-relaxed">
@@ -95,7 +95,7 @@ export default function NowPage() {
             <div className="flex items-start gap-3">
               <span className="text-xl mt-1 flex-shrink-0">🎯</span>
               <div>
-                <h3 className="text-lg lg:text-xl font-semibold mb-2">
+                <h3 className="text-heading-sm font-semibold mb-2">
                   Current Goals
                 </h3>
                 <ul className="leading-relaxed space-y-2 list-disc list-inside">

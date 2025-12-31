@@ -14,6 +14,15 @@ module.exports = {
         hover: "#718093",
         black: "#2f3640",
         highlight: "#00D131",
+        accent: {
+          link: "#60a5fa", // blue-400
+          "link-hover": "#93c5fd", // blue-300
+          success: "#86efac", // green-300
+          warning: "#fcd34d", // yellow-300
+          info: "#93c5fd", // blue-300
+          primary: "#2563eb", // blue-600
+          "primary-hover": "#1d4ed8", // blue-700
+        },
       },
       fontFamily: {
         lato: ["Lato", "sans-serif"],

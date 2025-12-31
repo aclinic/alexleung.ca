@@ -9,7 +9,7 @@ export interface ExternalLinkProps {
 export default function ExternalLink({
   href,
   children,
-  className = "text-blue-400 hover:text-blue-300 transition-colors underline decoration-blue-400/50 hover:decoration-blue-300",
+  className = "text-accent-link hover:text-accent-link-hover transition-colors underline decoration-accent-link/50 hover:decoration-accent-link-hover",
 }: ExternalLinkProps) {
   return (
     <a

@@ -114,4 +114,37 @@
   .mobile-nav-link--inactive {
     @apply text-gray-400;
   }
+
+  /* Responsive Text Sizing Utilities */
+  .text-body-sm {
+    @apply text-sm lg:text-base;
+  }
+
+  .text-body {
+    @apply text-base lg:text-lg;
+  }
+
+  .text-body-lg {
+    @apply text-lg md:text-xl;
+  }
+
+  .text-heading-sm {
+    @apply text-lg lg:text-xl;
+  }
+
+  .text-heading {
+    @apply text-xl lg:text-2xl;
+  }
+
+  .text-hero-subtitle {
+    @apply text-lg md:text-xl;
+  }
+
+  .text-hero-title {
+    @apply text-4xl md:text-8xl;
+  }
+
+  .text-hero-description {
+    @apply text-lg md:text-2xl;
+  }
 }

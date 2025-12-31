@@ -9,10 +9,10 @@ export function Hero() {
             className="animate-showTopText opacity-0 translate-y-full"
             style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
           >
-            <p className="text-lg md:text-xl mb-4 tracking-wider">
+            <p className="text-hero-subtitle mb-4 tracking-wider">
               Hi, my name is
             </p>
-            <h1 className="inline-block font-black uppercase text-4xl md:text-8xl tracking-[0.2rem] leading-[0.9] mb-4 md:pb-4">
+            <h1 className="inline-block font-black uppercase text-hero-title tracking-[0.2rem] leading-[0.9] mb-4 md:pb-4">
               Alex Leung
             </h1>
           </div>
@@ -20,7 +20,7 @@ export function Hero() {
             className="animate-showTopText opacity-0 translate-y-full"
             style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
           >
-            <h2 className="text-lg md:text-2xl">
+            <h2 className="text-hero-description">
               Staff Software Engineer | Engineering Lead | P.Eng.{" "}
               <FcEngineering className="inline-block align-middle ml-1 mb-1" />
             </h2>
