@@ -8,16 +8,16 @@ export function Journey() {
       <Subtitle title="My Background" id="background" />
 
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
-        <div className="text-left leading-relaxed text-md lg:text-lg mb-8">
+        <div className="text-md mb-8 text-left leading-relaxed lg:text-lg">
           <div className="mb-6 flex items-start gap-3">
-            <span className="text-xl mt-1 flex-shrink-0">👋</span>
+            <span className="mt-1 flex-shrink-0 text-xl">👋</span>
             <p className="leading-relaxed">
               Hi! I&apos;m Alex, and I&apos;m so glad you&apos;re here!
             </p>
           </div>
 
           <div className="mb-6 flex items-start gap-3">
-            <span className="text-xl mt-1 flex-shrink-0">💼</span>
+            <span className="mt-1 flex-shrink-0 text-xl">💼</span>
             <p className="leading-relaxed">
               Currently, I&apos;m at{" "}
               <ExternalLink href="https://jetsonhome.com">Jetson</ExternalLink>,
@@ -33,7 +33,7 @@ export function Journey() {
           </div>
 
           <div className="mb-6 flex items-start gap-3">
-            <span className="text-xl mt-1 flex-shrink-0">🚀</span>
+            <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
             <p className="leading-relaxed">
               I specialize in building and scaling distributed systems that
               serve millions of users. My leadership philosophy is simple: make
@@ -47,7 +47,7 @@ export function Journey() {
           </div>
 
           <div className="mb-6 flex items-start gap-3">
-            <span className="text-xl mt-1 flex-shrink-0">❤️</span>
+            <span className="mt-1 flex-shrink-0 text-xl">❤️</span>
             <p className="leading-relaxed">
               What drives me is building things people love, getting stuff done,
               and continuously learning. In my spare time, I enjoy playing

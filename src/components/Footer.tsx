@@ -7,7 +7,7 @@ export default function Footer() {
         {data.map((link) => (
           <li
             key={link.id}
-            className="list-none inline-block mx-2 mb-4 lg:hidden"
+            className="mx-2 mb-4 inline-block list-none lg:hidden"
           >
             <a
               href={link.url}

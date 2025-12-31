@@ -13,15 +13,15 @@ export function Credentials() {
           <div className="flex items-start gap-4">
             <div className="text-3xl">🛠️</div>
             <div>
-              <h3 className="text-xl font-semibold mb-2">
+              <h3 className="mb-2 text-xl font-semibold">
                 Professional Engineer (P.Eng.)
               </h3>
-              <p className="text-lg mb-2">
+              <p className="mb-2 text-lg">
                 <ExternalLink href="https://www.peo.on.ca">
                   Professional Engineers Ontario (PEO)
                 </ExternalLink>
               </p>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="leading-relaxed text-gray-300">
                 Licensed Professional Engineer bringing engineering discipline,
                 ethics, and accountability to software development and AI
                 systems.
@@ -31,16 +31,16 @@ export function Credentials() {
         </Card>
 
         {/* Education Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid gap-8 md:grid-cols-2">
           {/* Georgia Tech */}
           <Card>
             <div className="mb-4">
-              <h3 className="text-xl font-semibold mb-1">
+              <h3 className="mb-1 text-xl font-semibold">
                 <ExternalLink href="https://ece.gatech.edu/">
                   Georgia Institute of Technology
                 </ExternalLink>
               </h3>
-              <p className="text-lg text-accent-warning font-medium">
+              <p className="text-lg font-medium text-accent-warning">
                 MSECE, Electrical & Computer Engineering
               </p>
               <p className="text-gray-300">2013 - 2016</p>
@@ -51,7 +51,7 @@ export function Credentials() {
               </p>
             </div>
             <div>
-              <p className="text-gray-300 text-sm">
+              <p className="text-sm text-gray-300">
                 <strong>Concentrations:</strong> Computer Engineering,
                 Telecommunications
               </p>
@@ -61,12 +61,12 @@ export function Credentials() {
           {/* University of Waterloo */}
           <Card>
             <div className="mb-4">
-              <h3 className="text-xl font-semibold mb-1">
+              <h3 className="mb-1 text-xl font-semibold">
                 <ExternalLink href="https://uwaterloo.ca/electrical-computer-engineering/">
                   University of Waterloo
                 </ExternalLink>
               </h3>
-              <p className="text-lg text-accent-warning font-medium">
+              <p className="text-lg font-medium text-accent-warning">
                 BASc, Electrical Engineering & Pure Mathematics
               </p>
               <p className="text-gray-300">2008 - 2013</p>
@@ -82,7 +82,7 @@ export function Credentials() {
               </div>
             </div>
             <div>
-              <p className="text-gray-300 text-sm">
+              <p className="text-sm text-gray-300">
                 <strong>Concentrations:</strong> Control Theory, Electric Power,
                 Mathematics
               </p>

@@ -9,7 +9,7 @@
   }
 
   * {
-    @apply box-border m-0 p-0;
+    @apply m-0 box-border p-0;
   }
 
   img {
@@ -17,7 +17,7 @@
   }
 
   body {
-    @apply font-lato leading-normal relative text-white;
+    @apply relative font-lato leading-normal text-white;
   }
 
   /* Background image overlay for better text readability */
@@ -40,7 +40,7 @@
 
 @layer components {
   .section-center {
-    @apply w-[90vw] max-w-content mx-auto;
+    @apply mx-auto w-[90vw] max-w-content;
   }
 
   @media screen and (min-width: 992px) {
@@ -55,11 +55,11 @@
 
   /* Section Spacing Utilities */
   .section-title {
-    @apply text-2xl xl:text-4xl flex justify-center mx-auto my-12;
+    @apply mx-auto my-12 flex justify-center text-2xl xl:text-4xl;
   }
 
   .section-subtitle {
-    @apply text-xl xl:text-2xl flex justify-center mx-auto my-8;
+    @apply mx-auto my-8 flex justify-center text-xl xl:text-2xl;
   }
 
   /* Subtitle Divider Lines */
@@ -69,7 +69,7 @@
 
   .divider-lines-centered::before,
   .divider-lines-centered::after {
-    @apply content-[''] flex-1 h-px bg-gray-300;
+    @apply h-px flex-1 bg-gray-300 content-[''];
   }
 
   @media (max-width: 500px) {
@@ -80,11 +80,11 @@
 
   /* Navigation Link Styles */
   .nav-link {
-    @apply text-lg hover:text-gray-300 transition-colors;
+    @apply text-lg transition-colors hover:text-gray-300;
   }
 
   .nav-link--active {
-    @apply text-white font-semibold;
+    @apply font-semibold text-white;
   }
 
   .nav-link--inactive {
@@ -92,11 +92,11 @@
   }
 
   .mobile-nav-link {
-    @apply block px-8 py-4 text-xl hover:bg-white/5 transition-all;
+    @apply block px-8 py-4 text-xl transition-all hover:bg-white/5;
   }
 
   .mobile-nav-link--active {
-    @apply text-white font-semibold bg-white/10;
+    @apply bg-white/10 font-semibold text-white;
   }
 
   .mobile-nav-link--inactive {

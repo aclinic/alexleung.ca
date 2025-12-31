@@ -175,15 +175,15 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
   };
 }
 
-export default function RootLayout({ children }: PropsWithChildren<{}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen">
+      <body className="flex min-h-screen flex-col">
         <JsonLd item={buildPersonSchema()} />
-        <div className="fixed inset-0 h-screen bg-[url('/assets/background.webp')] bg-cover bg-center bg-no-repeat -z-10 after:absolute after:inset-0 after:bg-black/50"></div>
+        <div className="fixed inset-0 -z-10 h-screen bg-[url('/assets/background.webp')] bg-cover bg-center bg-no-repeat after:absolute after:inset-0 after:bg-black/50"></div>
         <Header />
         <SocialLinks />
-        <main className="flex-grow flex flex-col">{children}</main>
+        <main className="flex flex-grow flex-col">{children}</main>
         <Footer />
       </body>
     </html>

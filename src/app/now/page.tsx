@@ -55,17 +55,17 @@ export default function NowPage() {
 
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
-        <p className="text-center text-sm mb-8">
+        <p className="mb-8 text-center text-sm">
           Last updated: December 30, 2025
         </p>
 
         <section className="section-center">
-          <div className="text-left leading-relaxed text-body space-y-8">
+          <div className="text-body space-y-8 text-left leading-relaxed">
             {/* Top of mind */}
             <div className="flex items-start gap-3">
-              <span className="text-xl mt-1 flex-shrink-0">🚀</span>
+              <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
               <div>
-                <h3 className="text-heading-sm font-semibold mb-2">
+                <h3 className="text-heading-sm mb-2 font-semibold">
                   Top of Mind
                 </h3>
                 <p className="leading-relaxed">
@@ -78,9 +78,9 @@ export default function NowPage() {
 
             {/* Currently Reading */}
             <div className="flex items-start gap-3">
-              <span className="text-xl mt-1 flex-shrink-0">📚</span>
+              <span className="mt-1 flex-shrink-0 text-xl">📚</span>
               <div>
-                <h3 className="text-heading-sm font-semibold mb-2">
+                <h3 className="text-heading-sm mb-2 font-semibold">
                   Currently Reading
                 </h3>
                 <p className="leading-relaxed">
@@ -93,12 +93,12 @@ export default function NowPage() {
 
             {/* Current Goals */}
             <div className="flex items-start gap-3">
-              <span className="text-xl mt-1 flex-shrink-0">🎯</span>
+              <span className="mt-1 flex-shrink-0 text-xl">🎯</span>
               <div>
-                <h3 className="text-heading-sm font-semibold mb-2">
+                <h3 className="text-heading-sm mb-2 font-semibold">
                   Current Goals
                 </h3>
-                <ul className="leading-relaxed space-y-2 list-disc list-inside">
+                <ul className="list-inside list-disc space-y-2 leading-relaxed">
                   <li>
                     Developing practical intuition for applying agentic AI
                     systems
@@ -110,7 +110,7 @@ export default function NowPage() {
           </div>
 
           {/* Footer note about Now pages */}
-          <div className="mt-12 pt-8 border-t border-gray-700 text-sm text-gray-300 leading-relaxed">
+          <div className="mt-12 border-t border-gray-700 pt-8 text-sm leading-relaxed text-gray-300">
             <p>
               This is a{" "}
               <ExternalLink href="https://nownownow.com/about">

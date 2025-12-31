@@ -29,19 +29,19 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-white/10 h-[var(--header-height)]">
-      <nav className="w-[90vw] max-w-content mx-auto h-full flex justify-between items-center">
+    <header className="fixed left-0 right-0 top-0 z-50 h-[var(--header-height)] border-b border-white/10 bg-black/80 backdrop-blur-sm">
+      <nav className="mx-auto flex h-full w-[90vw] max-w-content items-center justify-between">
         {/* Logo/Name */}
         <Link
           href="/"
           onClick={closeMenu}
-          className="text-lg md:text-2xl font-black uppercase tracking-wider hover:text-gray-300 transition-colors relative z-50"
+          className="relative z-50 text-lg font-black uppercase tracking-wider transition-colors hover:text-gray-300 md:text-2xl"
         >
           Alex Leung
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex gap-8">
+        <ul className="hidden gap-8 md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -61,7 +61,7 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden text-2xl hover:text-gray-300 transition-colors relative z-50"
+          className="relative z-50 text-2xl transition-colors hover:text-gray-300 md:hidden"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <FaTimes /> : <FaBars />}
@@ -73,11 +73,11 @@ export default function Header() {
         <>
           {/* Backdrop */}
           <div
-            className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden"
             onClick={closeMenu}
           />
           {/* Menu */}
-          <div className="md:hidden fixed top-[var(--header-height)] left-0 right-0 bg-black/95 backdrop-blur-md border-b border-white/10">
+          <div className="fixed left-0 right-0 top-[var(--header-height)] border-b border-white/10 bg-black/95 backdrop-blur-md md:hidden">
             <ul className="flex flex-col py-8">
               {navLinks.map((link) => (
                 <li key={link.href}>
