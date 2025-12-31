@@ -29,6 +29,10 @@ jobs:
         run: |
           yarn lint
 
+      - name: 🧪 Test
+        run: |
+          yarn test
+
       - name: 🏗️ Build
         run: |
           yarn build

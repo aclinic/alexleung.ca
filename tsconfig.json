@@ -23,6 +23,12 @@
       }
     ]
   },
-  "include": ["src/**/*", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
+  "include": [
+    "src/**/*",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "jest.setup.ts",
+    "jest.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
