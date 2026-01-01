@@ -1,6 +1,8 @@
 import { data } from "@/constants/socialLinks";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <section className="section-center py-4 text-center">
       <ul>
@@ -21,7 +23,7 @@ export default function Footer() {
           </li>
         ))}
       </ul>
-      <p>Copyright &copy; 2020 - 2025 Alex Leung</p>
+      <p>Copyright &copy; 2020 - {currentYear} Alex Leung</p>
     </section>
   );
 }
