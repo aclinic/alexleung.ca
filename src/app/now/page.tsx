@@ -56,7 +56,7 @@ export default function NowPage() {
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
         <p className="mb-8 text-center text-sm">
-          Last updated: December 30, 2025
+          Last updated: January 1, 2026
         </p>
 
         <section className="section-center">
@@ -64,15 +64,41 @@ export default function NowPage() {
             {/* Top of mind */}
             <div className="flex items-start gap-3">
               <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h3 className="text-heading-sm mb-2 font-semibold">
                   Top of Mind
                 </h3>
-                <p className="leading-relaxed">
-                  I've been absorbing a ton of AI and ML content recently by
-                  trading social media time for reading time. Makes me wonder
-                  what eliminating those apps completely would unlock.
-                </p>
+                <div className="space-y-3 leading-relaxed">
+                  <p>
+                    I've been experimenting with the{" "}
+                    <ExternalLink href="https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum">
+                      ralph-wiggum plugin
+                    </ExternalLink>{" "}
+                    for Claude Code. So far I've had some good success with
+                    prompts like:
+                  </p>
+                  <div className="w-full overflow-x-auto text-center">
+                    <pre className="mx-auto inline-block max-w-max rounded bg-gray-800 p-3 text-left text-xs leading-relaxed">
+                      <code className="whitespace-pre">
+                        {`
+                          |/ralph-wiggum:ralph-loop Implement design-plan.md. \\
+                          |   Commit as you complete work, following conventions in commit history. \\
+                          |   At each commit, ensure that the code builds and passes tests." \\
+                          |  --max-iterations 25 --completion-promise DONE
+                        `
+                          .split("\n")
+                          .map((line) => line.trim().replace(/^\|/, ""))
+                          .join("\n")
+                          .trim()}
+                      </code>
+                    </pre>
+                  </div>
+                  <p>
+                    I've also been absorbing a ton of AI and ML content recently
+                    by trading social media time for reading time. Makes me
+                    wonder what eliminating those apps completely would unlock.
+                  </p>
+                </div>
               </div>
             </div>
 
