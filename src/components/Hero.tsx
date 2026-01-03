@@ -21,7 +21,7 @@ export function Hero() {
             style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
           >
             <h2 className="text-hero-description">
-              Staff Software Engineer | Engineering Lead | P.Eng.{" "}
+              Negentropy Architect | Programmer | P.Eng.{" "}
               <FcEngineering className="mb-1 ml-1 inline-block align-middle" />
             </h2>
           </div>

@@ -8,7 +8,7 @@ import { Skills } from "./_components/TechnicalInterests";
 
 const title = "About Me | Alex Leung";
 const description =
-  "Learn about Alex Leung's journey as a Staff Software Engineer, Engineering Lead, and P.Eng. - from University of Waterloo and Georgia Tech to building distributed systems and AI solutions.";
+  "Learn about Alex Leung's journey - from University of Waterloo and Georgia Tech to building distributed systems and AI solutions.";
 const url = "https://alexleung.ca/about/";
 
 export const metadata: Metadata = {

@@ -7,7 +7,7 @@ import { Title } from "@/components/Title";
 
 const title = "Contact | Alex Leung";
 const description =
-  "Get in touch with Alex Leung - Staff Software Engineer, Engineering Lead, and Professional Engineer. Available for collaboration, consulting, and professional inquiries.";
+  "Get in touch with Alex Leung - Negentropy Architect and Professional Engineer. Available for collaboration, consulting, and professional inquiries.";
 const url = "https://alexleung.ca/contact/";
 
 export const metadata: Metadata = {
