@@ -9,7 +9,7 @@ describe("Hero", () => {
       "Alex Leung"
     );
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Negentropy Architect | Programmer | P.Eng."
+      "Syntropy Engineer | Programmer | P.Eng."
     );
   });
 

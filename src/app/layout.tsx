@@ -7,9 +7,9 @@ import SocialLinks from "@/components/SocialLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const title = "Alex Leung | Negentropy Architect and Programmer, P.Eng.";
+const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
-  "Alex Leung - Negentropy Architect and Professional Engineer. Architecting distributed systems and AI solutions. Leading cross-functional teams.";
+  "Alex Leung - Syntropy Engineer and Programmer. Architecting distributed systems and AI solutions. Leading cross-functional teams.";
 
 export const metadata: Metadata = {
   title: title,
@@ -92,7 +92,7 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
         caption: "Alex Leung's portrait on a mountain",
       },
     ],
-    jobTitle: "Negentropy Architect",
+    jobTitle: "Software Engineer",
     description: description,
     sameAs: [
       "https://www.linkedin.com/in/aclinic",

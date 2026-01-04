@@ -7,7 +7,7 @@ import { Title } from "@/components/Title";
 
 const title = "Contact | Alex Leung";
 const description =
-  "Get in touch with Alex Leung - Negentropy Architect and Professional Engineer. Available for collaboration, consulting, and professional inquiries.";
+  "Get in touch with Alex Leung - Syntropy Engineer and Programmer. Available for collaboration, consulting, and professional inquiries.";
 const url = "https://alexleung.ca/contact/";
 
 export const metadata: Metadata = {
