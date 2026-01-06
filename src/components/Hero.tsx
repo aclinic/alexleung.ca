@@ -1,4 +1,6 @@
 import { FcEngineering } from "react-icons/fc";
+import { FaArrowRight, FaEnvelope } from "react-icons/fa";
+import { CTAButton } from "./CTAButton";
 
 export function Hero() {
   return (
@@ -28,6 +30,17 @@ export function Hero() {
               Syntropy: The emergence of order from chaos. The architecture of
               wholeness.
             </p>
+          </div>
+          <div
+            className="mt-8 flex translate-y-full animate-showTopText flex-wrap gap-4 opacity-0"
+            style={{ animationDelay: "1.1s", animationFillMode: "forwards" }}
+          >
+            <CTAButton href="/about/">
+              Learn More <FaArrowRight className="text-sm" />
+            </CTAButton>
+            <CTAButton href="/contact/" variant="secondary">
+              <FaEnvelope /> Get In Touch
+            </CTAButton>
           </div>
         </div>
       </div>

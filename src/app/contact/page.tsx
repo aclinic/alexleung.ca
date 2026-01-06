@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
 import { WebPage } from "schema-dts";
 import { EmailMe } from "./_components/EmailMe";
-import { LinkedInBadge } from "./_components/LinkedInBadge";
+import { SocialMediaList } from "./_components/SocialMediaList";
 import { Title } from "@/components/Title";
 
 const title = "Contact | Alex Leung";
@@ -57,7 +57,7 @@ export default function ContactPage() {
       <div className="py-[var(--header-height)]">
         <Title title="Contact" id="contact" />
         <EmailMe />
-        <LinkedInBadge />
+        <SocialMediaList />
       </div>
     </>
   );
