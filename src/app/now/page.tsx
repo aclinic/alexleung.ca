@@ -56,7 +56,7 @@ export default function NowPage() {
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
         <p className="mb-8 text-center text-sm">
-          Last updated: January 1, 2026
+          Last updated: January 10, 2026
         </p>
 
         <section className="section-center">
@@ -110,9 +110,10 @@ export default function NowPage() {
                   Currently Reading
                 </h3>
                 <p className="leading-relaxed">
-                  <em>Domain Driven Design</em> by Eric Evans - Finally diving
-                  into this classic. Wish I'd read it years ago when grappling
-                  with complex system boundaries.
+                  Rereading sections of <em>AI Engineering</em> by Chip Huyen
+                  and <em>Designing Machine Learning Systems</em> by Chip Huyen.{" "}
+                  <em>Domain Driven Design</em> is on hold for a while, but I
+                  still want to finish it by February.
                 </p>
               </div>
             </div>
@@ -129,6 +130,7 @@ export default function NowPage() {
                     Developing practical intuition for applying agentic AI
                     systems
                   </li>
+                  <li>Figuring out a good way to do AI evals</li>
                   <li>Leveling up my tennis game</li>
                 </ul>
               </div>
