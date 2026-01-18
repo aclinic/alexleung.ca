@@ -6,7 +6,7 @@ import ExternalLink from "@/components/ExternalLink";
 
 const title = "What I'm Doing Now | Alex Leung";
 const description =
-  "Current projects, books, location, and goals - a snapshot of what Alex Leung is focused on right now.";
+  "Current projects, books, and goals - a snapshot of what Alex Leung is focused on right now.";
 const url = "https://alexleung.ca/now/";
 
 export const metadata: Metadata = {
@@ -56,15 +56,17 @@ export default function NowPage() {
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
         <p className="mb-8 text-center text-sm">
-          Last updated: January 10, 2026
+          Last updated: January 18, 2026
         </p>
 
         <section className="section-center">
           <div className="text-body space-y-8 text-left leading-relaxed">
             {/* Top of mind */}
             <div className="flex items-start gap-3">
-              <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
-              <div className="min-w-0 flex-1">
+              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                🚀
+              </span>
+              <div>
                 <h3 className="text-heading-sm mb-2 font-semibold">
                   Top of Mind
                 </h3>
@@ -74,25 +76,9 @@ export default function NowPage() {
                     <ExternalLink href="https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum">
                       ralph-wiggum plugin
                     </ExternalLink>{" "}
-                    for Claude Code. So far I've had some good success with
-                    prompts like:
+                    for Claude Code—it's a loop that lets Claude work
+                    autonomously on larger tasks with periodic check-ins.
                   </p>
-                  <div className="w-full overflow-x-auto text-center">
-                    <pre className="mx-auto inline-block max-w-max rounded bg-gray-800 p-3 text-left text-xs leading-relaxed">
-                      <code className="whitespace-pre">
-                        {`
-                          |/ralph-wiggum:ralph-loop Implement design-plan.md. \\
-                          |   Commit as you complete work, following conventions in commit history. \\
-                          |   At each commit, ensure that the code builds and passes tests." \\
-                          |  --max-iterations 25 --completion-promise DONE
-                        `
-                          .split("\n")
-                          .map((line) => line.trim().replace(/^\|/, ""))
-                          .join("\n")
-                          .trim()}
-                      </code>
-                    </pre>
-                  </div>
                   <p>
                     I've also been absorbing a ton of AI and ML content recently
                     by trading social media time for reading time. Makes me
@@ -104,33 +90,41 @@ export default function NowPage() {
 
             {/* Currently Reading */}
             <div className="flex items-start gap-3">
-              <span className="mt-1 flex-shrink-0 text-xl">📚</span>
+              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                📚
+              </span>
               <div>
                 <h3 className="text-heading-sm mb-2 font-semibold">
                   Currently Reading
                 </h3>
                 <p className="leading-relaxed">
-                  Rereading sections of <em>AI Engineering</em> by Chip Huyen
-                  and <em>Designing Machine Learning Systems</em> by Chip Huyen.{" "}
-                  <em>Domain Driven Design</em> is on hold for a while, but I
-                  still want to finish it by February.
+                  I've started reading{" "}
+                  <ExternalLink href="https://www.deeplearningbook.org/">
+                    <em>Deep Learning</em>
+                  </ExternalLink>{" "}
+                  by Goodfellow, Bengio, and Courville. It's refreshing to touch
+                  on many math concepts I haven't used in years.{" "}
+                  <ExternalLink href="https://www.domainlanguage.com/ddd/">
+                    <em>Domain Driven Design</em>
+                  </ExternalLink>{" "}
+                  has been put on hold indefinitely—I'm too enthralled by AI
+                  these days.
                 </p>
               </div>
             </div>
 
             {/* Current Goals */}
             <div className="flex items-start gap-3">
-              <span className="mt-1 flex-shrink-0 text-xl">🎯</span>
+              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                🎯
+              </span>
               <div>
                 <h3 className="text-heading-sm mb-2 font-semibold">
                   Current Goals
                 </h3>
                 <ul className="list-inside list-disc space-y-2 leading-relaxed">
-                  <li>
-                    Developing practical intuition for applying agentic AI
-                    systems
-                  </li>
-                  <li>Figuring out a good way to do AI evals</li>
+                  <li>Building stronger ML foundations</li>
+                  <li>Developing practical intuition for agentic AI systems</li>
                   <li>Leveling up my tennis game</li>
                 </ul>
               </div>
