@@ -9,13 +9,13 @@ import Footer from "@/components/Footer";
 
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
-  "Alex Leung - Syntropy Engineer and Programmer. Architecting distributed systems and AI solutions. Leading cross-functional teams.";
+  "Alex Leung - Syntropy Engineer and Programmer. End-to-end product development from 0-1 to scale. Leading cross-functional teams.";
 
 export const metadata: Metadata = {
   title: title,
   description: description,
   keywords:
-    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
+    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, product development, technical leadership, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
   authors: [{ name: "Alex Leung" }],
   creator: "Alex Leung",
   publisher: "Alex Leung",
@@ -121,14 +121,15 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
       },
     ],
     knowsAbout: [
+      "Product Development",
+      "Technical Leadership",
       "Software Engineering",
+      "AI Engineering",
       "Distributed Systems",
       "Embedded Systems",
-      "AI Engineering",
       "Web Development",
       "Systems Design",
       "Electrical Engineering",
-      "Technical Leadership",
     ],
     worksFor: {
       "@type": "Organization",
