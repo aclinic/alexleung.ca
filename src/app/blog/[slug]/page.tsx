@@ -7,6 +7,8 @@ import { Title } from "@/components/Title";
 import { JsonLd } from "react-schemaorg";
 import { BlogPosting } from "schema-dts";
 
+export const dynamicParams = false;
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params_awaited = await props.params;
   const post = getPostBySlug(params_awaited.slug, [

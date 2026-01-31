@@ -39,10 +39,10 @@ export function Journey() {
               initiatives to 1-100 scaling. I leverage distributed systems,
               embedded systems, and AI to achieve product goals. My leadership
               philosophy is simple: make it work, then make it right. I&apos;ve
-              led cross-functional teams of up to 15 engineers, focusing on fast
-              iteration and high-impact changes. I thrive in ambiguity by
-              decomposing large-scale challenges into actionable paths, ensuring
-              both technical excellence and organizational alignment.
+              led cross-functional teams with a focus on fast iteration and
+              high-impact changes. I thrive in ambiguity by decomposing
+              large-scale challenges into actionable paths, ensuring both
+              technical excellence and organizational alignment.
             </p>
           </div>
 

@@ -1,5 +1,5 @@
 import { FcEngineering } from "react-icons/fc";
-import { FaArrowRight, FaEnvelope } from "react-icons/fa";
+import { HiOutlineArrowRight, HiOutlineMail } from "react-icons/hi";
 import { CTAButton } from "./CTAButton";
 
 export function Hero() {
@@ -36,10 +36,10 @@ export function Hero() {
             style={{ animationDelay: "1.1s", animationFillMode: "forwards" }}
           >
             <CTAButton href="/about/">
-              Learn More <FaArrowRight className="text-sm" />
+              Learn More <HiOutlineArrowRight className="text-lg" />
             </CTAButton>
             <CTAButton href="/contact/" variant="secondary">
-              <FaEnvelope /> Get In Touch
+              <HiOutlineMail className="text-lg" /> Get In Touch
             </CTAButton>
           </div>
         </div>

@@ -8,15 +8,20 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
+type Items = {
+  [key: string]: string;
+};
+
 export function getPostBySlug(slug: string, fields: string[] = []) {
   const realSlug = slug.replace(/\.md$/, "");
   const fullPath = join(postsDirectory, `${realSlug}.md`);
+
+  if (!fs.existsSync(fullPath)) {
+    return null;
+  }
+
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
-
-  type Items = {
-    [key: string]: string;
-  };
 
   const items: Items = {};
 
@@ -41,6 +46,7 @@ export function getAllPosts(fields: string[] = []) {
   const slugs = getPostSlugs();
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields))
+    .filter((post): post is Items => post !== null)
     // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;

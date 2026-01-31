@@ -40,13 +40,13 @@ export function Credentials() {
                   Georgia Institute of Technology
                 </ExternalLink>
               </h3>
-              <p className="text-lg font-medium text-accent-warning">
+              <p className="text-lg font-medium text-white">
                 MSECE, Electrical & Computer Engineering
               </p>
               <p className="text-gray-300">2013 - 2016</p>
             </div>
             <div className="mb-3">
-              <p className="text-lg font-medium text-accent-success">
+              <p className="text-lg font-medium text-gray-300">
                 4.0 / 4.0 CGPA
               </p>
             </div>
@@ -66,25 +66,21 @@ export function Credentials() {
                   University of Waterloo
                 </ExternalLink>
               </h3>
-              <p className="text-lg font-medium text-accent-warning">
+              <p className="text-lg font-medium text-white">
                 BASc, Electrical Engineering & Pure Mathematics
               </p>
               <p className="text-gray-300">2008 - 2013</p>
             </div>
             <div className="mb-3">
-              <p className="text-lg font-medium text-accent-success">
-                92.3% CGPA
-              </p>
+              <p className="text-lg font-medium text-gray-300">92.3% CGPA</p>
               <div className="text-sm text-accent-info">
                 <p>• With Distinction</p>
                 <p>• Dean&apos;s Honours List</p>
-                <p>• 8x Term Dean&apos;s Honours List</p>
               </div>
             </div>
             <div>
               <p className="text-sm text-gray-300">
-                <strong>Concentrations:</strong> Control Theory, Electric Power,
-                Mathematics
+                <strong>Concentrations:</strong> Control, Power, Mathematics
               </p>
             </div>
           </Card>
