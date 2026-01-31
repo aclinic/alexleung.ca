@@ -55,7 +55,20 @@ module.exports = {
       animation: {
         showTopText: "showTopText 1s forwards",
       },
+
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
