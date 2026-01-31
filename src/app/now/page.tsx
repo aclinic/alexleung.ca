@@ -56,7 +56,7 @@ export default function NowPage() {
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
         <p className="mb-8 text-center text-sm">
-          Last updated: January 18, 2026
+          Last updated: January 31, 2026
         </p>
 
         <section className="section-center">
@@ -72,12 +72,23 @@ export default function NowPage() {
                 </h3>
                 <div className="space-y-3 leading-relaxed">
                   <p>
-                    I've been experimenting with the{" "}
-                    <ExternalLink href="https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum">
-                      ralph-wiggum plugin
+                    I recently launched the blog section of this site! It's been
+                    a fun project to build a "boring" but effective static
+                    architecture to share my technical thoughts.
+                  </p>
+                  <p>
+                    I'm also deeply intrigued by the recent viral rise of{" "}
+                    <ExternalLink href="https://moltbook.com">
+                      Moltbook
                     </ExternalLink>{" "}
-                    for Claude Code—it's a loop that lets Claude work
-                    autonomously on larger tasks with periodic check-ins.
+                    and the underlying{" "}
+                    <ExternalLink href="https://github.com/openclaw/moltbot">
+                      Moltbot
+                    </ExternalLink>{" "}
+                    framework. The idea of autonomous agents having their own
+                    social network is both fascinating and a bit terrifying—I'm
+                    not yet brave enough to let a bot take over my "life admin"
+                    just yet.
                   </p>
                   <p>
                     I've also been absorbing a ton of AI and ML content recently
@@ -123,9 +134,9 @@ export default function NowPage() {
                   Current Goals
                 </h3>
                 <ul className="list-inside list-disc space-y-2 leading-relaxed">
-                  <li>Building stronger ML foundations</li>
-                  <li>Developing practical intuition for agentic AI systems</li>
+                  <li>Finish and understand the Deep Learning book</li>
                   <li>Leveling up my tennis game</li>
+                  <li>Get to A2 proficiency in Chinese</li>
                 </ul>
               </div>
             </div>
