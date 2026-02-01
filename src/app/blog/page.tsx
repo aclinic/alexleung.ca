@@ -1,16 +1,18 @@
 import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
 import { CollectionPage } from "schema-dts";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 
 import Link from "next/link";
 import { Title } from "@/components/Title";
 import { getAllPosts } from "@/lib/blogApi";
 import { format } from "date-fns";
+import { BASE_URL } from "@/constants";
 
 const title = "Blog | Alex Leung";
 const description =
   "Thoughts on software engineering, product development, and life as a developer.";
-const url = "https://alexleung.ca/blog/";
+const url = `${BASE_URL}/blog/`;
 
 export const metadata: Metadata = {
   title: title,
@@ -44,6 +46,12 @@ export default function BlogIndex() {
 
   return (
     <>
+      <JsonLdBreadcrumbs
+        items={[
+          { name: "Home", item: "/" },
+          { name: "Blog", item: "/blog" },
+        ]}
+      />
       <JsonLd<CollectionPage>
         item={{
           "@context": "https://schema.org",
@@ -55,7 +63,16 @@ export default function BlogIndex() {
           inLanguage: "en-CA",
           isPartOf: {
             "@type": "WebSite",
-            "@id": "https://alexleung.ca/#website",
+            "@id": `${BASE_URL}/#website`,
+          },
+          mainEntity: {
+            "@type": "Blog",
+            "@id": `${BASE_URL}/blog/#blog`,
+            name: "Alex Leung's Blog",
+            description: description,
+            publisher: {
+              "@id": `${BASE_URL}/#person`,
+            },
           },
         }}
       />

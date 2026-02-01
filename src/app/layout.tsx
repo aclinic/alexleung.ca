@@ -6,6 +6,7 @@ import { PropsWithChildren } from "react";
 import SocialLinks from "@/components/SocialLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { BASE_URL } from "@/constants";
 
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   creator: "Alex Leung",
   publisher: "Alex Leung",
   robots: "index, follow",
-  metadataBase: new URL("https://alexleung.ca"),
+  metadataBase: new URL(BASE_URL),
   alternates: {
     canonical: "/",
   },
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     title: title,
     description: description,
     type: "website",
-    url: "https://alexleung.ca",
+    url: BASE_URL,
     siteName: "Alex Leung",
     locale: "en_CA",
     images: [
@@ -67,28 +68,28 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
     "@context": "https://schema.org",
     "@type": "Person",
     // This ID is the "Digital Fingerprint" that tells Google this is an ENTITY, not just a page
-    "@id": "https://alexleung.ca/#person",
+    "@id": `${BASE_URL}/#person`,
     name: "Alex Leung",
     alternateName: [
       "Alexander Leung",
       "Alexander Clayton Leung",
       "Alex C Leung",
     ],
-    url: "https://alexleung.ca",
+    url: BASE_URL,
     // Links the Person to the Webpage as the primary subject
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://alexleung.ca",
+      "@id": BASE_URL,
     },
     image: [
       {
         "@type": "ImageObject",
-        url: "https://alexleung.ca/assets/about_portrait.webp",
+        url: `${BASE_URL}/assets/about_portrait.webp`,
         caption: "Alex Leung",
       },
       {
         "@type": "ImageObject",
-        url: "https://alexleung.ca/assets/about_portrait_mountain.webp",
+        url: `${BASE_URL}/assets/about_portrait_mountain.webp`,
         caption: "Alex Leung's portrait on a mountain",
       },
     ],
@@ -176,11 +177,27 @@ function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
   };
 }
 
+function buildWebSiteSchema(): schemadts.WithContext<schemadts.WebSite> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${BASE_URL}/#website`,
+    url: BASE_URL,
+    name: "Alex Leung",
+    description: description,
+    publisher: {
+      "@id": `${BASE_URL}/#person`,
+    },
+    inLanguage: "en-CA",
+  };
+}
+
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <JsonLd item={buildPersonSchema()} />
+        <JsonLd item={buildWebSiteSchema()} />
         <div className="fixed inset-0 -z-10 h-screen bg-[url('/assets/background.webp')] bg-cover bg-center bg-no-repeat after:absolute after:inset-0 after:bg-black/50"></div>
         <Header />
         <SocialLinks />

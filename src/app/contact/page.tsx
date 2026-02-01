@@ -1,14 +1,16 @@
 import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
-import { WebPage } from "schema-dts";
+import * as schemadts from "schema-dts";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { EmailMe } from "./_components/EmailMe";
 import { SocialMediaList } from "./_components/SocialMediaList";
 import { Title } from "@/components/Title";
+import { BASE_URL } from "@/constants";
 
 const title = "Contact | Alex Leung";
 const description =
   "Get in touch with Alex Leung - Syntropy Engineer and Programmer. Available for collaboration, consulting, and professional inquiries.";
-const url = "https://alexleung.ca/contact/";
+const url = `${BASE_URL}/contact/`;
 
 export const metadata: Metadata = {
   title: title,
@@ -34,22 +36,28 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <JsonLd<WebPage>
+      <JsonLdBreadcrumbs
+        items={[
+          { name: "Home", item: "/" },
+          { name: "Contact", item: "/contact" },
+        ]}
+      />
+      <JsonLd<schemadts.ContactPage>
         item={{
           "@context": "https://schema.org",
-          "@type": "WebPage",
+          "@type": "ContactPage",
           "@id": url,
           url: url,
           name: title,
           description: description,
           mainEntity: {
             "@type": "Person",
-            "@id": "https://alexleung.ca/#person",
+            "@id": `${BASE_URL}/#person`,
           },
           inLanguage: "en-CA",
           isPartOf: {
             "@type": "WebSite",
-            "@id": "https://alexleung.ca/#website",
+            "@id": `${BASE_URL}/#website`,
           },
         }}
       />

@@ -1,13 +1,15 @@
 import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
 import { WebPage } from "schema-dts";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
 import ExternalLink from "@/components/ExternalLink";
+import { BASE_URL } from "@/constants";
 
 const title = "What I'm Doing Now | Alex Leung";
 const description =
   "Current projects, books, and goals - a snapshot of what Alex Leung is focused on right now.";
-const url = "https://alexleung.ca/now/";
+const url = `${BASE_URL}/now/`;
 
 export const metadata: Metadata = {
   title: title,
@@ -33,6 +35,12 @@ export const metadata: Metadata = {
 export default function NowPage() {
   return (
     <>
+      <JsonLdBreadcrumbs
+        items={[
+          { name: "Home", item: "/" },
+          { name: "Now", item: "/now" },
+        ]}
+      />
       <JsonLd<WebPage>
         item={{
           "@context": "https://schema.org",
@@ -43,12 +51,12 @@ export default function NowPage() {
           description: description,
           mainEntity: {
             "@type": "Person",
-            "@id": "https://alexleung.ca/#person",
+            "@id": `${BASE_URL}/#person`,
           },
           inLanguage: "en-CA",
           isPartOf: {
             "@type": "WebSite",
-            "@id": "https://alexleung.ca/#website",
+            "@id": `${BASE_URL}/#website`,
           },
         }}
       />

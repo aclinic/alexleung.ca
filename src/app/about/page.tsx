@@ -1,15 +1,17 @@
 import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
-import { WebPage } from "schema-dts";
+import * as schemadts from "schema-dts";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Journey } from "@/app/about/_components/Background";
 import { Credentials } from "@/app/about/_components/Credentials";
 import { Title } from "@/components/Title";
 import { Skills } from "./_components/TechnicalInterests";
+import { BASE_URL } from "@/constants";
 
 const title = "About Me | Alex Leung";
 const description =
   "Learn about Alex Leung's journey - from University of Waterloo and Georgia Tech to end-to-end product development.";
-const url = "https://alexleung.ca/about/";
+const url = `${BASE_URL}/about/`;
 
 export const metadata: Metadata = {
   title: title,
@@ -35,22 +37,28 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <JsonLd<WebPage>
+      <JsonLdBreadcrumbs
+        items={[
+          { name: "Home", item: "/" },
+          { name: "About Me", item: "/about" },
+        ]}
+      />
+      <JsonLd<schemadts.AboutPage>
         item={{
           "@context": "https://schema.org",
-          "@type": "WebPage",
+          "@type": "AboutPage",
           "@id": url,
           url: url,
           name: title,
           description: description,
           mainEntity: {
             "@type": "Person",
-            "@id": "https://alexleung.ca/#person",
+            "@id": `${BASE_URL}/#person`,
           },
           inLanguage: "en-CA",
           isPartOf: {
             "@type": "WebSite",
-            "@id": "https://alexleung.ca/#website",
+            "@id": `${BASE_URL}/#website`,
           },
         }}
       />

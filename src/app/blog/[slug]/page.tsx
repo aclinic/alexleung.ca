@@ -6,6 +6,8 @@ import { format } from "date-fns";
 import { Title } from "@/components/Title";
 import { JsonLd } from "react-schemaorg";
 import { BlogPosting } from "schema-dts";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+import { BASE_URL } from "@/constants";
 
 export const dynamicParams = false;
 
@@ -24,7 +26,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const title = `${post.title} | Alex Leung`;
   const description =
     post.excerpt || `Read ${post.title} on Alex Leung's blog.`;
-  const url = `https://alexleung.ca/blog/${params_awaited.slug}`;
+  const url = `${BASE_URL}/blog/${params_awaited.slug}`;
   const images = post.coverImage ? [post.coverImage] : [];
 
   return {
@@ -81,25 +83,43 @@ export default async function Post({ params }: Props) {
 
   return (
     <>
+      <JsonLdBreadcrumbs
+        items={[
+          { name: "Home", item: "/" },
+          { name: "Blog", item: "/blog" },
+          { name: post.title, item: `/blog/${post.slug}` },
+        ]}
+      />
       <JsonLd<BlogPosting>
         item={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": `https://alexleung.ca/blog/${post.slug}`,
-          url: `https://alexleung.ca/blog/${post.slug}`,
+          "@id": `${BASE_URL}/blog/${post.slug}#blogposting`,
+          url: `${BASE_URL}/blog/${post.slug}`,
           headline: post.title,
           description: post.excerpt,
-          image: post.coverImage ? [post.coverImage] : undefined,
+          image: post.coverImage
+            ? [`${BASE_URL}${post.coverImage}`]
+            : undefined,
           datePublished: new Date(post.date).toISOString(),
+          dateModified: new Date(post.date).toISOString(), // Use same as published if no modified date
           author: {
             "@type": "Person",
-            "@id": "https://alexleung.ca/#person",
+            "@id": `${BASE_URL}/#person`,
             name: "Alex Leung",
           },
+          publisher: {
+            "@type": "Person",
+            "@id": `${BASE_URL}/#person`,
+          },
           inLanguage: "en-CA",
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `${BASE_URL}/blog/${post.slug}`,
+          },
           isPartOf: {
             "@type": "Blog",
-            "@id": "https://alexleung.ca/blog/#blog",
+            "@id": `${BASE_URL}/blog/#blog`,
             name: "Blog | Alex Leung",
           },
         }}
