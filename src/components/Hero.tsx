@@ -9,8 +9,8 @@ export function Hero() {
       <div className="section-center">
         <div>
           <div
-            className="translate-y-full animate-showTopText opacity-0"
-            style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
+            className="animate-showTopText opacity-0"
+            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
           >
             <p className="text-hero-subtitle mb-4 tracking-wider">
               Hi, my name is
@@ -20,8 +20,8 @@ export function Hero() {
             </h1>
           </div>
           <div
-            className="translate-y-full animate-showTopText opacity-0"
-            style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
+            className="animate-showTopText opacity-0"
+            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
           >
             <h2 className="text-hero-description">
               Syntropy Engineer | Programmer | P.Eng.{" "}
@@ -33,8 +33,8 @@ export function Hero() {
             </p>
           </div>
           <div
-            className="mt-8 flex translate-y-full animate-showTopText flex-wrap gap-4 opacity-0"
-            style={{ animationDelay: "1.1s", animationFillMode: "forwards" }}
+            className="mt-8 flex animate-showTopText flex-wrap gap-4 opacity-0"
+            style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
           >
             <CTAButton href="/about/">
               Learn More <HiOutlineArrowRight className="text-lg" />

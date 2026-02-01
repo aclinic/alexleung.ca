@@ -16,7 +16,7 @@ export function CTAButton({
   external = false,
 }: CTAButtonProps) {
   const baseStyles =
-    "inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold transition-all duration-200";
+    "inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold transition-all duration-200 ease-expo-out";
 
   const variants = {
     primary:

@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const EXPO_OUT = "cubic-bezier(0.16, 1, 0.3, 1)";
+
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -39,21 +41,22 @@ module.exports = {
       },
       transitionTimingFunction: {
         linear: "linear",
+        "expo-out": EXPO_OUT,
       },
       keyframes: {
         showTopText: {
           "0%": {
-            transform: "translate(0, 100%)",
+            transform: "translateY(20px)",
             opacity: "0",
           },
           "100%": {
-            transform: "translate(0, 0)",
+            transform: "translateY(0)",
             opacity: "1",
           },
         },
       },
       animation: {
-        showTopText: "showTopText 1s forwards",
+        showTopText: `showTopText 0.8s ${EXPO_OUT} forwards`,
       },
 
       typography: {
