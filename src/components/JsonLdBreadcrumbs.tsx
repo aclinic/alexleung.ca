@@ -1,5 +1,7 @@
 import { JsonLd } from "react-schemaorg";
+
 import { BreadcrumbList } from "schema-dts";
+
 import { BASE_URL } from "@/constants";
 
 export type JsonLdBreadcrumbItem = {

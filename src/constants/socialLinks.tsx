@@ -1,9 +1,9 @@
 import {
   FaBluesky,
-  FaXTwitter,
-  FaLinkedinIn,
-  FaInstagram,
   FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+  FaXTwitter,
 } from "react-icons/fa6";
 
 export const data = [

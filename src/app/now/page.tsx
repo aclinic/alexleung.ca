@@ -1,9 +1,12 @@
-import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
+
+import { Metadata } from "next";
+
 import { WebPage } from "schema-dts";
+
+import ExternalLink from "@/components/ExternalLink";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
-import ExternalLink from "@/components/ExternalLink";
 import { BASE_URL } from "@/constants";
 
 const title = "What I'm Doing Now | Alex Leung";

@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import Footer from "../Footer";
+
 import { data } from "@/constants/socialLinks";
+
+import Footer from "../Footer";
 
 describe("Footer", () => {
   it("should render social links with proper security attributes", () => {

@@ -1,6 +1,8 @@
 import { render } from "@testing-library/react";
-import SocialLinks from "../SocialLinks";
+
 import { data } from "@/constants/socialLinks";
+
+import SocialLinks from "../SocialLinks";
 
 describe("SocialLinks", () => {
   it("should render all social links with proper security attributes", () => {

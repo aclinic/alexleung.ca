@@ -1,6 +1,6 @@
+import { Card } from "@/components/Card";
 import ExternalLink from "@/components/ExternalLink";
 import { Subtitle } from "@/components/Subtitle";
-import { Card } from "@/components/Card";
 
 export function Credentials() {
   return (

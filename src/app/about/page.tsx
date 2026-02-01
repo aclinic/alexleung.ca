@@ -1,12 +1,16 @@
-import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
+
+import { Metadata } from "next";
+
 import * as schemadts from "schema-dts";
-import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+
 import { Journey } from "@/app/about/_components/Background";
 import { Credentials } from "@/app/about/_components/Credentials";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
-import { Skills } from "./_components/TechnicalInterests";
 import { BASE_URL } from "@/constants";
+
+import { Skills } from "./_components/TechnicalInterests";
 
 const title = "About Me | Alex Leung";
 const description =

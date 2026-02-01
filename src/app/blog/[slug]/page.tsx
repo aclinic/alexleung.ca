@@ -1,13 +1,16 @@
+import { JsonLd } from "react-schemaorg";
+
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+import { format } from "date-fns";
+import { BlogPosting } from "schema-dts";
+
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+import { Title } from "@/components/Title";
+import { BASE_URL } from "@/constants";
 import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import markdownToHtml from "@/lib/markdownToHtml";
-import { format } from "date-fns";
-import { Title } from "@/components/Title";
-import { JsonLd } from "react-schemaorg";
-import { BlogPosting } from "schema-dts";
-import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
-import { BASE_URL } from "@/constants";
 
 export const dynamicParams = false;
 

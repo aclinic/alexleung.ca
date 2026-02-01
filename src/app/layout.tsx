@@ -1,12 +1,16 @@
-import type { Metadata, Viewport } from "next";
-import { JsonLd } from "react-schemaorg";
-import * as schemadts from "schema-dts";
-import "./globals.css";
 import { PropsWithChildren } from "react";
-import SocialLinks from "@/components/SocialLinks";
-import Header from "@/components/Header";
+import { JsonLd } from "react-schemaorg";
+
+import type { Metadata, Viewport } from "next";
+
+import * as schemadts from "schema-dts";
+
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import SocialLinks from "@/components/SocialLinks";
 import { BASE_URL } from "@/constants";
+
+import "./globals.css";
 
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =

@@ -1,5 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react";
 import { usePathname } from "next/navigation";
+
+import { fireEvent, render, screen } from "@testing-library/react";
+
 import Header from "../Header";
 
 // Mock next/navigation

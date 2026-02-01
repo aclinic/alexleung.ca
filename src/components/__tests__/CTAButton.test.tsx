@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+
 import { CTAButton } from "../CTAButton";
 
 describe("CTAButton", () => {

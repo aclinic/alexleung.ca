@@ -9,8 +9,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "lint": "eslint . && prettier --check 'src/**/*.css'",
-    "lint:fix": "eslint --fix . && prettier --write 'src/**/*.css'",
+    "lint": "eslint . && prettier --check '{src,app,components}/**/*.{js,jsx,ts,tsx,css,md,json,yml}'",
+    "lint:fix": "eslint --fix . && prettier --write '{src,app,components}/**/*.{js,jsx,ts,tsx,css,md,json,yml}'",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d out"
   },
@@ -28,6 +28,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",

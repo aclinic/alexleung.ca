@@ -1,5 +1,6 @@
-import ExternalLink from "@/components/ExternalLink";
 import Image from "next/image";
+
+import ExternalLink from "@/components/ExternalLink";
 import { Subtitle } from "@/components/Subtitle";
 
 export function Journey() {

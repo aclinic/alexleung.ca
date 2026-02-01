@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 
 const navLinks = [
   { href: "/", label: "Home" },

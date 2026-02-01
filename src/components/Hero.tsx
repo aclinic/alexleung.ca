@@ -1,5 +1,6 @@
 import { FcEngineering } from "react-icons/fc";
 import { HiOutlineArrowRight, HiOutlineMail } from "react-icons/hi";
+
 import { CTAButton } from "./CTAButton";
 
 export function Hero() {

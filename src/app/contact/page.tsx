@@ -1,11 +1,15 @@
-import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
+
+import { Metadata } from "next";
+
 import * as schemadts from "schema-dts";
+
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
-import { EmailMe } from "./_components/EmailMe";
-import { SocialMediaList } from "./_components/SocialMediaList";
 import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
+
+import { EmailMe } from "./_components/EmailMe";
+import { SocialMediaList } from "./_components/SocialMediaList";
 
 const title = "Contact | Alex Leung";
 const description =

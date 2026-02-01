@@ -1,13 +1,15 @@
-import { Metadata } from "next";
 import { JsonLd } from "react-schemaorg";
-import { CollectionPage } from "schema-dts";
-import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 
+import { Metadata } from "next";
 import Link from "next/link";
-import { Title } from "@/components/Title";
-import { getAllPosts } from "@/lib/blogApi";
+
 import { format } from "date-fns";
+import { CollectionPage } from "schema-dts";
+
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
+import { getAllPosts } from "@/lib/blogApi";
 
 const title = "Blog | Alex Leung";
 const description =
