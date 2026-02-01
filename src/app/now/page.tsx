@@ -97,8 +97,8 @@ export default function NowPage() {
                       Moltbot
                     </ExternalLink>{" "}
                     framework. The idea of autonomous agents having their own
-                    social network is both fascinating and a bit terrifying.
-                    I'm not willing to give it a try just yet.
+                    social network is both fascinating and a bit terrifying. I'm
+                    not willing to give it a try just yet.
                   </p>
                 </div>
               </div>
@@ -125,8 +125,8 @@ export default function NowPage() {
                   <ExternalLink href="https://www.domainlanguage.com/ddd/">
                     <em>Domain Driven Design</em>
                   </ExternalLink>{" "}
-                  has been put on hold indefinitely—I&apos;m too enthralled by AI
-                  these days.
+                  has been put on hold indefinitely—I&apos;m too enthralled by
+                  AI these days.
                 </p>
               </div>
             </div>

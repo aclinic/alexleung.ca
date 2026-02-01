@@ -37,10 +37,12 @@ export function Journey() {
             <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
             <p className="leading-relaxed">
               I build products from 0-1 and scale them from 1-100. My background
-              spans distributed systems, embedded systems, and AI. My approach is
-              simple: <strong>Prioritize momentum, then optimize for scale.</strong>
-              I lean into ambiguity, decomposing large-scale challenges into actionable
-              technical roadmaps that keep teams aligned and moving fast.
+              spans distributed systems, embedded systems, and AI. My approach
+              is simple:{" "}
+              <strong>Prioritize momentum, then optimize for scale.</strong>I
+              lean into ambiguity, decomposing large-scale challenges into
+              actionable technical roadmaps that keep teams aligned and moving
+              fast.
             </p>
           </div>
 
