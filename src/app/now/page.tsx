@@ -67,7 +67,7 @@ export default function NowPage() {
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
         <p className="mb-8 text-center text-sm">
-          Last updated: January 31, 2026
+          Last updated: February 1, 2026
         </p>
 
         <section className="section-center">
@@ -97,14 +97,8 @@ export default function NowPage() {
                       Moltbot
                     </ExternalLink>{" "}
                     framework. The idea of autonomous agents having their own
-                    social network is both fascinating and a bit terrifying—I'm
-                    not yet brave enough to let a bot take over my "life admin"
-                    just yet.
-                  </p>
-                  <p>
-                    I've also been absorbing a ton of AI and ML content recently
-                    by trading social media time for reading time. Makes me
-                    wonder what eliminating those apps completely would unlock.
+                    social network is both fascinating and a bit terrifying.
+                    I'm not willing to give it a try just yet.
                   </p>
                 </div>
               </div>
@@ -120,16 +114,18 @@ export default function NowPage() {
                   Currently Reading
                 </h3>
                 <p className="leading-relaxed">
-                  I've started reading{" "}
+                  I&apos;m almost done with Part 1 of the{" "}
                   <ExternalLink href="https://www.deeplearningbook.org/">
                     <em>Deep Learning</em>
                   </ExternalLink>{" "}
-                  by Goodfellow, Bengio, and Courville. It's refreshing to touch
-                  on many math concepts I haven't used in years.{" "}
+                  book by Goodfellow, Bengio, and Courville. It&apos;s been
+                  refreshing to touch on many math concepts I haven&apos;t used
+                  in years, and I&apos;m thinking of writing a blog post about
+                  my experience soon.{" "}
                   <ExternalLink href="https://www.domainlanguage.com/ddd/">
                     <em>Domain Driven Design</em>
                   </ExternalLink>{" "}
-                  has been put on hold indefinitely—I'm too enthralled by AI
+                  has been put on hold indefinitely—I&apos;m too enthralled by AI
                   these days.
                 </p>
               </div>

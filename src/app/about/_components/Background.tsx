@@ -36,14 +36,11 @@ export function Journey() {
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
             <p className="leading-relaxed">
-              I specialize in end-to-end product development, from 0-1 PMF
-              initiatives to 1-100 scaling. I leverage distributed systems,
-              embedded systems, and AI to achieve product goals. My leadership
-              philosophy is simple: make it work, then make it right. I&apos;ve
-              led cross-functional teams with a focus on fast iteration and
-              high-impact changes. I thrive in ambiguity by decomposing
-              large-scale challenges into actionable paths, ensuring both
-              technical excellence and organizational alignment.
+              I build products from 0-1 and scale them from 1-100. My background
+              spans distributed systems, embedded systems, and AI. My approach is
+              simple: <strong>Prioritize momentum, then optimize for scale.</strong>
+              I lean into ambiguity, decomposing large-scale challenges into actionable
+              technical roadmaps that keep teams aligned and moving fast.
             </p>
           </div>
 
