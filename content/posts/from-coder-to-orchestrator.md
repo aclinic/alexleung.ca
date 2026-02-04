@@ -1,7 +1,7 @@
 ---
 title: "From Writing Code to Orchestrating Agents"
 date: "2026-02-03"
-excerpt: "A two-year journey from treating AI as conversational StackOverflow to orchestrating a team of software engineering agents."
+excerpt: "I stopped asking AI for answers and started giving it a mission: A 2-year evolution in software engineering."
 coverImage: "/assets/blog/from-coder-to-orchestrator/cover.webp"
 ---
 
@@ -93,11 +93,12 @@ The output is a chain of draft PRs. I focus on reviewing the design choices and 
 
 If the high-level design is sound, I usually trust that the implementation details are correct and I don't dive into the weeds.
 
-## The Reality Check: Trade-offs & Costs
+## Trade-offs & Costs
 
-It would be disingenuous to claim this workflow is flawless. There are real costs to this approach:
+It would be disingenuous to claim this workflow is a silver bullet. Moving to an agentic model introduces a new set of overheads:
 
-- **API Costs:** Running multiple agents in a "Ralph Loop" is expensive. A relatively simple feature implementation can cost $50 in API credits due to the recursive self-correction.
+- **API Costs:** Running multiple agents in a "Ralph Loop" is expensive. A relatively simple feature implementation can cost $50 in API credits due to the recursive self-correction. Productivity gains come at a premium.
+- **Brownfield Friction:** Agents struggle with "tribal knowledge" and undocumented technical debt. Working in existing codebases is significantly harder and requires heavier context engineering (in some cases, manually feeding the agent architectural history and edge-case constraints) before it can propose changes judiciously.
 - **Skill Rot:** I feel slower at writing raw syntax than I was a year ago. I'm generally okay with this since I can spend more time on the bigger picture.
 
 ## Key Takeaways
@@ -115,8 +116,11 @@ While an experienced engineer's value was never _truly_ about typing speed, it i
 **3. English is the New Syntax**
 We have reached a point where English is the highest-level programming language available. In this stack, the AI functions as the transpiler, converting intent and architecture into executable code. The challenge is no longer learning a new framework, but learning to describe requirements with enough precision to leave little room for errors through hallucination.
 
-**4. On "Vibe Coding" and the Future of Software Engineering**
+**4. Observations on the "Intuition Gap"**
+With many other developers adopting a similar workflow, I've been thinking about the implications for the next generation of engineers. If one never spends their "junior years" in the weeds of implementation, how does one develop the taste and judgment to review the AI's output?
 
-Vibe coding was never truly effective; it was a distraction from the discipline of the craft. Software engineering, even in an agentic world, still requires the same thoughtful planning and rigorous execution it always has. We’ve simply moved the lever.
+I've noticed a few emerging risks with this shift:
 
-Stop fighting the syntax. Start mastering the intent. We are no longer just writing code; we are designing the systems that write it for us.
+- **The Loss of "Learning by Friction":** Much of my own architectural intuition was forged through hours of frustrating debugging. By removing that friction, we may inadvertently remove the very process that builds a deep mental model of how systems fail.
+- **The High Bar for Verification:** The entry-level milestone is shifting. It is becoming less about "I can write a React component" and more about "I can audit a complex PR crafted by an agent." Mastery in the latter usually stems from years of doing the former; it’s not yet clear how beginners will bridge that gap effectively.
+- **The Seniority Paradox:** We risk a future where "Seniority" is essentially a legacy trait, defined by pre-AI experience. There is a real challenge in ensuring that those starting today build the foundational logic necessary to troubleshoot a system when an agent reaches the limits of its reasoning.
