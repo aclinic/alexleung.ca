@@ -47,10 +47,10 @@ export default function AboutPage() {
           { name: "About Me", item: "/about" },
         ]}
       />
-      <JsonLd<schemadts.AboutPage>
+      <JsonLd<schemadts.ProfilePage>
         item={{
           "@context": "https://schema.org",
-          "@type": "AboutPage",
+          "@type": "ProfilePage",
           "@id": url,
           url: url,
           name: title,
