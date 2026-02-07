@@ -1,4 +1,5 @@
 :HL["/_next/static/chunks/124e017696a9b644.css","style"]
+:HL["/assets/blog/deep-learning-part-1-review/cover.webp","image"]
 :HL["/assets/blog/from-coder-to-orchestrator/cover.webp","image"]
 :HL["/assets/blog/boring-blog-architecture/cover.jpg","image"]
-0:{"buildId":"MN_00w4EnpwKkoKDN0XZx","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"blog","paramType":null,"paramKey":"blog","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+0:{"buildId":"DDysnh7FtOM3S7KwyJevf","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"blog","paramType":null,"paramKey":"blog","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
