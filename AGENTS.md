@@ -11,6 +11,13 @@ Personal portfolio website for Alex Leung. Single-page application with static e
 **This project uses Yarn.** Do not use `npm` or `pnpm`.
 Always use `yarn` for installing dependencies and running scripts.
 
+### Yarn 4 / Corepack requirements
+
+- The repo pins Yarn via `packageManager` in `package.json` (`yarn@4.12.0`).
+- Run `corepack enable` once per machine to activate Corepack shims.
+- Run `corepack install` in the repo to fetch the exact pinned Yarn version.
+- In CI, enable Corepack before `yarn install` to avoid falling back to global Yarn 1.x.
+
 ## Development Commands
 
 ```bash

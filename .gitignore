@@ -25,3 +25,11 @@ yarn-error.log*
 
 # next.js
 .next
+
+# yarn berry
+/.yarn/*
+!/.yarn/releases
+!/.yarn/plugins
+!/.yarn/patches
+!/.yarn/sdks
+!/.yarn/versions
