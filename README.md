@@ -1,6 +1,6 @@
 # alexleung.ca
 
-Personal portfolio website showcasing technical expertise as a Staff Engineer and AI Engineer. Built with Next.js 15, TypeScript, and Tailwind CSS. Features professional credentials, educational background, and comprehensive SEO optimization.
+Personal portfolio website showcasing technical expertise as a Staff Engineer and AI Engineer. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS. Features professional credentials, educational background, and comprehensive SEO optimization.
 
 ![Homepage screenshot](./public/assets/screenshot.png)
 
@@ -12,6 +12,13 @@ Personal portfolio website showcasing technical expertise as a Staff Engineer an
 
    ```bash
    nvm use
+   ```
+
+1. Enable Corepack (required for Yarn 4)
+
+   ```bash
+   corepack enable
+   corepack install
    ```
 
 1. Install dependencies
@@ -42,7 +49,7 @@ This command builds the site and deploys it to GitHub Pages via the `gh-pages` p
 
 Modern Next.js application optimized for static deployment:
 
-- **Framework**: Next.js 15 with TypeScript and App Router
+- **Framework**: Next.js 16 with React 19, TypeScript, and App Router
 - **Styling**: Tailwind CSS with custom themes and responsive design
 - **Deployment**: Static export (`output: 'export'`) for GitHub Pages
 - **SEO**: Comprehensive metadata, Open Graph, Twitter cards, JSON-LD structured data
@@ -129,9 +136,9 @@ src/
 
 ### Production
 
-- `next`: ^15.4.5 - React framework with App Router
-- `react`: ^18.3.1 - UI library
-- `react-dom`: ^18.3.1 - React DOM bindings
+- `next`: ^16.1.1 - React framework with App Router
+- `react`: ^19.2.3 - UI library
+- `react-dom`: ^19.2.3 - React DOM bindings
 - `react-icons`: ^5.3.0 - Icon library (FontAwesome 6)
 - `react-schemaorg`: ^2.0.0 - JSON-LD structured data
 - `schema-dts`: ^1.1.5 - Schema.org TypeScript definitions
@@ -141,6 +148,7 @@ src/
 - `typescript`: ^5.6.3 - Type checking
 - `tailwindcss`: ^3.4.0 - Utility-first CSS framework
 - `eslint`: ^9.32.0 - Code linting
+- `jest`: ^30.2.0 - Unit and component testing
 - `gh-pages`: ^6.2.0 - GitHub Pages deployment
 
 ## :hammer: Development Commands
