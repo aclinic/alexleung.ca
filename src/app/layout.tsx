@@ -14,7 +14,7 @@ import "./globals.css";
 
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
-  "Alex Leung - Syntropy Engineer and Programmer. End-to-end product development from 0-1 to scale. Leading cross-functional teams.";
+  "Personal website of Alex Leung, a Syntropy Engineer and Programmer, featuring writing on software, systems, and learning in public.";
 
 export const metadata: Metadata = {
   title: title,
