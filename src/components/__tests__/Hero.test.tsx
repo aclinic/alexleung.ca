@@ -14,6 +14,28 @@ describe("Hero", () => {
     );
   });
 
+  it("should render blog-first supporting copy", () => {
+    render(<Hero />);
+
+    expect(
+      screen.getByText(
+        "Engineer writing about software, systems, and learning in public."
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("should render blog and about CTA links", () => {
+    render(<Hero />);
+
+    expect(
+      screen.getByRole("link", { name: /read the blog/i })
+    ).toHaveAttribute("href", "/blog/");
+    expect(screen.getByRole("link", { name: /about me/i })).toHaveAttribute(
+      "href",
+      "/about/"
+    );
+  });
+
   it('should have id="home" for anchor navigation', () => {
     const { container } = render(<Hero />);
 
