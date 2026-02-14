@@ -83,17 +83,17 @@ export default function NowPage() {
                 </h3>
                 <div className="space-y-3 leading-relaxed">
                   <p>
-                    I recently launched the blog section of this site! It's been
-                    a fun project to build a "boring" but effective static
-                    architecture to share my technical thoughts.
+                    I recently launched the blog section of this site. It&apos;s
+                    been fun to build a "boring" but effective static
+                    architecture for sharing technical ideas.
                   </p>
                   <p>
-                    I&apos;m also using Codex more often lately for practical
-                    tasks like polishing quick updates to this site and speeding
-                    up little maintenance workflows.
+                    I&apos;ve also been using Codex more often for practical
+                    tasks, especially quick site updates and small maintenance
+                    workflows.
                   </p>
                   <p>
-                    I'm also deeply intrigued by the recent viral rise of{" "}
+                    I&apos;m also intrigued by the recent viral rise of{" "}
                     <ExternalLink href="https://moltbook.com">
                       Moltbook
                     </ExternalLink>{" "}
@@ -102,9 +102,14 @@ export default function NowPage() {
                       Moltbot
                     </ExternalLink>{" "}
                     framework. The idea of autonomous agents having their own
-                    social network is both fascinating and a bit terrifying. I'm
-                    not willing to give it a try just yet.
+                    social network is fascinating (and a little terrifying).
+                    I&apos;m observing for now instead of jumping in.
                   </p>
+                  <ul className="list-inside list-disc space-y-1">
+                    <li>Ship consistently on the blog</li>
+                    <li>Use tooling pragmatically to move faster</li>
+                    <li>Stay curious about emerging AI-native products</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -118,21 +123,26 @@ export default function NowPage() {
                 <h3 className="text-heading-sm mb-2 font-semibold">
                   Currently Reading
                 </h3>
-                <p className="leading-relaxed">
-                  I&apos;m currently on Chapter 7 of the{" "}
-                  <ExternalLink href="https://www.deeplearningbook.org/">
-                    <em>Deep Learning</em>
-                  </ExternalLink>{" "}
-                  book by Goodfellow, Bengio, and Courville. It&apos;s been
-                  refreshing to revisit many math concepts I haven&apos;t used
-                  in years, and I&apos;m thinking about writing up some of my
-                  thoughts on Chapter 6 soon.{" "}
-                  <ExternalLink href="https://www.domainlanguage.com/ddd/">
-                    <em>Domain Driven Design</em>
-                  </ExternalLink>{" "}
-                  has been put on hold indefinitely—I&apos;m too enthralled by
-                  AI these days.
-                </p>
+                <div className="space-y-3 leading-relaxed">
+                  <p>
+                    I&apos;m currently on Chapter 7 of{" "}
+                    <ExternalLink href="https://www.deeplearningbook.org/">
+                      <em>Deep Learning</em>
+                    </ExternalLink>{" "}
+                    by Goodfellow, Bengio, and Courville.
+                  </p>
+                  <p>
+                    It&apos;s been refreshing to revisit math concepts I
+                    haven&apos;t used in years, and I&apos;m planning to write
+                    up thoughts on Chapter 6 soon.
+                  </p>
+                  <p>
+                    <ExternalLink href="https://www.domainlanguage.com/ddd/">
+                      <em>Domain Driven Design</em>
+                    </ExternalLink>{" "}
+                    is on hold for now while I go deeper on AI.
+                  </p>
+                </div>
               </div>
             </div>
 
