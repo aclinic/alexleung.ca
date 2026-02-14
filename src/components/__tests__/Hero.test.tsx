@@ -9,9 +9,12 @@ describe("Hero", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Alex Leung"
     );
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Syntropy Engineer | Programmer | P.Eng."
-    );
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: /Syntropy Engineer \| Programmer \| P\.Eng\./i,
+      })
+    ).toBeInTheDocument();
   });
 
   it("should render blog-first supporting copy", () => {
