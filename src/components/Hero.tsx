@@ -1,5 +1,5 @@
 import { FcEngineering } from "react-icons/fc";
-import { HiOutlineArrowRight, HiOutlineMail } from "react-icons/hi";
+import { HiOutlineArrowRight, HiOutlineUser } from "react-icons/hi";
 
 import { CTAButton } from "./CTAButton";
 
@@ -28,19 +28,18 @@ export function Hero() {
               <FcEngineering className="mb-1 ml-1 inline-block align-middle" />
             </h2>
             <p className="mt-3 text-sm italic text-gray-400">
-              Syntropy: The emergence of order from chaos. The architecture of
-              wholeness.
+              Engineer writing about software, systems, and learning in public.
             </p>
           </div>
           <div
             className="mt-8 flex animate-showTopText flex-wrap gap-4 opacity-0"
             style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
           >
-            <CTAButton href="/about/">
-              Learn More <HiOutlineArrowRight className="text-lg" />
+            <CTAButton href="/blog/">
+              Read My Blog <HiOutlineArrowRight className="text-lg" />
             </CTAButton>
-            <CTAButton href="/contact/" variant="secondary">
-              <HiOutlineMail className="text-lg" /> Get In Touch
+            <CTAButton href="/about/" variant="secondary">
+              <HiOutlineUser className="text-lg" /> About Me
             </CTAButton>
           </div>
         </div>
