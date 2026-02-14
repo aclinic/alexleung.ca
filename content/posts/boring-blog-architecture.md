@@ -1,6 +1,7 @@
 ---
 title: "The 'Boring' Architecture Behind This Blog"
 date: "2026-01-31"
+updated: "2026-02-14"
 excerpt: "How I added a fully static, markdown-based blog to my Next.js portfolio."
 coverImage: "/assets/blog/boring-blog-architecture/cover.jpg"
 ---
