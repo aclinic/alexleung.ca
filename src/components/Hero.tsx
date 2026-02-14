@@ -30,7 +30,7 @@ export function Hero() {
               Syntropy Engineer | Programmer | P.Eng.{" "}
               <FcEngineering className="mb-1 ml-1 inline-block align-middle" />
             </h2>
-            <p className="mt-3 text-sm italic text-gray-400">
+            <p className="mt-3 text-sm italic text-gray-200 md:text-gray-300">
               Engineer writing about software, systems, and learning in public.
             </p>
           </div>
@@ -60,10 +60,6 @@ export function Hero() {
             <p className="text-body mt-3 text-gray-200">
               Most posts cover software architecture, product engineering, and
               practical lessons from learning in public.
-            </p>
-            <p className="text-body mt-3 text-gray-200">
-              Expect concise writing, high-level perspectives, and useful notes
-              you can apply in your own work.
             </p>
           </section>
         </div>
