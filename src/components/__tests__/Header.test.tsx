@@ -110,6 +110,19 @@ describe("Header", () => {
       const homeLinks = screen.getAllByText("Home");
       expect(homeLinks[0].closest("a")).toHaveClass("nav-link--active");
     });
+
+    it("should set aria-current on active links across desktop and mobile nav", () => {
+      (usePathname as jest.Mock).mockReturnValue("/about/");
+      render(<Header />);
+
+      const aboutLinks = screen.getAllByText("About");
+      expect(aboutLinks[0]).toHaveAttribute("aria-current", "page");
+      expect(aboutLinks[1]).toHaveAttribute("aria-current", "page");
+
+      const homeLinks = screen.getAllByText("Home");
+      expect(homeLinks[0]).not.toHaveAttribute("aria-current");
+      expect(homeLinks[1]).not.toHaveAttribute("aria-current");
+    });
   });
 
   describe("Accessibility", () => {

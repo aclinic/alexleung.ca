@@ -92,11 +92,11 @@
   }
 
   .mobile-nav-link {
-    @apply block px-8 py-4 text-xl transition-all hover:bg-white/5;
+    @apply block border-l-2 border-transparent px-8 py-4 text-xl transition-all hover:bg-white/5;
   }
 
   .mobile-nav-link--active {
-    @apply bg-white/10 font-semibold text-white;
+    @apply border-l-cyan-300 bg-white/15 font-semibold text-white;
   }
 
   .mobile-nav-link--inactive {

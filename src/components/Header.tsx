@@ -69,20 +69,23 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <ul className="hidden gap-8 md:flex">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`nav-link ${
-                    isActive(link.href)
-                      ? "nav-link--active"
-                      : "nav-link--inactive"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`nav-link ${
+                      active ? "nav-link--active" : "nav-link--inactive"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Mobile Menu Button */}
@@ -124,32 +127,37 @@ export default function Header() {
         aria-hidden={!isMenuOpen}
       >
         <ul className="flex flex-col py-8">
-          {navLinks.map((link, index) => (
-            <li
-              key={link.href}
-              className={`transition-all duration-300 ${
-                isMenuOpen
-                  ? "translate-x-0 opacity-100"
-                  : "-translate-x-4 opacity-0"
-              }`}
-              style={{
-                transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
-              }}
-            >
-              <Link
-                href={link.href}
-                onClick={closeMenu}
-                className={`mobile-nav-link ${
-                  isActive(link.href)
-                    ? "mobile-nav-link--active"
-                    : "mobile-nav-link--inactive"
+          {navLinks.map((link, index) => {
+            const active = isActive(link.href);
+
+            return (
+              <li
+                key={link.href}
+                className={`transition-all duration-300 ${
+                  isMenuOpen
+                    ? "translate-x-0 opacity-100"
+                    : "-translate-x-4 opacity-0"
                 }`}
-                tabIndex={isMenuOpen ? 0 : -1}
+                style={{
+                  transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
+                }}
               >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+                <Link
+                  href={link.href}
+                  onClick={closeMenu}
+                  aria-current={active ? "page" : undefined}
+                  className={`mobile-nav-link ${
+                    active
+                      ? "mobile-nav-link--active"
+                      : "mobile-nav-link--inactive"
+                  }`}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
