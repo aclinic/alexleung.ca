@@ -27,9 +27,10 @@ describe("Hero", () => {
   it("should render blog and about CTA links", () => {
     render(<Hero />);
 
-    expect(
-      screen.getByRole("link", { name: /read my blog/i })
-    ).toHaveAttribute("href", "/blog");
+    expect(screen.getByRole("link", { name: /read my blog/i })).toHaveAttribute(
+      "href",
+      "/blog"
+    );
     expect(screen.getByRole("link", { name: /about me/i })).toHaveAttribute(
       "href",
       "/about"
