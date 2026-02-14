@@ -1,6 +1,6 @@
 # alexleung.ca
 
-Personal portfolio website showcasing technical expertise as a Staff Engineer and AI Engineer. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS. Features professional credentials, educational background, and comprehensive SEO optimization.
+Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS. The site focuses on high-level professional background, current interests, and long-form technical writing.
 
 ![Homepage screenshot](./public/assets/screenshot.png)
 
@@ -52,18 +52,18 @@ Modern Next.js application optimized for static deployment:
 - **Framework**: Next.js 16 with React 19, TypeScript, and App Router
 - **Styling**: Tailwind CSS with custom themes and responsive design
 - **Deployment**: Static export (`output: 'export'`) for GitHub Pages
-- **SEO**: Comprehensive metadata, Open Graph, Twitter cards, JSON-LD structured data
-- **Icons**: React Icons (FontAwesome 6)
-- **Images**: WebP optimized assets with Next.js Image component
+- **SEO**: Metadata, Open Graph, Twitter cards, JSON-LD structured data
+- **Content**: Markdown blog posts parsed with `gray-matter`, `remark`, and `rehype`
 - **Build Output**: Static files generated in the `out/` directory
 
 ### Key Features
 
-- **Professional Credentials**: P.Eng. licensing and educational achievements display
-- **Comprehensive SEO**: Structured data for person/profile schemas
-- **Performance Optimized**: Static export with optimized images and assets
-- **Responsive Design**: Mobile-first approach with Tailwind breakpoints
-- **Social Integration**: Links to LinkedIn, GitHub, Twitter/X, Bluesky, Instagram
+- **Clear top-level pages**: Home, About, Now, Blog, and Contact
+- **Blog-first content depth**: Long-form posts with syntax highlighting and breadcrumbs
+- **Professional context**: High-level credentials and technical interests
+- **Comprehensive SEO**: Structured data for person and website schemas
+- **Responsive design**: Mobile-first approach with Tailwind breakpoints
+- **Social integration**: Links to LinkedIn, GitHub, Twitter/X, Bluesky, and Instagram
 
 ### GitHub Pages Configuration
 
@@ -77,60 +77,49 @@ src/
 │   ├── globals.css          # Global styles and Tailwind imports
 │   ├── layout.tsx           # Root layout with comprehensive SEO and JSON-LD
 │   ├── page.tsx             # Main page component orchestration
+│   ├── about/               # About route and route-specific components
+│   ├── now/                 # Now page
+│   ├── blog/                # Blog index and dynamic post route
+│   ├── contact/             # Contact route and route-specific components
 │   ├── not-found.tsx        # 404 page
 │   └── sitemap.ts           # Dynamic sitemap generation
 │
 ├── components/
-│   ├── About.tsx            # About section with personal background
-│   ├── Contact.tsx          # Contact section with obfuscated email
-│   ├── Credentials.tsx      # P.Eng. and educational credentials
-│   ├── ExternalLink.tsx     # External link component with security
+│   ├── Hero.tsx             # Homepage hero section and primary CTAs
+│   ├── Header.tsx           # Desktop/mobile navigation
 │   ├── Footer.tsx           # Site footer
-│   ├── Home.tsx             # Hero section with professional title
-│   ├── Skills.tsx           # Technical skills grid (removed in current version)
 │   ├── SocialLinks.tsx      # Social media links sidebar
-│   └── Title.tsx            # Section title component
+│   ├── CTAButton.tsx        # Reusable call-to-action button
+│   ├── Card.tsx             # Shared card container
+│   └── JsonLdBreadcrumbs.tsx # Blog breadcrumb structured data
+│
+├── lib/
+│   ├── blogApi.ts           # Blog post loading and metadata extraction
+│   └── markdownToHtml.ts    # Markdown-to-HTML pipeline
 │
 └── constants/
-    ├── skills.ts            # Technical skills data
-    └── socialLinks.tsx      # Social platform configurations
+    ├── skills.ts            # Technical interests/skills data
+    ├── socialLinks.tsx      # Social platform configurations
+    └── index.ts             # Shared constants (e.g., base URL)
 ```
 
-## :memo: Current Status & Improvements
+## :memo: Current Status & Roadmap
 
 ### Completed Features
 
-- ✅ Professional credentials section with P.Eng. licensing
-- ✅ Educational background (Georgia Tech MSECE, Waterloo BASc)
-- ✅ Comprehensive SEO with structured data
-- ✅ Social media integration (LinkedIn, GitHub, Twitter/X, Bluesky, Instagram)
-- ✅ Responsive design with professional styling
+- ✅ Blog index and dynamic post pages from Markdown content
+- ✅ Homepage with writing-oriented call-to-actions
+- ✅ About / Now / Contact routes with high-level professional context
+- ✅ Comprehensive SEO with metadata and structured data
 - ✅ Static export optimized for GitHub Pages
 
 ### Planned Improvements
 
-#### High Priority (Professional Impact)
-
-- [ ] **Expand professional context with specific software engineering/AI experience**
-  - Critical for showcasing actual expertise beyond credentials
-- [ ] **Add brief career journey or key milestones**
-  - Establishes credibility and experience progression
-
-#### Medium Priority (Content & UX)
-
-- [ ] Balance text-image ratio in About section
-- [ ] Include technical philosophy/approach statement
-- [ ] Organize content into subsections (Professional, Personal, Technical)
-- [ ] Add subheadings or visual separators
-
-#### Low Priority (Enhancements)
-
-- [ ] Add subtle image captions for context
-- [ ] Optimize mobile text-to-image ratio
-- [ ] Implement staggered animations for text/images
-- [ ] Consider hover effects or expandable sections
-- [ ] Add privacy-friendly analytics integration
-- [ ] Consider service worker for offline functionality
+- [ ] Add a “Start Here” module on the homepage
+- [ ] Add topic tags/categories for blog posts
+- [ ] Add related-post links and reading-time on articles
+- [ ] Expand internal linking between About/Now and relevant blog posts
+- [ ] Add privacy-friendly analytics for lightweight content insights
 
 ## :package: Dependencies
 
@@ -142,6 +131,8 @@ src/
 - `react-icons`: ^5.3.0 - Icon library (FontAwesome 6)
 - `react-schemaorg`: ^2.0.0 - JSON-LD structured data
 - `schema-dts`: ^1.1.5 - Schema.org TypeScript definitions
+- `gray-matter`: ^4.0.3 - Frontmatter parser for blog posts
+- `remark` / `rehype`: Markdown processing and syntax highlighting pipeline
 
 ### Development
 
@@ -156,5 +147,6 @@ src/
 - `yarn dev` - Start development server on port 3000
 - `yarn build` - Build production static export
 - `yarn start` - Serve production build locally (after build)
-- `yarn lint` - Run ESLint code linting
+- `yarn lint` - Run ESLint and Prettier checks
+- `yarn test` - Run Jest test suite
 - `yarn deploy` - Build and deploy to GitHub Pages
