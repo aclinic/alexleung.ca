@@ -83,12 +83,12 @@ export default function NowPage() {
                 </h3>
                 <div className="space-y-3 leading-relaxed">
                   <p>
-                    I recently launched the blog section of this site! It's been
-                    a fun project to build a "boring" but effective static
-                    architecture to share my technical thoughts.
+                    I recently launched the blog section of this site. Building
+                    a "boring" but effective static architecture has been a fun
+                    way to share my technical thoughts.
                   </p>
                   <p>
-                    I'm also deeply intrigued by the recent viral rise of{" "}
+                    I&apos;m also deeply intrigued by the recent viral rise of{" "}
                     <ExternalLink href="https://moltbook.com">
                       Moltbook
                     </ExternalLink>{" "}
@@ -96,10 +96,18 @@ export default function NowPage() {
                     <ExternalLink href="https://github.com/openclaw/moltbot">
                       Moltbot
                     </ExternalLink>{" "}
-                    framework. The idea of autonomous agents having their own
-                    social network is both fascinating and a bit terrifying. I'm
-                    not willing to give it a try just yet.
+                    framework.
                   </p>
+                  <ul className="list-inside list-disc space-y-2 pl-1">
+                    <li>
+                      The idea of autonomous agents having their own social
+                      network is fascinating.
+                    </li>
+                    <li>
+                      It&apos;s also a little terrifying, so I&apos;m still
+                      observing from the sidelines.
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -113,21 +121,26 @@ export default function NowPage() {
                 <h3 className="text-heading-sm mb-2 font-semibold">
                   Currently Reading
                 </h3>
-                <p className="leading-relaxed">
-                  I&apos;m almost done with Part 1 of the{" "}
-                  <ExternalLink href="https://www.deeplearningbook.org/">
-                    <em>Deep Learning</em>
-                  </ExternalLink>{" "}
-                  book by Goodfellow, Bengio, and Courville. It&apos;s been
-                  refreshing to touch on many math concepts I haven&apos;t used
-                  in years, and I&apos;m thinking of writing a blog post about
-                  my experience soon.{" "}
-                  <ExternalLink href="https://www.domainlanguage.com/ddd/">
-                    <em>Domain Driven Design</em>
-                  </ExternalLink>{" "}
-                  has been put on hold indefinitely—I&apos;m too enthralled by
-                  AI these days.
-                </p>
+                <div className="space-y-3 leading-relaxed">
+                  <p>
+                    I&apos;m almost done with Part 1 of{" "}
+                    <ExternalLink href="https://www.deeplearningbook.org/">
+                      <em>Deep Learning</em>
+                    </ExternalLink>{" "}
+                    by Goodfellow, Bengio, and Courville.
+                  </p>
+                  <p>
+                    It&apos;s been refreshing to revisit math concepts I
+                    haven&apos;t used in years. I&apos;m considering writing a
+                    blog post about the experience.
+                  </p>
+                  <p>
+                    <ExternalLink href="https://www.domainlanguage.com/ddd/">
+                      <em>Domain Driven Design</em>
+                    </ExternalLink>{" "}
+                    is on hold for now—I&apos;m too enthralled by AI these days.
+                  </p>
+                </div>
               </div>
             </div>
 

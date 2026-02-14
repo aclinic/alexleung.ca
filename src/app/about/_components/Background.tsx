@@ -19,41 +19,73 @@ export function Journey() {
 
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">💼</span>
-            <p className="leading-relaxed">
-              Currently, I&apos;m at{" "}
-              <ExternalLink href="https://jetsonhome.com">Jetson</ExternalLink>,
-              electrifying North American homes with vertically integrated
-              energy solutions. My previous experience includes developing AR/AI
-              Glasses at{" "}
-              <ExternalLink href="https://arvr.google.com/">
-                Google
-              </ExternalLink>{" "}
-              and driving product engineering initiatives at{" "}
-              <ExternalLink href="https://cash.app/">Cash App</ExternalLink>.
-            </p>
+            <div>
+              <h3 className="text-heading-sm mb-2 font-semibold">What I Do</h3>
+              <div className="space-y-3 leading-relaxed">
+                <p>
+                  Currently, I&apos;m at{" "}
+                  <ExternalLink href="https://jetsonhome.com">
+                    Jetson
+                  </ExternalLink>
+                  , electrifying North American homes with vertically integrated
+                  energy solutions.
+                </p>
+                <p>
+                  Before that, I worked on AR/AI Glasses at{" "}
+                  <ExternalLink href="https://arvr.google.com/">
+                    Google
+                  </ExternalLink>{" "}
+                  and drove product engineering initiatives at{" "}
+                  <ExternalLink href="https://cash.app/">Cash App</ExternalLink>
+                  .
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
-            <p className="leading-relaxed">
-              I build products from 0-1 and scale them from 1-100. My background
-              spans distributed systems, embedded systems, and AI. My approach
-              is simple:{" "}
-              <strong>Prioritize momentum, then optimize for scale.</strong>I
-              lean into ambiguity, decomposing large-scale challenges into
-              actionable technical roadmaps that keep teams aligned and moving
-              fast.
-            </p>
+            <div>
+              <h3 className="text-heading-sm mb-2 font-semibold">How I Work</h3>
+              <div className="space-y-3 leading-relaxed">
+                <p>
+                  I build products from 0-1 and help teams scale them from
+                  1-100.
+                </p>
+                <p>
+                  My background spans distributed systems, embedded systems, and
+                  AI. My approach is simple:
+                  <strong>
+                    {" "}
+                    prioritize momentum first, then optimize for scale.
+                  </strong>
+                </p>
+                <p>
+                  I lean into ambiguity and decompose complex problems into
+                  actionable technical roadmaps that keep teams aligned and
+                  moving fast.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">❤️</span>
-            <p className="leading-relaxed">
-              What drives me is building things people love, getting stuff done,
-              and continuously learning. In my spare time, I enjoy playing
-              tennis 🎾, reading 📚, hiking 🏔️, rock climbing 🧗, and spending
-              time with furmily 🐱.
-            </p>
+            <div>
+              <h3 className="text-heading-sm mb-2 font-semibold">
+                Outside of Work
+              </h3>
+              <p className="mb-3 leading-relaxed">
+                What drives me is building things people love, getting stuff
+                done, and continuously learning.
+              </p>
+              <ul className="list-inside list-disc space-y-1 leading-relaxed">
+                <li>Tennis 🎾</li>
+                <li>Reading 📚</li>
+                <li>Hiking 🏔️ and rock climbing 🧗</li>
+                <li>Spending time with furmily 🐱</li>
+              </ul>
+            </div>
           </div>
         </div>
 
