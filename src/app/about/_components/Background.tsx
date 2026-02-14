@@ -12,48 +12,72 @@ export function Journey() {
         <div className="text-md mb-8 text-left leading-relaxed lg:text-lg">
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">👋</span>
-            <p className="leading-relaxed">
-              Hi! I&apos;m Alex, and I&apos;m so glad you&apos;re here!
-            </p>
+            <div>
+              <h3 className="text-heading-sm mb-1 font-semibold">Hello</h3>
+              <p className="leading-relaxed">
+                Hi! I&apos;m Alex, and I&apos;m glad you&apos;re here.
+              </p>
+            </div>
           </div>
 
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">💼</span>
-            <p className="leading-relaxed">
-              Currently, I&apos;m at{" "}
-              <ExternalLink href="https://jetsonhome.com">Jetson</ExternalLink>,
-              electrifying North American homes with vertically integrated
-              energy solutions. My previous experience includes developing AR/AI
-              Glasses at{" "}
-              <ExternalLink href="https://arvr.google.com/">
-                Google
-              </ExternalLink>{" "}
-              and driving product engineering initiatives at{" "}
-              <ExternalLink href="https://cash.app/">Cash App</ExternalLink>.
-            </p>
+            <div>
+              <h3 className="text-heading-sm mb-1 font-semibold">What I Do</h3>
+              <p className="leading-relaxed">
+                I&apos;m currently at{" "}
+                <ExternalLink href="https://jetsonhome.com">
+                  Jetson
+                </ExternalLink>
+                , helping electrify North American homes with vertically
+                integrated energy solutions.
+              </p>
+              <p className="mt-3 leading-relaxed">
+                Before that, I worked on AR/AI glasses at{" "}
+                <ExternalLink href="https://arvr.google.com/">
+                  Google
+                </ExternalLink>{" "}
+                and product engineering at{" "}
+                <ExternalLink href="https://cash.app/">Cash App</ExternalLink>.
+              </p>
+            </div>
           </div>
 
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
-            <p className="leading-relaxed">
-              I build products from 0-1 and scale them from 1-100. My background
-              spans distributed systems, embedded systems, and AI. My approach
-              is simple:{" "}
-              <strong>Prioritize momentum, then optimize for scale.</strong>I
-              lean into ambiguity, decomposing large-scale challenges into
-              actionable technical roadmaps that keep teams aligned and moving
-              fast.
-            </p>
+            <div>
+              <h3 className="text-heading-sm mb-1 font-semibold">How I Work</h3>
+              <p className="leading-relaxed">
+                I build products from 0→1 and help scale them from 1→100.
+              </p>
+              <p className="mt-3 leading-relaxed">
+                My background spans distributed systems, embedded systems, and
+                AI. My approach is simple:{" "}
+                <strong>prioritize momentum, then optimize for scale.</strong>
+              </p>
+              <ul className="mt-3 list-inside list-disc space-y-1">
+                <li>Lean into ambiguity</li>
+                <li>Break large problems into clear roadmaps</li>
+                <li>Keep teams aligned and shipping</li>
+              </ul>
+            </div>
           </div>
 
           <div className="mb-6 flex items-start gap-3">
             <span className="mt-1 flex-shrink-0 text-xl">❤️</span>
-            <p className="leading-relaxed">
-              What drives me is building things people love, getting stuff done,
-              and continuously learning. In my spare time, I enjoy playing
-              tennis 🎾, reading 📚, hiking 🏔️, rock climbing 🧗, and spending
-              time with furmily 🐱.
-            </p>
+            <div>
+              <h3 className="text-heading-sm mb-1 font-semibold">
+                Outside Work
+              </h3>
+              <p className="leading-relaxed">
+                I&apos;m motivated by building useful things, getting meaningful
+                work done, and learning continuously.
+              </p>
+              <p className="mt-3 leading-relaxed">
+                Outside of work, I spend time playing tennis 🎾, reading 📚,
+                hiking 🏔️, rock climbing 🧗, and hanging out with my furmily 🐱.
+              </p>
+            </div>
           </div>
         </div>
 
