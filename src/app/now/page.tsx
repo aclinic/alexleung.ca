@@ -67,7 +67,7 @@ export default function NowPage() {
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
         <p className="mb-8 text-center text-sm">
-          Last updated: February 1, 2026
+          Last updated: February 14, 2026
         </p>
 
         <section className="section-center">
@@ -86,6 +86,11 @@ export default function NowPage() {
                     I recently launched the blog section of this site! It's been
                     a fun project to build a "boring" but effective static
                     architecture to share my technical thoughts.
+                  </p>
+                  <p>
+                    I&apos;m also using Codex more often lately for practical
+                    tasks like polishing quick updates to this site and speeding
+                    up little maintenance workflows.
                   </p>
                   <p>
                     I'm also deeply intrigued by the recent viral rise of{" "}
@@ -114,14 +119,14 @@ export default function NowPage() {
                   Currently Reading
                 </h3>
                 <p className="leading-relaxed">
-                  I&apos;m almost done with Part 1 of the{" "}
+                  I&apos;m currently on Chapter 7 of the{" "}
                   <ExternalLink href="https://www.deeplearningbook.org/">
                     <em>Deep Learning</em>
                   </ExternalLink>{" "}
                   book by Goodfellow, Bengio, and Courville. It&apos;s been
-                  refreshing to touch on many math concepts I haven&apos;t used
-                  in years, and I&apos;m thinking of writing a blog post about
-                  my experience soon.{" "}
+                  refreshing to revisit many math concepts I haven&apos;t used
+                  in years, and I&apos;m thinking about writing up some of my
+                  thoughts on Chapter 6 soon.{" "}
                   <ExternalLink href="https://www.domainlanguage.com/ddd/">
                     <em>Domain Driven Design</em>
                   </ExternalLink>{" "}
