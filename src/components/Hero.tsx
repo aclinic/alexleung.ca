@@ -5,7 +5,10 @@ import { CTAButton } from "./CTAButton";
 
 export function Hero() {
   return (
-    <section id="home" className="flex flex-grow items-center justify-center">
+    <section
+      id="home"
+      className="flex flex-grow items-center justify-center py-12"
+    >
       <div className="section-center">
         <div>
           <div
@@ -42,6 +45,27 @@ export function Hero() {
               <HiOutlineUser className="text-lg" /> About Me
             </CTAButton>
           </div>
+          <section
+            aria-labelledby="positioning-heading"
+            className="mt-10 max-w-3xl animate-showTopText rounded-xl border border-white/10 bg-black/20 p-6 opacity-0 backdrop-blur-sm md:p-8"
+            style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
+          >
+            <h2 id="positioning-heading" className="text-heading font-semibold">
+              What you&apos;ll find here
+            </h2>
+            <p className="text-body mt-4 text-gray-200">
+              I focus on building thoughtful software systems and sharing ideas
+              that help teams build with clarity.
+            </p>
+            <p className="text-body mt-3 text-gray-200">
+              Most posts cover software architecture, product engineering, and
+              practical lessons from learning in public.
+            </p>
+            <p className="text-body mt-3 text-gray-200">
+              Expect concise writing, high-level perspectives, and useful notes
+              you can apply in your own work.
+            </p>
+          </section>
         </div>
       </div>
     </section>
