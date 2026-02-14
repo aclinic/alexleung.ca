@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="flex flex-grow items-center justify-center py-12"
+      className="flex flex-grow items-center justify-center pb-12 pt-[calc(var(--header-height)+1rem)] md:py-12"
     >
       <div className="section-center">
         <div>
