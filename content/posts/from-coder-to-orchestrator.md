@@ -1,6 +1,7 @@
 ---
 title: "From Writing Code to Orchestrating Agents"
 date: "2026-02-03"
+updated: "2026-02-14"
 excerpt: "How my AI workflow changed from quick snippets to a practical plan/implement/verify loop."
 coverImage: "/assets/blog/from-coder-to-orchestrator/cover.webp"
 ---

@@ -20,6 +20,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     "title",
     "excerpt",
     "coverImage",
+    "date",
+    "updated",
   ]);
 
   if (!post) {
@@ -31,6 +33,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     post.excerpt || `Read ${post.title} on Alex Leung's blog.`;
   const url = `${BASE_URL}/blog/${params_awaited.slug}`;
   const images = post.coverImage ? [post.coverImage] : [];
+  const publishedTime = new Date(post.date).toISOString();
+  const modifiedTime = new Date(post.updated || post.date).toISOString();
 
   return {
     title,
@@ -41,6 +45,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       type: "article",
       url,
       images,
+      publishedTime,
+      modifiedTime,
     },
     twitter: {
       card: "summary_large_image",
@@ -73,9 +79,11 @@ export default async function Post({ params }: Props) {
   const post = getPostBySlug(params_awaited.slug, [
     "title",
     "date",
+    "updated",
     "slug",
     "content",
     "coverImage",
+    "excerpt",
   ]);
 
   if (!post) {
@@ -105,7 +113,7 @@ export default async function Post({ params }: Props) {
             ? [`${BASE_URL}${post.coverImage}`]
             : undefined,
           datePublished: new Date(post.date).toISOString(),
-          dateModified: new Date(post.date).toISOString(), // Use same as published if no modified date
+          dateModified: new Date(post.updated || post.date).toISOString(),
           author: {
             "@type": "Person",
             "@id": `${BASE_URL}/#person`,

@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import { format } from "date-fns";
-import { CollectionPage } from "schema-dts";
+import { CollectionPage, ItemList } from "schema-dts";
 
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
@@ -76,6 +76,20 @@ export default function BlogIndex() {
               "@id": `${BASE_URL}/#person`,
             },
           },
+        }}
+      />
+      <JsonLd<ItemList>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "@id": `${BASE_URL}/blog/#itemlist`,
+          itemListElement: allPosts.map((post, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            url: `${BASE_URL}/blog/${post.slug}`,
+            name: post.title,
+          })),
+          numberOfItems: allPosts.length,
         }}
       />
       <div className="py-[var(--header-height)]">
