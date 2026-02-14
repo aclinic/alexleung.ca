@@ -7,6 +7,11 @@ export function Credentials() {
     <section className="section-center">
       <Subtitle title="Credentials" id="credentials" />
 
+      <p className="mb-6 leading-relaxed text-gray-300">
+        My credentials ground how I think about technology: rigorous systems
+        design, accountable decision-making, and practical execution at scale.
+      </p>
+
       <div className="flex flex-col gap-6">
         {/* P.Eng. Credential */}
         <Card>
@@ -22,15 +27,14 @@ export function Credentials() {
                 </ExternalLink>
               </p>
               <p className="leading-relaxed text-gray-300">
-                Licensed Professional Engineer bringing engineering discipline,
-                ethics, and accountability to software development and AI
-                systems.
+                Licensed in Ontario. I apply engineering discipline and ethics
+                to software and AI systems.
               </p>
             </div>
           </div>
         </Card>
 
-        {/* Education Grid */}
+        {/* Education */}
         <div className="grid gap-8 md:grid-cols-2">
           {/* Georgia Tech */}
           <Card>
@@ -44,11 +48,6 @@ export function Credentials() {
                 MSECE, Electrical & Computer Engineering
               </p>
               <p className="text-gray-300">2013 - 2016</p>
-            </div>
-            <div className="mb-3">
-              <p className="text-lg font-medium text-gray-300">
-                4.0 / 4.0 CGPA
-              </p>
             </div>
             <div>
               <p className="text-sm text-gray-300">
@@ -70,13 +69,6 @@ export function Credentials() {
                 BASc, Electrical Engineering & Pure Mathematics
               </p>
               <p className="text-gray-300">2008 - 2013</p>
-            </div>
-            <div className="mb-3">
-              <p className="text-lg font-medium text-gray-300">92.3% CGPA</p>
-              <div className="text-sm text-accent-info">
-                <p>• With Distinction</p>
-                <p>• Dean&apos;s Honours List</p>
-              </div>
             </div>
             <div>
               <p className="text-sm text-gray-300">
