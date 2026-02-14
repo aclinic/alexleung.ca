@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     locale: "en_CA",
     images: [
       {
-        url: "/assets/screenshot.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: title,
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     description: description,
     images: [
       {
-        url: "/assets/screenshot.png",
+        url: "/twitter-image.png",
         alt: title,
       },
     ],
