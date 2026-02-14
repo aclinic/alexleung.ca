@@ -8,6 +8,10 @@
     --header-height: 4.5rem;
   }
 
+  html {
+    @apply bg-slate-950;
+  }
+
   * {
     @apply m-0 box-border p-0;
   }
@@ -17,7 +21,7 @@
   }
 
   body {
-    @apply relative font-lato leading-normal text-white;
+    @apply relative bg-transparent font-lato leading-normal text-white;
   }
 
   /* Background image overlay for better text readability */
