@@ -28,11 +28,11 @@ describe("Hero", () => {
     render(<Hero />);
 
     expect(
-      screen.getByRole("link", { name: /read the blog/i })
-    ).toHaveAttribute("href", "/blog/");
+      screen.getByRole("link", { name: /read my blog/i })
+    ).toHaveAttribute("href", "/blog");
     expect(screen.getByRole("link", { name: /about me/i })).toHaveAttribute(
       "href",
-      "/about/"
+      "/about"
     );
   });
 
