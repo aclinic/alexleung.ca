@@ -2,6 +2,8 @@
 
 Personal portfolio website showcasing technical expertise as a Staff Engineer and AI Engineer. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS. Features professional credentials, educational background, and comprehensive SEO optimization.
 
+> CI validation test: this repository intentionally includes occasional small documentation-only PRs to verify automated checks and branch protections.
+
 ![Homepage screenshot](./public/assets/screenshot.png)
 
 ## :construction: Installation & Setup
