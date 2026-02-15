@@ -105,11 +105,11 @@ export default function NowPage() {
                     social network is fascinating (and a little terrifying).
                     I&apos;m observing for now instead of jumping in.
                   </p>
-                  <ul className="list-inside list-disc space-y-1">
-                    <li>Ship consistently on the blog</li>
-                    <li>Use tooling pragmatically to move faster</li>
-                    <li>Stay curious about emerging AI-native products</li>
-                  </ul>
+                  <p>
+                    Right now my priorities are simple: ship consistently on the
+                    blog, use tooling pragmatically to move faster, and stay
+                    curious about emerging AI-native products.
+                  </p>
                 </div>
               </div>
             </div>
