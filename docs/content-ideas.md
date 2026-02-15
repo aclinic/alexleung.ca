@@ -1,101 +1,78 @@
-# Content Ideas for Personal Website
+# Content & Page Ideas Backlog
 
-> **Purpose**: A personal website should act as a digital business card or living portfolio rather than a news site. These ideas help showcase identity and skills without the pressure of a weekly editorial calendar.
+Purpose: keep a lightweight, maintainable backlog of ideas that extend the site without creating a heavy publishing cadence.
 
-## 1. The "Now" Page
+## Status Legend
 
-**Concept**: Popularized by Derek Sivers - tells people what you're focused on right now (not the past like a resume, not an archive like a blog).
+- **Done**: already implemented on the site
+- **Next**: good near-term candidate
+- **Later**: useful but non-urgent
 
-**What to include**:
-- Current projects you're working on
-- Books you're reading
-- City you're living in
-- Current personal goals
+## Idea Backlog
 
-**Benefit**: Keeps the site feeling fresh with only 5 minutes of updates every month.
+## 1) Now Page — **Done**
 
-**Implementation**: Create `/now` route with dynamic content
+A frequently updated snapshot of what is currently in focus.
 
----
+Suggested upkeep:
+- refresh monthly with current projects, books, and priorities
+- include links to relevant recent posts when possible
 
-## 2. A Curated "Manual of Me"
+## 2) Manual of Me — **Later**
 
-**Concept**: A document explaining how you work best - useful for potential employers or collaborators.
+A practical collaboration guide for teammates and collaborators.
 
-**What to include**:
-- Communication preferences (e.g., "I prefer email over Slack")
-- Peak productivity hours
-- Your values
-- How you like to receive feedback
+Could include:
+- communication preferences
+- decision-making style
+- feedback preferences
+- working cadence
 
-**Benefit**: Establishes you as a self-aware professional.
+Route options: `/manual` or `/working-with-me`.
 
-**Implementation**: Create `/manual` or `/working-with-me` route
+## 3) Digital Bookshelf / Tool Stack — **Next**
 
----
+A curated resources page with short, high-signal notes.
 
-## 3. The "Digital Bookshelf" or Tool Stack
+Could include:
+- books with one-line takeaways
+- everyday hardware/software stack
+- optional "recommended starting points" section
 
-**Concept**: List resources that have shaped who you are (no need for full reviews).
+Route options: `/resources` or `/tools`.
 
-**What to include**:
-- **The Library**: Visual grid of favorite books with 1-sentence takeaway for each
-- **The Gear**: Hardware and software used daily (laptop, coding environment, coffee setup)
+## 4) Journey Timeline — **Later**
 
-**Benefit**: Builds authority and provides instant value to visitors looking for recommendations.
+A visual journey page that complements the About page with milestones.
 
-**Implementation**: Create `/resources` or `/tools` route with visual grid layout
+Could include:
+- professional milestones
+- project inflection points
+- select personal milestones that support the narrative
 
----
+Route option: `/journey`.
 
-## 4. Interactive Timeline or Map
+## 5) FAQ / Answer Engine — **Next**
 
-**Concept**: Visualizing your journey is more engaging than a standard "About Me" paragraph.
+A searchable or scannable FAQ for recurring personal/professional questions.
 
-**What to include**:
-- **The Map**: Places you've lived, worked, or traveled to
-- **The Timeline**: Vertical line showing life milestones (not just jobs - include personal achievements like "Learned to cook Thai food" or "Ran my first 5k")
+Could include:
+- career transition questions
+- learning recommendations
+- collaboration/contact expectations
 
-**Benefit**: Makes you memorable and humanizes your brand.
+Route option: `/faq`.
 
-**Implementation**: Create interactive component with timeline visualization, potentially integrate into About section or create dedicated `/journey` route
+## Prioritization (Suggested)
 
----
+1. Tool Stack / Resources
+2. FAQ
+3. Journey Timeline
+4. Manual of Me
 
-## 5. An Answer Engine (FAQ)
+## SEO & Structure Checklist for New Pages
 
-**Concept**: Address questions people always ask when they meet you or find out what you do.
-
-**What to include**:
-- "How did you get into [Industry]?"
-- "What's the best way to start learning [Skill]?"
-- Common questions about your background, expertise, or career path
-
-**Benefit**: Saves time in real life and helps with "Personal SEO" - when people google you, they find the answers you want them to have.
-
-**Implementation**: Create `/faq` route or integrate into About section
-
----
-
-## Priority Considerations
-
-1. **Start with "Now" page** - Easiest to implement and maintain
-2. **Add Tool Stack** - Leverages existing skills data structure
-3. **Enhance Timeline** - Build on existing credentials section
-4. **Create FAQ** - Addresses common professional questions
-5. **Manual of Me** - For deeper professional collaboration context
-
-## SEO & Structured Data
-
-Each new page should include:
-- Appropriate meta tags
-- JSON-LD structured data (WebPage schema)
-- Open Graph and Twitter card metadata
-- Meaningful URLs and navigation
-
-## Design Consistency
-
-- Maintain existing Tailwind theme and color scheme
-- Use consistent typography and spacing
-- Ensure responsive design across all new pages
-- Keep minimalist aesthetic
+- Add route-level metadata and canonical URL
+- Add appropriate JSON-LD (`WebPage` at minimum)
+- Add internal links from existing high-authority pages
+- Ensure responsive layout and accessible heading structure

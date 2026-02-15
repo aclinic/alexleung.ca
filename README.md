@@ -35,6 +35,19 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 
    The site will be available at `http://localhost:3000`
 
+## :gear: Development Commands
+
+- `yarn dev` - Start development server on port 3000
+- `yarn build` - Build production static export
+- `yarn lint` - Run ESLint and Prettier checks
+- `yarn lint:fix` - Auto-fix lint and format issues
+- `yarn test` - Run Jest test suite
+- `yarn test:watch` - Run Jest in watch mode
+- `yarn test:coverage` - Run tests with coverage report
+- `yarn deploy` - Build and deploy to GitHub Pages
+
+> Note: there is no separate `yarn start` script because this project targets static export deployment.
+
 ## :ship: Deployment
 
 The site is automatically deployed to GitHub Pages using static export:
@@ -103,23 +116,12 @@ src/
     └── index.ts             # Shared constants (e.g., base URL)
 ```
 
-## :memo: Current Status & Roadmap
+## :open_file_folder: Documentation Map
 
-### Completed Features
-
-- ✅ Blog index and dynamic post pages from Markdown content
-- ✅ Homepage with writing-oriented call-to-actions
-- ✅ About / Now / Contact routes with high-level professional context
-- ✅ Comprehensive SEO with metadata and structured data
-- ✅ Static export optimized for GitHub Pages
-
-### Planned Improvements
-
-- [ ] Add a “Start Here” module on the homepage
-- [ ] Add topic tags/categories for blog posts
-- [ ] Add related-post links and reading-time on articles
-- [ ] Expand internal linking between About/Now and relevant blog posts
-- [ ] Add privacy-friendly analytics for lightweight content insights
+- `docs/README.md` - Documentation directory guide and document index
+- `docs/technical-architecture-audit.md` - Architecture findings and current status
+- `docs/seo-audit.md` - SEO findings and recommendations
+- `docs/content-ideas.md` - Future content and page ideas
 
 ## :package: Dependencies
 
@@ -142,11 +144,7 @@ src/
 - `jest`: ^30.2.0 - Unit and component testing
 - `gh-pages`: ^6.2.0 - GitHub Pages deployment
 
-## :hammer: Development Commands
+## :memo: Maintenance Notes
 
-- `yarn dev` - Start development server on port 3000
-- `yarn build` - Build production static export
-- `yarn start` - Serve production build locally (after build)
-- `yarn lint` - Run ESLint and Prettier checks
-- `yarn test` - Run Jest test suite
-- `yarn deploy` - Build and deploy to GitHub Pages
+- Keep long-form planning and audits in `docs/` rather than this root README.
+- Update audit documents whenever significant architecture or SEO changes ship.
