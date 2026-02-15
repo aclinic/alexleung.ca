@@ -4,8 +4,8 @@ import { Metadata } from "next";
 
 import * as schemadts from "schema-dts";
 
-import { Journey } from "@/app/about/_components/Background";
 import { Credentials } from "@/app/about/_components/Credentials";
+import { Journey } from "@/app/about/_components/MyBackground";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
