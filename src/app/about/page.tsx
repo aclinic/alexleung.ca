@@ -30,11 +30,25 @@ export const metadata: Metadata = {
     url: url,
     siteName: "Alex Leung",
     locale: "en_CA",
+    images: [
+      {
+        url: "/assets/about_portrait.webp",
+        width: 5712,
+        height: 4284,
+        alt: "Alex Leung sitting on a mountain trail during a hiking adventure",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: title,
     description: description,
+    images: [
+      {
+        url: "/assets/about_portrait.webp",
+        alt: "Alex Leung sitting on a mountain trail during a hiking adventure",
+      },
+    ],
   },
 };
 
