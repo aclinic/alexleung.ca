@@ -84,7 +84,7 @@ export function Journey() {
         <div className="flex flex-col gap-4 md:gap-6">
           <Image
             src="/assets/about_portrait.webp"
-            alt="Alex Leung standing on a mountain trail during a hiking adventure, wearing outdoor gear and smiling at the camera"
+            alt="Alex Leung sitting on a mountain trail during a hiking adventure"
             width={400}
             height={400}
             loading="lazy"
