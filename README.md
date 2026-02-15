@@ -148,3 +148,13 @@ src/
 
 - Keep long-form planning and audits in `docs/` rather than this root README.
 - Update audit documents whenever significant architecture or SEO changes ship.
+
+## :balance_scale: Licensing
+
+This repository uses a split-license model:
+
+- **Code and configuration** are licensed under the [MIT License](./LICENSE).
+- **Content and media assets** (including writing, page copy, and images) are licensed under [CC BY-NC 4.0](./LICENSE-CONTENT).
+
+If a file includes a different license notice, that notice takes precedence for that file.
+
