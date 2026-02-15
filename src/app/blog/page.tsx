@@ -101,7 +101,7 @@ export default function BlogIndex() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="surface-interactive group mb-8 block rounded-xl bg-black/40 p-6"
+                className="surface-interactive group mb-8 block p-6"
                 aria-label={post.title}
               >
                 <div className="mb-5">
