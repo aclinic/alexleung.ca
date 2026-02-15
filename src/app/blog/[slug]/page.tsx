@@ -139,7 +139,7 @@ export default async function Post({ params }: Props) {
       <div className="py-[var(--header-height)]">
         <Title title={post.title} />
         <article className="container mx-auto mb-12 px-5">
-          <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-black/40 p-4 md:p-8 backdrop-blur-sm">
+          <div className="surface-static mx-auto max-w-3xl p-4 md:p-8">
             <div className="mb-6 text-lg text-gray-300">
               {format(new Date(post.date), "MMMM d, yyyy")}
             </div>
