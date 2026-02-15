@@ -17,7 +17,7 @@
   }
 
   img {
-    @apply w-full;
+    @apply h-auto max-w-full;
   }
 
   body {
@@ -138,5 +138,16 @@
 
   .text-hero-description {
     @apply text-lg md:text-2xl;
+  }
+
+  /* Surface primitives */
+  .surface-static {
+    @apply rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm;
+  }
+
+  .surface-interactive {
+    @apply rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-200;
+    @apply cursor-pointer hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10 hover:shadow-lg;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-link focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
   }
 }
