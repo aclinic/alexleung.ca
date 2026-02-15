@@ -33,7 +33,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const description =
     post.excerpt || `Read ${post.title} on Alex Leung's blog.`;
   const url = `${BASE_URL}/blog/${params_awaited.slug}`;
-  const images = post.coverImage ? [post.coverImage] : [];
+  const coverImageUrl = post.coverImage
+    ? new URL(post.coverImage, BASE_URL).toString()
+    : undefined;
+  const images = coverImageUrl ? [coverImageUrl] : undefined;
   const publishedTime = new Date(post.date).toISOString();
   const modifiedTime = new Date(post.updated || post.date).toISOString();
 
@@ -50,7 +53,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       modifiedTime,
     },
     twitter: {
-      card: "summary_large_image",
+      card: coverImageUrl ? "summary_large_image" : "summary",
       title,
       description,
       images,
