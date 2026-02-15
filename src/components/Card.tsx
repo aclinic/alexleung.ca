@@ -10,8 +10,7 @@ export interface CardProps {
  * @param className - Additional custom classes to apply
  */
 export function Card({ children, className = "" }: CardProps) {
-  const baseStyles =
-    "p-6 rounded-lg backdrop-blur-sm border bg-white/5 border-white/10";
+  const baseStyles = "surface-static p-6";
 
   return <div className={`${baseStyles} ${className}`}>{children}</div>;
 }

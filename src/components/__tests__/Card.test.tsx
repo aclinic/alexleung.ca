@@ -7,7 +7,7 @@ describe("Card", () => {
     const { container } = render(<Card>Test content</Card>);
 
     expect(screen.getByText("Test content")).toBeInTheDocument();
-    expect(container.firstChild).toHaveClass("p-6", "rounded-lg", "border");
+    expect(container.firstChild).toHaveClass("surface-static", "p-6");
   });
 
   it("should merge custom className with base styles", () => {

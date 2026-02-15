@@ -47,7 +47,7 @@ export function Hero() {
           </div>
           <section
             aria-labelledby="positioning-heading"
-            className="mt-10 max-w-3xl animate-showTopText rounded-xl border border-white/10 bg-black/20 p-6 opacity-0 backdrop-blur-sm md:p-8"
+            className="surface-static mt-10 max-w-3xl animate-showTopText rounded-xl bg-black/20 p-6 opacity-0 md:p-8"
             style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
           >
             <h2 id="positioning-heading" className="text-heading font-semibold">

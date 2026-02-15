@@ -13,7 +13,7 @@ export function SocialMediaList() {
             target="_blank"
             rel="noopener noreferrer me"
             aria-label={link.label}
-            className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-6 py-4 transition-all hover:border-white/30 hover:bg-white/10"
+            className="surface-interactive flex items-center gap-3 px-6 py-4"
           >
             <span className="text-2xl">{link.icon}</span>
             <span className="text-body">

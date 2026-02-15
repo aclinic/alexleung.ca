@@ -101,7 +101,7 @@ export default function BlogIndex() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group mb-8 block rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-sm transition-all hover:border-white/30"
+                className="surface-interactive group mb-8 block rounded-xl bg-black/40 p-6"
                 aria-label={post.title}
               >
                 <div className="mb-5">
@@ -121,12 +121,16 @@ export default function BlogIndex() {
                 <h3 className="mb-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-accent-link">
                   {post.title}
                 </h3>
-                <div className="mb-4 text-sm text-gray-400">
+                <div className="mb-4 text-sm text-gray-300">
                   {format(new Date(post.date), "MMMM d, yyyy")}
                 </div>
-                <p className="mb-4 text-base leading-relaxed text-gray-300">
+                <p className="mb-4 text-base leading-relaxed text-gray-200 md:text-gray-300">
                   {post.excerpt}
                 </p>
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent-link transition-colors group-hover:text-accent-link-hover">
+                  Read article
+                  <span aria-hidden="true">→</span>
+                </span>
               </Link>
             ))}
           </div>
