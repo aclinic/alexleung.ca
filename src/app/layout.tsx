@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 import { JsonLd } from "react-schemaorg";
 
 import type { Metadata, Viewport } from "next";
+import { Lato } from "next/font/google";
 
 import * as schemadts from "schema-dts";
 
@@ -15,6 +16,12 @@ import "./globals.css";
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
   "Personal website of Alex Leung, a Syntropy Engineer and Programmer, featuring writing on software, systems, and learning in public.";
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "900"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: title,
@@ -199,7 +206,7 @@ function buildWebSiteSchema(): schemadts.WithContext<schemadts.WebSite> {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className="flex min-h-screen flex-col">
+      <body className={`${lato.className} flex min-h-screen flex-col`}>
         <JsonLd item={buildPersonSchema()} />
         <JsonLd item={buildWebSiteSchema()} />
         <div className="fixed inset-0 -z-10 h-screen bg-[url('/assets/background.webp')] bg-cover bg-center bg-no-repeat after:absolute after:inset-0 after:bg-black/50"></div>

@@ -1,6 +1,7 @@
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { format } from "date-fns";
@@ -144,9 +145,12 @@ export default async function Post({ params }: Props) {
             </div>
             {post.coverImage && (
               <div className="mb-6 sm:mx-0 md:mb-10">
-                <img
+                <Image
                   src={post.coverImage}
                   alt={`Cover for ${post.title}`}
+                  width={1200}
+                  height={630}
+                  sizes="(min-width: 1024px) 896px, 100vw"
                   className="aspect-[21/9] w-full rounded-lg object-cover shadow-sm"
                 />
               </div>

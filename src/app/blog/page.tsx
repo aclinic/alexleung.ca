@@ -1,6 +1,7 @@
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { format } from "date-fns";
@@ -104,12 +105,14 @@ export default function BlogIndex() {
                 aria-label={post.title}
               >
                 <div className="mb-5">
-                  {/* Placeholder for cover image if I decide to add next/image later */}
                   {post.coverImage && (
                     <div className="mb-4 h-48 w-full overflow-hidden rounded-lg bg-gray-800">
-                      <img
+                      <Image
                         src={post.coverImage}
                         alt={`Cover for ${post.title}`}
+                        width={1200}
+                        height={630}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
                       />
                     </div>
