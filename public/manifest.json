@@ -12,11 +12,6 @@
       "purpose": "any"
     },
     {
-      "src": "/icon.svg",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
       "src": "/apple-icon.png",
       "type": "image/png",
       "sizes": "1024x1024",
