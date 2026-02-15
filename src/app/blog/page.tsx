@@ -17,26 +17,37 @@ const description =
   "Thoughts on software engineering, product development, and life as a developer.";
 const url = `${BASE_URL}/blog/`;
 
-export const metadata: Metadata = {
-  title: title,
-  description: description,
-  alternates: {
-    canonical: url,
-  },
-  openGraph: {
+export function generateMetadata(): Metadata {
+  const posts = getAllPosts(["coverImage"]);
+  const firstCoverImage = posts.find((post) => post.coverImage)?.coverImage;
+  const image = firstCoverImage
+    ? new URL(firstCoverImage, BASE_URL).toString()
+    : undefined;
+  const images = image ? [image] : undefined;
+
+  return {
     title: title,
     description: description,
-    type: "website",
-    url: url,
-    siteName: "Alex Leung",
-    locale: "en_CA",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: title,
-    description: description,
-  },
-};
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      type: "website",
+      url: url,
+      siteName: "Alex Leung",
+      locale: "en_CA",
+      images,
+    },
+    twitter: {
+      card: image ? "summary_large_image" : "summary",
+      title: title,
+      description: description,
+      images,
+    },
+  };
+}
 
 export default function BlogIndex() {
   const allPosts = getAllPosts([
