@@ -1,6 +1,14 @@
 # Documentation Directory Guide
 
-This folder is for repository-internal documents that support planning, audits, and maintenance.
+This folder contains repository-internal documents that support planning, audits, and maintenance.
+
+## Document Index
+
+| File | Purpose | Update cadence |
+| --- | --- | --- |
+| `technical-architecture-audit.md` | Architecture patterns, risks, and priorities | After major platform or dependency shifts |
+| `seo-audit.md` | SEO implementation audit and optimization backlog | After metadata/schema/content model updates |
+| `content-ideas.md` | Idea backlog for new pages and editorial themes | As ideas are added or completed |
 
 ## What belongs in `/docs`
 
@@ -20,3 +28,9 @@ This folder is for repository-internal documents that support planning, audits, 
 
 - User-facing web content served by the app (e.g., `public/llms.txt`)
 - Application/runtime content such as blog posts in `content/posts/`
+
+## Documentation Hygiene Checklist
+
+- Prefer factual snapshots over speculative statements.
+- Mark recommendations as `Done`, `In progress`, or `Open` when possible.
+- Remove stale findings once they are superseded by shipped implementation.
