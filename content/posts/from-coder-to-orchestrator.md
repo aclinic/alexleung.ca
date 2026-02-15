@@ -6,11 +6,9 @@ excerpt: "How my AI workflow changed from quick snippets to a practical plan/imp
 coverImage: "/assets/blog/from-coder-to-orchestrator/cover.webp"
 ---
 
-I haven’t hand-written a `for` loop for my day job in months.
+Over the past two years, my day-to-day work has shifted from direct implementation toward orchestration and verification. In early 2024, I used AI mostly for autocomplete-level tasks such as snippets, error explanations, and small refactors. By 2026, I still write code when needed, but far more of my time goes to defining tasks clearly, checking outputs, and fixing edge cases the agents miss.
 
-In early 2024, I used AI mostly for autocomplete-level tasks: snippets, error explanations, and small refactors. In 2026, I still write code when needed, but most of my time goes to defining tasks, checking outputs, and fixing edge cases the agents miss.
-
-This post is a practical summary of what changed and what still doesn’t work well.
+This post summarizes what changed, what improved, and what remains unreliable in that transition.
 
 ![Timeline diagram comparing software development workflow in 2024 versus 2026](/assets/blog/from-coder-to-orchestrator/swe-workflow-evolution.webp)
 
