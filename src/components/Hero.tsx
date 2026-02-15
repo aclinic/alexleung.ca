@@ -2,6 +2,7 @@ import { FcEngineering } from "react-icons/fc";
 import { HiOutlineArrowRight, HiOutlineUser } from "react-icons/hi";
 
 import { CTAButton } from "./CTAButton";
+import { SurfaceCard } from "./SurfaceCard";
 
 export function Hero() {
   return (
@@ -45,9 +46,10 @@ export function Hero() {
               <HiOutlineUser className="text-lg" /> About Me
             </CTAButton>
           </div>
-          <section
+          <SurfaceCard
+            as="section"
             aria-labelledby="positioning-heading"
-            className="mt-10 max-w-3xl animate-showTopText rounded-xl border border-white/10 bg-black/20 p-6 opacity-0 backdrop-blur-sm md:p-8"
+            className="mt-10 max-w-3xl animate-showTopText bg-black/20 opacity-0 md:p-8"
             style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
           >
             <h2 id="positioning-heading" className="text-heading font-semibold">
@@ -61,7 +63,7 @@ export function Hero() {
               Most posts cover software architecture, product engineering, and
               practical lessons from learning in public.
             </p>
-          </section>
+          </SurfaceCard>
         </div>
       </div>
     </section>

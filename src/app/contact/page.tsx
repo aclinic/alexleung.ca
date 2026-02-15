@@ -66,10 +66,12 @@ export default function ContactPage() {
         }}
       />
 
-      <div className="py-[var(--header-height)]">
+      <div className="page-shell">
         <Title title="Contact" id="contact" />
-        <EmailMe />
-        <SocialMediaList />
+        <div className="content-stack">
+          <EmailMe />
+          <SocialMediaList />
+        </div>
       </div>
     </>
   );

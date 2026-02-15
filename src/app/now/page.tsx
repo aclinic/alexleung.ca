@@ -6,6 +6,7 @@ import { WebPage } from "schema-dts";
 
 import ExternalLink from "@/components/ExternalLink";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+import { SurfaceCard } from "@/components/SurfaceCard";
 import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
 
@@ -64,120 +65,122 @@ export default function NowPage() {
         }}
       />
 
-      <div className="py-[var(--header-height)]">
+      <div className="page-shell">
         <Title title="What I'm Doing Now" id="now" />
-        <p className="mb-8 text-center text-sm">
+        <p className="mb-8 text-center text-sm text-gray-200">
           Last updated: February 14, 2026
         </p>
 
         <section className="section-center">
-          <div className="text-body space-y-8 text-left leading-relaxed">
-            {/* Top of mind */}
-            <div className="flex items-start gap-3">
-              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
-                🚀
-              </span>
-              <div>
-                <h3 className="text-heading-sm mb-2 font-semibold">
-                  Top of Mind
-                </h3>
-                <div className="space-y-3 leading-relaxed">
-                  <p>
-                    I recently launched the blog section of this site. It&apos;s
-                    been fun to build a "boring" but effective static
-                    architecture for sharing technical ideas.
-                  </p>
-                  <p>
-                    I&apos;ve also been using Codex more often for practical
-                    tasks, especially quick site updates and small maintenance
-                    workflows.
-                  </p>
-                  <p>
-                    I&apos;m also intrigued by the recent viral rise of{" "}
-                    <ExternalLink href="https://moltbook.com">
-                      Moltbook
-                    </ExternalLink>{" "}
-                    and the underlying{" "}
-                    <ExternalLink href="https://github.com/openclaw/moltbot">
-                      Moltbot
-                    </ExternalLink>{" "}
-                    framework. The idea of autonomous agents having their own
-                    social network is fascinating (and a little terrifying).
-                    I&apos;m observing for now instead of jumping in.
-                  </p>
-                  <p>
-                    Right now my priorities are simple: ship consistently on the
-                    blog, use tooling pragmatically to move faster, and stay
-                    curious about emerging AI-native products.
-                  </p>
+          <div className="content-stack text-left">
+            <SurfaceCard className="section-stack">
+              <div className="flex items-start gap-3">
+                <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                  🚀
+                </span>
+                <div>
+                  <h3 className="text-heading-sm mb-2 font-semibold">
+                    Top of Mind
+                  </h3>
+                  <div className="space-y-3 leading-relaxed text-gray-100">
+                    <p>
+                      I recently launched the blog section of this site.
+                      It&apos;s been fun to build a "boring" but effective
+                      static architecture for sharing technical ideas.
+                    </p>
+                    <p>
+                      I&apos;ve also been using Codex more often for practical
+                      tasks, especially quick site updates and small maintenance
+                      workflows.
+                    </p>
+                    <p>
+                      I&apos;m also intrigued by the recent viral rise of{" "}
+                      <ExternalLink href="https://moltbook.com">
+                        Moltbook
+                      </ExternalLink>{" "}
+                      and the underlying{" "}
+                      <ExternalLink href="https://github.com/openclaw/moltbot">
+                        Moltbot
+                      </ExternalLink>{" "}
+                      framework. The idea of autonomous agents having their own
+                      social network is fascinating (and a little terrifying).
+                      I&apos;m observing for now instead of jumping in.
+                    </p>
+                    <p>
+                      Right now my priorities are simple: ship consistently on
+                      the blog, use tooling pragmatically to move faster, and
+                      stay curious about emerging AI-native products.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </SurfaceCard>
 
-            {/* Currently Reading */}
-            <div className="flex items-start gap-3">
-              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
-                📚
-              </span>
-              <div>
-                <h3 className="text-heading-sm mb-2 font-semibold">
-                  Currently Reading
-                </h3>
-                <div className="space-y-3 leading-relaxed">
-                  <p>
-                    I&apos;m currently on Chapter 7 of{" "}
-                    <ExternalLink href="https://www.deeplearningbook.org/">
-                      <em>Deep Learning</em>
-                    </ExternalLink>{" "}
-                    by Goodfellow, Bengio, and Courville.
-                  </p>
-                  <p>
-                    It&apos;s been refreshing to revisit math concepts I
-                    haven&apos;t used in years, and I&apos;m planning to write
-                    up thoughts on Chapter 6 soon.
-                  </p>
-                  <p>
-                    <ExternalLink href="https://www.domainlanguage.com/ddd/">
-                      <em>Domain Driven Design</em>
-                    </ExternalLink>{" "}
-                    is on hold for now while I go deeper on AI.
-                  </p>
+            <SurfaceCard className="section-stack">
+              <div className="flex items-start gap-3">
+                <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                  📚
+                </span>
+                <div>
+                  <h3 className="text-heading-sm mb-2 font-semibold">
+                    Currently Reading
+                  </h3>
+                  <div className="space-y-3 leading-relaxed text-gray-100">
+                    <p>
+                      I&apos;m currently on Chapter 7 of{" "}
+                      <ExternalLink href="https://www.deeplearningbook.org/">
+                        <em>Deep Learning</em>
+                      </ExternalLink>{" "}
+                      by Goodfellow, Bengio, and Courville.
+                    </p>
+                    <p>
+                      It&apos;s been refreshing to revisit math concepts I
+                      haven&apos;t used in years, and I&apos;m planning to write
+                      up thoughts on Chapter 6 soon.
+                    </p>
+                    <p>
+                      <ExternalLink href="https://www.domainlanguage.com/ddd/">
+                        <em>Domain Driven Design</em>
+                      </ExternalLink>{" "}
+                      is on hold for now while I go deeper on AI.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </SurfaceCard>
 
-            {/* Current Goals */}
-            <div className="flex items-start gap-3">
-              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
-                🎯
-              </span>
-              <div>
-                <h3 className="text-heading-sm mb-2 font-semibold">
-                  Current Goals
-                </h3>
-                <ul className="list-inside list-disc space-y-2 leading-relaxed">
-                  <li>Finish and understand the Deep Learning book</li>
-                  <li>Leveling up my tennis game</li>
-                  <li>Get to A2 proficiency in Chinese</li>
-                </ul>
+            <SurfaceCard className="section-stack">
+              <div className="flex items-start gap-3">
+                <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                  🎯
+                </span>
+                <div>
+                  <h3 className="text-heading-sm mb-2 font-semibold">
+                    Current Goals
+                  </h3>
+                  <ul className="list-inside list-disc space-y-2 leading-relaxed text-gray-100">
+                    <li>Finish and understand the Deep Learning book</li>
+                    <li>Leveling up my tennis game</li>
+                    <li>Get to A2 proficiency in Chinese</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </SurfaceCard>
 
-          {/* Footer note about Now pages */}
-          <div className="mt-12 border-t border-gray-700 pt-8 text-sm leading-relaxed text-gray-300">
-            <p>
-              This is a{" "}
-              <ExternalLink href="https://nownownow.com/about">
-                now page
-              </ExternalLink>
-              , inspired by{" "}
-              <ExternalLink href="https://sive.rs/nowff">
-                Derek Sivers
-              </ExternalLink>
-              . It&apos;s a snapshot of what I&apos;m focused on at this point
-              in my life.
-            </p>
+            <div className="border-t border-gray-700 pt-8 text-sm leading-relaxed text-gray-200">
+              <p>
+                This is a{" "}
+                <ExternalLink href="https://nownownow.com/about">
+                  now page
+                </ExternalLink>
+                , inspired by{" "}
+                <ExternalLink href="https://sive.rs/nowff">
+                  Derek Sivers
+                </ExternalLink>
+                . It&apos;s a snapshot of what I&apos;m focused on at this point
+                in my life.
+              </p>
+            </div>
           </div>
         </section>
       </div>

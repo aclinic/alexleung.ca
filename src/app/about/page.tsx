@@ -67,11 +67,13 @@ export default function AboutPage() {
         }}
       />
 
-      <div className="py-[var(--header-height)]">
+      <div className="page-shell">
         <Title title="About Me" id="about" />
-        <Journey />
-        <Skills className="mt-12" />
-        <Credentials />
+        <div className="content-stack">
+          <Journey />
+          <Skills className="mt-12" />
+          <Credentials />
+        </div>
       </div>
     </>
   );

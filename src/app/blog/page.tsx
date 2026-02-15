@@ -1,11 +1,12 @@
+import { HiOutlineArrowRight } from "react-icons/hi";
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
-import Link from "next/link";
 
 import { format } from "date-fns";
 import { CollectionPage, ItemList } from "schema-dts";
 
+import { ActionCard } from "@/components/ActionCard";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
@@ -92,21 +93,19 @@ export default function BlogIndex() {
           numberOfItems: allPosts.length,
         }}
       />
-      <div className="py-[var(--header-height)]">
+      <div className="page-shell">
         <Title title="Blog" />
         <div className="container mx-auto px-5">
-          <div className="mb-32 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-24 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {allPosts.map((post) => (
-              <Link
+              <ActionCard
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group mb-8 block rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-sm transition-all hover:border-white/30"
-                aria-label={post.title}
+                ariaLabel={post.title}
               >
                 <div className="mb-5">
-                  {/* Placeholder for cover image if I decide to add next/image later */}
                   {post.coverImage && (
-                    <div className="mb-4 h-48 w-full overflow-hidden rounded-lg bg-gray-800">
+                    <div className="mb-4 h-48 w-full overflow-hidden rounded-lg bg-gray-800/80">
                       <img
                         src={post.coverImage}
                         alt={`Cover for ${post.title}`}
@@ -115,16 +114,19 @@ export default function BlogIndex() {
                     </div>
                   )}
                 </div>
-                <h3 className="mb-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-accent-link">
+                <h3 className="mb-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-blue-300">
                   {post.title}
                 </h3>
-                <div className="mb-4 text-sm text-gray-400">
+                <div className="mb-4 text-sm text-gray-300">
                   {format(new Date(post.date), "MMMM d, yyyy")}
                 </div>
-                <p className="mb-4 text-base leading-relaxed text-gray-300">
+                <p className="mb-5 text-base leading-relaxed text-gray-100 [display:-webkit-box] overflow-hidden [-webkit-box-orient:vertical] [-webkit-line-clamp:4] md:[display:block] md:[-webkit-line-clamp:unset]">
                   {post.excerpt}
                 </p>
-              </Link>
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-blue-300 transition-colors group-hover:text-blue-200">
+                  Read article <HiOutlineArrowRight className="text-base" />
+                </span>
+              </ActionCard>
             ))}
           </div>
         </div>

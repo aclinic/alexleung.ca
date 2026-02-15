@@ -17,7 +17,7 @@
   }
 
   img {
-    @apply w-full;
+    @apply h-auto max-w-full;
   }
 
   body {
@@ -138,5 +138,31 @@
 
   .text-hero-description {
     @apply text-lg md:text-2xl;
+  }
+
+  /* Page Spacing Tokens */
+  .page-shell {
+    @apply pb-16 pt-[var(--header-height)];
+  }
+
+  .content-stack {
+    @apply space-y-12 md:space-y-16;
+  }
+
+  .section-stack {
+    @apply space-y-8;
+  }
+
+  /* Surface primitives */
+  .surface-card {
+    @apply rounded-xl border border-white/10 bg-black/35 backdrop-blur-sm;
+  }
+
+  .action-card {
+    @apply rounded-xl border border-white/15 bg-black/45 backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 hover:border-white/35 hover:shadow-lg hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+
+  .reading-surface {
+    @apply rounded-xl border border-white/10 bg-slate-950/85 backdrop-blur-md;
   }
 }
