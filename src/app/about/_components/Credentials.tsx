@@ -8,8 +8,8 @@ export function Credentials() {
       <Subtitle title="Credentials" id="credentials" />
 
       <p className="mb-6 leading-relaxed text-gray-300">
-        My credentials ground how I think about technology: rigorous systems
-        design, accountable decision-making, and practical execution at scale.
+        I try to bring rigor, accountability, and pragmatism to technology work,
+        shaped by my training and experience.
       </p>
 
       <div className="flex flex-col gap-6">
