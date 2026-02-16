@@ -40,6 +40,18 @@ describe("blogApi front matter validation", () => {
     expect(post?.draft).toBe(false);
   });
 
+  test("parses explicit tags and readingTimeMinutes", async () => {
+    const tempDir = setupTempPosts({
+      tagged: `---\ntitle: "Tagged"\ndate: "2026-02-16"\ntags:\n  - "AI"\n  - "Systems"\nreadingTimeMinutes: 7\n---\nBody`,
+    });
+
+    const { getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+    const post = getPostBySlug("tagged");
+
+    expect(post?.tags).toEqual(["AI", "Systems"]);
+    expect(post?.readingTimeMinutes).toBe(7);
+  });
+
   test("throws when front matter contains invalid types", async () => {
     const tempDir = setupTempPosts({
       "bad-types": `---\ntitle: "Hello"\ndate: "2026-02-16"\ntags: test\n---\nBody`,

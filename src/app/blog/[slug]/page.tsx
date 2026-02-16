@@ -23,6 +23,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     "coverImage",
     "date",
     "updated",
+    "tags",
   ]);
 
   if (!post) {
@@ -58,6 +59,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       description,
       images,
     },
+    keywords: post.tags.length > 0 ? post.tags : undefined,
     alternates: {
       canonical: url,
     },
@@ -88,6 +90,7 @@ export default async function Post({ params }: Props) {
     "content",
     "coverImage",
     "excerpt",
+    "tags",
   ]);
 
   if (!post) {
@@ -113,6 +116,7 @@ export default async function Post({ params }: Props) {
           url: `${BASE_URL}/blog/${post.slug}`,
           headline: post.title,
           description: post.excerpt,
+          keywords: post.tags.length > 0 ? post.tags.join(", ") : undefined,
           image: post.coverImage
             ? [`${BASE_URL}${post.coverImage}`]
             : undefined,
@@ -143,9 +147,21 @@ export default async function Post({ params }: Props) {
         <Title title={post.title} />
         <article className="container mx-auto mb-12 px-5">
           <div className="surface-static mx-auto max-w-3xl p-4 md:p-8">
-            <div className="mb-6 text-lg text-gray-300">
+            <div className="mb-3 text-lg text-gray-300">
               {format(new Date(post.date), "MMMM d, yyyy")}
             </div>
+            {post.tags.length > 0 && (
+              <div className="mb-6 flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={`${post.slug}-${tag}`}
+                    className="rounded-full border border-white/20 px-2.5 py-1 text-xs font-semibold text-gray-200"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
             {post.coverImage && (
               <div className="mb-6 sm:mx-0 md:mb-10">
                 <Image

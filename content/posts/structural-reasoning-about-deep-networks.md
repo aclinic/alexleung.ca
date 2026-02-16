@@ -4,6 +4,11 @@ date: "2026-02-15"
 updated: "2026-02-15"
 excerpt: "Chapter 6 sharpened how I think about architecture as a structural assumption, not just a tuning choice."
 coverImage: "/assets/blog/structural-reasoning-about-deep-networks/cover.webp"
+tags:
+  - "Deep Learning"
+  - "Neural Networks"
+  - "ML Theory"
+
 ---
 
 Working through Chapter 6, _Deep Feedforward Networks_, sharpened how I reason about neural networks. It did not expand my practical toolkit so much as refine my conceptual boundaries. After completing coursework like the DeepLearning.AI specialization, I was comfortable training multilayer perceptrons and reasoning about gradients. What this chapter clarified is that architecture is not just a tuning dimension—it is a structural assumption about the function class we are willing to search.

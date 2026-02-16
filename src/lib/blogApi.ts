@@ -33,19 +33,6 @@ export type Post = {
   content: string;
 };
 
-/**
- * Markdown post front matter contract.
- *
- * Fields:
- * - `title` (required): post headline shown in lists, metadata, and article pages.
- * - `date` (required): publish date string; parsed and normalized to ISO.
- * - `updated` (optional): last-modified date string; parsed and normalized to ISO.
- * - `excerpt` (optional): short summary used in cards and metadata descriptions.
- * - `coverImage` (optional): public path to the post hero image.
- * - `tags` (optional, default `[]`): taxonomy labels for filtering/grouping.
- * - `readingTimeMinutes` (optional): estimated reading time in whole minutes.
- * - `draft` (optional, default `false`): marks unpublished content.
- */
 const PostFrontMatterSchema = z
   .object({
     title: z
