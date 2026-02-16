@@ -1,6 +1,7 @@
 import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
+import { z } from "zod";
 
 const postsDirectory = join(process.cwd(), "content/posts");
 
@@ -11,6 +12,9 @@ const POST_FIELDS = [
   "updated",
   "excerpt",
   "coverImage",
+  "tags",
+  "readingTimeMinutes",
+  "draft",
   "content",
 ] as const;
 
@@ -23,8 +27,24 @@ export type Post = {
   updated?: string;
   excerpt?: string;
   coverImage?: string;
+  tags: string[];
+  readingTimeMinutes?: number;
+  draft: boolean;
   content: string;
 };
+
+const PostFrontMatterSchema = z
+  .object({
+    title: z.string().trim().min(1, "title must be a non-empty string"),
+    date: z.string().trim().min(1, "date must be a non-empty string"),
+    updated: z.string().trim().min(1).optional(),
+    excerpt: z.string().trim().min(1).optional(),
+    coverImage: z.string().trim().min(1).optional(),
+    tags: z.array(z.string().trim().min(1)).default([]),
+    readingTimeMinutes: z.number().int().positive().optional(),
+    draft: z.boolean().default(false),
+  })
+  .strict();
 
 function isPostField(value: string): value is PostField {
   return POST_FIELDS.includes(value as PostField);
@@ -36,23 +56,26 @@ function assertValidDate(date: string, slug: string, key: "date" | "updated") {
   }
 }
 
-function readString(
+function parseFrontMatter(
   data: Record<string, unknown>,
-  key: string,
-  slug: string,
-  required = false
-): string | undefined {
-  const value = data[key];
+  slug: string
+): z.infer<typeof PostFrontMatterSchema> {
+  const parsed = PostFrontMatterSchema.safeParse(data);
 
-  if (typeof value === "string") {
-    return value;
+  if (!parsed.success) {
+    const errors = parsed.error.issues
+      .map((issue) => {
+        const path =
+          issue.path.length > 0 ? issue.path.join(".") : "front matter";
+
+        return `${path}: ${issue.message}`;
+      })
+      .join("; ");
+
+    throw new Error(`Invalid front matter in ${slug}.md: ${errors}`);
   }
 
-  if (required) {
-    throw new Error(`Missing required front matter key "${key}" in ${slug}.md`);
-  }
-
-  return undefined;
+  return parsed.data;
 }
 
 function parsePostBySlug(slug: string): Post | null {
@@ -65,27 +88,29 @@ function parsePostBySlug(slug: string): Post | null {
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
-  const frontMatter = data as Record<string, unknown>;
+  const frontMatter = parseFrontMatter(
+    data as Record<string, unknown>,
+    realSlug
+  );
 
-  const title = readString(frontMatter, "title", realSlug, true);
-  const date = readString(frontMatter, "date", realSlug, true);
-  const updated = readString(frontMatter, "updated", realSlug);
-  const excerpt = readString(frontMatter, "excerpt", realSlug);
-  const coverImage = readString(frontMatter, "coverImage", realSlug);
+  assertValidDate(frontMatter.date, realSlug, "date");
 
-  assertValidDate(date!, realSlug, "date");
-
-  if (updated) {
-    assertValidDate(updated, realSlug, "updated");
+  if (frontMatter.updated) {
+    assertValidDate(frontMatter.updated, realSlug, "updated");
   }
 
   return {
     slug: realSlug,
-    title: title!,
-    date: new Date(date!).toISOString(),
-    updated: updated ? new Date(updated).toISOString() : undefined,
-    excerpt,
-    coverImage,
+    title: frontMatter.title,
+    date: new Date(frontMatter.date).toISOString(),
+    updated: frontMatter.updated
+      ? new Date(frontMatter.updated).toISOString()
+      : undefined,
+    excerpt: frontMatter.excerpt,
+    coverImage: frontMatter.coverImage,
+    tags: frontMatter.tags,
+    readingTimeMinutes: frontMatter.readingTimeMinutes,
+    draft: frontMatter.draft,
     content,
   };
 }
