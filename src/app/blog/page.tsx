@@ -56,6 +56,7 @@ export default function BlogIndex() {
     "slug",
     "coverImage",
     "excerpt",
+    "tags",
   ]);
 
   return (
@@ -138,6 +139,18 @@ export default function BlogIndex() {
                 <p className="mb-4 text-base leading-relaxed text-gray-200 md:text-gray-300">
                   {post.excerpt}
                 </p>
+                {post.tags.length > 0 && (
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={`${post.slug}-${tag}`}
+                        className="rounded-full border border-white/20 px-2.5 py-1 text-xs font-semibold text-gray-200"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent-link transition-colors group-hover:text-accent-link-hover">
                   Read article
                   <span aria-hidden="true">→</span>
