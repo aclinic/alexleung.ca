@@ -12,7 +12,12 @@ import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
 import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import markdownToHtml from "@/lib/markdownToHtml";
-import { buildPageMetadata, getBlogId, getPersonId } from "@/lib/seo";
+import {
+  buildPageMetadata,
+  getBlogId,
+  getPersonId,
+  toCanonical,
+} from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -91,6 +96,7 @@ export default async function Post({ params }: Props) {
   }
 
   const content = await markdownToHtml(post.content || "");
+  const canonicalPostUrl = toCanonical(`/blog/${post.slug}`);
 
   return (
     <>
@@ -105,8 +111,8 @@ export default async function Post({ params }: Props) {
         item={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "@id": `${BASE_URL}/blog/${post.slug}#blogposting`,
-          url: `${BASE_URL}/blog/${post.slug}`,
+          "@id": `${canonicalPostUrl}#blogposting`,
+          url: canonicalPostUrl,
           headline: post.title,
           description: post.excerpt,
           keywords: post.tags.length > 0 ? post.tags.join(", ") : undefined,
@@ -127,7 +133,7 @@ export default async function Post({ params }: Props) {
           inLanguage: "en-CA",
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": `${BASE_URL}/blog/${post.slug}`,
+            "@id": canonicalPostUrl,
           },
           isPartOf: {
             "@type": "Blog",
