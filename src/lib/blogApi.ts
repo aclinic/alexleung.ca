@@ -33,16 +33,63 @@ export type Post = {
   content: string;
 };
 
+/**
+ * Markdown post front matter contract.
+ *
+ * Fields:
+ * - `title` (required): post headline shown in lists, metadata, and article pages.
+ * - `date` (required): publish date string; parsed and normalized to ISO.
+ * - `updated` (optional): last-modified date string; parsed and normalized to ISO.
+ * - `excerpt` (optional): short summary used in cards and metadata descriptions.
+ * - `coverImage` (optional): public path to the post hero image.
+ * - `tags` (optional, default `[]`): taxonomy labels for filtering/grouping.
+ * - `readingTimeMinutes` (optional): estimated reading time in whole minutes.
+ * - `draft` (optional, default `false`): marks unpublished content.
+ */
 const PostFrontMatterSchema = z
   .object({
-    title: z.string().trim().min(1, "title must be a non-empty string"),
-    date: z.string().trim().min(1, "date must be a non-empty string"),
-    updated: z.string().trim().min(1).optional(),
-    excerpt: z.string().trim().min(1).optional(),
-    coverImage: z.string().trim().min(1).optional(),
-    tags: z.array(z.string().trim().min(1)).default([]),
-    readingTimeMinutes: z.number().int().positive().optional(),
-    draft: z.boolean().default(false),
+    title: z
+      .string()
+      .trim()
+      .min(1, "title must be a non-empty string")
+      .describe("Post title displayed in page heading and SEO metadata."),
+    date: z
+      .string()
+      .trim()
+      .min(1, "date must be a non-empty string")
+      .describe("Publish date string parsed and normalized to ISO format."),
+    updated: z
+      .string()
+      .trim()
+      .min(1)
+      .optional()
+      .describe("Optional last-updated date string for sitemap and metadata."),
+    excerpt: z
+      .string()
+      .trim()
+      .min(1)
+      .optional()
+      .describe("Optional short description shown in previews and metadata."),
+    coverImage: z
+      .string()
+      .trim()
+      .min(1)
+      .optional()
+      .describe("Optional public path for the post cover image asset."),
+    tags: z
+      .array(z.string().trim().min(1))
+      .default([])
+      .describe("Optional list of taxonomy tags for post grouping."),
+    readingTimeMinutes: z
+      .number()
+      .int()
+      .positive()
+      .optional()
+      .describe("Optional whole-minute estimate for article reading time."),
+    draft: z
+      .boolean()
+      .default(false)
+      .describe("Optional draft flag; defaults to published (`false`)."),
   })
   .strict();
 
