@@ -86,6 +86,15 @@ Metadata and JSON-LD are robust, but they are currently authored across route fi
 - Centralize canonical URL and image derivation logic.
 - Keep route files focused on content composition.
 
+**Status (2026-02-16 update)**
+
+- ✅ **Phase 0 complete**: shared SEO model contract (`SeoInput`, `SeoImage`) is defined in `src/lib/seo/types.ts`.
+- ✅ **Phase 1 complete**: reusable URL + metadata builders are in place:
+  - `src/lib/seo/url.ts` for canonical and absolute URL derivation
+  - `src/lib/seo/metadata.ts` for standardized `Metadata` generation
+  - tests added for URL normalization and metadata defaults/overrides
+- 🔄 **Remaining work**: apply these utilities route-by-route and extract shared JSON-LD helper builders.
+
 ### E) Performance Budget Not Yet Explicit (Medium)
 
 The site has good baseline choices, but no explicit performance budget or regression checks (Lighthouse CI / bundle checks).
@@ -106,9 +115,10 @@ The site has good baseline choices, but no explicit performance budget or regres
 
 ### Phase 2 (2–4 days): Maintainability
 
-1. Extract SEO helpers into `src/lib/seo`.
-2. Formalize blog post model with extensible fields.
-3. Add content authoring lint checks (required front matter fields).
+1. Migrate route-level metadata to use `src/lib/seo` helpers (`about`, `contact`, `now`, `blog`, and `blog/[slug]`).
+2. Extract shared JSON-LD builders so route files retain only page-specific schema fields.
+3. Formalize blog post model with extensible fields.
+4. Add content authoring lint checks (required front matter fields).
 
 ### Phase 3 (half day): Performance Governance
 
@@ -127,3 +137,8 @@ The site has good baseline choices, but no explicit performance budget or regres
 
 - Update this file after framework upgrades or content-model changes.
 - Track roadmap items by moving completed items into a short changelog section.
+
+
+## Progress Log
+
+- **2026-02-16**: Recommendation D has completed foundational work (Phase 0 + Phase 1 utilities and tests). Remaining scope is route migration + JSON-LD extraction under Phase 2.
