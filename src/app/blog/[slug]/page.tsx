@@ -1,6 +1,6 @@
 import { JsonLd } from "react-schemaorg";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -12,6 +12,7 @@ import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
 import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import markdownToHtml from "@/lib/markdownToHtml";
+import { buildPageMetadata, getBlogId, getPersonId } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -33,35 +34,27 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const title = `${post.title} | Alex Leung`;
   const description =
     post.excerpt || `Read ${post.title} on Alex Leung's blog.`;
-  const url = `${BASE_URL}/blog/${params_awaited.slug}`;
   const coverImageUrl = post.coverImage
     ? new URL(post.coverImage, BASE_URL).toString()
     : undefined;
-  const images = coverImageUrl ? [coverImageUrl] : undefined;
   const publishedTime = new Date(post.date).toISOString();
   const modifiedTime = new Date(post.updated || post.date).toISOString();
 
-  return {
+  const metadata = buildPageMetadata({
     title,
     description,
+    path: `/blog/${params_awaited.slug}`,
+    type: "article",
+    images: coverImageUrl ? [{ url: coverImageUrl }] : undefined,
+    keywords: post.tags.length > 0 ? post.tags : undefined,
+  });
+
+  return {
+    ...metadata,
     openGraph: {
-      title,
-      description,
-      type: "article",
-      url,
-      images,
+      ...metadata.openGraph,
       publishedTime,
       modifiedTime,
-    },
-    twitter: {
-      card: coverImageUrl ? "summary_large_image" : "summary",
-      title,
-      description,
-      images,
-    },
-    keywords: post.tags.length > 0 ? post.tags : undefined,
-    alternates: {
-      canonical: url,
     },
   };
 }
@@ -124,12 +117,12 @@ export default async function Post({ params }: Props) {
           dateModified: new Date(post.updated || post.date).toISOString(),
           author: {
             "@type": "Person",
-            "@id": `${BASE_URL}/#person`,
+            "@id": getPersonId(),
             name: "Alex Leung",
           },
           publisher: {
             "@type": "Person",
-            "@id": `${BASE_URL}/#person`,
+            "@id": getPersonId(),
           },
           inLanguage: "en-CA",
           mainEntityOfPage: {
@@ -138,7 +131,7 @@ export default async function Post({ params }: Props) {
           },
           isPartOf: {
             "@type": "Blog",
-            "@id": `${BASE_URL}/blog/#blog`,
+            "@id": getBlogId(),
             name: "Blog | Alex Leung",
           },
         }}
