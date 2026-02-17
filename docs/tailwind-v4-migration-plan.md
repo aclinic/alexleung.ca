@@ -6,10 +6,10 @@ Upgrade this site from Tailwind CSS v3 to v4 with minimal visual regressions, wh
 
 ## Current State Snapshot (Repo-Specific)
 
-- Tailwind is currently pinned to the v3 range (`^3.4.0`) and used with a classic PostCSS setup (`tailwindcss` + `autoprefixer`).
-- The project uses a JavaScript `tailwind.config.js` with custom tokens for colors, transitions, keyframes, animation, and max-width.
-- Global styles rely on v3 directives (`@tailwind base/components/utilities`) and heavily use `@layer` + `@apply`.
-- The site depends on `@tailwindcss/typography` and uses `prose` classes in the blog post page.
+- Tailwind is now pinned to v4 (`tailwindcss: ^4`) with the dedicated v4 PostCSS plugin (`@tailwindcss/postcss`).
+- The project still uses `tailwind.config.js` for custom tokens (colors, transitions, keyframes, animation, and max-width) in compatibility mode.
+- Global styles use the v4 CSS entrypoint (`@import "tailwindcss"`) plus `@config` to load legacy JS config values.
+- The site still depends on `@tailwindcss/typography` and uses `prose` classes in the blog post page.
 
 ## Migration Strategy
 
@@ -129,12 +129,18 @@ If major regressions appear close to release:
 
 ## Execution Checklist
 
-- [ ] Create branch and baseline screenshots
-- [ ] Upgrade Tailwind + PostCSS integration for v4
-- [ ] Update global CSS entry syntax
-- [ ] Verify/port custom theme tokens
-- [ ] Verify typography plugin output on blog pages
-- [ ] Run lint/tests/build
-- [ ] Perform manual responsive QA
-- [ ] Finalize docs and merge
+- [x] Create branch and baseline screenshots
+- [x] Upgrade Tailwind + PostCSS integration for v4
+- [x] Update global CSS entry syntax
+- [x] Verify/port custom theme tokens
+- [x] Verify typography plugin output on blog pages
+- [x] Run lint/tests/build
+- [x] Perform manual responsive QA
+- [x] Finalize docs and merge
+
+## Remaining Optional Follow-up
+
+- [ ] Migrate selected design tokens from `tailwind.config.js` to CSS-first `@theme` blocks if that improves maintainability.
+- [ ] Remove redundant transition token declarations that mirror Tailwind defaults.
+- [ ] Keep visual regression screenshots up to date as styles evolve.
 
