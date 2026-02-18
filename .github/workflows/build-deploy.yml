@@ -16,10 +16,17 @@ jobs:
       - name: 📦 Checkout
         uses: actions/checkout@v4
 
+      - name: 🧰 Enable Corepack shims
+        run: corepack enable
+
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: yarn.lock
+      - name: 🧰 Activate pinned Yarn (Corepack)
+          cache-dependency-path: yarn.lock
 
       - name: 🧰 Enable Corepack (Yarn v4)
         run: |
