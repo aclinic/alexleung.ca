@@ -155,7 +155,7 @@ export default function NowPage() {
                 <h3 className="text-heading-sm mb-2 font-semibold">
                   Current Goals
                 </h3>
-                <ul className="mt-3 list-inside list-disc space-y-1 leading-relaxed">
+                <ul className="mt-3 list-outside list-disc space-y-1 pl-6 leading-relaxed">
                   <li>Finish and understand the Deep Learning book</li>
                   <li>Leveling up my tennis game</li>
                   <li>Get to A2 proficiency in Chinese</li>
