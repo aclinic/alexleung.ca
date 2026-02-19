@@ -18,7 +18,7 @@ export function Hero() {
             <p className="text-hero-subtitle mb-4 tracking-wider">
               Hi, my name is
             </p>
-            <h1 className="text-hero-title mb-4 inline-block font-black uppercase leading-[0.9] tracking-[0.2rem] md:pb-4">
+            <h1 className="text-hero-title mb-4 inline-block font-black uppercase tracking-[0.12em] md:pb-4">
               Alex Leung
             </h1>
           </div>

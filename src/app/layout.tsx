@@ -19,7 +19,7 @@ const description =
 
 const lato = Lato({
   subsets: ["latin"],
-  weight: ["400", "900"],
+  weight: ["400", "700", "900"],
   display: "swap",
 });
 
