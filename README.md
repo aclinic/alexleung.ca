@@ -63,7 +63,7 @@ This command builds the site and deploys it to GitHub Pages via the `gh-pages` p
 Modern Next.js application optimized for static deployment:
 
 - **Framework**: Next.js 16 with React 19, TypeScript, and App Router
-- **Styling**: Tailwind CSS with custom themes and responsive design
+- **Styling**: Tailwind CSS v4 with custom themes and responsive design
 - **Deployment**: Static export (`output: 'export'`) for GitHub Pages
 - **SEO**: Metadata, Open Graph, Twitter cards, JSON-LD structured data
 - **Content**: Markdown blog posts parsed with `gray-matter`, `remark`, and `rehype`
@@ -139,10 +139,23 @@ src/
 ### Development
 
 - `typescript`: ^5.6.3 - Type checking
-- `tailwindcss`: ^3.4.0 - Utility-first CSS framework
+- `tailwindcss`: ^4 - Utility-first CSS framework
+- `@tailwindcss/postcss`: ^4 - Tailwind v4 PostCSS plugin
+- `@tailwindcss/typography`: ^0.5.19 - Rich typographic defaults for blog content
 - `eslint`: ^9.32.0 - Code linting
 - `jest`: ^30.2.0 - Unit and component testing
 - `gh-pages`: ^6.2.0 - GitHub Pages deployment
+
+
+## :art: Tailwind CSS v4 Migration Notes
+
+The codebase is now running on Tailwind CSS v4 with the dedicated PostCSS plugin and compatibility config loading from `src/app/globals.css`.
+
+- v4 packages are installed and pinned via Yarn lockfile.
+- PostCSS now uses `@tailwindcss/postcss`.
+- Existing custom tokens and utilities are currently preserved through `tailwind.config.js` to minimize visual regressions.
+
+Future optional cleanup: migrate design tokens from JS config into CSS-first `@theme` blocks where it provides a clear maintenance benefit.
 
 ## :memo: Maintenance Notes
 

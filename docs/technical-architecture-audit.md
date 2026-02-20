@@ -93,7 +93,8 @@ Metadata and JSON-LD are robust, but they are currently authored across route fi
   - `src/lib/seo/url.ts` for canonical and absolute URL derivation
   - `src/lib/seo/metadata.ts` for standardized `Metadata` generation
   - tests added for URL normalization and metadata defaults/overrides
-- 🔄 **Remaining work**: apply these utilities route-by-route and extract shared JSON-LD helper builders.
+- ✅ **Phase 2 (part 1) complete**: route-level metadata builders now power `about`, `contact`, `now`, `blog`, and `blog/[slug]`.
+- ✅ **Phase 2 (part 2) complete**: shared JSON-LD helper builders and stable schema IDs are centralized under `src/lib/seo/jsonLd.ts` and consumed by core routes.
 
 ### E) Performance Budget Not Yet Explicit (Medium)
 
@@ -142,3 +143,5 @@ The site has good baseline choices, but no explicit performance budget or regres
 ## Progress Log
 
 - **2026-02-16**: Recommendation D has completed foundational work (Phase 0 + Phase 1 utilities and tests). Remaining scope is route migration + JSON-LD extraction under Phase 2.
+
+- **2026-02-16**: Recommendation D Phase 2 route migration + JSON-LD helper extraction completed for primary content routes (`about`, `contact`, `now`, `blog`, `blog/[slug]`).

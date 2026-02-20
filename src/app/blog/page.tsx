@@ -1,6 +1,6 @@
 import { JsonLd } from "react-schemaorg";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,11 +11,17 @@ import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
 import { getAllPosts } from "@/lib/blogApi";
+import {
+  buildPageMetadata,
+  getBlogId,
+  getPersonId,
+  getWebsiteId,
+} from "@/lib/seo";
 
 const title = "Blog | Alex Leung";
 const description =
   "Thoughts on software engineering, product development, and life as a developer.";
-const url = `${BASE_URL}/blog/`;
+const blogUrl = `${BASE_URL}/blog/`;
 
 export function generateMetadata(): Metadata {
   const posts = getAllPosts(["coverImage"]);
@@ -23,30 +29,12 @@ export function generateMetadata(): Metadata {
   const image = firstCoverImage
     ? new URL(firstCoverImage, BASE_URL).toString()
     : undefined;
-  const images = image ? [image] : undefined;
-
-  return {
-    title: title,
-    description: description,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title: title,
-      description: description,
-      type: "website",
-      url: url,
-      siteName: "Alex Leung",
-      locale: "en_CA",
-      images,
-    },
-    twitter: {
-      card: image ? "summary_large_image" : "summary",
-      title: title,
-      description: description,
-      images,
-    },
-  };
+  return buildPageMetadata({
+    title,
+    description,
+    path: "/blog",
+    images: image ? [{ url: image }] : undefined,
+  });
 }
 
 export default function BlogIndex() {
@@ -71,22 +59,22 @@ export default function BlogIndex() {
         item={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "@id": url,
-          url: url,
+          "@id": blogUrl,
+          url: blogUrl,
           name: title,
           description: description,
           inLanguage: "en-CA",
           isPartOf: {
             "@type": "WebSite",
-            "@id": `${BASE_URL}/#website`,
+            "@id": getWebsiteId(),
           },
           mainEntity: {
             "@type": "Blog",
-            "@id": `${BASE_URL}/blog/#blog`,
+            "@id": getBlogId(),
             name: "Alex Leung's Blog",
             description: description,
             publisher: {
-              "@id": `${BASE_URL}/#person`,
+              "@id": getPersonId(),
             },
           },
         }}
@@ -95,7 +83,7 @@ export default function BlogIndex() {
         item={{
           "@context": "https://schema.org",
           "@type": "ItemList",
-          "@id": `${BASE_URL}/blog/#itemlist`,
+          "@id": `${blogUrl}#itemlist`,
           itemListElement: allPosts.map((post, index) => ({
             "@type": "ListItem",
             position: index + 1,
