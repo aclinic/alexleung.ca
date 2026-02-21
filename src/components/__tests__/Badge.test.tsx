@@ -6,7 +6,7 @@ describe("Badge", () => {
   it("uses default info tone", () => {
     render(<Badge>Status</Badge>);
 
-    expect(screen.getByText("Status")).toHaveClass("text-accent-link");
+    expect(screen.getByText("Status")).toHaveClass("text-white");
   });
 
   it("supports success tone", () => {

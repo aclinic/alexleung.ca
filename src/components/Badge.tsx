@@ -9,7 +9,7 @@ type BadgeProps = {
 };
 
 const toneClasses: Record<BadgeTone, string> = {
-  info: "border-accent-link/40 bg-accent-link/15 text-accent-link",
+  info: "border-accent-link/50 bg-accent-link/25 text-white",
   success: "border-accent-success/40 bg-accent-success/15 text-accent-success",
   warning: "border-accent-warning/40 bg-accent-warning/15 text-accent-warning",
 };
