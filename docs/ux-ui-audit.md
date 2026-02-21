@@ -155,7 +155,7 @@ It also identifies UI primitives that should be refactored into reusable compone
 11. ✅ `NavMenu` split primitives
 
 #### Phase 3 implementation notes
-- Added `AppBackground` to centralize global background styling and route-aware overlay variants (`default`, `reading`, `minimal`) so long-form blog pages can use a calmer contrast profile.
+- Added `AppBackground` to centralize global background styling while preserving the existing global overlay behavior.
 - Introduced `IconTextRow` and replaced duplicated emoji/title/content row markup in About and Now sections with a shared primitive.
 - Split header navigation into `DesktopNav` and `MobileNavDrawer` via a shared `NavItem`, preserving interaction behavior while reducing duplicated link-state styling logic.
 
