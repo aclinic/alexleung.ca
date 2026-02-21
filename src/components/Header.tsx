@@ -6,13 +6,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about/", label: "About" },
-  { href: "/now/", label: "Now" },
-  { href: "/blog/", label: "Blog" },
-  { href: "/contact/", label: "Contact" },
-];
+import { DesktopNav, MobileNavDrawer } from "@/components/NavMenu";
 
 export default function Header() {
   const pathname = usePathname();
@@ -68,25 +62,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden gap-8 md:flex">
-            {navLinks.map((link) => {
-              const active = isActive(link.href);
-
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`nav-link ${
-                      active ? "nav-link--active" : "nav-link--inactive"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <DesktopNav isActive={isActive} />
 
           {/* Mobile Menu Button */}
           <button
@@ -106,60 +82,11 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Mobile Navigation Overlay - outside header for proper stacking */}
-      {/* Backdrop - covers area below header */}
-      <div
-        className={`fixed inset-0 top-[var(--header-height)] z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          isMenuOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
-        onClick={closeMenu}
-        aria-hidden={!isMenuOpen}
+      <MobileNavDrawer
+        isOpen={isMenuOpen}
+        isActive={isActive}
+        onClose={closeMenu}
       />
-      {/* Menu */}
-      <div
-        className={`fixed left-0 right-0 top-[var(--header-height)] z-40 border-b border-white/10 bg-black/95 backdrop-blur-md transition-all duration-300 md:hidden ${
-          isMenuOpen
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-4 opacity-0"
-        }`}
-        aria-hidden={!isMenuOpen}
-      >
-        <ul className="flex flex-col py-8">
-          {navLinks.map((link, index) => {
-            const active = isActive(link.href);
-
-            return (
-              <li
-                key={link.href}
-                className={`transition-all duration-300 ${
-                  isMenuOpen
-                    ? "translate-x-0 opacity-100"
-                    : "-translate-x-4 opacity-0"
-                }`}
-                style={{
-                  transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
-                }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={closeMenu}
-                  aria-current={active ? "page" : undefined}
-                  className={`mobile-nav-link ${
-                    active
-                      ? "mobile-nav-link--active"
-                      : "mobile-nav-link--inactive"
-                  }`}
-                  tabIndex={isMenuOpen ? 0 : -1}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
     </>
   );
 }

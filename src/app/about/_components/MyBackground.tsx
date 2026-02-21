@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import ExternalLink from "@/components/ExternalLink";
+import { IconTextRow } from "@/components/IconTextRow";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { SectionBlock } from "@/components/SectionBlock";
 
@@ -10,81 +11,62 @@ export function Journey() {
       <SectionBlock title="My Background" titleId="background" spacing="lg">
         <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
           <div className="text-md mb-8 text-left leading-relaxed lg:text-lg">
-            <div className="mb-6 flex items-start gap-3">
-              <span className="mt-1 flex-shrink-0 text-xl">👋</span>
-              <div>
-                <h3 className="text-heading-sm mb-1 font-semibold">Hello</h3>
-                <p className="leading-relaxed">
-                  Hi! I&apos;m Alex, and I&apos;m glad you&apos;re here.
-                </p>
-              </div>
-            </div>
+            <IconTextRow
+              icon="👋"
+              title="Hello"
+              className="mb-6"
+              contentClassName="space-y-0"
+            >
+              <p className="leading-relaxed">
+                Hi! I&apos;m Alex, and I&apos;m glad you&apos;re here.
+              </p>
+            </IconTextRow>
 
-            <div className="mb-6 flex items-start gap-3">
-              <span className="mt-1 flex-shrink-0 text-xl">💼</span>
-              <div>
-                <h3 className="text-heading-sm mb-1 font-semibold">
-                  What I Do
-                </h3>
-                <p className="leading-relaxed">
-                  I&apos;m currently at{" "}
-                  <ExternalLink href="https://jetsonhome.com">
-                    Jetson
-                  </ExternalLink>
-                  , helping electrify North American homes with vertically
-                  integrated energy solutions.
-                </p>
-                <p className="mt-3 leading-relaxed">
-                  Before that, I worked on AR/AI glasses at{" "}
-                  <ExternalLink href="https://arvr.google.com/">
-                    Google
-                  </ExternalLink>{" "}
-                  and product engineering at{" "}
-                  <ExternalLink href="https://cash.app/">Cash App</ExternalLink>
-                  .
-                </p>
-              </div>
-            </div>
+            <IconTextRow icon="💼" title="What I Do" className="mb-6">
+              <p className="leading-relaxed">
+                I&apos;m currently at{" "}
+                <ExternalLink href="https://jetsonhome.com">
+                  Jetson
+                </ExternalLink>
+                , helping electrify North American homes with vertically
+                integrated energy solutions.
+              </p>
+              <p className="mt-3 leading-relaxed">
+                Before that, I worked on AR/AI glasses at{" "}
+                <ExternalLink href="https://arvr.google.com/">
+                  Google
+                </ExternalLink>{" "}
+                and product engineering at{" "}
+                <ExternalLink href="https://cash.app/">Cash App</ExternalLink>.
+              </p>
+            </IconTextRow>
 
-            <div className="mb-6 flex items-start gap-3">
-              <span className="mt-1 flex-shrink-0 text-xl">🚀</span>
-              <div>
-                <h3 className="text-heading-sm mb-1 font-semibold">
-                  How I Work
-                </h3>
-                <p className="leading-relaxed">
-                  I build products from 0→1 and help scale them from 1→100.
-                </p>
-                <p className="mt-3 leading-relaxed">
-                  My background spans distributed systems, embedded systems, and
-                  AI. My approach is simple:{" "}
-                  <strong>prioritize momentum, then optimize for scale.</strong>
-                </p>
-                <ul className="mt-3 list-inside list-disc space-y-1">
-                  <li>Lean into ambiguity</li>
-                  <li>Break large problems into clear roadmaps</li>
-                  <li>Keep teams aligned and shipping</li>
-                </ul>
-              </div>
-            </div>
+            <IconTextRow icon="🚀" title="How I Work" className="mb-6">
+              <p className="leading-relaxed">
+                I build products from 0→1 and help scale them from 1→100.
+              </p>
+              <p className="mt-3 leading-relaxed">
+                My background spans distributed systems, embedded systems, and
+                AI. My approach is simple:{" "}
+                <strong>prioritize momentum, then optimize for scale.</strong>
+              </p>
+              <ul className="mt-3 list-inside list-disc space-y-1">
+                <li>Lean into ambiguity</li>
+                <li>Break large problems into clear roadmaps</li>
+                <li>Keep teams aligned and shipping</li>
+              </ul>
+            </IconTextRow>
 
-            <div className="mb-6 flex items-start gap-3">
-              <span className="mt-1 flex-shrink-0 text-xl">❤️</span>
-              <div>
-                <h3 className="text-heading-sm mb-1 font-semibold">
-                  Outside Work
-                </h3>
-                <p className="leading-relaxed">
-                  I&apos;m motivated by building useful things, getting
-                  meaningful work done, and learning continuously.
-                </p>
-                <p className="mt-3 leading-relaxed">
-                  Outside of work, I spend time playing tennis 🎾, reading 📚,
-                  hiking 🏔️, rock climbing 🧗, and hanging out with my furmily
-                  🐱.
-                </p>
-              </div>
-            </div>
+            <IconTextRow icon="❤️" title="Outside Work" className="mb-6">
+              <p className="leading-relaxed">
+                I&apos;m motivated by building useful things, getting meaningful
+                work done, and learning continuously.
+              </p>
+              <p className="mt-3 leading-relaxed">
+                Outside of work, I spend time playing tennis 🎾, reading 📚,
+                hiking 🏔️, rock climbing 🧗, and hanging out with my furmily 🐱.
+              </p>
+            </IconTextRow>
           </div>
 
           <div className="flex flex-col gap-4 md:gap-6">
