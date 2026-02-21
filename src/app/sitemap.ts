@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 
+import { NOW_PAGE_LAST_UPDATED_ISO } from "@/app/now/page";
 import { getAllPosts } from "@/lib/blogApi";
 
 export const dynamic = "force-static";
@@ -7,7 +8,7 @@ export const dynamic = "force-static";
 const PAGE_LAST_MODIFIED: Record<string, string> = {
   home: "2026-02-14",
   about: "2026-02-14",
-  now: "2026-02-14",
+  now: NOW_PAGE_LAST_UPDATED_ISO,
   contact: "2026-02-14",
 };
 
