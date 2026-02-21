@@ -9,9 +9,13 @@ import { BlogPosting } from "schema-dts";
 
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
-import { BASE_URL } from "@/constants";
 import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import markdownToHtml from "@/lib/markdownToHtml";
+import {
+  buildBlogPostingJsonLd,
+  buildPageMetadata,
+  toCanonical,
+} from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -33,35 +37,28 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const title = `${post.title} | Alex Leung`;
   const description =
     post.excerpt || `Read ${post.title} on Alex Leung's blog.`;
-  const url = `${BASE_URL}/blog/${params_awaited.slug}`;
-  const coverImageUrl = post.coverImage
-    ? new URL(post.coverImage, BASE_URL).toString()
-    : undefined;
-  const images = coverImageUrl ? [coverImageUrl] : undefined;
-  const publishedTime = new Date(post.date).toISOString();
-  const modifiedTime = new Date(post.updated || post.date).toISOString();
 
-  return {
+  const metadata = buildPageMetadata({
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-      url,
-      images,
-      publishedTime,
-      modifiedTime,
-    },
-    twitter: {
-      card: coverImageUrl ? "summary_large_image" : "summary",
-      title,
-      description,
-      images,
-    },
+    path: `/blog/${params_awaited.slug}`,
+    type: "article",
+    images: post.coverImage ? [{ url: post.coverImage }] : undefined,
     keywords: post.tags.length > 0 ? post.tags : undefined,
-    alternates: {
-      canonical: url,
+  });
+
+  return {
+    ...metadata,
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: toCanonical(`/blog/${params_awaited.slug}`),
+      siteName: metadata.openGraph?.siteName,
+      locale: metadata.openGraph?.locale,
+      images: metadata.openGraph?.images,
+      publishedTime: new Date(post.date).toISOString(),
+      modifiedTime: new Date(post.updated || post.date).toISOString(),
     },
   };
 }
@@ -109,39 +106,15 @@ export default async function Post({ params }: Props) {
         ]}
       />
       <JsonLd<BlogPosting>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          "@id": `${BASE_URL}/blog/${post.slug}#blogposting`,
-          url: `${BASE_URL}/blog/${post.slug}`,
-          headline: post.title,
+        item={buildBlogPostingJsonLd({
+          slug: post.slug,
+          title: post.title,
           description: post.excerpt,
-          keywords: post.tags.length > 0 ? post.tags.join(", ") : undefined,
-          image: post.coverImage
-            ? [`${BASE_URL}${post.coverImage}`]
-            : undefined,
-          datePublished: new Date(post.date).toISOString(),
-          dateModified: new Date(post.updated || post.date).toISOString(),
-          author: {
-            "@type": "Person",
-            "@id": `${BASE_URL}/#person`,
-            name: "Alex Leung",
-          },
-          publisher: {
-            "@type": "Person",
-            "@id": `${BASE_URL}/#person`,
-          },
-          inLanguage: "en-CA",
-          mainEntityOfPage: {
-            "@type": "WebPage",
-            "@id": `${BASE_URL}/blog/${post.slug}`,
-          },
-          isPartOf: {
-            "@type": "Blog",
-            "@id": `${BASE_URL}/blog/#blog`,
-            name: "Blog | Alex Leung",
-          },
-        }}
+          coverImage: post.coverImage,
+          date: post.date,
+          updated: post.updated,
+          tags: post.tags,
+        })}
       />
       <div className="py-[var(--header-height)]">
         <Title title={post.title} />

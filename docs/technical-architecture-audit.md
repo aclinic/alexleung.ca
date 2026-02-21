@@ -142,3 +142,4 @@ The site has good baseline choices, but no explicit performance budget or regres
 ## Progress Log
 
 - **2026-02-16**: Recommendation D has completed foundational work (Phase 0 + Phase 1 utilities and tests). Remaining scope is route migration + JSON-LD extraction under Phase 2.
+- **2026-02-20**: Recommendation D route migration completed for `about`, `contact`, `now`, `blog`, and `blog/[slug]` using shared SEO helpers. Shared JSON-LD builders were added to reduce schema duplication across routes.

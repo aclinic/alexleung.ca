@@ -9,44 +9,28 @@ import { CollectionPage, ItemList } from "schema-dts";
 
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
-import { BASE_URL } from "@/constants";
 import { getAllPosts } from "@/lib/blogApi";
+import {
+  buildBlogCollectionPageJsonLd,
+  buildBlogItemListJsonLd,
+  buildPageMetadata,
+} from "@/lib/seo";
 
 const title = "Blog | Alex Leung";
 const description =
   "Thoughts on software engineering, product development, and life as a developer.";
-const url = `${BASE_URL}/blog/`;
+const path = "/blog";
 
 export function generateMetadata(): Metadata {
   const posts = getAllPosts(["coverImage"]);
   const firstCoverImage = posts.find((post) => post.coverImage)?.coverImage;
-  const image = firstCoverImage
-    ? new URL(firstCoverImage, BASE_URL).toString()
-    : undefined;
-  const images = image ? [image] : undefined;
 
-  return {
-    title: title,
-    description: description,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title: title,
-      description: description,
-      type: "website",
-      url: url,
-      siteName: "Alex Leung",
-      locale: "en_CA",
-      images,
-    },
-    twitter: {
-      card: image ? "summary_large_image" : "summary",
-      title: title,
-      description: description,
-      images,
-    },
-  };
+  return buildPageMetadata({
+    title,
+    description,
+    path,
+    images: firstCoverImage ? [{ url: firstCoverImage }] : undefined,
+  });
 }
 
 export default function BlogIndex() {
@@ -68,43 +52,15 @@ export default function BlogIndex() {
         ]}
       />
       <JsonLd<CollectionPage>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          "@id": url,
-          url: url,
-          name: title,
-          description: description,
-          inLanguage: "en-CA",
-          isPartOf: {
-            "@type": "WebSite",
-            "@id": `${BASE_URL}/#website`,
-          },
-          mainEntity: {
-            "@type": "Blog",
-            "@id": `${BASE_URL}/blog/#blog`,
-            name: "Alex Leung's Blog",
-            description: description,
-            publisher: {
-              "@id": `${BASE_URL}/#person`,
-            },
-          },
-        }}
+        item={buildBlogCollectionPageJsonLd({
+          path,
+          title,
+          description,
+          blogName: "Alex Leung's Blog",
+          blogDescription: description,
+        })}
       />
-      <JsonLd<ItemList>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "@id": `${BASE_URL}/blog/#itemlist`,
-          itemListElement: allPosts.map((post, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            url: `${BASE_URL}/blog/${post.slug}`,
-            name: post.title,
-          })),
-          numberOfItems: allPosts.length,
-        }}
-      />
+      <JsonLd<ItemList> item={buildBlogItemListJsonLd(allPosts)} />
       <div className="py-[var(--header-height)]">
         <Title title="Blog" />
         <div className="container mx-auto px-5">
