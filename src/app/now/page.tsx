@@ -1,13 +1,13 @@
 import { JsonLd } from "react-schemaorg";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { WebPage } from "schema-dts";
 
 import ExternalLink from "@/components/ExternalLink";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
-import { BASE_URL } from "@/constants";
+import { buildBasicPageSchema, buildPageMetadata } from "@/lib/seo";
 
 export const NOW_PAGE_LAST_UPDATED_ISO = "2026-02-20";
 
@@ -25,28 +25,12 @@ export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
 const title = "What I'm Doing Now | Alex Leung";
 const description =
   "Current projects, books, and goals - a snapshot of what Alex Leung is focused on right now.";
-const url = `${BASE_URL}/now/`;
-
-export const metadata: Metadata = {
-  title: title,
-  description: description,
-  alternates: {
-    canonical: url,
-  },
-  openGraph: {
-    title: title,
-    description: description,
-    type: "website",
-    url: url,
-    siteName: "Alex Leung",
-    locale: "en_CA",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: title,
-    description: description,
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title,
+  description,
+  path: "/now",
+  twitterCard: "summary_large_image",
+});
 
 export default function NowPage() {
   return (
@@ -58,23 +42,12 @@ export default function NowPage() {
         ]}
       />
       <JsonLd<WebPage>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "@id": url,
-          url: url,
-          name: title,
-          description: description,
-          mainEntity: {
-            "@type": "Person",
-            "@id": `${BASE_URL}/#person`,
-          },
-          inLanguage: "en-CA",
-          isPartOf: {
-            "@type": "WebSite",
-            "@id": `${BASE_URL}/#website`,
-          },
-        }}
+        item={buildBasicPageSchema({
+          type: "WebPage",
+          path: "/now",
+          title,
+          description,
+        })}
       />
 
       <div className="py-[var(--header-height)]">
