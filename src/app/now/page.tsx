@@ -170,12 +170,10 @@ export default function NowPage() {
               <ExternalLink href="https://nownownow.com/about">
                 now page
               </ExternalLink>
-              , inspired by{" "}
-              <ExternalLink href="https://sive.rs/nowff">
-                Derek Sivers
-              </ExternalLink>
-              . It&apos;s a snapshot of what I&apos;m focused on at this point
-              in my life.
+              . You can read more about the format{" "}
+              <ExternalLink href="https://sive.rs/nowff">here</ExternalLink>.
+              It&apos;s a snapshot of what I&apos;m focused on at this point in
+              my life.
             </p>
           </div>
         </section>
