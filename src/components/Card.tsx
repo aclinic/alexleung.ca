@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { Surface } from "@/components/Surface";
+
 export interface CardProps {
   children: ReactNode;
   className?: string;
@@ -10,7 +12,9 @@ export interface CardProps {
  * @param className - Additional custom classes to apply
  */
 export function Card({ children, className = "" }: CardProps) {
-  const baseStyles = "surface-static p-6";
-
-  return <div className={`${baseStyles} ${className}`}>{children}</div>;
+  return (
+    <Surface padding="md" className={className}>
+      {children}
+    </Surface>
+  );
 }

@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import * as schemadts from "schema-dts";
 
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
-import { Title } from "@/components/Title";
+import { PageShell } from "@/components/PageShell";
 import { BASE_URL } from "@/constants";
 
 import { EmailMe } from "./_components/EmailMe";
@@ -66,11 +66,10 @@ export default function ContactPage() {
         }}
       />
 
-      <div className="py-[var(--header-height)]">
-        <Title title="Contact" id="contact" />
+      <PageShell title="Contact" titleId="contact">
         <EmailMe />
         <SocialMediaList />
-      </div>
+      </PageShell>
     </>
   );
 }

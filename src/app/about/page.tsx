@@ -7,7 +7,7 @@ import * as schemadts from "schema-dts";
 import { Credentials } from "@/app/about/_components/Credentials";
 import { Journey } from "@/app/about/_components/MyBackground";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
-import { Title } from "@/components/Title";
+import { PageShell } from "@/components/PageShell";
 import { BASE_URL } from "@/constants";
 
 import { Skills } from "./_components/TechnicalInterests";
@@ -81,12 +81,11 @@ export default function AboutPage() {
         }}
       />
 
-      <div className="py-[var(--header-height)]">
-        <Title title="About Me" id="about" />
+      <PageShell title="About Me" titleId="about">
         <Journey />
         <Skills className="mt-12" />
         <Credentials />
-      </div>
+      </PageShell>
     </>
   );
 }

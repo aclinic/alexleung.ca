@@ -1,14 +1,16 @@
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { format } from "date-fns";
 import { BlogPosting } from "schema-dts";
 
+import { CoverImage } from "@/components/CoverImage";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
-import { Title } from "@/components/Title";
+import { PageShell } from "@/components/PageShell";
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { Surface } from "@/components/Surface";
 import { BASE_URL } from "@/constants";
 import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import markdownToHtml from "@/lib/markdownToHtml";
@@ -143,10 +145,9 @@ export default async function Post({ params }: Props) {
           },
         }}
       />
-      <div className="py-[var(--header-height)]">
-        <Title title={post.title} />
-        <article className="container mx-auto mb-12 px-5">
-          <div className="surface-static mx-auto max-w-3xl p-4 md:p-8">
+      <PageShell title={post.title}>
+        <ResponsiveContainer as="article" variant="prose" className="mb-12">
+          <Surface className="mx-auto" padding="sm">
             <div className="mb-3 text-lg text-gray-300">
               {format(new Date(post.date), "MMMM d, yyyy")}
             </div>
@@ -162,25 +163,20 @@ export default async function Post({ params }: Props) {
                 ))}
               </div>
             )}
-            {post.coverImage && (
-              <div className="mb-6 sm:mx-0 md:mb-10">
-                <Image
-                  src={post.coverImage}
-                  alt={`Cover for ${post.title}`}
-                  width={1200}
-                  height={630}
-                  sizes="(min-width: 1024px) 896px, 100vw"
-                  className="aspect-[21/9] w-full rounded-lg object-cover shadow-sm"
-                />
-              </div>
-            )}
+            <CoverImage
+              src={post.coverImage}
+              alt={`Cover for ${post.title}`}
+              variant="hero"
+              sizes="(min-width: 1024px) 896px, 100vw"
+              className="mb-6 sm:mx-0 md:mb-10"
+            />
             <div
               className="prose prose-invert max-w-none md:prose-lg prose-headings:text-white prose-p:text-gray-300 prose-a:text-accent-link prose-a:no-underline hover:prose-a:text-accent-link-hover hover:prose-a:underline prose-strong:text-white prose-pre:border prose-pre:border-white/10 prose-pre:bg-black/50"
               dangerouslySetInnerHTML={{ __html: content }}
             />
-          </div>
-        </article>
-      </div>
+          </Surface>
+        </ResponsiveContainer>
+      </PageShell>
     </>
   );
 }

@@ -1,9 +1,10 @@
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Subtitle } from "@/components/Subtitle";
 import { skills } from "@/constants/skills";
 
 export function Skills({ className }: { className?: string }) {
   return (
-    <section className="section-center">
+    <ResponsiveContainer as="section">
       <Subtitle title="Technical Interests" id="technicalinterests" />
       <div className={`text-md flex flex-col lg:text-lg ${className}`}>
         Here are a few technical areas that I enjoy working in:
@@ -21,6 +22,6 @@ export function Skills({ className }: { className?: string }) {
           ))}
         </ul>
       </div>
-    </section>
+    </ResponsiveContainer>
   );
 }

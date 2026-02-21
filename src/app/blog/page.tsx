@@ -1,14 +1,16 @@
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import { format } from "date-fns";
 import { CollectionPage, ItemList } from "schema-dts";
 
+import { CoverImage } from "@/components/CoverImage";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
-import { Title } from "@/components/Title";
+import { PageShell } from "@/components/PageShell";
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { surfaceClassNames } from "@/components/Surface";
 import { BASE_URL } from "@/constants";
 import { getAllPosts } from "@/lib/blogApi";
 
@@ -105,30 +107,28 @@ export default function BlogIndex() {
           numberOfItems: allPosts.length,
         }}
       />
-      <div className="py-[var(--header-height)]">
-        <Title title="Blog" />
-        <div className="container mx-auto px-5">
+      <PageShell title="Blog">
+        <ResponsiveContainer variant="wide">
           <div className="mb-32 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {allPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="surface-interactive group mb-8 block p-6"
+                className={surfaceClassNames({
+                  interactive: true,
+                  className: "group mb-8 block p-6",
+                })}
                 aria-label={post.title}
               >
                 <div className="mb-5">
-                  {post.coverImage && (
-                    <div className="mb-4 h-48 w-full overflow-hidden rounded-lg bg-gray-800">
-                      <Image
-                        src={post.coverImage}
-                        alt={`Cover for ${post.title}`}
-                        width={1200}
-                        height={630}
-                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                        className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
+                  <CoverImage
+                    src={post.coverImage}
+                    alt={`Cover for ${post.title}`}
+                    variant="card"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="mb-4"
+                    imageClassName="transition-transform duration-200 group-hover:scale-105"
+                  />
                 </div>
                 <h3 className="mb-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-accent-link">
                   {post.title}
@@ -158,8 +158,8 @@ export default function BlogIndex() {
               </Link>
             ))}
           </div>
-        </div>
-      </div>
+        </ResponsiveContainer>
+      </PageShell>
     </>
   );
 }
