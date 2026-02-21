@@ -137,11 +137,17 @@ It also identifies UI primitives that should be refactored into reusable compone
 3. `Surface`
 4. `CoverImage`
 
-### Phase 2
-5. `SectionBlock`
-6. `Tag` / `Badge`
-7. `LinkText`
-8. `ProseContent`
+### Phase 2 (implemented)
+5. ✅ `SectionBlock`
+6. ✅ `Tag` / `Badge`
+7. ✅ `LinkText`
+8. ✅ `ProseContent`
+
+#### Phase 2 implementation notes
+- Added reusable `SectionBlock` scaffolding and applied it to About and Now route content sections.
+- Introduced `Tag`/`Badge` primitives to standardize metadata and status chips across blog and now-page UI.
+- Added `LinkText` as the canonical link-style primitive and routed `ExternalLink` through it for style consistency.
+- Added `ProseContent` wrapper and migrated blog-post body rendering and now-page footer prose to shared typography defaults.
 
 ### Phase 3
 9. `AppBackground`

@@ -9,8 +9,10 @@ import { BlogPosting } from "schema-dts";
 import { CoverImage } from "@/components/CoverImage";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
+import { ProseContent } from "@/components/ProseContent";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Surface } from "@/components/Surface";
+import { Tag } from "@/components/Tag";
 import { BASE_URL } from "@/constants";
 import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import markdownToHtml from "@/lib/markdownToHtml";
@@ -158,12 +160,7 @@ export default async function Post({ params }: Props) {
             {post.tags.length > 0 && (
               <div className="mb-6 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
-                  <span
-                    key={`${post.slug}-${tag}`}
-                    className="rounded-full border border-white/20 px-2.5 py-1 text-xs font-semibold text-gray-200"
-                  >
-                    {tag}
-                  </span>
+                  <Tag key={`${post.slug}-${tag}`}>{tag}</Tag>
                 ))}
               </div>
             )}
@@ -174,10 +171,7 @@ export default async function Post({ params }: Props) {
               sizes="(min-width: 1024px) 896px, 100vw"
               className="mb-6 sm:mx-0 md:mb-10"
             />
-            <div
-              className="prose prose-invert max-w-none md:prose-lg prose-headings:text-white prose-p:text-gray-300 prose-a:text-accent-link prose-a:no-underline hover:prose-a:text-accent-link-hover hover:prose-a:underline prose-strong:text-white prose-pre:border prose-pre:border-white/10 prose-pre:bg-black/50"
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
+            <ProseContent html={content} />
           </Surface>
         </ResponsiveContainer>
       </PageShell>

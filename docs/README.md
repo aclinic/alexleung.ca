@@ -8,6 +8,7 @@ This folder contains repository-internal documents that support planning, audits
 | --- | --- | --- |
 | `technical-architecture-audit.md` | Architecture patterns, risks, and priorities | After major platform or dependency shifts |
 | `seo-audit.md` | SEO implementation audit and optimization backlog | After metadata/schema/content model updates |
+| `ux-ui-audit.md` | UX/UI audit findings and primitive refactor roadmap | After notable UI system changes |
 | `content-ideas.md` | Idea backlog for new pages and editorial themes | As ideas are added or completed |
 
 ## What belongs in `/docs`
