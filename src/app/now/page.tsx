@@ -35,106 +35,120 @@ export default function NowPage() {
 
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
-        <div className="container mx-auto mb-32 max-w-3xl px-5">
-          <div className="surface-static p-8 md:p-10">
-            <p className="mb-8 text-lg leading-relaxed text-gray-200">
-              Inspired by Derek Sivers&apos;
-              <ExternalLink href="https://nownownow.com/about">
-                {" "}
-                now page movement
-              </ExternalLink>
-              , this page captures what I&apos;m focused on right now.
-            </p>
+        <p className="mb-8 text-center text-sm">
+          Last updated: February 14, 2026
+        </p>
 
-            <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-semibold text-white">
-                Current Focus
-              </h2>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Working as{" "}
-                    <strong className="text-white">Syntropy Engineer</strong> at
-                    Jetson, designing home electrification systems and tools to
-                    accelerate decarbonization.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Building a{" "}
-                    <strong className="text-white">personal AI stack</strong>{" "}
-                    integrating local models, workflows, and tools for software
-                    development and experimentation.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Exploring robust software architecture patterns for
-                    <strong className="text-white">
-                      {" "}
-                      AI-assisted engineering systems
-                    </strong>
-                    .
-                  </span>
-                </li>
-              </ul>
-            </section>
+        <section className="section-center">
+          <div className="text-body space-y-8 text-left leading-relaxed">
+            {/* Top of mind */}
+            <div className="flex items-start gap-3">
+              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                🚀
+              </span>
+              <div>
+                <h3 className="text-heading-sm mb-2 font-semibold">
+                  Top of Mind
+                </h3>
+                <div className="space-y-3 leading-relaxed">
+                  <p>
+                    I recently launched the blog section of this site. It&apos;s
+                    been fun to build a "boring" but effective static
+                    architecture for sharing technical ideas.
+                  </p>
+                  <p>
+                    I&apos;ve also been using Codex more often for practical
+                    tasks, especially quick site updates and small maintenance
+                    workflows.
+                  </p>
+                  <p>
+                    I&apos;m also intrigued by the recent viral rise of{" "}
+                    <ExternalLink href="https://moltbook.com">
+                      Moltbook
+                    </ExternalLink>{" "}
+                    and the underlying{" "}
+                    <ExternalLink href="https://github.com/openclaw/moltbot">
+                      Moltbot
+                    </ExternalLink>{" "}
+                    framework. The idea of autonomous agents having their own
+                    social network is fascinating (and a little terrifying).
+                    I&apos;m observing for now instead of jumping in.
+                  </p>
+                  <p>
+                    Right now my priorities are simple: ship consistently on the
+                    blog, use tooling pragmatically to move faster, and stay
+                    curious about emerging AI-native products.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-semibold text-white">
-                Learning & Growth
-              </h2>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Reading books on systems design, leadership, and personal
-                    growth to level up both technically and personally.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Continuing to refine clean architecture and testing
-                    practices in frontend and backend projects.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Tracking emerging AI tooling and evaluating practical
-                    adoption strategies for product teams.
-                  </span>
-                </li>
-              </ul>
-            </section>
+            {/* Currently Reading */}
+            <div className="flex items-start gap-3">
+              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                📚
+              </span>
+              <div>
+                <h3 className="text-heading-sm mb-2 font-semibold">
+                  Currently Reading
+                </h3>
+                <div className="space-y-3 leading-relaxed">
+                  <p>
+                    I&apos;m currently on Chapter 7 of{" "}
+                    <ExternalLink href="https://www.deeplearningbook.org/">
+                      <em>Deep Learning</em>
+                    </ExternalLink>{" "}
+                    by Goodfellow, Bengio, and Courville.
+                  </p>
+                  <p>
+                    It&apos;s been refreshing to revisit math concepts I
+                    haven&apos;t used in years, and I&apos;m planning to write
+                    up thoughts on Chapter 6 soon.
+                  </p>
+                  <p>
+                    <ExternalLink href="https://www.domainlanguage.com/ddd/">
+                      <em>Domain Driven Design</em>
+                    </ExternalLink>{" "}
+                    is on hold for now while I go deeper on AI.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            <section>
-              <h2 className="mb-4 text-2xl font-semibold text-white">
-                Outside of Work
-              </h2>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Staying active through hiking and strength training to
-                    maintain energy and focus.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-3 mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-link"></span>
-                  <span>
-                    Spending quality time with friends and family while
-                    balancing ambitious technical goals.
-                  </span>
-                </li>
-              </ul>
-            </section>
+            {/* Current Goals */}
+            <div className="flex items-start gap-3">
+              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+                🎯
+              </span>
+              <div>
+                <h3 className="text-heading-sm mb-2 font-semibold">
+                  Current Goals
+                </h3>
+                <ul className="mt-3 list-outside list-disc space-y-1 pl-6 leading-relaxed">
+                  <li>Finish and understand the Deep Learning book</li>
+                  <li>Leveling up my tennis game</li>
+                  <li>Get to A2 proficiency in Chinese</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
+
+          {/* Footer note about Now pages */}
+          <div className="mt-12 border-t border-gray-700 pt-8 text-sm leading-relaxed text-gray-300">
+            <p>
+              This is a{" "}
+              <ExternalLink href="https://nownownow.com/about">
+                now page
+              </ExternalLink>
+              , inspired by{" "}
+              <ExternalLink href="https://sive.rs/nowff">
+                Derek Sivers
+              </ExternalLink>
+              . It&apos;s a snapshot of what I&apos;m focused on at this point
+              in my life.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );
