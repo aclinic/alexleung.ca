@@ -5,7 +5,7 @@ import { data } from "@/constants/socialLinks";
 
 export function SocialMediaList() {
   return (
-    <ResponsiveContainer as="section">
+    <ResponsiveContainer element="section">
       <Subtitle title="Connect" id="social" />
       <div className="mt-8 flex flex-wrap justify-center gap-6">
         {data.map((link) => (

@@ -3,7 +3,7 @@ import { ElementType, ReactNode } from "react";
 type SurfacePadding = "none" | "sm" | "md" | "lg";
 
 type SurfaceProps<T extends ElementType = "div"> = {
-  as?: T;
+  element?: T;
   children: ReactNode;
   className?: string;
   interactive?: boolean;
@@ -31,13 +31,13 @@ export function surfaceClassNames({
 }
 
 export function Surface<T extends ElementType = "div">({
-  as,
+  element,
   children,
   className = "",
   interactive = false,
   padding = "none",
 }: SurfaceProps<T>) {
-  const Component = as ?? "div";
+  const Component = element ?? "div";
 
   return (
     <Component

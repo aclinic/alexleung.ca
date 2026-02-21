@@ -4,7 +4,7 @@ import { skills } from "@/constants/skills";
 
 export function Skills({ className }: { className?: string }) {
   return (
-    <ResponsiveContainer as="section">
+    <ResponsiveContainer element="section">
       <Subtitle title="Technical Interests" id="technicalinterests" />
       <div className={`text-md flex flex-col lg:text-lg ${className}`}>
         Here are a few technical areas that I enjoy working in:

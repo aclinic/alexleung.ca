@@ -6,7 +6,7 @@ import { Subtitle } from "@/components/Subtitle";
 
 export function Journey() {
   return (
-    <ResponsiveContainer as="section">
+    <ResponsiveContainer element="section">
       <Subtitle title="My Background" id="background" />
 
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">

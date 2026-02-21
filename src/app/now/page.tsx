@@ -70,7 +70,7 @@ export default function NowPage() {
           Last updated: February 14, 2026
         </p>
 
-        <ResponsiveContainer as="section">
+        <ResponsiveContainer element="section">
           <div className="text-body space-y-8 text-left leading-relaxed">
             {/* Top of mind */}
             <div className="flex items-start gap-3">

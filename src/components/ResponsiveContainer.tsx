@@ -3,7 +3,7 @@ import { ElementType, ReactNode } from "react";
 type ContainerVariant = "content" | "wide" | "prose";
 
 type ResponsiveContainerProps<T extends ElementType = "div"> = {
-  as?: T;
+  element?: T;
   children: ReactNode;
   className?: string;
   variant?: ContainerVariant;
@@ -16,12 +16,12 @@ const variantClasses: Record<ContainerVariant, string> = {
 };
 
 export function ResponsiveContainer<T extends ElementType = "div">({
-  as,
+  element,
   children,
   className = "",
   variant = "content",
 }: ResponsiveContainerProps<T>) {
-  const Component = as ?? "div";
+  const Component = element ?? "div";
 
   return (
     <Component className={`${variantClasses[variant]} ${className}`.trim()}>

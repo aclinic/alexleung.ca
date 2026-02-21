@@ -3,7 +3,7 @@ import { Subtitle } from "@/components/Subtitle";
 
 export function EmailMe() {
   return (
-    <ResponsiveContainer as="section" className="text-center">
+    <ResponsiveContainer element="section" className="text-center">
       <Subtitle title="Email Me" id="email" />
       <div className="text-body">
         <p>

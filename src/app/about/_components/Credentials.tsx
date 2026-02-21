@@ -5,7 +5,7 @@ import { Subtitle } from "@/components/Subtitle";
 
 export function Credentials() {
   return (
-    <ResponsiveContainer as="section">
+    <ResponsiveContainer element="section">
       <Subtitle title="Credentials" id="credentials" />
 
       <p className="mb-6 leading-relaxed text-gray-300">

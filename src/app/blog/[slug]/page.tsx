@@ -146,7 +146,11 @@ export default async function Post({ params }: Props) {
         }}
       />
       <PageShell title={post.title}>
-        <ResponsiveContainer as="article" variant="prose" className="mb-12">
+        <ResponsiveContainer
+          element="article"
+          variant="prose"
+          className="mb-12"
+        >
           <Surface className="mx-auto" padding="sm">
             <div className="mb-3 text-lg text-gray-300">
               {format(new Date(post.date), "MMMM d, yyyy")}
