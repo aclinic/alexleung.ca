@@ -11,6 +11,7 @@ import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { surfaceClassNames } from "@/components/Surface";
+import { Tag } from "@/components/Tag";
 import { BASE_URL } from "@/constants";
 import { getAllPosts } from "@/lib/blogApi";
 
@@ -142,12 +143,7 @@ export default function BlogIndex() {
                 {post.tags.length > 0 && (
                   <div className="mb-4 flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                      <span
-                        key={`${post.slug}-${tag}`}
-                        className="rounded-full border border-white/20 px-2.5 py-1 text-xs font-semibold text-gray-200"
-                      >
-                        {tag}
-                      </span>
+                      <Tag key={`${post.slug}-${tag}`}>{tag}</Tag>
                     ))}
                   </div>
                 )}

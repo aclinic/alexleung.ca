@@ -1,13 +1,17 @@
+import { ReactNode } from "react";
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
 
 import { WebPage } from "schema-dts";
 
+import { Badge } from "@/components/Badge";
 import ExternalLink from "@/components/ExternalLink";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
+import { ProseContent } from "@/components/ProseContent";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { SectionBlock } from "@/components/SectionBlock";
 import { BASE_URL } from "@/constants";
 
 export const NOW_PAGE_LAST_UPDATED_ISO = "2026-02-20";
@@ -49,6 +53,28 @@ export const metadata: Metadata = {
   },
 };
 
+function NowItem({
+  emoji,
+  title,
+  children,
+}: {
+  emoji: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex items-start gap-3">
+      <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
+        {emoji}
+      </span>
+      <div>
+        <h3 className="text-heading-sm mb-2 font-semibold">{title}</h3>
+        <div className="space-y-3 leading-relaxed">{children}</div>
+      </div>
+    </div>
+  );
+}
+
 export default function NowPage() {
   return (
     <>
@@ -79,103 +105,75 @@ export default function NowPage() {
       />
 
       <PageShell title="What I'm Doing Now" titleId="now">
-        <p className="mb-8 text-center text-sm">
-          Last updated: {NOW_PAGE_LAST_UPDATED_DISPLAY}
-        </p>
+        <div className="mb-8 text-center">
+          <Badge tone="info">
+            Last updated: {NOW_PAGE_LAST_UPDATED_DISPLAY}
+          </Badge>
+        </div>
 
         <ResponsiveContainer element="section">
-          <div className="text-body space-y-8 text-left leading-relaxed">
-            {/* Top of mind */}
-            <div className="flex items-start gap-3">
-              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
-                🚀
-              </span>
-              <div>
-                <h3 className="text-heading-sm mb-2 font-semibold">
-                  Top of Mind
-                </h3>
-                <div className="space-y-3 leading-relaxed">
-                  <p>
-                    I recently launched the blog section of this site. It&apos;s
-                    been fun to build a "boring" but effective static
-                    architecture for sharing technical ideas.
-                  </p>
-                  <p>
-                    I&apos;ve also been using Codex more often for practical
-                    tasks, especially quick site updates and small maintenance
-                    workflows. I&apos;ve also started using{" "}
-                    <ExternalLink href="https://www.conductor.build/">
-                      Conductor
-                    </ExternalLink>
-                    ; I like the UI and how easy it is to spin up new worktrees.
-                  </p>
-                  <p>
-                    Right now my priorities are simple: ship consistently on the
-                    blog, use tooling pragmatically to move faster, and stay
-                    curious about emerging AI-native products.
-                  </p>
-                </div>
-              </div>
-            </div>
+          <SectionBlock spacing="lg">
+            <div className="text-body space-y-8 text-left leading-relaxed">
+              <NowItem emoji="🚀" title="Top of Mind">
+                <p>
+                  I recently launched the blog section of this site. It&apos;s
+                  been fun to build a "boring" but effective static architecture
+                  for sharing technical ideas.
+                </p>
+                <p>
+                  I&apos;ve also been using Codex more often for practical
+                  tasks, especially quick site updates and small maintenance
+                  workflows. I&apos;ve also started using{" "}
+                  <ExternalLink href="https://www.conductor.build/">
+                    Conductor
+                  </ExternalLink>
+                  ; I like the UI and how easy it is to spin up new worktrees.
+                </p>
+                <p>
+                  Right now my priorities are simple: ship consistently on the
+                  blog, use tooling pragmatically to move faster, and stay
+                  curious about emerging AI-native products.
+                </p>
+              </NowItem>
 
-            {/* Currently Reading */}
-            <div className="flex items-start gap-3">
-              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
-                📚
-              </span>
-              <div>
-                <h3 className="text-heading-sm mb-2 font-semibold">
-                  Currently Reading
-                </h3>
-                <div className="space-y-3 leading-relaxed">
-                  <p>
-                    I&apos;m currently on Chapter 7 of{" "}
-                    <ExternalLink href="https://www.deeplearningbook.org/">
-                      <em>Deep Learning</em>
-                    </ExternalLink>{" "}
-                    by Goodfellow, Bengio, and Courville.
-                  </p>
-                  <p>
-                    <ExternalLink href="https://www.domainlanguage.com/ddd/">
-                      <em>Domain Driven Design</em>
-                    </ExternalLink>{" "}
-                    is on hold for now while I go deeper on AI.
-                  </p>
-                </div>
-              </div>
-            </div>
+              <NowItem emoji="📚" title="Currently Reading">
+                <p>
+                  I&apos;m currently on Chapter 7 of{" "}
+                  <ExternalLink href="https://www.deeplearningbook.org/">
+                    <em>Deep Learning</em>
+                  </ExternalLink>{" "}
+                  by Goodfellow, Bengio, and Courville.
+                </p>
+                <p>
+                  <ExternalLink href="https://www.domainlanguage.com/ddd/">
+                    <em>Domain Driven Design</em>
+                  </ExternalLink>{" "}
+                  is on hold for now while I go deeper on AI.
+                </p>
+              </NowItem>
 
-            {/* Current Goals */}
-            <div className="flex items-start gap-3">
-              <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
-                🎯
-              </span>
-              <div>
-                <h3 className="text-heading-sm mb-2 font-semibold">
-                  Current Goals
-                </h3>
+              <NowItem emoji="🎯" title="Current Goals">
                 <ul className="mt-3 list-outside list-disc space-y-1 pl-6 leading-relaxed">
                   <li>Finish and understand the Deep Learning book</li>
                   <li>Leveling up my tennis game</li>
                   <li>Get to A2 proficiency in Chinese</li>
                 </ul>
-              </div>
+              </NowItem>
             </div>
-          </div>
 
-          {/* Footer note about Now pages */}
-          <div className="mt-12 border-t border-gray-700 pt-8 text-sm leading-relaxed text-gray-300">
-            <p>
-              This is a{" "}
-              <ExternalLink href="https://nownownow.com/about">
-                now page
-              </ExternalLink>
-              . You can read more about the format{" "}
-              <ExternalLink href="https://sive.rs/nowff">here</ExternalLink>.
-              It&apos;s a snapshot of what I&apos;m focused on at this point in
-              my life.
-            </p>
-          </div>
+            <ProseContent className="border-t border-gray-700 pt-8 text-sm">
+              <p>
+                This is a{" "}
+                <ExternalLink href="https://nownownow.com/about">
+                  now page
+                </ExternalLink>
+                . You can read more about the format{" "}
+                <ExternalLink href="https://sive.rs/nowff">here</ExternalLink>.
+                It&apos;s a snapshot of what I&apos;m focused on at this point
+                in my life.
+              </p>
+            </ProseContent>
+          </SectionBlock>
         </ResponsiveContainer>
       </PageShell>
     </>

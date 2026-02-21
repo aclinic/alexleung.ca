@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { LinkText } from "@/components/LinkText";
+
 export interface ExternalLinkProps {
   href: string;
   children: ReactNode;
@@ -9,16 +11,11 @@ export interface ExternalLinkProps {
 export default function ExternalLink({
   href,
   children,
-  className = "text-accent-link hover:text-accent-link-hover transition-colors underline decoration-accent-link/50 hover:decoration-accent-link-hover",
+  className,
 }: ExternalLinkProps) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
-    >
+    <LinkText href={href} external className={className}>
       {children}
-    </a>
+    </LinkText>
   );
 }
