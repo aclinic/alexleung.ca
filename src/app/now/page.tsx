@@ -6,7 +6,8 @@ import { WebPage } from "schema-dts";
 
 import ExternalLink from "@/components/ExternalLink";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
-import { Title } from "@/components/Title";
+import { PageShell } from "@/components/PageShell";
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { BASE_URL } from "@/constants";
 
 export const NOW_PAGE_LAST_UPDATED_ISO = "2026-02-20";
@@ -77,13 +78,12 @@ export default function NowPage() {
         }}
       />
 
-      <div className="py-[var(--header-height)]">
-        <Title title="What I'm Doing Now" id="now" />
+      <PageShell title="What I'm Doing Now" titleId="now">
         <p className="mb-8 text-center text-sm">
           Last updated: {NOW_PAGE_LAST_UPDATED_DISPLAY}
         </p>
 
-        <section className="section-center">
+        <ResponsiveContainer element="section">
           <div className="text-body space-y-8 text-left leading-relaxed">
             {/* Top of mind */}
             <div className="flex items-start gap-3">
@@ -176,8 +176,8 @@ export default function NowPage() {
               my life.
             </p>
           </div>
-        </section>
-      </div>
+        </ResponsiveContainer>
+      </PageShell>
     </>
   );
 }

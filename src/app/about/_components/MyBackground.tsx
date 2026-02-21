@@ -1,11 +1,12 @@
 import Image from "next/image";
 
 import ExternalLink from "@/components/ExternalLink";
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Subtitle } from "@/components/Subtitle";
 
 export function Journey() {
   return (
-    <section className="section-center">
+    <ResponsiveContainer element="section">
       <Subtitle title="My Background" id="background" />
 
       <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
@@ -93,6 +94,6 @@ export function Journey() {
           />
         </div>
       </div>
-    </section>
+    </ResponsiveContainer>
   );
 }

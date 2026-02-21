@@ -1,10 +1,11 @@
 import { Card } from "@/components/Card";
 import ExternalLink from "@/components/ExternalLink";
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Subtitle } from "@/components/Subtitle";
 
 export function Credentials() {
   return (
-    <section className="section-center">
+    <ResponsiveContainer element="section">
       <Subtitle title="Credentials" id="credentials" />
 
       <p className="mb-6 leading-relaxed text-gray-300">
@@ -78,6 +79,6 @@ export function Credentials() {
           </Card>
         </div>
       </div>
-    </section>
+    </ResponsiveContainer>
   );
 }

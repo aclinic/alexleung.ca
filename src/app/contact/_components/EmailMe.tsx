@@ -1,8 +1,9 @@
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Subtitle } from "@/components/Subtitle";
 
 export function EmailMe() {
   return (
-    <section className="section-center text-center">
+    <ResponsiveContainer element="section" className="text-center">
       <Subtitle title="Email Me" id="email" />
       <div className="text-body">
         <p>
@@ -10,6 +11,6 @@ export function EmailMe() {
           <strong>alex [at] alexleung.ca</strong> or reach out on social media.
         </p>
       </div>
-    </section>
+    </ResponsiveContainer>
   );
 }
