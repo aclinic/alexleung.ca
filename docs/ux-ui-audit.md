@@ -149,10 +149,15 @@ It also identifies UI primitives that should be refactored into reusable compone
 - Added `LinkText` as the canonical link-style primitive and routed `ExternalLink` through it for style consistency.
 - Added `ProseContent` wrapper and migrated blog-post body rendering and now-page footer prose to shared typography defaults.
 
-### Phase 3
-9. `AppBackground`
-10. `IconTextRow`
-11. `NavMenu` split primitives
+### Phase 3 (implemented)
+9. ✅ `AppBackground`
+10. ✅ `IconTextRow`
+11. ✅ `NavMenu` split primitives
+
+#### Phase 3 implementation notes
+- Added `AppBackground` to centralize global background styling and route-aware overlay variants (`default`, `reading`, `minimal`) so long-form blog pages can use a calmer contrast profile.
+- Introduced `IconTextRow` and replaced duplicated emoji/title/content row markup in About and Now sections with a shared primitive.
+- Split header navigation into `DesktopNav` and `MobileNavDrawer` via a shared `NavItem`, preserving interaction behavior while reducing duplicated link-state styling logic.
 
 ---
 

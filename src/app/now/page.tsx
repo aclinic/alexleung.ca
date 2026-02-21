@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
@@ -7,6 +6,7 @@ import { WebPage } from "schema-dts";
 
 import { Badge } from "@/components/Badge";
 import ExternalLink from "@/components/ExternalLink";
+import { IconTextRow } from "@/components/IconTextRow";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ProseContent } from "@/components/ProseContent";
@@ -53,28 +53,6 @@ export const metadata: Metadata = {
   },
 };
 
-function NowItem({
-  emoji,
-  title,
-  children,
-}: {
-  emoji: string;
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="flex items-start gap-3">
-      <span aria-hidden="true" className="mt-1 flex-shrink-0 text-xl">
-        {emoji}
-      </span>
-      <div>
-        <h3 className="text-heading-sm mb-2 font-semibold">{title}</h3>
-        <div className="space-y-3 leading-relaxed">{children}</div>
-      </div>
-    </div>
-  );
-}
-
 export default function NowPage() {
   return (
     <>
@@ -114,7 +92,7 @@ export default function NowPage() {
         <ResponsiveContainer element="section">
           <SectionBlock spacing="lg">
             <div className="text-body space-y-8 text-left leading-relaxed">
-              <NowItem emoji="🚀" title="Top of Mind">
+              <IconTextRow icon="🚀" title="Top of Mind">
                 <p>
                   I recently launched the blog section of this site. It&apos;s
                   been fun to build a "boring" but effective static architecture
@@ -134,9 +112,9 @@ export default function NowPage() {
                   blog, use tooling pragmatically to move faster, and stay
                   curious about emerging AI-native products.
                 </p>
-              </NowItem>
+              </IconTextRow>
 
-              <NowItem emoji="📚" title="Currently Reading">
+              <IconTextRow icon="📚" title="Currently Reading">
                 <p>
                   I&apos;m currently on Chapter 7 of{" "}
                   <ExternalLink href="https://www.deeplearningbook.org/">
@@ -150,15 +128,15 @@ export default function NowPage() {
                   </ExternalLink>{" "}
                   is on hold for now while I go deeper on AI.
                 </p>
-              </NowItem>
+              </IconTextRow>
 
-              <NowItem emoji="🎯" title="Current Goals">
+              <IconTextRow icon="🎯" title="Current Goals">
                 <ul className="mt-3 list-outside list-disc space-y-1 pl-6 leading-relaxed">
                   <li>Finish and understand the Deep Learning book</li>
                   <li>Leveling up my tennis game</li>
                   <li>Get to A2 proficiency in Chinese</li>
                 </ul>
-              </NowItem>
+              </IconTextRow>
             </div>
 
             <ProseContent className="border-t border-gray-700 pt-8 text-sm">

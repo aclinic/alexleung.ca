@@ -6,6 +6,7 @@ import { Lato } from "next/font/google";
 
 import * as schemadts from "schema-dts";
 
+import { AppBackground } from "@/components/AppBackground";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SocialLinks from "@/components/SocialLinks";
@@ -219,7 +220,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={`${lato.className} flex min-h-screen flex-col`}>
         <JsonLd item={buildPersonSchema()} />
         <JsonLd item={buildWebSiteSchema()} />
-        <div className="fixed inset-0 -z-10 h-screen bg-[url('/assets/background.webp')] bg-cover bg-center bg-no-repeat after:absolute after:inset-0 after:bg-black/50"></div>
+        <AppBackground />
         <Header />
         <SocialLinks />
         <main className="flex flex-grow flex-col">{children}</main>
