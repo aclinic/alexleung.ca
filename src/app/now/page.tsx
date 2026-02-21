@@ -9,6 +9,19 @@ import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { Title } from "@/components/Title";
 import { BASE_URL } from "@/constants";
 
+export const NOW_PAGE_LAST_UPDATED_ISO = "2026-02-20";
+
+const nowPageLastUpdatedDate = new Date(
+  `${NOW_PAGE_LAST_UPDATED_ISO}T00:00:00Z`
+);
+
+export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(nowPageLastUpdatedDate);
+
 const title = "What I'm Doing Now | Alex Leung";
 const description =
   "Current projects, books, and goals - a snapshot of what Alex Leung is focused on right now.";
@@ -67,7 +80,7 @@ export default function NowPage() {
       <div className="py-[var(--header-height)]">
         <Title title="What I'm Doing Now" id="now" />
         <p className="mb-8 text-center text-sm">
-          Last updated: February 14, 2026
+          Last updated: {NOW_PAGE_LAST_UPDATED_DISPLAY}
         </p>
 
         <section className="section-center">
@@ -90,20 +103,11 @@ export default function NowPage() {
                   <p>
                     I&apos;ve also been using Codex more often for practical
                     tasks, especially quick site updates and small maintenance
-                    workflows.
-                  </p>
-                  <p>
-                    I&apos;m also intrigued by the recent viral rise of{" "}
-                    <ExternalLink href="https://moltbook.com">
-                      Moltbook
-                    </ExternalLink>{" "}
-                    and the underlying{" "}
-                    <ExternalLink href="https://github.com/openclaw/moltbot">
-                      Moltbot
-                    </ExternalLink>{" "}
-                    framework. The idea of autonomous agents having their own
-                    social network is fascinating (and a little terrifying).
-                    I&apos;m observing for now instead of jumping in.
+                    workflows. I&apos;ve also started using{" "}
+                    <ExternalLink href="https://www.conductor.build/">
+                      Conductor
+                    </ExternalLink>
+                    ; I like the UI and how easy it is to spin up new worktrees.
                   </p>
                   <p>
                     Right now my priorities are simple: ship consistently on the
@@ -130,11 +134,6 @@ export default function NowPage() {
                       <em>Deep Learning</em>
                     </ExternalLink>{" "}
                     by Goodfellow, Bengio, and Courville.
-                  </p>
-                  <p>
-                    It&apos;s been refreshing to revisit math concepts I
-                    haven&apos;t used in years, and I&apos;m planning to write
-                    up thoughts on Chapter 6 soon.
                   </p>
                   <p>
                     <ExternalLink href="https://www.domainlanguage.com/ddd/">
