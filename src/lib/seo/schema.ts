@@ -73,6 +73,7 @@ export function buildWebPageJsonLd(
 type BlogCollectionPageInput = BasePageSchemaInput & {
   blogDescription: string;
   blogName: string;
+  blogPath: string;
 };
 
 export function buildBlogCollectionPageJsonLd(
@@ -84,7 +85,7 @@ export function buildBlogCollectionPageJsonLd(
     ...buildBasePageSchema(input),
     mainEntity: {
       "@type": "Blog",
-      "@id": `${toAbsoluteUrl("/blog/")}#blog`,
+      "@id": `${toCanonical(input.blogPath)}#blog`,
       name: input.blogName,
       description: input.blogDescription,
       publisher: {
@@ -99,17 +100,22 @@ type BlogItem = {
   title: string;
 };
 
+type BlogItemListOptions = {
+  blogPath: string;
+};
+
 export function buildBlogItemListJsonLd(
-  posts: BlogItem[]
+  posts: BlogItem[],
+  options: BlogItemListOptions
 ): WithContext<ItemList> {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "@id": `${toAbsoluteUrl("/blog/")}#itemlist`,
+    "@id": `${toCanonical(options.blogPath)}#itemlist`,
     itemListElement: posts.map((post, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: toCanonical(`/blog/${post.slug}`),
+      url: toCanonical(`${options.blogPath}/${post.slug}`),
       name: post.title,
     })),
     numberOfItems: posts.length,
@@ -117,10 +123,13 @@ export function buildBlogItemListJsonLd(
 }
 
 type BlogPostingInput = {
+  authorName: string;
+  blogName: string;
+  blogPath: string;
   coverImage?: string;
   date: string;
   description?: string;
-  slug: string;
+  path: string;
   tags: string[];
   title: string;
   updated?: string;
@@ -129,11 +138,13 @@ type BlogPostingInput = {
 export function buildBlogPostingJsonLd(
   input: BlogPostingInput
 ): WithContext<BlogPosting> {
+  const canonicalPath = toCanonical(input.path);
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "@id": `${toCanonical(`/blog/${input.slug}`)}#blogposting`,
-    url: toCanonical(`/blog/${input.slug}`),
+    "@id": `${canonicalPath}#blogposting`,
+    url: canonicalPath,
     headline: input.title,
     description: input.description,
     keywords: input.tags.length > 0 ? input.tags.join(", ") : undefined,
@@ -143,7 +154,7 @@ export function buildBlogPostingJsonLd(
     author: {
       "@type": "Person",
       "@id": PERSON_ID,
-      name: "Alex Leung",
+      name: input.authorName,
     },
     publisher: {
       "@type": "Person",
@@ -152,12 +163,12 @@ export function buildBlogPostingJsonLd(
     inLanguage: LANGUAGE,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": toCanonical(`/blog/${input.slug}`),
+      "@id": canonicalPath,
     },
     isPartOf: {
       "@type": "Blog",
-      "@id": `${toAbsoluteUrl("/blog/")}#blog`,
-      name: "Blog | Alex Leung",
+      "@id": `${toCanonical(input.blogPath)}#blog`,
+      name: input.blogName,
     },
   };
 }

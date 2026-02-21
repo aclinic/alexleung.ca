@@ -40,16 +40,23 @@ describe("SEO JSON-LD schema builders", () => {
       title: "Blog | Alex Leung",
       description: "Blog home.",
       path: "/blog",
+      blogPath: "/blog",
       blogName: "Alex Leung's Blog",
       blogDescription: "Blog home.",
     });
 
-    const list = buildBlogItemListJsonLd([
-      { slug: "post-a", title: "Post A" },
-      { slug: "post-b", title: "Post B" },
-    ]);
+    const list = buildBlogItemListJsonLd(
+      [
+        { slug: "post-a", title: "Post A" },
+        { slug: "post-b", title: "Post B" },
+      ],
+      { blogPath: "/blog" }
+    );
 
     expect(collection.mainEntity?.["@type"]).toBe("Blog");
+    expect(collection.mainEntity?.["@id"]).toBe(
+      "https://alexleung.ca/blog/#blog"
+    );
     expect(collection.mainEntity?.publisher?.["@id"]).toBe(
       "https://alexleung.ca/#person"
     );
@@ -59,9 +66,12 @@ describe("SEO JSON-LD schema builders", () => {
     expect(list.numberOfItems).toBe(2);
   });
 
-  it("builds blog posting schema with normalized URL/image and dates", () => {
+  it("builds blog posting schema from route-provided page concerns", () => {
     const posting = buildBlogPostingJsonLd({
-      slug: "deep-dive",
+      path: "/blog/deep-dive",
+      blogPath: "/blog",
+      blogName: "Blog | Alex Leung",
+      authorName: "Alex Leung",
       title: "Deep Dive",
       description: "A deep dive post.",
       coverImage: "/assets/deep-dive.webp",
@@ -71,6 +81,8 @@ describe("SEO JSON-LD schema builders", () => {
     });
 
     expect(posting.url).toBe("https://alexleung.ca/blog/deep-dive/");
+    expect(posting.isPartOf?.name).toBe("Blog | Alex Leung");
+    expect(posting.author?.name).toBe("Alex Leung");
     expect(posting.image).toEqual([
       "https://alexleung.ca/assets/deep-dive.webp",
     ]);

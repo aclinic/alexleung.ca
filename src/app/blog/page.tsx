@@ -20,6 +20,7 @@ const title = "Blog | Alex Leung";
 const description =
   "Thoughts on software engineering, product development, and life as a developer.";
 const path = "/blog";
+const blogName = "Alex Leung's Blog";
 
 export function generateMetadata(): Metadata {
   const posts = getAllPosts(["coverImage"]);
@@ -56,11 +57,14 @@ export default function BlogIndex() {
           path,
           title,
           description,
-          blogName: "Alex Leung's Blog",
+          blogPath: path,
+          blogName,
           blogDescription: description,
         })}
       />
-      <JsonLd<ItemList> item={buildBlogItemListJsonLd(allPosts)} />
+      <JsonLd<ItemList>
+        item={buildBlogItemListJsonLd(allPosts, { blogPath: path })}
+      />
       <div className="py-[var(--header-height)]">
         <Title title="Blog" />
         <div className="container mx-auto px-5">

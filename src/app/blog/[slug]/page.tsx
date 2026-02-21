@@ -19,6 +19,10 @@ import {
 
 export const dynamicParams = false;
 
+const BLOG_PATH = "/blog";
+const BLOG_NAME = "Blog | Alex Leung";
+const AUTHOR_NAME = "Alex Leung";
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params_awaited = await props.params;
   const post = getPostBySlug(params_awaited.slug, [
@@ -107,7 +111,10 @@ export default async function Post({ params }: Props) {
       />
       <JsonLd<BlogPosting>
         item={buildBlogPostingJsonLd({
-          slug: post.slug,
+          path: `/blog/${post.slug}`,
+          blogPath: BLOG_PATH,
+          blogName: BLOG_NAME,
+          authorName: AUTHOR_NAME,
           title: post.title,
           description: post.excerpt,
           coverImage: post.coverImage,
