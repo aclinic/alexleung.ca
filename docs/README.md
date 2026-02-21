@@ -35,3 +35,4 @@ This folder contains repository-internal documents that support planning, audits
 - Prefer factual snapshots over speculative statements.
 - Mark recommendations as `Done`, `In progress`, or `Open` when possible.
 - Remove stale findings once they are superseded by shipped implementation.
+- Delete one-off migration plans/QA notes after rollout completion unless they remain active runbooks.
