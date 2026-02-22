@@ -12,7 +12,7 @@ import { PageShell } from "@/components/PageShell";
 import { ProseContent } from "@/components/ProseContent";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { SectionBlock } from "@/components/SectionBlock";
-import { BASE_URL } from "@/constants";
+import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 export const NOW_PAGE_LAST_UPDATED_ISO = "2026-02-20";
 
@@ -30,28 +30,13 @@ export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
 const title = "What I'm Doing Now | Alex Leung";
 const description =
   "Current projects, books, and goals - a snapshot of what Alex Leung is focused on right now.";
-const url = `${BASE_URL}/now/`;
+const path = "/now";
 
-export const metadata: Metadata = {
-  title: title,
-  description: description,
-  alternates: {
-    canonical: url,
-  },
-  openGraph: {
-    title: title,
-    description: description,
-    type: "website",
-    url: url,
-    siteName: "Alex Leung",
-    locale: "en_CA",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: title,
-    description: description,
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title,
+  description,
+  path,
+});
 
 export default function NowPage() {
   return (
@@ -63,23 +48,11 @@ export default function NowPage() {
         ]}
       />
       <JsonLd<WebPage>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "@id": url,
-          url: url,
-          name: title,
-          description: description,
-          mainEntity: {
-            "@type": "Person",
-            "@id": `${BASE_URL}/#person`,
-          },
-          inLanguage: "en-CA",
-          isPartOf: {
-            "@type": "WebSite",
-            "@id": `${BASE_URL}/#website`,
-          },
-        }}
+        item={buildWebPageSchema({
+          path,
+          title,
+          description,
+        })}
       />
 
       <PageShell title="What I'm Doing Now" titleId="now">
