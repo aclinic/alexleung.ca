@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   verify:
-    name: Verify Build, Lint, and Tests
+    name: Verify Typecheck, Build, Lint, and Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -36,6 +36,9 @@ jobs:
 
       - name: 🧪 Test
         run: yarn test
+
+      - name: 🔎 Typecheck
+        run: yarn typecheck
 
       - name: 🏗️ Build
         run: yarn build

@@ -27,6 +27,7 @@ yarn start            # Serve production build locally
 yarn lint             # Run ESLint and Prettier checks
 yarn lint:fix         # Auto-fix lint issues
 yarn test             # Run Jest tests
+yarn typecheck        # Run TypeScript type checking (no emit)
 yarn test:watch       # Run tests in watch mode
 yarn test:coverage    # Run tests with coverage report
 yarn deploy           # Build and deploy to GitHub Pages

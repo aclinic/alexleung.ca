@@ -42,6 +42,7 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 - `yarn lint` - Run ESLint and Prettier checks
 - `yarn lint:fix` - Auto-fix lint and format issues
 - `yarn test` - Run Jest test suite
+- `yarn typecheck` - Run TypeScript type checking (no emit)
 - `yarn test:watch` - Run Jest in watch mode
 - `yarn test:coverage` - Run tests with coverage report
 - `yarn deploy` - Build and deploy to GitHub Pages

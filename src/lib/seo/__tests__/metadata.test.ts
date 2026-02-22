@@ -8,11 +8,21 @@ describe("buildPageMetadata", () => {
       path: "/about",
     });
 
+    const openGraph = metadata.openGraph;
+    const twitter = metadata.twitter;
+
     expect(metadata.alternates?.canonical).toBe("https://alexleung.ca/about/");
-    expect(metadata.openGraph?.url).toBe("https://alexleung.ca/about/");
-    expect(metadata.openGraph?.type).toBe("website");
-    expect(metadata.openGraph?.siteName).toBe("Alex Leung");
-    expect(metadata.twitter?.card).toBe("summary");
+    expect(openGraph?.url).toBe("https://alexleung.ca/about/");
+
+    if (openGraph && "type" in openGraph) {
+      expect(openGraph.type).toBe("website");
+    }
+
+    expect(openGraph?.siteName).toBe("Alex Leung");
+
+    if (twitter && "card" in twitter) {
+      expect(twitter.card).toBe("summary");
+    }
   });
 
   it("normalizes image URLs and uses large-image twitter card when images exist", () => {
@@ -30,6 +40,8 @@ describe("buildPageMetadata", () => {
       ],
     });
 
+    const twitter = metadata.twitter;
+
     expect(metadata.openGraph?.images).toEqual([
       {
         url: "https://alexleung.ca/assets/screenshot.png",
@@ -38,7 +50,7 @@ describe("buildPageMetadata", () => {
         height: 630,
       },
     ]);
-    expect(metadata.twitter?.images).toEqual([
+    expect(twitter?.images).toEqual([
       {
         url: "https://alexleung.ca/assets/screenshot.png",
         alt: "Blog screenshot",
@@ -46,7 +58,10 @@ describe("buildPageMetadata", () => {
         height: 630,
       },
     ]);
-    expect(metadata.twitter?.card).toBe("summary_large_image");
+
+    if (twitter && "card" in twitter) {
+      expect(twitter.card).toBe("summary_large_image");
+    }
   });
 
   it("supports overriding metadata type and twitter card", () => {
@@ -58,7 +73,15 @@ describe("buildPageMetadata", () => {
       twitterCard: "summary",
     });
 
-    expect(metadata.openGraph?.type).toBe("article");
-    expect(metadata.twitter?.card).toBe("summary");
+    const openGraph = metadata.openGraph;
+    const twitter = metadata.twitter;
+
+    if (openGraph && "type" in openGraph) {
+      expect(openGraph.type).toBe("article");
+    }
+
+    if (twitter && "card" in twitter) {
+      expect(twitter.card).toBe("summary");
+    }
   });
 });
