@@ -3,7 +3,6 @@ import { JsonLd } from "react-schemaorg";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { format } from "date-fns";
 import { BlogPosting } from "schema-dts";
 
 import { CoverImage } from "@/components/CoverImage";
@@ -14,6 +13,7 @@ import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Surface } from "@/components/Surface";
 import { Tag } from "@/components/Tag";
 import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
+import { formatIsoDateForDisplay } from "@/lib/date";
 import markdownToHtml from "@/lib/markdownToHtml";
 import {
   buildBlogPostingSchema,
@@ -135,7 +135,7 @@ export default async function Post({ params }: Props) {
         >
           <Surface className="mx-auto" padding="sm">
             <div className="mb-3 text-lg text-gray-300">
-              {format(new Date(post.date), "MMMM d, yyyy")}
+              {formatIsoDateForDisplay(post.date)}
             </div>
             {post.tags.length > 0 && (
               <div className="mb-6 flex flex-wrap gap-2">

@@ -1,11 +1,10 @@
 import Link from "next/link";
 
-import { format } from "date-fns";
-
 import { CoverImage } from "@/components/CoverImage";
 import { surfaceClassNames } from "@/components/Surface";
 import { Tag } from "@/components/Tag";
 import { Post } from "@/lib/blogApi";
+import { formatIsoDateForDisplay } from "@/lib/date";
 
 type BlogPostCardProps = {
   post: Pick<
@@ -38,7 +37,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
         {post.title}
       </h3>
       <div className="mb-4 text-sm text-gray-300">
-        {format(new Date(post.date), "MMMM d, yyyy")}
+        {formatIsoDateForDisplay(post.date)}
       </div>
       {post.excerpt ? (
         <p className="mb-4 text-base leading-relaxed text-gray-200 md:text-gray-300">

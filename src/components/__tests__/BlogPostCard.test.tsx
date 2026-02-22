@@ -22,6 +22,7 @@ describe("BlogPostCard", () => {
       "/blog/test-post"
     );
     expect(screen.getByText("A short summary")).toBeInTheDocument();
+    expect(screen.getByText("January 1, 2026")).toBeInTheDocument();
     expect(screen.getByText("ai")).toBeInTheDocument();
   });
 });
