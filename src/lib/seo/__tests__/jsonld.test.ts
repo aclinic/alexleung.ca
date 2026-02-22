@@ -61,12 +61,19 @@ describe("seo jsonld builders", () => {
       tags: ["ai", "systems"],
     });
 
-    expect(posting.url).toBe("https://alexleung.ca/blog/deep-dive");
+    expect(posting.url).toBe("https://alexleung.ca/blog/deep-dive/");
+    expect(posting["@id"]).toBe(
+      "https://alexleung.ca/blog/deep-dive/#blogposting"
+    );
     expect(posting.image).toEqual([
       "https://alexleung.ca/assets/blog/cover.webp",
     ]);
     expect(posting.keywords).toBe("ai, systems");
     expect(posting.datePublished).toBe("2026-02-16T00:00:00.000Z");
     expect(posting.dateModified).toBe("2026-02-18T00:00:00.000Z");
+    expect(posting.mainEntityOfPage).toEqual({
+      "@type": "WebPage",
+      "@id": "https://alexleung.ca/blog/deep-dive/",
+    });
   });
 });

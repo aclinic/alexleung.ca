@@ -132,11 +132,13 @@ export function buildBlogPostingSchema(input: {
   title: string;
   updated?: string;
 }): WithContext<BlogPosting> {
+  const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
+
   return {
     "@context": "https://schema.org" as const,
     "@type": "BlogPosting",
-    "@id": toAbsoluteUrl(`/blog/${input.slug}#blogposting`),
-    url: toAbsoluteUrl(`/blog/${input.slug}`),
+    "@id": `${canonicalPostUrl}#blogposting`,
+    url: canonicalPostUrl,
     headline: input.title,
     description: input.description,
     keywords: input.tags.length > 0 ? input.tags.join(", ") : undefined,
@@ -155,7 +157,7 @@ export function buildBlogPostingSchema(input: {
     inLanguage: "en-CA",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": toAbsoluteUrl(`/blog/${input.slug}`),
+      "@id": canonicalPostUrl,
     },
     isPartOf: {
       "@type": "Blog",
