@@ -2,6 +2,7 @@ import { FcEngineering } from "react-icons/fc";
 import { HiOutlineArrowRight, HiOutlineUser } from "react-icons/hi";
 
 import { CTAButton } from "./CTAButton";
+import { StaggerReveal } from "./StaggerReveal";
 
 export function Hero() {
   return (
@@ -11,21 +12,15 @@ export function Hero() {
     >
       <div className="section-center">
         <div>
-          <div
-            className="animate-showTopText opacity-0"
-            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
-          >
+          <StaggerReveal delayMs={200}>
             <p className="text-hero-subtitle mb-4 tracking-wider">
               Hi, my name is
             </p>
             <h1 className="text-hero-title mb-4 inline-block font-black uppercase leading-[0.9] tracking-[0.2rem] md:pb-4">
               Alex Leung
             </h1>
-          </div>
-          <div
-            className="animate-showTopText opacity-0"
-            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
-          >
+          </StaggerReveal>
+          <StaggerReveal delayMs={400}>
             <h2 className="text-hero-description">
               Syntropy Engineer | Programmer | P.Eng.{" "}
               <FcEngineering className="mb-1 ml-1 inline-block align-middle" />
@@ -33,22 +28,19 @@ export function Hero() {
             <p className="mt-3 text-sm italic text-gray-200 md:text-gray-300">
               Engineer writing about software, systems, and learning in public.
             </p>
-          </div>
-          <div
-            className="mt-8 flex animate-showTopText flex-wrap gap-4 opacity-0"
-            style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
-          >
+          </StaggerReveal>
+          <StaggerReveal delayMs={600} className="mt-8 flex flex-wrap gap-4">
             <CTAButton href="/blog/">
               Read My Blog <HiOutlineArrowRight className="text-lg" />
             </CTAButton>
             <CTAButton href="/about/" variant="secondary">
               <HiOutlineUser className="text-lg" /> About Me
             </CTAButton>
-          </div>
+          </StaggerReveal>
           <section
             aria-labelledby="positioning-heading"
             className="surface-static mt-10 max-w-2xl animate-showTopText p-5 opacity-0 md:p-6"
-            style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
+            style={{ animationDelay: "800ms", animationFillMode: "forwards" }}
           >
             <h2 id="positioning-heading" className="text-heading font-semibold">
               What you&apos;ll find here

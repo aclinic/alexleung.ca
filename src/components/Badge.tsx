@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { Chip, chipClassName } from "@/components/Chip";
+
 type BadgeTone = "info" | "success" | "warning";
 
 type BadgeProps = {
@@ -14,12 +16,18 @@ const toneClasses: Record<BadgeTone, string> = {
   warning: "border-accent-warning/40 bg-accent-warning/15 text-accent-warning",
 };
 
+export function badgeClassName({
+  tone = "info",
+  className = "",
+}: {
+  tone?: BadgeTone;
+  className?: string;
+}) {
+  return chipClassName(`${toneClasses[tone]} ${className}`.trim());
+}
+
 export function Badge({ children, tone = "info", className = "" }: BadgeProps) {
   return (
-    <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold ${toneClasses[tone]} ${className}`.trim()}
-    >
-      {children}
-    </span>
+    <Chip className={badgeClassName({ tone, className })}>{children}</Chip>
   );
 }
