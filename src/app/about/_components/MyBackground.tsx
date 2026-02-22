@@ -10,20 +10,13 @@ export function Journey() {
     <ResponsiveContainer element="section">
       <SectionBlock title="My Background" titleId="background" spacing="lg">
         <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
-          <div className="text-md mb-8 text-left leading-relaxed lg:text-lg">
-            <IconTextRow
-              icon="👋"
-              title="Hello"
-              className="mb-6"
-              contentClassName="space-y-0"
-            >
-              <p className="leading-relaxed">
-                Hi! I&apos;m Alex, and I&apos;m glad you&apos;re here.
-              </p>
+          <div className="text-md mb-8 space-y-6 text-left lg:text-lg">
+            <IconTextRow icon="👋" title="Hello" contentClassName="space-y-0">
+              <p>Hi! I&apos;m Alex, and I&apos;m glad you&apos;re here.</p>
             </IconTextRow>
 
-            <IconTextRow icon="💼" title="What I Do" className="mb-6">
-              <p className="leading-relaxed">
+            <IconTextRow icon="💼" title="What I Do">
+              <p>
                 I&apos;m currently at{" "}
                 <ExternalLink href="https://jetsonhome.com">
                   Jetson
@@ -31,7 +24,7 @@ export function Journey() {
                 , helping electrify North American homes with vertically
                 integrated energy solutions.
               </p>
-              <p className="mt-3 leading-relaxed">
+              <p>
                 Before that, I worked on AR/AI glasses at{" "}
                 <ExternalLink href="https://arvr.google.com/">
                   Google
@@ -41,28 +34,26 @@ export function Journey() {
               </p>
             </IconTextRow>
 
-            <IconTextRow icon="🚀" title="How I Work" className="mb-6">
-              <p className="leading-relaxed">
-                I build products from 0→1 and help scale them from 1→100.
-              </p>
-              <p className="mt-3 leading-relaxed">
+            <IconTextRow icon="🚀" title="How I Work">
+              <p>I build products from 0→1 and help scale them from 1→100.</p>
+              <p>
                 My background spans distributed systems, embedded systems, and
                 AI. My approach is simple:{" "}
                 <strong>prioritize momentum, then optimize for scale.</strong>
               </p>
-              <ul className="mt-3 list-inside list-disc space-y-1">
+              <ul className="list-inside list-disc space-y-1">
                 <li>Lean into ambiguity</li>
                 <li>Break large problems into clear roadmaps</li>
                 <li>Keep teams aligned and shipping</li>
               </ul>
             </IconTextRow>
 
-            <IconTextRow icon="❤️" title="Outside Work" className="mb-6">
-              <p className="leading-relaxed">
+            <IconTextRow icon="❤️" title="Outside Work">
+              <p>
                 I&apos;m motivated by building useful things, getting meaningful
                 work done, and learning continuously.
               </p>
-              <p className="mt-3 leading-relaxed">
+              <p>
                 Outside of work, I spend time playing tennis 🎾, reading 📚,
                 hiking 🏔️, rock climbing 🧗, and hanging out with my furmily 🐱.
               </p>
