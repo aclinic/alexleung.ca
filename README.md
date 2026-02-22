@@ -121,7 +121,7 @@ src/
 - `docs/README.md` - Documentation directory guide and document index
 - `docs/technical-architecture-audit.md` - Architecture findings and current status
 - `docs/seo-audit.md` - SEO findings and recommendations
-- `docs/ux-ui-audit.md` - UX/UI findings and primitive rollout phases
+- `docs/ui-simplification-analysis.md` - Current simplification/repetition analysis and refactor backlog
 - `docs/content-ideas.md` - Future content and page ideas
 
 ## :package: Dependencies

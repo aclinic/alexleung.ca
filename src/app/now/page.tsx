@@ -131,7 +131,7 @@ export default function NowPage() {
               </IconTextRow>
 
               <IconTextRow icon="🎯" title="Current Goals">
-                <ul className="mt-3 list-outside list-disc space-y-1 pl-6 leading-relaxed">
+                <ul className="list-outside list-disc space-y-1 pl-6">
                   <li>Finish and understand the Deep Learning book</li>
                   <li>Leveling up my tennis game</li>
                   <li>Get to A2 proficiency in Chinese</li>
