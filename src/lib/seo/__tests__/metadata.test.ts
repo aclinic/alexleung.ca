@@ -1,25 +1,5 @@
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
-function getOpenGraphType(metadata: ReturnType<typeof buildPageMetadata>) {
-  const openGraph = metadata.openGraph;
-
-  if (openGraph && "type" in openGraph) {
-    return openGraph.type;
-  }
-
-  return undefined;
-}
-
-function getTwitterCard(metadata: ReturnType<typeof buildPageMetadata>) {
-  const twitter = metadata.twitter;
-
-  if (twitter && "card" in twitter) {
-    return twitter.card;
-  }
-
-  return undefined;
-}
-
 describe("buildPageMetadata", () => {
   it("builds canonical, Open Graph, and Twitter metadata with defaults", () => {
     const metadata = buildPageMetadata({
