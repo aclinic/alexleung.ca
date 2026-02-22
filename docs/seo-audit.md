@@ -1,59 +1,52 @@
-# SEO Audit & Recommendations (2026-02-15)
+# SEO Audit & Recommendations (2026-02-22)
 
 ## Executive Summary
 
-The site has a strong SEO baseline for a static personal site: route-level metadata, canonical URLs, JSON-LD, sitemap generation, and a dedicated `robots.ts` route are all in place.
+The site has a strong and coherent SEO baseline for a static personal website:
 
-Remaining opportunities are primarily about depth: richer article freshness signals, stronger internal linking, and expanded list schema for the blog index.
+- centralized metadata helpers,
+- canonical URL handling,
+- route-level metadata generation,
+- structured data for person, website, pages, blog collection, and blog posts,
+- sitemap and robots routes.
+
+Remaining work is incremental and focused on editorial freshness and internal linking depth.
 
 ## Implemented Baseline
 
-- Global metadata covers title templates, descriptions, Open Graph, Twitter cards, and canonical base.
-- Structured data includes `Person` and `WebSite` entities.
-- Blog post pages emit article metadata and structured data.
-- `sitemap.ts` provides route discovery for top-level pages and posts.
-- `robots.ts` provides explicit crawl directives and sitemap declaration.
-
-## Findings Status
-
-| Finding | Status | Recommendation |
+| Capability | Status | Notes |
 | --- | --- | --- |
-| Explicit robots route | Done | Keep `robots.ts` updated if host/domain changes. |
-| Canonical + sitemap coverage | Done | Keep aligned with any new routes. |
-| Blog `dateModified` fidelity | Open | Add `updated` in front matter and propagate to metadata/schema/sitemap. |
-| Blog index schema depth | Open | Add `ItemList` with post URLs and positions to strengthen list context. |
-| Internal linking graph | Open | Add featured/related links from Home/About/Now into articles. |
-| Media performance alignment | In progress | Continue modern formats + dimensions; track LCP/CLS in periodic audits. |
+| Canonical URL + metadata defaults | Done | Shared helpers in `src/lib/seo` keep route metadata consistent. |
+| Structured data coverage | Done | JSON-LD builders include page-level and blog-level schemas, including blog index item list. |
+| Sitemap + robots | Done | `src/app/sitemap.ts` and `src/app/robots.ts` are in place. |
+| Blog index list schema | Done | Blog index includes `ItemList` JSON-LD. |
 
-## Priority Backlog
+## Open Recommendations
 
-### High
+### 1) Improve article freshness signals
 
-1. Add `updated` front matter support and wire to:
-   - article metadata
-   - `BlogPosting.dateModified`
-   - sitemap `lastModified` for posts
+**Recommendation**
 
-2. Improve internal linking:
-   - featured posts on homepage
-   - contextual links from About/Now
-   - related posts module on article pages
+- Continue using/expanding `updated` front matter across posts.
+- Ensure `dateModified` and sitemap `lastModified` stay aligned when updates are made.
 
-### Medium
+### 2) Strengthen internal linking graph
 
-1. Add blog index `ItemList` schema.
-2. Add lightweight SEO monitoring checklist (Search Console indexing + CTR review monthly).
+**Recommendation**
 
-## Measurement Plan
+- Add contextual links between evergreen pages (About/Now/Home) and relevant blog posts.
+- Consider related-post links on post pages for deeper crawl paths.
 
-Track before/after changes for:
+### 3) Add lightweight ongoing SEO operations
 
-- Indexed URL count
-- Homepage and top-post CTR
-- Average ranking position for branded and topical terms
-- Crawl/discovery consistency in Search Console
+**Recommendation**
 
-## Audit Hygiene
+- Maintain a periodic checklist (e.g., monthly or quarterly):
+  - Search Console indexing health
+  - CTR and impression trends
+  - broken-link scan
 
-- Re-run this audit after major metadata/schema/content model changes.
-- Keep recommendations tied to concrete implementation tasks.
+## Maintenance Notes
+
+- Keep this audit concise and status-driven.
+- Update after schema/metadata model changes or major IA/content updates.
