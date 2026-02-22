@@ -1,3 +1,14 @@
 export { buildPageMetadata } from "./metadata";
-export { toAbsoluteUrl, toCanonical } from "./url";
+export {
+  buildBlogCollectionPageSchema,
+  buildBlogItemListSchema,
+  buildBlogPostingSchema,
+  buildContactPageSchema,
+  buildPersonSchema,
+  buildProfilePageSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+  getPersonId,
+} from "./jsonld";
 export type { SeoImage, SeoInput } from "./types";
+export { toAbsoluteUrl, toCanonical } from "./url";

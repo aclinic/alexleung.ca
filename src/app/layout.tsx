@@ -4,13 +4,12 @@ import { JsonLd } from "react-schemaorg";
 import type { Metadata, Viewport } from "next";
 import { Lato } from "next/font/google";
 
-import * as schemadts from "schema-dts";
-
 import { AppBackground } from "@/components/AppBackground";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SocialLinks from "@/components/SocialLinks";
 import { BASE_URL } from "@/constants";
+import { buildPersonSchema, buildWebsiteSchema } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -85,141 +84,12 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-function buildPersonSchema(): schemadts.WithContext<schemadts.Person> {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    // This ID is the "Digital Fingerprint" that tells Google this is an ENTITY, not just a page
-    "@id": `${BASE_URL}/#person`,
-    name: "Alex Leung",
-    alternateName: [
-      "Alexander Leung",
-      "Alexander Clayton Leung",
-      "Alex C Leung",
-    ],
-    url: BASE_URL,
-    // Links the Person to the Webpage as the primary subject
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": BASE_URL,
-    },
-    image: [
-      {
-        "@type": "ImageObject",
-        url: `${BASE_URL}/assets/about_portrait.webp`,
-        caption: "Alex Leung",
-      },
-      {
-        "@type": "ImageObject",
-        url: `${BASE_URL}/assets/about_portrait_mountain.webp`,
-        caption: "Alex Leung's portrait on a mountain",
-      },
-    ],
-    jobTitle: "Software Engineer",
-    description: description,
-    sameAs: [
-      "https://www.linkedin.com/in/aclinic",
-      "https://www.github.com/aclinic",
-      "https://www.x.com/aclyxpse",
-      "https://bsky.app/profile/aclinic.bsky.social",
-      "https://www.instagram.com/rootpanda",
-      "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
-    ],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Waterloo",
-      addressRegion: "Ontario",
-      addressCountry: "Canada",
-    },
-    alumniOf: [
-      {
-        "@type": "CollegeOrUniversity",
-        name: "University of Waterloo",
-        sameAs: "https://en.wikipedia.org/wiki/University_of_Waterloo",
-      },
-      {
-        "@type": "CollegeOrUniversity",
-        name: "Georgia Institute of Technology",
-        sameAs: "https://en.wikipedia.org/wiki/Georgia_Institute_of_Technology",
-      },
-    ],
-    knowsAbout: [
-      "Product Development",
-      "Technical Leadership",
-      "Software Engineering",
-      "AI Engineering",
-      "Distributed Systems",
-      "Embedded Systems",
-      "Web Development",
-      "Systems Design",
-      "Electrical Engineering",
-    ],
-    worksFor: {
-      "@type": "Organization",
-      name: "Jetson",
-      url: "https://jetsonhome.com",
-    },
-    hasCredential: [
-      {
-        "@type": "EducationalOccupationalCredential",
-        name: "Professional Engineer (P.Eng.)",
-        credentialCategory: "Professional License",
-        recognizedBy: {
-          "@type": "Organization",
-          name: "Professional Engineers Ontario",
-          url: "https://www.peo.on.ca",
-          sameAs:
-            "https://en.wikipedia.org/wiki/Professional_Engineers_Ontario",
-        },
-      },
-      {
-        "@type": "EducationalOccupationalCredential",
-        name: "Master of Science in Electrical and Computer Engineering",
-        credentialCategory: "Degree",
-        educationalLevel: "Master's Degree",
-        recognizedBy: {
-          "@type": "CollegeOrUniversity",
-          name: "Georgia Institute of Technology",
-          sameAs:
-            "https://en.wikipedia.org/wiki/Georgia_Institute_of_Technology",
-        },
-      },
-      {
-        "@type": "EducationalOccupationalCredential",
-        name: "Bachelor of Applied Science in Electrical Engineering",
-        credentialCategory: "Degree",
-        educationalLevel: "Bachelor's Degree",
-        recognizedBy: {
-          "@type": "CollegeOrUniversity",
-          name: "University of Waterloo",
-          sameAs: "https://en.wikipedia.org/wiki/University_of_Waterloo",
-        },
-      },
-    ],
-  };
-}
-
-function buildWebSiteSchema(): schemadts.WithContext<schemadts.WebSite> {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${BASE_URL}/#website`,
-    url: BASE_URL,
-    name: "Alex Leung",
-    description: description,
-    publisher: {
-      "@id": `${BASE_URL}/#person`,
-    },
-    inLanguage: "en-CA",
-  };
-}
-
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`${lato.className} flex min-h-screen flex-col`}>
-        <JsonLd item={buildPersonSchema()} />
-        <JsonLd item={buildWebSiteSchema()} />
+        <JsonLd item={buildPersonSchema({ description })} />
+        <JsonLd item={buildWebsiteSchema({ description })} />
         <AppBackground />
         <Header />
         <SocialLinks />
