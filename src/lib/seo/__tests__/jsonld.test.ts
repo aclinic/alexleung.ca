@@ -41,9 +41,17 @@ describe("seo jsonld builders", () => {
       { slug: "post-2", title: "Post 2" },
     ]);
 
-    expect(collection.mainEntity && "@id" in collection.mainEntity).toBe(true);
+    expect(collection.mainEntity).toBeDefined();
+
+    const itemListElement = itemList.itemListElement;
+    expect(Array.isArray(itemListElement)).toBe(true);
     expect(itemList.numberOfItems).toBe(2);
-    expect(itemList.itemListElement?.[0]).toMatchObject({
+
+    if (!Array.isArray(itemListElement)) {
+      throw new Error("Expected itemListElement to be an array");
+    }
+
+    expect(itemListElement[0]).toMatchObject({
       name: "Post 1",
       position: 1,
       url: "https://alexleung.ca/blog/post-1",
