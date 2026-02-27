@@ -20,6 +20,10 @@ const POST_FIELDS = [
 
 type PostField = (typeof POST_FIELDS)[number];
 
+type PostQueryOptions = {
+  includeDrafts?: boolean;
+};
+
 export type Post = {
   slug: string;
   title: string;
@@ -170,15 +174,18 @@ export function getPostSlugs() {
 export function getPostBySlug(slug: string): Post | null;
 export function getPostBySlug<T extends PostField>(
   slug: string,
-  fields: readonly T[]
+  fields: readonly T[],
+  options?: PostQueryOptions
 ): Pick<Post, T> | null;
 export function getPostBySlug<T extends PostField>(
   slug: string,
-  fields?: readonly T[]
+  fields?: readonly T[],
+  options?: PostQueryOptions
 ) {
   const post = parsePostBySlug(slug);
+  const includeDrafts = options?.includeDrafts ?? false;
 
-  if (!post) {
+  if (!post || (!includeDrafts && post.draft)) {
     return null;
   }
 
@@ -197,12 +204,18 @@ export function getPostBySlug<T extends PostField>(
 
 export function getAllPosts(): Post[];
 export function getAllPosts<T extends PostField>(
-  fields: readonly T[]
+  fields: readonly T[],
+  options?: PostQueryOptions
 ): Array<Pick<Post, T>>;
-export function getAllPosts<T extends PostField>(fields?: readonly T[]) {
+export function getAllPosts<T extends PostField>(
+  fields?: readonly T[],
+  options?: PostQueryOptions
+) {
+  const includeDrafts = options?.includeDrafts ?? false;
   const posts = getPostSlugs()
     .map((slug) => parsePostBySlug(slug))
     .filter((post): post is Post => post !== null)
+    .filter((post) => includeDrafts || !post.draft)
     .sort(
       (post1, post2) =>
         new Date(post2.date).getTime() - new Date(post1.date).getTime()

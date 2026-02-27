@@ -75,4 +75,32 @@ describe("blogApi front matter validation", () => {
       /Invalid front matter.*Unrecognized key/
     );
   });
+
+  test("excludes draft posts by default", async () => {
+    const tempDir = setupTempPosts({
+      published: `---\ntitle: "Published"\ndate: "2026-02-16"\n---\nBody`,
+      draft: `---\ntitle: "Draft"\ndate: "2026-02-17"\ndraft: true\n---\nBody`,
+    });
+
+    const { getAllPosts, getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+    const posts = getAllPosts(["slug"]);
+
+    expect(posts).toEqual([{ slug: "published" }]);
+    expect(getPostBySlug("draft")).toBeNull();
+  });
+
+  test("can include drafts when requested", async () => {
+    const tempDir = setupTempPosts({
+      published: `---\ntitle: "Published"\ndate: "2026-02-16"\n---\nBody`,
+      draft: `---\ntitle: "Draft"\ndate: "2026-02-17"\ndraft: true\n---\nBody`,
+    });
+
+    const { getAllPosts, getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+    const posts = getAllPosts(["slug"], { includeDrafts: true });
+
+    expect(posts).toEqual([{ slug: "draft" }, { slug: "published" }]);
+    expect(getPostBySlug("draft", ["slug"], { includeDrafts: true })).toEqual(
+      { slug: "draft" }
+    );
+  });
 });
