@@ -3,8 +3,11 @@ import {
   buildBlogItemListSchema,
   buildBlogPostingSchema,
   buildContactPageSchema,
+  buildHomePageSchema,
+  buildPersonSchema,
   buildProfilePageSchema,
   buildWebPageSchema,
+  buildWebsiteSchema,
 } from "@/lib/seo";
 
 describe("seo jsonld builders", () => {
@@ -55,6 +58,60 @@ describe("seo jsonld builders", () => {
       name: "Post 1",
       position: 1,
       url: "https://alexleung.ca/blog/post-1",
+    });
+  });
+
+
+  it("builds enhanced home and website schemas", () => {
+    const home = buildHomePageSchema({
+      path: "/",
+      title: "Alex Leung | Syntropy Engineer and Programmer, P.Eng.",
+      description: "Homepage description",
+    });
+    const website = buildWebsiteSchema({
+      description: "Website description",
+    });
+
+    expect(home.primaryImageOfPage).toMatchObject({
+      "@type": "ImageObject",
+      url: "https://alexleung.ca/assets/alex_vibing.webp",
+    });
+
+    const hasPart = website.hasPart;
+    expect(Array.isArray(hasPart)).toBe(true);
+
+    if (!Array.isArray(hasPart)) {
+      throw new Error("Expected hasPart to be an array");
+    }
+
+    expect(hasPart).toHaveLength(4);
+    expect(hasPart[0]).toEqual({
+      "@type": "WebPage",
+      "@id": "https://alexleung.ca/about/",
+    });
+  });
+
+  it("builds person schema with richer identity metadata", () => {
+    const person = buildPersonSchema({
+      description: "Person description",
+    });
+
+    if (typeof person === "string") {
+      throw new Error("Expected person schema object");
+    }
+
+    expect(person.givenName).toBe("Alex");
+    expect(person.familyName).toBe("Leung");
+    expect(person.honorificSuffix).toBe("P.Eng.");
+    expect(person.memberOf).toMatchObject({
+      "@type": "Organization",
+      name: "Professional Engineers Ontario",
+    });
+    expect(person.knowsLanguage).toEqual(["en-CA"]);
+    expect(person.sameAs).toContain("https://github.com/aclinic");
+    expect(person.hasOccupation).toMatchObject({
+      "@type": "Occupation",
+      name: "Software Engineer",
     });
   });
 
