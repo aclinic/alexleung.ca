@@ -99,9 +99,9 @@ describe("blogApi front matter validation", () => {
     const posts = getAllPosts(["slug"], { includeDrafts: true });
 
     expect(posts).toEqual([{ slug: "draft" }, { slug: "published" }]);
-    expect(getPostBySlug("draft", ["slug"], { includeDrafts: true })).toEqual(
-      { slug: "draft" }
-    );
+    expect(getPostBySlug("draft", ["slug"], { includeDrafts: true })).toEqual({
+      slug: "draft",
+    });
   });
 
   test("supports options-only overload for getPostBySlug", async () => {
@@ -121,9 +121,8 @@ describe("blogApi front matter validation", () => {
 
     const { getAllPosts } = await loadBlogApiAtCwd(tempDir);
 
-    expect(getAllPosts({ includeDrafts: true }).map((post) => post.slug)).toEqual([
-      "draft",
-    ]);
+    expect(
+      getAllPosts({ includeDrafts: true }).map((post) => post.slug)
+    ).toEqual(["draft"]);
   });
-
 });
