@@ -1,6 +1,7 @@
 export { buildPageMetadata } from "./metadata";
 export {
   buildBlogCollectionPageSchema,
+  buildArticleSchema,
   buildBlogItemListSchema,
   buildBlogPostingSchema,
   buildContactPageSchema,

@@ -1,4 +1,5 @@
 import type {
+  Article,
   BlogPosting,
   CollectionPage,
   ContactPage,
@@ -163,6 +164,46 @@ export function buildBlogPostingSchema(input: {
       "@type": "Blog",
       "@id": toAbsoluteUrl("/blog/#blog"),
       name: "Blog | Alex Leung",
+    },
+  };
+}
+
+export function buildArticleSchema(input: {
+  coverImage?: string;
+  date: string;
+  description?: string;
+  slug: string;
+  tags: string[];
+  title: string;
+  updated?: string;
+}): WithContext<Article> {
+  const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
+
+  return {
+    "@context": "https://schema.org" as const,
+    "@type": "Article",
+    "@id": `${canonicalPostUrl}#article`,
+    url: canonicalPostUrl,
+    headline: input.title,
+    description: input.description,
+    keywords: input.tags.length > 0 ? input.tags.join(", ") : undefined,
+    image: input.coverImage ? [toAbsoluteUrl(input.coverImage)] : undefined,
+    datePublished: new Date(input.date).toISOString(),
+    dateModified: new Date(input.updated || input.date).toISOString(),
+    author: {
+      "@type": "Person",
+      "@id": toAbsoluteUrl(PERSON_ID),
+      name: "Alex Leung",
+      url: toCanonical("/about"),
+    },
+    publisher: {
+      "@type": "Person",
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    inLanguage: "en-CA",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalPostUrl,
     },
   };
 }
