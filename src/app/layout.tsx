@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   title: title,
   description: description,
   keywords:
-    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, product development, technical leadership, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
+    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, product development, technical leadership, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence, aclinic, acl, aclyxpse, aclyx, yattaro, rootpanda, Ontario, California, Canada, United States, Waterloo, Toronto, San Francisco",
   authors: [{ name: "Alex Leung" }],
   creator: "Alex Leung",
   publisher: "Alex Leung",

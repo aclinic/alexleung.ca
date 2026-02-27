@@ -3,6 +3,7 @@ import {
   buildBlogItemListSchema,
   buildBlogPostingSchema,
   buildContactPageSchema,
+  buildPersonSchema,
   buildProfilePageSchema,
   buildWebPageSchema,
 } from "@/lib/seo";
@@ -56,6 +57,61 @@ describe("seo jsonld builders", () => {
       position: 1,
       url: "https://alexleung.ca/blog/post-1",
     });
+  });
+
+  it("builds person schema with city and region service areas", () => {
+    const person = buildPersonSchema({
+      description: "Personal website of Alex Leung",
+    });
+
+    expect(person.homeLocation).toMatchObject({
+      "@type": "Place",
+      name: "Canada and United States",
+    });
+
+    expect(person.alternateName).toEqual(
+      expect.arrayContaining([
+        "aclinic",
+        "acl",
+        "aclyxpse",
+        "aclyx",
+        "yattaro",
+        "rootpanda",
+      ])
+    );
+
+    expect(person.areaServed).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          "@type": "AdministrativeArea",
+          name: "Ontario",
+        }),
+        expect.objectContaining({
+          "@type": "AdministrativeArea",
+          name: "California",
+        }),
+        expect.objectContaining({
+          "@type": "City",
+          name: "Waterloo",
+        }),
+        expect.objectContaining({
+          "@type": "City",
+          name: "Toronto",
+        }),
+        expect.objectContaining({
+          "@type": "Country",
+          name: "Canada",
+        }),
+        expect.objectContaining({
+          "@type": "Country",
+          name: "United States",
+        }),
+        expect.objectContaining({
+          "@type": "City",
+          name: "San Francisco",
+        }),
+      ])
+    );
   });
 
   it("builds blog posting schema with normalized urls and keywords", () => {

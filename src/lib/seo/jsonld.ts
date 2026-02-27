@@ -179,6 +179,12 @@ export function buildPersonSchema(input: {
       "Alexander Leung",
       "Alexander Clayton Leung",
       "Alex C Leung",
+      "aclinic",
+      "acl",
+      "aclyxpse",
+      "aclyx",
+      "yattaro",
+      "rootpanda",
     ],
     url: getSiteRoot(),
     mainEntityOfPage: {
@@ -213,6 +219,51 @@ export function buildPersonSchema(input: {
       addressRegion: "Ontario",
       addressCountry: "Canada",
     },
+    homeLocation: {
+      "@type": "Place",
+      name: "Canada and United States",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "CA",
+      },
+    },
+    areaServed: [
+      {
+        "@type": "AdministrativeArea",
+        name: "Ontario",
+        sameAs: "https://en.wikipedia.org/wiki/Ontario",
+      },
+      {
+        "@type": "Country",
+        name: "Canada",
+        sameAs: "https://en.wikipedia.org/wiki/Canada",
+      },
+      {
+        "@type": "Country",
+        name: "United States",
+        sameAs: "https://en.wikipedia.org/wiki/United_States",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "California",
+        sameAs: "https://en.wikipedia.org/wiki/California",
+      },
+      {
+        "@type": "City",
+        name: "Waterloo",
+        sameAs: "https://en.wikipedia.org/wiki/Waterloo,_Ontario",
+      },
+      {
+        "@type": "City",
+        name: "Toronto",
+        sameAs: "https://en.wikipedia.org/wiki/Toronto",
+      },
+      {
+        "@type": "City",
+        name: "San Francisco",
+        sameAs: "https://en.wikipedia.org/wiki/San_Francisco",
+      },
+    ],
     alumniOf: [
       {
         "@type": "CollegeOrUniversity",
