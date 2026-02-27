@@ -15,6 +15,22 @@ import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 const PERSON_ID = "/#person";
 const WEBSITE_ID = "/#website";
 
+type ExtendedPerson = Person & {
+  areaServed?: Array<{
+    "@type": "AdministrativeArea" | "City" | "Country";
+    name: string;
+    sameAs: string;
+  }>;
+  homeLocation?: {
+    "@type": "Place";
+    address: {
+      "@type": "PostalAddress";
+      addressCountry: string;
+    };
+    name: string;
+  };
+};
+
 function getSiteRoot(): string {
   return toAbsoluteUrl("/").replace(/\/$/, "");
 }
@@ -169,7 +185,7 @@ export function buildBlogPostingSchema(input: {
 
 export function buildPersonSchema(input: {
   description: string;
-}): WithContext<Person> {
+}): WithContext<ExtendedPerson> {
   return {
     "@context": "https://schema.org" as const,
     "@type": "Person",

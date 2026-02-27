@@ -64,6 +64,10 @@ describe("seo jsonld builders", () => {
       description: "Personal website of Alex Leung",
     });
 
+    if (typeof person === "string") {
+      throw new Error("Expected person schema to be an object");
+    }
+
     expect(person.homeLocation).toMatchObject({
       "@type": "Place",
       name: "Canada and United States",
