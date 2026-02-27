@@ -4,6 +4,7 @@ import type {
   CollectionPage,
   ContactPage,
   ItemList,
+  Occupation,
   Person,
   ProfilePage,
   WebPage,
@@ -84,6 +85,28 @@ export function buildWebPageSchema(input: {
     mainEntity: {
       "@type": "Person",
       "@id": toAbsoluteUrl(PERSON_ID),
+    },
+  };
+}
+
+export function buildHomePageSchema(input: {
+  description: string;
+  path: string;
+  title: string;
+}): WithContext<WebPage> {
+  return {
+    ...buildBasePageSchema({ ...input, pageType: "WebPage" }),
+    about: {
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    mainEntity: {
+      "@type": "Person",
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: toAbsoluteUrl("/assets/alex_vibing.webp"),
+      caption: "Alex Leung",
     },
   };
 }
@@ -211,11 +234,24 @@ export function buildArticleSchema(input: {
 export function buildPersonSchema(input: {
   description: string;
 }): WithContext<Person> {
+  const currentOccupation: Occupation = {
+    "@type": "Occupation",
+    name: "Software Engineer",
+    occupationLocation: {
+      "@type": "City",
+      name: "Waterloo, Ontario, Canada",
+    },
+    skills: "Product development, software architecture, and AI engineering",
+  };
+
   return {
     "@context": "https://schema.org" as const,
     "@type": "Person",
     "@id": toAbsoluteUrl(PERSON_ID),
     name: "Alex Leung",
+    givenName: "Alex",
+    familyName: "Leung",
+    honorificSuffix: "P.Eng.",
     alternateName: [
       "Alexander Leung",
       "Alexander Clayton Leung",
@@ -239,10 +275,12 @@ export function buildPersonSchema(input: {
       },
     ],
     jobTitle: "Software Engineer",
+    hasOccupation: currentOccupation,
     description: input.description,
+    knowsLanguage: ["en-CA"],
     sameAs: [
       "https://www.linkedin.com/in/aclinic",
-      "https://www.github.com/aclinic",
+      "https://github.com/aclinic",
       "https://www.x.com/aclyxpse",
       "https://bsky.app/profile/aclinic.bsky.social",
       "https://www.instagram.com/rootpanda",
@@ -319,6 +357,11 @@ export function buildPersonSchema(input: {
         },
       },
     ],
+    memberOf: {
+      "@type": "Organization",
+      name: "Professional Engineers Ontario",
+      url: "https://www.peo.on.ca",
+    },
   };
 }
 
@@ -332,9 +375,30 @@ export function buildWebsiteSchema(input: {
     url: getSiteRoot(),
     name: "Alex Leung",
     description: input.description,
+    about: {
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
     publisher: {
       "@id": toAbsoluteUrl(PERSON_ID),
     },
+    hasPart: [
+      {
+        "@type": "WebPage",
+        "@id": toCanonical("/about"),
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": toCanonical("/blog"),
+      },
+      {
+        "@type": "ContactPage",
+        "@id": toCanonical("/contact"),
+      },
+      {
+        "@type": "WebPage",
+        "@id": toCanonical("/now"),
+      },
+    ],
     inLanguage: "en-CA",
   };
 }
