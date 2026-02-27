@@ -3,7 +3,7 @@ import { JsonLd } from "react-schemaorg";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { BlogPosting } from "schema-dts";
+import { Article, BlogPosting } from "schema-dts";
 
 import { CoverImage } from "@/components/CoverImage";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
@@ -16,6 +16,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import { formatIsoDateForDisplay } from "@/lib/date";
 import markdownToHtml from "@/lib/markdownToHtml";
 import {
+  buildArticleSchema,
   buildBlogPostingSchema,
   buildPageMetadata,
   toCanonical,
@@ -118,6 +119,17 @@ export default async function Post({ params }: Props) {
       />
       <JsonLd<BlogPosting>
         item={buildBlogPostingSchema({
+          slug: post.slug,
+          title: post.title,
+          description: post.excerpt,
+          coverImage: post.coverImage,
+          date: post.date,
+          updated: post.updated,
+          tags: post.tags,
+        })}
+      />
+      <JsonLd<Article>
+        item={buildArticleSchema({
           slug: post.slug,
           title: post.title,
           description: post.excerpt,

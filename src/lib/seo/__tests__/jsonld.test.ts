@@ -1,4 +1,5 @@
 import {
+  buildArticleSchema,
   buildBlogCollectionPageSchema,
   buildBlogItemListSchema,
   buildBlogPostingSchema,
@@ -82,6 +83,25 @@ describe("seo jsonld builders", () => {
     expect(posting.mainEntityOfPage).toEqual({
       "@type": "WebPage",
       "@id": "https://alexleung.ca/blog/deep-dive/",
+    });
+  });
+
+  it("builds article schema for blog posts", () => {
+    const article = buildArticleSchema({
+      slug: "deep-dive",
+      title: "Deep Dive",
+      description: "A deep dive post",
+      coverImage: "/assets/blog/cover.webp",
+      date: "2026-02-16",
+      updated: "2026-02-18",
+      tags: ["ai", "systems"],
+    });
+
+    expect(article.url).toBe("https://alexleung.ca/blog/deep-dive/");
+    expect(article["@id"]).toBe("https://alexleung.ca/blog/deep-dive/#article");
+    expect(article.author).toMatchObject({
+      "@id": "https://alexleung.ca/#person",
+      url: "https://alexleung.ca/about/",
     });
   });
 });
