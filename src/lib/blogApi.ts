@@ -88,6 +88,10 @@ function isPostField(value: string): value is PostField {
   return POST_FIELDS.includes(value as PostField);
 }
 
+function isPostFieldSelection(value: unknown): value is readonly PostField[] {
+  return Array.isArray(value);
+}
+
 function assertValidDate(date: string, slug: string, key: "date" | "updated") {
   if (Number.isNaN(Date.parse(date))) {
     throw new Error(`Invalid ${key} in post "${slug}": ${date}`);
@@ -171,7 +175,10 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
-export function getPostBySlug(slug: string): Post | null;
+export function getPostBySlug(
+  slug: string,
+  options?: PostQueryOptions
+): Post | null;
 export function getPostBySlug<T extends PostField>(
   slug: string,
   fields: readonly T[],
@@ -179,10 +186,17 @@ export function getPostBySlug<T extends PostField>(
 ): Pick<Post, T> | null;
 export function getPostBySlug<T extends PostField>(
   slug: string,
-  fields?: readonly T[],
-  options?: PostQueryOptions
+  fieldsOrOptions?: readonly T[] | PostQueryOptions,
+  maybeOptions?: PostQueryOptions
 ) {
   const post = parsePostBySlug(slug);
+  const fields = isPostFieldSelection(fieldsOrOptions)
+    ? (fieldsOrOptions as readonly T[])
+    : undefined;
+  const options = isPostFieldSelection(fieldsOrOptions)
+    ? maybeOptions
+    : fieldsOrOptions;
+
   const includeDrafts = options?.includeDrafts ?? false;
 
   if (!post || (!includeDrafts && post.draft)) {
@@ -202,15 +216,22 @@ export function getPostBySlug<T extends PostField>(
   return pickPostFields(post, fields);
 }
 
-export function getAllPosts(): Post[];
+export function getAllPosts(options?: PostQueryOptions): Post[];
 export function getAllPosts<T extends PostField>(
   fields: readonly T[],
   options?: PostQueryOptions
 ): Array<Pick<Post, T>>;
 export function getAllPosts<T extends PostField>(
-  fields?: readonly T[],
-  options?: PostQueryOptions
+  fieldsOrOptions?: readonly T[] | PostQueryOptions,
+  maybeOptions?: PostQueryOptions
 ) {
+  const fields = isPostFieldSelection(fieldsOrOptions)
+    ? (fieldsOrOptions as readonly T[])
+    : undefined;
+  const options = isPostFieldSelection(fieldsOrOptions)
+    ? maybeOptions
+    : fieldsOrOptions;
+
   const includeDrafts = options?.includeDrafts ?? false;
   const posts = getPostSlugs()
     .map((slug) => parsePostBySlug(slug))

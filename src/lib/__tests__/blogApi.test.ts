@@ -103,4 +103,27 @@ describe("blogApi front matter validation", () => {
       { slug: "draft" }
     );
   });
+
+  test("supports options-only overload for getPostBySlug", async () => {
+    const tempDir = setupTempPosts({
+      draft: `---\ntitle: "Draft"\ndate: "2026-02-17"\ndraft: true\n---\nBody`,
+    });
+
+    const { getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+
+    expect(getPostBySlug("draft", { includeDrafts: true })?.slug).toBe("draft");
+  });
+
+  test("supports options-only overload for getAllPosts", async () => {
+    const tempDir = setupTempPosts({
+      draft: `---\ntitle: "Draft"\ndate: "2026-02-17"\ndraft: true\n---\nBody`,
+    });
+
+    const { getAllPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(getAllPosts({ includeDrafts: true }).map((post) => post.slug)).toEqual([
+      "draft",
+    ]);
+  });
+
 });
