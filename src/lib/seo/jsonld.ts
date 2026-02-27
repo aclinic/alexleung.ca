@@ -7,6 +7,7 @@ import type {
   Occupation,
   Person,
   ProfilePage,
+  Service,
   WebPage,
   WebSite,
   WithContext,
@@ -16,6 +17,44 @@ import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 
 const PERSON_ID = "/#person";
 const WEBSITE_ID = "/#website";
+
+const GEO_SERVICE_AREAS = [
+  {
+    "@type": "AdministrativeArea" as const,
+    name: "Ontario",
+    sameAs: "https://en.wikipedia.org/wiki/Ontario",
+  },
+  {
+    "@type": "Country" as const,
+    name: "Canada",
+    sameAs: "https://en.wikipedia.org/wiki/Canada",
+  },
+  {
+    "@type": "Country" as const,
+    name: "United States",
+    sameAs: "https://en.wikipedia.org/wiki/United_States",
+  },
+  {
+    "@type": "AdministrativeArea" as const,
+    name: "California",
+    sameAs: "https://en.wikipedia.org/wiki/California",
+  },
+  {
+    "@type": "City" as const,
+    name: "Waterloo",
+    sameAs: "https://en.wikipedia.org/wiki/Waterloo,_Ontario",
+  },
+  {
+    "@type": "City" as const,
+    name: "Toronto",
+    sameAs: "https://en.wikipedia.org/wiki/Toronto",
+  },
+  {
+    "@type": "City" as const,
+    name: "San Francisco",
+    sameAs: "https://en.wikipedia.org/wiki/San_Francisco",
+  },
+];
 
 function getSiteRoot(): string {
   return toAbsoluteUrl("/").replace(/\/$/, "");
@@ -298,51 +337,6 @@ export function buildPersonSchema(input: {
       addressRegion: "Ontario",
       addressCountry: "Canada",
     },
-    homeLocation: {
-      "@type": "Place",
-      name: "Canada and United States",
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "CA",
-      },
-    },
-    areaServed: [
-      {
-        "@type": "AdministrativeArea",
-        name: "Ontario",
-        sameAs: "https://en.wikipedia.org/wiki/Ontario",
-      },
-      {
-        "@type": "Country",
-        name: "Canada",
-        sameAs: "https://en.wikipedia.org/wiki/Canada",
-      },
-      {
-        "@type": "Country",
-        name: "United States",
-        sameAs: "https://en.wikipedia.org/wiki/United_States",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "California",
-        sameAs: "https://en.wikipedia.org/wiki/California",
-      },
-      {
-        "@type": "City",
-        name: "Waterloo",
-        sameAs: "https://en.wikipedia.org/wiki/Waterloo,_Ontario",
-      },
-      {
-        "@type": "City",
-        name: "Toronto",
-        sameAs: "https://en.wikipedia.org/wiki/Toronto",
-      },
-      {
-        "@type": "City",
-        name: "San Francisco",
-        sameAs: "https://en.wikipedia.org/wiki/San_Francisco",
-      },
-    ],
     alumniOf: [
       {
         "@type": "CollegeOrUniversity",
@@ -413,6 +407,22 @@ export function buildPersonSchema(input: {
       name: "Professional Engineers Ontario",
       url: "https://www.peo.on.ca",
     },
+  };
+}
+
+export function buildProfessionalServiceSchema(input: {
+  description: string;
+}): WithContext<Service> {
+  return {
+    "@context": "https://schema.org" as const,
+    "@type": "Service",
+    "@id": toAbsoluteUrl("/#service"),
+    name: "Software Engineering and Technical Leadership Services",
+    description: input.description,
+    provider: {
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    areaServed: GEO_SERVICE_AREAS,
   };
 }
 
