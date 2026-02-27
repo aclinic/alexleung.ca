@@ -6,6 +6,7 @@ import {
   buildContactPageSchema,
   buildHomePageSchema,
   buildPersonSchema,
+  buildProfessionalServiceSchema,
   buildProfilePageSchema,
   buildWebPageSchema,
   buildWebsiteSchema,
@@ -113,6 +114,39 @@ describe("seo jsonld builders", () => {
       "@type": "Occupation",
       name: "Software Engineer",
     });
+    expect(person.alternateName).toEqual(
+      expect.arrayContaining([
+        "aclinic",
+        "acl",
+        "aclyxpse",
+        "aclyx",
+        "yattaro",
+        "rootpanda",
+      ])
+    );
+  });
+
+  it("builds professional service schema with service areas", () => {
+    const service = buildProfessionalServiceSchema({
+      description: "Personal website of Alex Leung",
+    });
+
+    if (typeof service === "string") {
+      throw new Error("Expected service schema to be an object");
+    }
+
+    expect(service["@type"]).toBe("Service");
+    expect(service.areaServed).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: "Ontario" }),
+        expect.objectContaining({ name: "California" }),
+        expect.objectContaining({ name: "Waterloo" }),
+        expect.objectContaining({ name: "Toronto" }),
+        expect.objectContaining({ name: "Canada" }),
+        expect.objectContaining({ name: "United States" }),
+        expect.objectContaining({ name: "San Francisco" }),
+      ])
+    );
   });
 
   it("builds blog posting schema with normalized urls and keywords", () => {
