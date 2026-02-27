@@ -61,7 +61,6 @@ describe("seo jsonld builders", () => {
     });
   });
 
-
   it("builds enhanced home and website schemas", () => {
     const home = buildHomePageSchema({
       path: "/",
