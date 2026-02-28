@@ -10,7 +10,7 @@ import { buildHomePageSchema } from "@/lib/seo";
 
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
-  "Personal website of Alex Leung, a Syntropy Engineer and Programmer, featuring writing on software, systems, and learning in public.";
+  "Alex Leung is a Syntropy Engineer and Programmer writing about software systems, AI engineering, and learning in public.";
 const path = "/";
 
 export default function Page() {
