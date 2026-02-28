@@ -8,6 +8,16 @@ import {
   buildWebPageSchema,
 } from "@/lib/seo";
 
+function asObjectSchema(
+  schema: ReturnType<typeof buildPersonSchema>
+): Exclude<ReturnType<typeof buildPersonSchema>, string> {
+  if (typeof schema === "string") {
+    throw new Error("Expected schema to be an object");
+  }
+
+  return schema;
+}
+
 describe("seo jsonld builders", () => {
   it("builds profile/contact/web page schemas with canonical IDs", () => {
     const profile = buildProfilePageSchema({
@@ -60,13 +70,11 @@ describe("seo jsonld builders", () => {
   });
 
   it("builds person schema with city and region service areas", () => {
-    const person = buildPersonSchema({
-      description: "Personal website of Alex Leung",
-    });
-
-    if (typeof person === "string") {
-      throw new Error("Expected person schema to be an object");
-    }
+    const person = asObjectSchema(
+      buildPersonSchema({
+        description: "Personal website of Alex Leung",
+      })
+    );
 
     expect(person.homeLocation).toMatchObject({
       "@type": "Place",

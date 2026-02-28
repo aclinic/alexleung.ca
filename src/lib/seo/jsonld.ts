@@ -15,7 +15,7 @@ import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 const PERSON_ID = "/#person";
 const WEBSITE_ID = "/#website";
 
-type ExtendedPerson = Person & {
+type PersonSchema = Person & {
   areaServed?: Array<{
     "@type": "AdministrativeArea" | "City" | "Country";
     name: string;
@@ -185,7 +185,7 @@ export function buildBlogPostingSchema(input: {
 
 export function buildPersonSchema(input: {
   description: string;
-}): WithContext<ExtendedPerson> {
+}): WithContext<PersonSchema> {
   return {
     "@context": "https://schema.org" as const,
     "@type": "Person",
