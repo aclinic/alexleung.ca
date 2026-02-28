@@ -9,13 +9,17 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SocialLinks from "@/components/SocialLinks";
 import { BASE_URL } from "@/constants";
-import { buildPersonSchema, buildWebsiteSchema } from "@/lib/seo";
+import {
+  buildPersonSchema,
+  buildProfessionalServiceSchema,
+  buildWebsiteSchema,
+} from "@/lib/seo";
 
 import "./globals.css";
 
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
-  "Personal website of Alex Leung, a Syntropy Engineer and Programmer, featuring writing on software, systems, and learning in public.";
+  "Alex Leung is a Syntropy Engineer and Programmer writing about software systems, AI engineering, and learning in public.";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
   title: title,
   description: description,
   keywords:
-    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, product development, technical leadership, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
+    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, product development, technical leadership, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence, aclinic, acl, aclyxpse, aclyx, yattaro, rootpanda, Ontario, California, Canada, United States, Waterloo, Toronto, San Francisco",
   authors: [{ name: "Alex Leung" }],
   creator: "Alex Leung",
   publisher: "Alex Leung",
@@ -45,15 +49,15 @@ export const metadata: Metadata = {
     locale: "en_CA",
     images: [
       {
-        url: "/assets/alex_vibing.webp",
-        width: 1536,
-        height: 1024,
-        alt: title,
-      },
-      {
         url: "/assets/screenshot.png",
         width: 1200,
         height: 630,
+        alt: title,
+      },
+      {
+        url: "/assets/alex_vibing.webp",
+        width: 1536,
+        height: 1024,
         alt: title,
       },
     ],
@@ -90,6 +94,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={`${lato.className} flex min-h-screen flex-col`}>
         <JsonLd item={buildPersonSchema({ description })} />
         <JsonLd item={buildWebsiteSchema({ description })} />
+        <JsonLd item={buildProfessionalServiceSchema({ description })} />
         <AppBackground />
         <Header />
         <SocialLinks />

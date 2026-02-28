@@ -1,10 +1,15 @@
 import {
+  buildArticleSchema,
   buildBlogCollectionPageSchema,
   buildBlogItemListSchema,
   buildBlogPostingSchema,
   buildContactPageSchema,
+  buildHomePageSchema,
+  buildPersonSchema,
+  buildProfessionalServiceSchema,
   buildProfilePageSchema,
   buildWebPageSchema,
+  buildWebsiteSchema,
 } from "@/lib/seo";
 
 describe("seo jsonld builders", () => {
@@ -58,6 +63,92 @@ describe("seo jsonld builders", () => {
     });
   });
 
+  it("builds enhanced home and website schemas", () => {
+    const home = buildHomePageSchema({
+      path: "/",
+      title: "Alex Leung | Syntropy Engineer and Programmer, P.Eng.",
+      description: "Homepage description",
+    });
+    const website = buildWebsiteSchema({
+      description: "Website description",
+    });
+
+    expect(home.primaryImageOfPage).toMatchObject({
+      "@type": "ImageObject",
+      url: "https://alexleung.ca/assets/alex_vibing.webp",
+    });
+
+    const hasPart = website.hasPart;
+    expect(Array.isArray(hasPart)).toBe(true);
+
+    if (!Array.isArray(hasPart)) {
+      throw new Error("Expected hasPart to be an array");
+    }
+
+    expect(hasPart).toHaveLength(4);
+    expect(hasPart[0]).toEqual({
+      "@type": "WebPage",
+      "@id": "https://alexleung.ca/about/",
+    });
+  });
+
+  it("builds person schema with richer identity metadata", () => {
+    const person = buildPersonSchema({
+      description: "Person description",
+    });
+
+    if (typeof person === "string") {
+      throw new Error("Expected person schema object");
+    }
+
+    expect(person.givenName).toBe("Alex");
+    expect(person.familyName).toBe("Leung");
+    expect(person.honorificSuffix).toBe("P.Eng.");
+    expect(person.memberOf).toMatchObject({
+      "@type": "Organization",
+      name: "Professional Engineers Ontario",
+    });
+    expect(person.knowsLanguage).toEqual(["en-CA"]);
+    expect(person.sameAs).toContain("https://github.com/aclinic");
+    expect(person.hasOccupation).toMatchObject({
+      "@type": "Occupation",
+      name: "Software Engineer",
+    });
+    expect(person.alternateName).toEqual(
+      expect.arrayContaining([
+        "aclinic",
+        "acl",
+        "aclyxpse",
+        "aclyx",
+        "yattaro",
+        "rootpanda",
+      ])
+    );
+  });
+
+  it("builds professional service schema with service areas", () => {
+    const service = buildProfessionalServiceSchema({
+      description: "Personal website of Alex Leung",
+    });
+
+    if (typeof service === "string") {
+      throw new Error("Expected service schema to be an object");
+    }
+
+    expect(service["@type"]).toBe("Service");
+    expect(service.areaServed).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: "Ontario" }),
+        expect.objectContaining({ name: "California" }),
+        expect.objectContaining({ name: "Waterloo" }),
+        expect.objectContaining({ name: "Toronto" }),
+        expect.objectContaining({ name: "Canada" }),
+        expect.objectContaining({ name: "United States" }),
+        expect.objectContaining({ name: "San Francisco" }),
+      ])
+    );
+  });
+
   it("builds blog posting schema with normalized urls and keywords", () => {
     const posting = buildBlogPostingSchema({
       slug: "deep-dive",
@@ -82,6 +173,25 @@ describe("seo jsonld builders", () => {
     expect(posting.mainEntityOfPage).toEqual({
       "@type": "WebPage",
       "@id": "https://alexleung.ca/blog/deep-dive/",
+    });
+  });
+
+  it("builds article schema for blog posts", () => {
+    const article = buildArticleSchema({
+      slug: "deep-dive",
+      title: "Deep Dive",
+      description: "A deep dive post",
+      coverImage: "/assets/blog/cover.webp",
+      date: "2026-02-16",
+      updated: "2026-02-18",
+      tags: ["ai", "systems"],
+    });
+
+    expect(article.url).toBe("https://alexleung.ca/blog/deep-dive/");
+    expect(article["@id"]).toBe("https://alexleung.ca/blog/deep-dive/#article");
+    expect(article.author).toMatchObject({
+      "@id": "https://alexleung.ca/#person",
+      url: "https://alexleung.ca/about/",
     });
   });
 });

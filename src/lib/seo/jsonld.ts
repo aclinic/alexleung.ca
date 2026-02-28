@@ -1,10 +1,13 @@
 import type {
+  Article,
   BlogPosting,
   CollectionPage,
   ContactPage,
   ItemList,
+  Occupation,
   Person,
   ProfilePage,
+  Service,
   WebPage,
   WebSite,
   WithContext,
@@ -14,6 +17,44 @@ import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 
 const PERSON_ID = "/#person";
 const WEBSITE_ID = "/#website";
+
+const GEO_SERVICE_AREAS = [
+  {
+    "@type": "AdministrativeArea" as const,
+    name: "Ontario",
+    sameAs: "https://en.wikipedia.org/wiki/Ontario",
+  },
+  {
+    "@type": "Country" as const,
+    name: "Canada",
+    sameAs: "https://en.wikipedia.org/wiki/Canada",
+  },
+  {
+    "@type": "Country" as const,
+    name: "United States",
+    sameAs: "https://en.wikipedia.org/wiki/United_States",
+  },
+  {
+    "@type": "AdministrativeArea" as const,
+    name: "California",
+    sameAs: "https://en.wikipedia.org/wiki/California",
+  },
+  {
+    "@type": "City" as const,
+    name: "Waterloo",
+    sameAs: "https://en.wikipedia.org/wiki/Waterloo,_Ontario",
+  },
+  {
+    "@type": "City" as const,
+    name: "Toronto",
+    sameAs: "https://en.wikipedia.org/wiki/Toronto",
+  },
+  {
+    "@type": "City" as const,
+    name: "San Francisco",
+    sameAs: "https://en.wikipedia.org/wiki/San_Francisco",
+  },
+];
 
 function getSiteRoot(): string {
   return toAbsoluteUrl("/").replace(/\/$/, "");
@@ -83,6 +124,28 @@ export function buildWebPageSchema(input: {
     mainEntity: {
       "@type": "Person",
       "@id": toAbsoluteUrl(PERSON_ID),
+    },
+  };
+}
+
+export function buildHomePageSchema(input: {
+  description: string;
+  path: string;
+  title: string;
+}): WithContext<WebPage> {
+  return {
+    ...buildBasePageSchema({ ...input, pageType: "WebPage" }),
+    about: {
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    mainEntity: {
+      "@type": "Person",
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: toAbsoluteUrl("/assets/alex_vibing.webp"),
+      caption: "Alex Leung",
     },
   };
 }
@@ -167,18 +230,77 @@ export function buildBlogPostingSchema(input: {
   };
 }
 
+export function buildArticleSchema(input: {
+  coverImage?: string;
+  date: string;
+  description?: string;
+  slug: string;
+  tags: string[];
+  title: string;
+  updated?: string;
+}): WithContext<Article> {
+  const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
+
+  return {
+    "@context": "https://schema.org" as const,
+    "@type": "Article",
+    "@id": `${canonicalPostUrl}#article`,
+    url: canonicalPostUrl,
+    headline: input.title,
+    description: input.description,
+    keywords: input.tags.length > 0 ? input.tags.join(", ") : undefined,
+    image: input.coverImage ? [toAbsoluteUrl(input.coverImage)] : undefined,
+    datePublished: new Date(input.date).toISOString(),
+    dateModified: new Date(input.updated || input.date).toISOString(),
+    author: {
+      "@type": "Person",
+      "@id": toAbsoluteUrl(PERSON_ID),
+      name: "Alex Leung",
+      url: toCanonical("/about"),
+    },
+    publisher: {
+      "@type": "Person",
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    inLanguage: "en-CA",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalPostUrl,
+    },
+  };
+}
+
 export function buildPersonSchema(input: {
   description: string;
 }): WithContext<Person> {
+  const currentOccupation: Occupation = {
+    "@type": "Occupation",
+    name: "Software Engineer",
+    occupationLocation: {
+      "@type": "City",
+      name: "Waterloo, Ontario, Canada",
+    },
+    skills: "Product development, software architecture, and AI engineering",
+  };
+
   return {
     "@context": "https://schema.org" as const,
     "@type": "Person",
     "@id": toAbsoluteUrl(PERSON_ID),
     name: "Alex Leung",
+    givenName: "Alex",
+    familyName: "Leung",
+    honorificSuffix: "P.Eng.",
     alternateName: [
       "Alexander Leung",
       "Alexander Clayton Leung",
       "Alex C Leung",
+      "aclinic",
+      "acl",
+      "aclyxpse",
+      "aclyx",
+      "yattaro",
+      "rootpanda",
     ],
     url: getSiteRoot(),
     mainEntityOfPage: {
@@ -198,10 +320,12 @@ export function buildPersonSchema(input: {
       },
     ],
     jobTitle: "Software Engineer",
+    hasOccupation: currentOccupation,
     description: input.description,
+    knowsLanguage: ["en-CA"],
     sameAs: [
       "https://www.linkedin.com/in/aclinic",
-      "https://www.github.com/aclinic",
+      "https://github.com/aclinic",
       "https://www.x.com/aclyxpse",
       "https://bsky.app/profile/aclinic.bsky.social",
       "https://www.instagram.com/rootpanda",
@@ -278,6 +402,27 @@ export function buildPersonSchema(input: {
         },
       },
     ],
+    memberOf: {
+      "@type": "Organization",
+      name: "Professional Engineers Ontario",
+      url: "https://www.peo.on.ca",
+    },
+  };
+}
+
+export function buildProfessionalServiceSchema(input: {
+  description: string;
+}): WithContext<Service> {
+  return {
+    "@context": "https://schema.org" as const,
+    "@type": "Service",
+    "@id": toAbsoluteUrl("/#service"),
+    name: "Software Engineering and Technical Leadership Services",
+    description: input.description,
+    provider: {
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
+    areaServed: GEO_SERVICE_AREAS,
   };
 }
 
@@ -291,9 +436,30 @@ export function buildWebsiteSchema(input: {
     url: getSiteRoot(),
     name: "Alex Leung",
     description: input.description,
+    about: {
+      "@id": toAbsoluteUrl(PERSON_ID),
+    },
     publisher: {
       "@id": toAbsoluteUrl(PERSON_ID),
     },
+    hasPart: [
+      {
+        "@type": "WebPage",
+        "@id": toCanonical("/about"),
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": toCanonical("/blog"),
+      },
+      {
+        "@type": "ContactPage",
+        "@id": toCanonical("/contact"),
+      },
+      {
+        "@type": "WebPage",
+        "@id": toCanonical("/now"),
+      },
+    ],
     inLanguage: "en-CA",
   };
 }
