@@ -27,9 +27,9 @@ export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
 }).format(nowPageLastUpdatedDate);
 
-const title = "What I'm Doing Now | Alex Leung";
+const title = "Now | Alex Leung";
 const description =
-  "Current projects, books, and goals - a snapshot of what Alex Leung is focused on right now.";
+  "A living snapshot of Alex Leung's current priorities, projects, reading, and experiments.";
 const path = "/now";
 
 export const metadata: Metadata = buildPageMetadata({

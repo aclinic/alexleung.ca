@@ -61,6 +61,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     ...metadata,
+    authors: [{ name: "Alex Leung", url: toCanonical("/about") }],
     openGraph: {
       type: "article",
       title,
@@ -146,8 +147,16 @@ export default async function Post({ params }: Props) {
           className="mb-12"
         >
           <Surface className="mx-auto" padding="sm">
-            <div className="mb-3 text-lg text-gray-300">
-              {formatIsoDateForDisplay(post.date)}
+            <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-gray-300">
+              <span>By Alex Leung</span>
+              <time dateTime={post.date}>
+                Published {formatIsoDateForDisplay(post.date)}
+              </time>
+              {post.updated && post.updated !== post.date && (
+                <time dateTime={post.updated}>
+                  Updated {formatIsoDateForDisplay(post.updated)}
+                </time>
+              )}
             </div>
             {post.tags.length > 0 && (
               <div className="mb-6 flex flex-wrap gap-2">
