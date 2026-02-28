@@ -148,7 +148,6 @@ export default async function Post({ params }: Props) {
         >
           <Surface className="mx-auto" padding="sm">
             <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-gray-300">
-              <span>By Alex Leung</span>
               <time dateTime={post.date}>
                 Published {formatIsoDateForDisplay(post.date)}
               </time>
