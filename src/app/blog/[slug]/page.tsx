@@ -3,7 +3,7 @@ import { JsonLd } from "react-schemaorg";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { BlogPosting } from "schema-dts";
+import { Article, BlogPosting } from "schema-dts";
 
 import { CoverImage } from "@/components/CoverImage";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
@@ -16,6 +16,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
 import { formatIsoDateForDisplay } from "@/lib/date";
 import markdownToHtml from "@/lib/markdownToHtml";
 import {
+  buildArticleSchema,
   buildBlogPostingSchema,
   buildPageMetadata,
   toCanonical,
@@ -60,6 +61,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     ...metadata,
+    authors: [{ name: "Alex Leung", url: toCanonical("/about") }],
     openGraph: {
       type: "article",
       title,
@@ -127,6 +129,17 @@ export default async function Post({ params }: Props) {
           tags: post.tags,
         })}
       />
+      <JsonLd<Article>
+        item={buildArticleSchema({
+          slug: post.slug,
+          title: post.title,
+          description: post.excerpt,
+          coverImage: post.coverImage,
+          date: post.date,
+          updated: post.updated,
+          tags: post.tags,
+        })}
+      />
       <PageShell title={post.title}>
         <ResponsiveContainer
           element="article"
@@ -134,8 +147,16 @@ export default async function Post({ params }: Props) {
           className="mb-12"
         >
           <Surface className="mx-auto" padding="sm">
-            <div className="mb-3 text-lg text-gray-300">
-              {formatIsoDateForDisplay(post.date)}
+            <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-gray-300">
+              <span>By Alex Leung</span>
+              <time dateTime={post.date}>
+                Published {formatIsoDateForDisplay(post.date)}
+              </time>
+              {post.updated && post.updated !== post.date && (
+                <time dateTime={post.updated}>
+                  Updated {formatIsoDateForDisplay(post.updated)}
+                </time>
+              )}
             </div>
             {post.tags.length > 0 && (
               <div className="mb-6 flex flex-wrap gap-2">

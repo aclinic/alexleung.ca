@@ -12,9 +12,9 @@ import { buildPageMetadata, buildProfilePageSchema } from "@/lib/seo";
 
 import { Skills } from "./_components/TechnicalInterests";
 
-const title = "About Me | Alex Leung";
+const title = "About | Alex Leung";
 const description =
-  "Learn about Alex Leung's journey - from University of Waterloo and Georgia Tech to end-to-end product development.";
+  "Learn about Alex Leung's background, credentials, and approach to building software products end to end.";
 const path = "/about";
 
 export const metadata: Metadata = buildPageMetadata({
