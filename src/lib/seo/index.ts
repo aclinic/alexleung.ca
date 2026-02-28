@@ -5,6 +5,7 @@ export {
   buildBlogPostingSchema,
   buildContactPageSchema,
   buildPersonSchema,
+  buildProfessionalServiceSchema,
   buildProfilePageSchema,
   buildWebPageSchema,
   buildWebsiteSchema,

@@ -9,7 +9,11 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SocialLinks from "@/components/SocialLinks";
 import { BASE_URL } from "@/constants";
-import { buildPersonSchema, buildWebsiteSchema } from "@/lib/seo";
+import {
+  buildPersonSchema,
+  buildProfessionalServiceSchema,
+  buildWebsiteSchema,
+} from "@/lib/seo";
 
 import "./globals.css";
 
@@ -90,6 +94,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={`${lato.className} flex min-h-screen flex-col`}>
         <JsonLd item={buildPersonSchema({ description })} />
         <JsonLd item={buildWebsiteSchema({ description })} />
+        <JsonLd item={buildProfessionalServiceSchema({ description })} />
         <AppBackground />
         <Header />
         <SocialLinks />

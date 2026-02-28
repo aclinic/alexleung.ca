@@ -4,19 +4,10 @@ import {
   buildBlogPostingSchema,
   buildContactPageSchema,
   buildPersonSchema,
+  buildProfessionalServiceSchema,
   buildProfilePageSchema,
   buildWebPageSchema,
 } from "@/lib/seo";
-
-function asObjectSchema(
-  schema: ReturnType<typeof buildPersonSchema>
-): Exclude<ReturnType<typeof buildPersonSchema>, string> {
-  if (typeof schema === "string") {
-    throw new Error("Expected schema to be an object");
-  }
-
-  return schema;
-}
 
 describe("seo jsonld builders", () => {
   it("builds profile/contact/web page schemas with canonical IDs", () => {
@@ -69,17 +60,14 @@ describe("seo jsonld builders", () => {
     });
   });
 
-  it("builds person schema with city and region service areas", () => {
-    const person = asObjectSchema(
-      buildPersonSchema({
-        description: "Personal website of Alex Leung",
-      })
-    );
-
-    expect(person.homeLocation).toMatchObject({
-      "@type": "Place",
-      name: "Canada and United States",
+  it("builds person schema with aliases", () => {
+    const person = buildPersonSchema({
+      description: "Personal website of Alex Leung",
     });
+
+    if (typeof person === "string") {
+      throw new Error("Expected person schema to be an object");
+    }
 
     expect(person.alternateName).toEqual(
       expect.arrayContaining([
@@ -91,37 +79,27 @@ describe("seo jsonld builders", () => {
         "rootpanda",
       ])
     );
+  });
 
-    expect(person.areaServed).toEqual(
+  it("builds professional service schema with service areas", () => {
+    const service = buildProfessionalServiceSchema({
+      description: "Personal website of Alex Leung",
+    });
+
+    if (typeof service === "string") {
+      throw new Error("Expected service schema to be an object");
+    }
+
+    expect(service["@type"]).toBe("Service");
+    expect(service.areaServed).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({
-          "@type": "AdministrativeArea",
-          name: "Ontario",
-        }),
-        expect.objectContaining({
-          "@type": "AdministrativeArea",
-          name: "California",
-        }),
-        expect.objectContaining({
-          "@type": "City",
-          name: "Waterloo",
-        }),
-        expect.objectContaining({
-          "@type": "City",
-          name: "Toronto",
-        }),
-        expect.objectContaining({
-          "@type": "Country",
-          name: "Canada",
-        }),
-        expect.objectContaining({
-          "@type": "Country",
-          name: "United States",
-        }),
-        expect.objectContaining({
-          "@type": "City",
-          name: "San Francisco",
-        }),
+        expect.objectContaining({ name: "Ontario" }),
+        expect.objectContaining({ name: "California" }),
+        expect.objectContaining({ name: "Waterloo" }),
+        expect.objectContaining({ name: "Toronto" }),
+        expect.objectContaining({ name: "Canada" }),
+        expect.objectContaining({ name: "United States" }),
+        expect.objectContaining({ name: "San Francisco" }),
       ])
     );
   });
