@@ -19,7 +19,7 @@ import "./globals.css";
 
 const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
 const description =
-  "Personal website of Alex Leung, a Syntropy Engineer and Programmer, featuring writing on software, systems, and learning in public.";
+  "Alex Leung is a Syntropy Engineer and Programmer writing about software systems, AI engineering, and learning in public.";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -49,15 +49,15 @@ export const metadata: Metadata = {
     locale: "en_CA",
     images: [
       {
-        url: "/assets/alex_vibing.webp",
-        width: 1536,
-        height: 1024,
-        alt: title,
-      },
-      {
         url: "/assets/screenshot.png",
         width: 1200,
         height: 630,
+        alt: title,
+      },
+      {
+        url: "/assets/alex_vibing.webp",
+        width: 1536,
+        height: 1024,
         alt: title,
       },
     ],
