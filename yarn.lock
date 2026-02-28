@@ -2033,6 +2033,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/katex@npm:^0.16.0":
+  version: 0.16.8
+  resolution: "@types/katex@npm:0.16.8"
+  checksum: 10c0/0661609353f4f5e62bd2dc78da99e842761c6474b19f2268b195bbe9dbf20e6f766a31155d79eec2e7c3eff4e7eba4b30f4f519e9c6a11c75bb45e257a2ddb69
+  languageName: node
+  linkType: hard
+
 "@types/mdast@npm:^4.0.0":
   version: 4.0.4
   resolution: "@types/mdast@npm:4.0.4"
@@ -2604,6 +2611,7 @@ __metadata:
     gray-matter: "npm:^4.0.3"
     jest: "npm:^30.2.0"
     jest-environment-jsdom: "npm:^30.2.0"
+    katex: "npm:^0.16.33"
     next: "npm:^16.1.5"
     postcss: "npm:^8.5.3"
     prettier: "npm:^3.7.4"
@@ -2613,11 +2621,13 @@ __metadata:
     react-icons: "npm:^5.3.0"
     react-schemaorg: "npm:^2.0.0"
     rehype-highlight: "npm:^7.0.2"
+    rehype-katex: "npm:^7.0.1"
     rehype-pretty-code: "npm:^0.14.1"
     rehype-sanitize: "npm:^6.0.0"
     rehype-stringify: "npm:^10.0.1"
     remark: "npm:^15.0.1"
     remark-html: "npm:^16.0.1"
+    remark-math: "npm:^6.0.0"
     remark-rehype: "npm:^11.1.2"
     schema-dts: "npm:^1.1.5"
     shiki: "npm:^3.22.0"
@@ -3261,6 +3271,13 @@ __metadata:
   version: 13.1.0
   resolution: "commander@npm:13.1.0"
   checksum: 10c0/7b8c5544bba704fbe84b7cab2e043df8586d5c114a4c5b607f83ae5060708940ed0b5bd5838cf8ce27539cde265c1cbd59ce3c8c6b017ed3eec8943e3a415164
+  languageName: node
+  linkType: hard
+
+"commander@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "commander@npm:8.3.0"
+  checksum: 10c0/8b043bb8322ea1c39664a1598a95e0495bfe4ca2fad0d84a92d7d1d8d213e2a155b441d2470c8e08de7c4a28cf2bc6e169211c49e1b21d9f7edc6ae4d9356060
   languageName: node
   linkType: hard
 
@@ -4745,6 +4762,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hast-util-from-dom@npm:^5.0.0":
+  version: 5.0.1
+  resolution: "hast-util-from-dom@npm:5.0.1"
+  dependencies:
+    "@types/hast": "npm:^3.0.0"
+    hastscript: "npm:^9.0.0"
+    web-namespaces: "npm:^2.0.0"
+  checksum: 10c0/9a90381e048107a093a3da758bb17b67aaf5322e222f02497f841c4990abf94aa177d38d5b9bf61ad07b3601d0409f34f5b556d89578cc189230c6b994d2af77
+  languageName: node
+  linkType: hard
+
+"hast-util-from-html-isomorphic@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "hast-util-from-html-isomorphic@npm:2.0.0"
+  dependencies:
+    "@types/hast": "npm:^3.0.0"
+    hast-util-from-dom: "npm:^5.0.0"
+    hast-util-from-html: "npm:^2.0.0"
+    unist-util-remove-position: "npm:^5.0.0"
+  checksum: 10c0/fc68d9245e794483a802d5c85a9f6c25959e00db78cc796411efc965134f3206f9cc9fa38134572ea781ad74663e801f1f83202007b208e27a770855566a62b6
+  languageName: node
+  linkType: hard
+
 "hast-util-from-html@npm:^2.0.0":
   version: 2.0.3
   resolution: "hast-util-from-html@npm:2.0.3"
@@ -6057,6 +6097,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"katex@npm:^0.16.0, katex@npm:^0.16.33":
+  version: 0.16.33
+  resolution: "katex@npm:0.16.33"
+  dependencies:
+    commander: "npm:^8.3.0"
+  bin:
+    katex: cli.js
+  checksum: 10c0/b2b655e4a3592ee0db45fea87856542383109ed598504a1c67b8eb957b9ba4dab752d5865f6354579d2a260d71e3e3594278a66c184b70c574a52481abee8caa
+  languageName: node
+  linkType: hard
+
 "keyv@npm:^4.5.4":
   version: 4.5.4
   resolution: "keyv@npm:4.5.4"
@@ -6415,6 +6466,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mdast-util-math@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "mdast-util-math@npm:3.0.0"
+  dependencies:
+    "@types/hast": "npm:^3.0.0"
+    "@types/mdast": "npm:^4.0.0"
+    devlop: "npm:^1.0.0"
+    longest-streak: "npm:^3.0.0"
+    mdast-util-from-markdown: "npm:^2.0.0"
+    mdast-util-to-markdown: "npm:^2.1.0"
+    unist-util-remove-position: "npm:^5.0.0"
+  checksum: 10c0/d4e839e38719f26872ed78aac18339805a892f1b56585a9cb8668f34e221b4f0660b9dfe49ec96dbbe79fd1b63b648608a64046d8286bcd2f9d576e80b48a0a1
+  languageName: node
+  linkType: hard
+
 "mdast-util-phrasing@npm:^4.0.0":
   version: 4.1.0
   resolution: "mdast-util-phrasing@npm:4.1.0"
@@ -6442,7 +6508,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-to-markdown@npm:^2.0.0":
+"mdast-util-to-markdown@npm:^2.0.0, mdast-util-to-markdown@npm:^2.1.0":
   version: 2.1.2
   resolution: "mdast-util-to-markdown@npm:2.1.2"
   dependencies:
@@ -6503,6 +6569,21 @@ __metadata:
     micromark-util-symbol: "npm:^2.0.0"
     micromark-util-types: "npm:^2.0.0"
   checksum: 10c0/bd4a794fdc9e88dbdf59eaf1c507ddf26e5f7ddf4e52566c72239c0f1b66adbcd219ba2cd42350debbe24471434d5f5e50099d2b3f4e5762ca222ba8e5b549ee
+  languageName: node
+  linkType: hard
+
+"micromark-extension-math@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "micromark-extension-math@npm:3.1.0"
+  dependencies:
+    "@types/katex": "npm:^0.16.0"
+    devlop: "npm:^1.0.0"
+    katex: "npm:^0.16.0"
+    micromark-factory-space: "npm:^2.0.0"
+    micromark-util-character: "npm:^2.0.0"
+    micromark-util-symbol: "npm:^2.0.0"
+    micromark-util-types: "npm:^2.0.0"
+  checksum: 10c0/56e6f2185a4613f9d47e7e98cf8605851c990957d9229c942b005e286c8087b61dc9149448d38b2f8be6d42cc6a64aad7e1f2778ddd86fbbb1a2f48a3ca1872f
   languageName: node
   linkType: hard
 
@@ -7701,6 +7782,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rehype-katex@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "rehype-katex@npm:7.0.1"
+  dependencies:
+    "@types/hast": "npm:^3.0.0"
+    "@types/katex": "npm:^0.16.0"
+    hast-util-from-html-isomorphic: "npm:^2.0.0"
+    hast-util-to-text: "npm:^4.0.0"
+    katex: "npm:^0.16.0"
+    unist-util-visit-parents: "npm:^6.0.0"
+    vfile: "npm:^6.0.0"
+  checksum: 10c0/73c770319536128b75055d904d06951789d00a0552c11724c0dac2e244dcb21041630552d118a11cc42233fdcd1bfee525e78a0020fde635bd916cceb281dfb1
+  languageName: node
+  linkType: hard
+
 "rehype-parse@npm:^9.0.0":
   version: 9.0.1
   resolution: "rehype-parse@npm:9.0.1"
@@ -7759,6 +7855,18 @@ __metadata:
     mdast-util-to-hast: "npm:^13.0.0"
     unified: "npm:^11.0.0"
   checksum: 10c0/4e23d84f04921872bb2321fe57ec9b295bd959135613d39356bc3547fea60f800ed8cc60c7a1ffbf7e669c2c2b910419b801fc41509dae2b380b275bcd081ee7
+  languageName: node
+  linkType: hard
+
+"remark-math@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "remark-math@npm:6.0.0"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    mdast-util-math: "npm:^3.0.0"
+    micromark-extension-math: "npm:^3.0.0"
+    unified: "npm:^11.0.0"
+  checksum: 10c0/859613c4db194bb6b3c9c063661dc52b8ceda9c5cf3256b42f73d93eb8f38a6d634eb5f976fe094425f6f1035aaf329eb49ada314feb3b2b1073326b6d3aaa02
   languageName: node
   linkType: hard
 
@@ -8980,6 +9088,16 @@ __metadata:
   dependencies:
     "@types/unist": "npm:^3.0.0"
   checksum: 10c0/dde3b31e314c98f12b4dc6402f9722b2bf35e96a4f2d463233dd90d7cde2d4928074a7a11eff0a5eb1f4e200f27fc1557e0a64a7e8e4da6558542f251b1b7400
+  languageName: node
+  linkType: hard
+
+"unist-util-remove-position@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "unist-util-remove-position@npm:5.0.0"
+  dependencies:
+    "@types/unist": "npm:^3.0.0"
+    unist-util-visit: "npm:^5.0.0"
+  checksum: 10c0/e8c76da4399446b3da2d1c84a97c607b37d03d1d92561e14838cbe4fdcb485bfc06c06cfadbb808ccb72105a80643976d0660d1fe222ca372203075be9d71105
   languageName: node
   linkType: hard
 
