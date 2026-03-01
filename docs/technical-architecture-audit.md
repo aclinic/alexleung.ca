@@ -9,7 +9,7 @@ The architecture is in a healthy state for a static, content-first personal site
 - Type checking is a first-class script.
 - Shared SEO metadata and JSON-LD builders are in active use.
 
-The primary opportunities are now operational (CI/performance monitoring) and content-model scale planning.
+The primary opportunities are now centered on content-model scale planning and continued editorial/SEO operations.
 
 ## Current Snapshot
 
@@ -28,6 +28,7 @@ The primary opportunities are now operational (CI/performance monitoring) and co
 | Explicit typecheck script | Done | `yarn typecheck` runs `tsc --noEmit`. |
 | SEO metadata abstraction | Done | Shared URL/metadata helpers are centralized in `src/lib/seo`. |
 | JSON-LD abstraction | Done | Shared schema builders are centralized and reused by routes. |
+| Performance baseline automation | Done | Lighthouse CI now runs against static export routes (`/` and `/blog/`) in a dedicated workflow. |
 
 ## Open Opportunities
 
@@ -40,16 +41,7 @@ Current scripts support strong local checks, but this audit does not track a gua
 - Ensure CI consistently runs: `yarn lint`, `yarn typecheck`, `yarn test`, and `yarn build`.
 - Keep Yarn/Corepack setup explicit in workflow steps to avoid version drift.
 
-### 2) Performance budget governance
-
-The app is already lightweight, but no explicit non-regression budget is documented in repo tooling.
-
-**Recommendation**
-
-- Add a lightweight Lighthouse baseline process (manual or CI) for homepage and a representative blog post.
-- Track score and key metrics changes after major UI/dependency updates.
-
-### 3) Future content-domain expansion plan
+### 2) Future content-domain expansion plan
 
 The current blog pipeline is robust; future sections (e.g., resources/notes/projects) should avoid duplicated loaders.
 

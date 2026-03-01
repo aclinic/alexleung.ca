@@ -1,0 +1,42 @@
+name: Performance Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    name: Lighthouse Baseline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: 🧰 Enable Corepack (Yarn v4)
+        run: |
+          corepack enable
+          corepack install
+
+      - name: 🏗️ Install Dependencies
+        run: yarn install --immutable
+
+      - name: 🏗️ Build Static Export
+        run: yarn build
+
+      - name: 🌐 Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: 🔦 Run Lighthouse CI
+        run: yarn perf:lighthouse

@@ -44,6 +44,7 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 - `yarn typecheck` — run TypeScript check (`tsc --noEmit`)
 - `yarn test:watch` — run tests in watch mode
 - `yarn test:coverage` — run tests with coverage
+- `yarn perf:lighthouse` — run Lighthouse CI against static export (`out/`)
 - `yarn deploy` — build and deploy `out/` to GitHub Pages
 
 > This project targets static export deployment, so there is no runtime Next.js production server command.
