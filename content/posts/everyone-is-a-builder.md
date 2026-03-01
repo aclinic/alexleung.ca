@@ -2,6 +2,7 @@
 title: "Everyone Is a Builder Now"
 date: "2026-02-28"
 excerpt: "Over cocktails, my colleagues and I talked about why AI lowering the barrier to building is a net positive."
+coverImage: "/assets/blog/everyone-is-a-builder/cover.webp"
 tags:
   - "AI"
   - "Future of Work"
