@@ -1,6 +1,7 @@
 import { JsonLd } from "react-schemaorg";
 
 import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Article, BlogPosting } from "schema-dts";
@@ -12,7 +13,7 @@ import { ProseContent } from "@/components/ProseContent";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Surface } from "@/components/Surface";
 import { Tag } from "@/components/Tag";
-import { getAllPosts, getPostBySlug } from "@/lib/blogApi";
+import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blogApi";
 import { formatIsoDateForDisplay } from "@/lib/date";
 import markdownToHtml from "@/lib/markdownToHtml";
 import {
@@ -108,6 +109,7 @@ export default async function Post({ params }: Props) {
   }
 
   const content = await markdownToHtml(post.content || "");
+  const relatedPosts = getRelatedPosts(post.slug, { limit: 3 });
 
   return (
     <>
@@ -172,6 +174,46 @@ export default async function Post({ params }: Props) {
               className="mb-6 sm:mx-0 md:mb-10"
             />
             <ProseContent html={content} />
+
+            {relatedPosts.length > 0 && (
+              <section
+                aria-labelledby="related-posts-heading"
+                className="mt-12 border-t border-white/10 pt-8"
+              >
+                <h2
+                  id="related-posts-heading"
+                  className="mb-5 text-2xl font-bold text-white"
+                >
+                  Related posts
+                </h2>
+                <div className="grid gap-4 md:grid-cols-3">
+                  {relatedPosts.map((relatedPost) => (
+                    <Link
+                      key={relatedPost.slug}
+                      href={`/blog/${relatedPost.slug}`}
+                      className="block"
+                    >
+                      <Surface
+                        className="h-full p-4 transition-colors hover:border-white/30"
+                        interactive
+                      >
+                        <h3 className="text-base font-semibold text-white">
+                          {relatedPost.title}
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-300">
+                          {formatIsoDateForDisplay(relatedPost.date)}
+                        </p>
+                        {relatedPost.excerpt ? (
+                          <p className="mt-2 line-clamp-3 text-sm text-gray-200">
+                            {relatedPost.excerpt}
+                          </p>
+                        ) : null}
+                      </Surface>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
           </Surface>
         </ResponsiveContainer>
       </PageShell>
