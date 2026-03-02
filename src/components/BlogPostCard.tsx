@@ -4,6 +4,7 @@ import { CoverImage } from "@/components/CoverImage";
 import { surfaceClassNames } from "@/components/Surface";
 import { Tag } from "@/components/Tag";
 import { Post } from "@/lib/blogApi";
+import { getCoverVariantPath } from "@/lib/coverVariants";
 import { formatIsoDateForDisplay } from "@/lib/date";
 
 type BlogPostCardProps = {
@@ -11,24 +12,33 @@ type BlogPostCardProps = {
     Post,
     "slug" | "title" | "date" | "coverImage" | "excerpt" | "tags"
   >;
+  coverPriority?: boolean;
+  className?: string;
 };
 
-export function BlogPostCard({ post }: BlogPostCardProps) {
+export function BlogPostCard({
+  post,
+  coverPriority = false,
+  className = "",
+}: BlogPostCardProps) {
+  const cardCoverImage = getCoverVariantPath(post.coverImage, "card");
+
   return (
     <Link
       href={`/blog/${post.slug}`}
       className={surfaceClassNames({
         interactive: true,
-        className: "group mb-8 block p-6",
+        className: `group mb-8 block p-6 ${className}`.trim(),
       })}
       aria-label={post.title}
     >
       <div className="mb-5">
         <CoverImage
-          src={post.coverImage}
+          src={cardCoverImage || post.coverImage}
           alt={`Cover for ${post.title}`}
           variant="card"
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          priority={coverPriority}
           className="mb-4"
           imageClassName="transition-transform duration-200 group-hover:scale-105"
         />

@@ -37,16 +37,37 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 ## Development Commands
 
 - `yarn dev` — start development server
-- `yarn build` — build static export (`out/`)
+- `yarn prepare` — configure repo Git hooks path (`.githooks`)
+- `yarn cover:variants` — generate per-post `-card.webp` and `-hero.webp` variants
+- `yarn cover:variants:stage` — generate and stage variants for staged post/image changes
+- `yarn build` — build static export (`out/`) (runs `prebuild`)
 - `yarn lint` — run ESLint + Prettier checks
 - `yarn lint:fix` — auto-fix lint/format issues
 - `yarn test` — run Jest tests
 - `yarn typecheck` — run TypeScript check (`tsc --noEmit`)
 - `yarn test:watch` — run tests in watch mode
 - `yarn test:coverage` — run tests with coverage
+- `yarn perf:lighthouse` — run Lighthouse CI against static export (`out/`)
 - `yarn deploy` — build and deploy `out/` to GitHub Pages
 
 > This project targets static export deployment, so there is no runtime Next.js production server command.
+
+## Blog Cover Variant Automation
+
+- Variant generator script:
+  - `scripts/generate-cover-variants.mjs`
+- Generated files per source cover:
+  - `*-card.webp` for blog index card thumbnails
+  - `*-hero.webp` for individual post hero images
+- Source selection:
+  - every `coverImage` referenced in `content/posts/*.md`
+- Build integration:
+  - `yarn build` runs `prebuild`, which runs `yarn cover:variants`
+- Commit integration:
+  - `.githooks/pre-commit` runs `yarn cover:variants:stage` to keep variants in sync with staged changes
+- Runtime usage:
+  - `src/components/BlogPostCard.tsx` uses `-card.webp` (fallback to original cover)
+  - `src/app/blog/[slug]/page.tsx` uses `-hero.webp` (fallback to original cover)
 
 ## Architecture Snapshot
 

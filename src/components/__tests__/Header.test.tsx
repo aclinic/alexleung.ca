@@ -21,11 +21,10 @@ describe("Header", () => {
   it("should render navigation with logo and links", () => {
     render(<Header />);
     expect(screen.getByText("Alex Leung")).toBeInTheDocument();
-    // Both desktop and mobile links exist, so use getAllByText
-    expect(screen.getAllByText("Home")).toHaveLength(2);
-    expect(screen.getAllByText("About")).toHaveLength(2);
-    expect(screen.getAllByText("Now")).toHaveLength(2);
-    expect(screen.getAllByText("Contact")).toHaveLength(2);
+    expect(screen.getAllByText("Home")).toHaveLength(1);
+    expect(screen.getAllByText("About")).toHaveLength(1);
+    expect(screen.getAllByText("Now")).toHaveLength(1);
+    expect(screen.getAllByText("Contact")).toHaveLength(1);
   });
 
   describe("Mobile Menu", () => {
@@ -42,21 +41,24 @@ describe("Header", () => {
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
-    it("should toggle menu open state classes when button is clicked", () => {
+    it("should mount and unmount mobile menu when toggled", () => {
       const { container } = render(<Header />);
       const button = screen.getByLabelText("Toggle menu");
-      const backdrop = container.querySelector("[aria-hidden]");
 
-      // Initially closed - backdrop has opacity-0
-      expect(backdrop).toHaveClass("opacity-0");
-
-      fireEvent.click(button);
-      // After opening - backdrop has opacity-100
-      expect(backdrop).toHaveClass("opacity-100");
+      expect(
+        container.querySelector(".mobile-nav-link")
+      ).not.toBeInTheDocument();
+      expect(screen.getAllByText("Home")).toHaveLength(1);
 
       fireEvent.click(button);
-      // After closing - backdrop back to opacity-0
-      expect(backdrop).toHaveClass("opacity-0");
+      expect(container.querySelector(".mobile-nav-link")).toBeInTheDocument();
+      expect(screen.getAllByText("Home")).toHaveLength(2);
+
+      fireEvent.click(button);
+      expect(
+        container.querySelector(".mobile-nav-link")
+      ).not.toBeInTheDocument();
+      expect(screen.getAllByText("Home")).toHaveLength(1);
     });
 
     it("should close menu when backdrop is clicked", () => {
@@ -75,8 +77,8 @@ describe("Header", () => {
       const button = screen.getByLabelText("Toggle menu");
 
       fireEvent.click(button);
-      const mobileLinks = screen.getAllByText("Home");
-      fireEvent.click(mobileLinks[mobileLinks.length - 1]);
+      const mobileLink = screen.getAllByText("Home")[1];
+      fireEvent.click(mobileLink);
 
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
@@ -87,33 +89,35 @@ describe("Header", () => {
       (usePathname as jest.Mock).mockReturnValue("/about/");
       render(<Header />);
 
-      // Get desktop nav links (first occurrence)
-      const aboutLinks = screen.getAllByText("About");
-      const homeLinks = screen.getAllByText("Home");
+      const aboutLink = screen.getByText("About");
+      const homeLink = screen.getByText("Home");
 
-      expect(aboutLinks[0].closest("a")).toHaveClass("nav-link--active");
-      expect(homeLinks[0].closest("a")).toHaveClass("nav-link--inactive");
+      expect(aboutLink).toHaveClass("nav-link--active");
+      expect(homeLink).toHaveClass("nav-link--inactive");
     });
 
     it("should handle trailing slashes in pathname matching", () => {
       (usePathname as jest.Mock).mockReturnValue("/about");
       render(<Header />);
 
-      const aboutLinks = screen.getAllByText("About");
-      expect(aboutLinks[0].closest("a")).toHaveClass("nav-link--active");
+      const aboutLink = screen.getByText("About");
+      expect(aboutLink).toHaveClass("nav-link--active");
     });
 
     it("should mark home link active only on exact home path", () => {
       (usePathname as jest.Mock).mockReturnValue("/");
       render(<Header />);
 
-      const homeLinks = screen.getAllByText("Home");
-      expect(homeLinks[0].closest("a")).toHaveClass("nav-link--active");
+      const homeLink = screen.getByText("Home");
+      expect(homeLink).toHaveClass("nav-link--active");
     });
 
     it("should set aria-current on active links across desktop and mobile nav", () => {
       (usePathname as jest.Mock).mockReturnValue("/about/");
       render(<Header />);
+
+      const button = screen.getByLabelText("Toggle menu");
+      fireEvent.click(button);
 
       const aboutLinks = screen.getAllByText("About");
       expect(aboutLinks[0]).toHaveAttribute("aria-current", "page");
@@ -137,11 +141,9 @@ describe("Header", () => {
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
-    it("should set tabIndex=-1 on mobile links when menu is closed", () => {
+    it("should not render mobile links when menu is closed", () => {
       render(<Header />);
-      const mobileLinks = screen.getAllByText("Home");
-      // Mobile link is the second one
-      expect(mobileLinks[1]).toHaveAttribute("tabindex", "-1");
+      expect(screen.getAllByText("Home")).toHaveLength(1);
     });
 
     it("should set tabIndex=0 on mobile links when menu is open", () => {
@@ -150,8 +152,8 @@ describe("Header", () => {
 
       fireEvent.click(button);
 
-      const mobileLinks = screen.getAllByText("Home");
-      expect(mobileLinks[1]).toHaveAttribute("tabindex", "0");
+      const mobileLink = screen.getAllByText("Home")[1];
+      expect(mobileLink).toHaveAttribute("tabindex", "0");
     });
   });
 });

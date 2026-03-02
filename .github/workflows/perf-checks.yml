@@ -1,17 +1,18 @@
-name: PR Checks
+name: Performance Checks
 
 on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  verify:
-    name: Verify Typecheck, Build, Lint, and Tests
+  lighthouse:
+    name: Lighthouse Baseline
     runs-on: ubuntu-latest
 
     steps:
@@ -34,14 +35,11 @@ jobs:
       - name: 🖼️ Generate Cover Variants
         run: yarn cover:variants
 
-      - name: ✅ Lint
-        run: yarn lint
-
-      - name: 🧪 Test
-        run: yarn test
-
-      - name: 🔎 Typecheck
-        run: yarn typecheck
-
-      - name: 🏗️ Build
+      - name: 🏗️ Build Static Export
         run: yarn build
+
+      - name: 🌐 Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: 🔦 Run Lighthouse CI
+        run: yarn perf:lighthouse

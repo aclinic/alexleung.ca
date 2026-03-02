@@ -92,14 +92,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`${lato.className} flex min-h-screen flex-col`}>
-        <JsonLd item={buildPersonSchema({ description })} />
-        <JsonLd item={buildWebsiteSchema({ description })} />
-        <JsonLd item={buildProfessionalServiceSchema({ description })} />
         <AppBackground />
         <Header />
         <SocialLinks />
-        <main className="flex flex-grow flex-col">{children}</main>
+        <main className="flex grow flex-col">{children}</main>
         <Footer />
+        <JsonLd item={buildPersonSchema({ description })} />
+        <JsonLd item={buildWebsiteSchema({ description })} />
+        <JsonLd item={buildProfessionalServiceSchema({ description })} />
       </body>
     </html>
   );

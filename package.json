@@ -5,11 +5,20 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
+    "prepare": "git config core.hooksPath .githooks || true",
+    "cover:variants": "node scripts/generate-cover-variants.mjs",
+    "cover:variants:stage": "node scripts/generate-cover-variants.mjs --staged --stage-generated",
+    "lcp:cover": "yarn cover:variants",
+    "lcp:cover:stage": "yarn cover:variants:stage",
+    "lcp:covers": "yarn cover:variants",
+    "lcp:covers:staged": "yarn cover:variants:stage",
+    "prebuild": "yarn cover:variants",
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "perf:lighthouse": "lhci autorun --config=.lighthouserc.json",
     "lint": "eslint . && prettier --check '{src,app,components}/**/*.{js,jsx,ts,tsx,css,md,json,yml}'",
     "lint:fix": "eslint --fix . && prettier --write '{src,app,components}/**/*.{js,jsx,ts,tsx,css,md,json,yml}'",
     "predeploy": "yarn build",
@@ -26,6 +35,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/dom": "^10.4.1",
