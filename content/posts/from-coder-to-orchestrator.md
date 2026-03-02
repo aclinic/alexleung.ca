@@ -8,6 +8,10 @@ tags:
   - "AI Engineering"
   - "Developer Workflow"
 
+related:
+  - "everyone-is-a-builder"
+  - "medium-and-meaning"
+  - "boring-blog-architecture"
 ---
 
 Over the past two years, my day-to-day work has shifted from direct implementation toward orchestration and verification. In early 2024, I used AI mostly for autocomplete-level tasks such as snippets, error explanations, and small refactors. By 2026, I still write code when needed, but far more of my time goes to defining tasks clearly, checking outputs, and fixing edge cases the agents miss.
