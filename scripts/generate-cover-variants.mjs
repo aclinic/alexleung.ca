@@ -160,7 +160,6 @@ function run() {
   }
 
   const generated = [];
-  let skipped = 0;
 
   for (const coverImage of coverImages) {
     const sourcePath = path.join(publicDir, coverImage.slice(1));
@@ -170,20 +169,9 @@ function run() {
       continue;
     }
 
-    const sourceStat = fs.statSync(sourcePath);
-
     for (const variant of variants) {
       const targetPublicPath = toVariantPath(coverImage, variant.name);
       const targetPath = path.join(publicDir, targetPublicPath.slice(1));
-      const targetExists = fs.existsSync(targetPath);
-      const targetStat = targetExists ? fs.statSync(targetPath) : null;
-      const needsRegeneration =
-        !targetExists || sourceStat.mtimeMs > (targetStat?.mtimeMs || 0);
-
-      if (!needsRegeneration) {
-        skipped += 1;
-        continue;
-      }
 
       fs.mkdirSync(path.dirname(targetPath), { recursive: true });
       execFileSync(
@@ -213,9 +201,7 @@ function run() {
     });
   }
 
-  log(
-    `[cover:variants] Generated ${generated.length} variant(s), skipped ${skipped}.`
-  );
+  log(`[cover:variants] Generated ${generated.length} variant(s).`);
 }
 
 run();
