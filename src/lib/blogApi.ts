@@ -15,7 +15,6 @@ const POST_FIELDS = [
   "tags",
   "series",
   "seriesOrder",
-  "related",
   "readingTimeMinutes",
   "draft",
   "content",
@@ -37,7 +36,6 @@ export type Post = {
   tags: string[];
   series?: string;
   seriesOrder?: number;
-  related: string[];
   readingTimeMinutes?: number;
   draft: boolean;
   content: string;
@@ -89,10 +87,6 @@ const PostFrontMatterSchema = z
       .positive()
       .optional()
       .describe("Optional order index for posts within a series."),
-    related: z
-      .array(z.string().trim().min(1))
-      .default([])
-      .describe("Optional manual related-post slug overrides."),
     readingTimeMinutes: z
       .number()
       .int()
@@ -181,7 +175,6 @@ function parsePostBySlug(slug: string): Post | null {
     tags: frontMatter.tags,
     series: frontMatter.series,
     seriesOrder: frontMatter.seriesOrder,
-    related: frontMatter.related,
     readingTimeMinutes: frontMatter.readingTimeMinutes,
     draft: frontMatter.draft,
     content,
@@ -206,26 +199,6 @@ function assertUniqueSeriesOrder(posts: readonly Post[]) {
 
     existing.add(post.seriesOrder);
     seen.set(post.series, existing);
-  }
-}
-
-function assertRelatedSlugsExist(posts: readonly Post[]) {
-  const slugs = new Set(posts.map((post) => post.slug));
-
-  for (const post of posts) {
-    for (const relatedSlug of post.related) {
-      if (relatedSlug === post.slug) {
-        throw new Error(
-          `Invalid related slug in "${post.slug}": post cannot relate to itself`
-        );
-      }
-
-      if (!slugs.has(relatedSlug)) {
-        throw new Error(
-          `Invalid related slug in "${post.slug}": "${relatedSlug}" does not exist`
-        );
-      }
-    }
   }
 }
 
@@ -351,7 +324,6 @@ export function getAllPosts<T extends PostField>(
     .filter((post): post is Post => post !== null);
 
   assertUniqueSeriesOrder(allPosts);
-  assertRelatedSlugsExist(allPosts);
 
   const posts = allPosts
     .filter((post) => includeDrafts || !post.draft)
@@ -393,16 +365,6 @@ export function getRelatedPosts(
   }
 
   const candidates = allPosts.filter((post) => post.slug !== slug);
-
-  if (target.related.length > 0) {
-    const relatedBySlug = new Map(candidates.map((post) => [post.slug, post]));
-
-    return target.related
-      .map((relatedSlug) => relatedBySlug.get(relatedSlug))
-      .filter((post): post is Post => Boolean(post))
-      .slice(0, limit)
-      .map(toRelatedPost);
-  }
 
   const scored = candidates
     .map((candidate) => ({
