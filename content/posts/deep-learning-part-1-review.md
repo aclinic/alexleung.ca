@@ -7,11 +7,6 @@ coverImage: "/assets/blog/deep-learning-part-1-review/cover.webp"
 tags:
   - "Deep Learning"
   - "Book Notes"
-related:
-  - "structural-reasoning-about-deep-networks"
-  - "from-coder-to-orchestrator"
-  - "everyone-is-a-builder"
-
 ---
 
 I recently finished Part I of _Deep Learning_ by Goodfellow, Bengio, and Courville. It was a clear and efficient primer on the mathematical preliminaries needed to engage more deeply with the subject. I appreciated the refresher in linear algebra, probability, and numerical computation, which helped reestablish important foundations. In places, I found myself wishing for more proofs—or at least proof sketches—as I often wanted to understand where results came from rather than accept them at face value.

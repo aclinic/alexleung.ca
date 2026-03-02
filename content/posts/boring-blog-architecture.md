@@ -8,11 +8,6 @@ tags:
   - "Next.js"
   - "Architecture"
   - "Blogging"
-related:
-  - "from-coder-to-orchestrator"
-  - "medium-and-meaning"
-  - "everyone-is-a-builder"
-
 ---
 
 I recently finished implementing the blog section of this personal website. Rather than reaching for a complex CMS, I decided to build it directly into my existing Next.js application using standard tools.

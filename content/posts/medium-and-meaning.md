@@ -7,10 +7,6 @@ tags:
   - "AI"
   - "Creativity"
   - "Reflection"
-related:
-  - "everyone-is-a-builder"
-  - "from-coder-to-orchestrator"
-  - "boring-blog-architecture"
 ---
 
 Lately, I've been using Codex a lot to improve this site, often from my phone — fixing a layout bug, tweaking copy, adjusting spacing by a few pixels.
