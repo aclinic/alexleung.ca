@@ -9,6 +9,10 @@ tags:
   - "Neural Networks"
   - "ML Theory"
 
+related:
+  - "deep-learning-part-1-review"
+  - "from-coder-to-orchestrator"
+  - "everyone-is-a-builder"
 ---
 
 Working through Chapter 6, _Deep Feedforward Networks_, sharpened how I reason about neural networks. It did not expand my practical toolkit so much as refine my conceptual boundaries. After completing coursework like the DeepLearning.AI specialization, I was comfortable training multilayer perceptrons and reasoning about gradients. What this chapter clarified is that architecture is not just a tuning dimension—it is a structural assumption about the function class we are willing to search.

@@ -7,6 +7,10 @@ tags:
   - "AI"
   - "Future of Work"
   - "Reflection"
+related:
+  - "medium-and-meaning"
+  - "from-coder-to-orchestrator"
+  - "boring-blog-architecture"
 ---
 
 Over cocktails recently, a few colleagues and I kept circling the same idea: AI is making everyone a builder. You still get leverage from software engineering skill, but you no longer need a formal engineering background to prototype, automate, and ship something useful.

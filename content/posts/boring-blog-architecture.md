@@ -8,6 +8,10 @@ tags:
   - "Next.js"
   - "Architecture"
   - "Blogging"
+related:
+  - "from-coder-to-orchestrator"
+  - "medium-and-meaning"
+  - "everyone-is-a-builder"
 
 ---
 

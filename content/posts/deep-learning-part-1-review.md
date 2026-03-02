@@ -7,6 +7,10 @@ coverImage: "/assets/blog/deep-learning-part-1-review/cover.webp"
 tags:
   - "Deep Learning"
   - "Book Notes"
+related:
+  - "structural-reasoning-about-deep-networks"
+  - "from-coder-to-orchestrator"
+  - "everyone-is-a-builder"
 
 ---
 
