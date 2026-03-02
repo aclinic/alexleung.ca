@@ -346,17 +346,19 @@ export function getAllPosts<T extends PostField>(
     : fieldsOrOptions;
 
   const includeDrafts = options?.includeDrafts ?? false;
-  const posts = getPostSlugs()
+  const allPosts = getPostSlugs()
     .map((slug) => parsePostBySlug(slug))
-    .filter((post): post is Post => post !== null)
+    .filter((post): post is Post => post !== null);
+
+  assertUniqueSeriesOrder(allPosts);
+  assertRelatedSlugsExist(allPosts);
+
+  const posts = allPosts
     .filter((post) => includeDrafts || !post.draft)
     .sort(
       (post1, post2) =>
         new Date(post2.date).getTime() - new Date(post1.date).getTime()
     );
-
-  assertUniqueSeriesOrder(posts);
-  assertRelatedSlugsExist(posts);
 
   if (!fields || fields.length === 0) {
     return posts;

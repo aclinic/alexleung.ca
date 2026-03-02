@@ -207,6 +207,55 @@ describe("getRelatedPosts", () => {
     ).toEqual(["newest", "older"]);
   });
 
+  test("allows published posts to reference draft related slugs by default", async () => {
+    const tempDir = setupTempPosts({
+      published: `---
+title: "Published"
+date: "2026-02-16"
+related:
+  - "draft-post"
+---
+Body`,
+      "draft-post": `---
+title: "Draft"
+date: "2026-02-17"
+draft: true
+---
+Body`,
+    });
+
+    const { getAllPosts, getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(() => getAllPosts()).not.toThrow();
+    expect(getRelatedPosts("published")).toEqual([]);
+  });
+
+  test("includes draft related targets when includeDrafts is true", async () => {
+    const tempDir = setupTempPosts({
+      published: `---
+title: "Published"
+date: "2026-02-16"
+related:
+  - "draft-post"
+---
+Body`,
+      "draft-post": `---
+title: "Draft"
+date: "2026-02-17"
+draft: true
+---
+Body`,
+    });
+
+    const { getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(
+      getRelatedPosts("published", { includeDrafts: true }).map(
+        (post) => post.slug
+      )
+    ).toEqual(["draft-post"]);
+  });
+
   test("returns an empty list for missing post or zero limit", async () => {
     const tempDir = setupTempPosts({
       a: `---\ntitle: "A"\ndate: "2026-02-16"\n---\nBody`,
