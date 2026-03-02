@@ -48,9 +48,30 @@ export default function BlogIndex() {
     "excerpt",
     "tags",
   ]);
+  const [firstPost, ...remainingPosts] = allPosts;
 
   return (
     <>
+      <PageShell title="Blog">
+        <ResponsiveContainer variant="wide">
+          <div className="mb-32 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {firstPost ? (
+              <BlogPostCard
+                key={firstPost.slug}
+                post={firstPost}
+                coverPriority
+              />
+            ) : null}
+            {remainingPosts.map((post) => (
+              <BlogPostCard
+                key={post.slug}
+                post={post}
+                className="[content-visibility:auto] [contain-intrinsic-size:520px]"
+              />
+            ))}
+          </div>
+        </ResponsiveContainer>
+      </PageShell>
       <JsonLdBreadcrumbs
         items={[
           { name: "Home", item: "/" },
@@ -65,15 +86,6 @@ export default function BlogIndex() {
           allPosts.map((post) => ({ slug: post.slug, title: post.title }))
         )}
       />
-      <PageShell title="Blog">
-        <ResponsiveContainer variant="wide">
-          <div className="mb-32 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {allPosts.map((post) => (
-              <BlogPostCard key={post.slug} post={post} />
-            ))}
-          </div>
-        </ResponsiveContainer>
-      </PageShell>
     </>
   );
 }

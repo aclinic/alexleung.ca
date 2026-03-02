@@ -50,6 +50,9 @@ export function CoverImage({
         height={630}
         sizes={sizes}
         priority={priority}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        decoding={priority ? "sync" : "async"}
         className={`${baseImageClassName} ${imageClassName}`.trim()}
       />
     </div>

@@ -30,6 +30,10 @@ jobs:
         run: |
           yarn install --immutable
 
+      - name: 🖼️ Generate Cover Variants
+        run: |
+          yarn cover:variants
+
       - name: ✅ Lint
         run: |
           yarn lint

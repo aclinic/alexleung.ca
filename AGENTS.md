@@ -22,14 +22,17 @@ Always use `yarn` for installing dependencies and running scripts.
 
 ```bash
 yarn dev              # Start development server (port 3000)
-yarn build            # Build static export to out/
-yarn start            # Serve production build locally
+yarn prepare          # Configure repo Git hooks path (.githooks)
+yarn cover:variants   # Generate per-post cover variants (-card.webp, -hero.webp)
+yarn cover:variants:stage  # Generate variants for staged changes and git-add outputs
+yarn build            # Build static export to out/ (runs prebuild)
 yarn lint             # Run ESLint and Prettier checks
 yarn lint:fix         # Auto-fix lint issues
 yarn test             # Run Jest tests
 yarn typecheck        # Run TypeScript type checking (no emit)
 yarn test:watch       # Run tests in watch mode
 yarn test:coverage    # Run tests with coverage report
+yarn perf:lighthouse  # Run Lighthouse CI assertions
 yarn deploy           # Build and deploy to GitHub Pages
 ```
 
@@ -47,6 +50,16 @@ yarn deploy           # Build and deploy to GitHub Pages
 - `src/app/` - Next.js App Router pages with route-specific `_components/` subdirectories
 - `src/components/` - Shared components (Header, Footer, SocialLinks, etc.)
 - `src/constants/` - Data files (skills.ts, socialLinks.tsx)
+
+### Cover Variant Workflow
+
+- Build-time script `scripts/generate-cover-variants.mjs` generates per-post image variants from each post `coverImage`:
+  - `*-card.webp` for blog grid thumbnails
+  - `*-hero.webp` for post detail hero images
+- `yarn build` runs `prebuild`, which runs `yarn cover:variants`.
+- `src/components/BlogPostCard.tsx` resolves `-card.webp` paths for card rendering, with fallback to original cover.
+- `src/app/blog/[slug]/page.tsx` resolves `-hero.webp` paths for post hero rendering, with fallback to original cover.
+- Pre-commit hook `.githooks/pre-commit` runs `yarn cover:variants:stage` so generated variants stay in sync with staged content/image changes.
 
 ### SEO and Structured Data
 

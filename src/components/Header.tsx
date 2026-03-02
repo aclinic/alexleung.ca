@@ -26,6 +26,10 @@ export default function Header() {
 
   // Close menu when resizing to desktop width
   useEffect(() => {
+    if (!isMenuOpen) {
+      return;
+    }
+
     const mediaQuery = window.matchMedia("(min-width: 768px)");
     const handleResize = () => {
       if (mediaQuery.matches && isMenuOpen) {
@@ -82,11 +86,13 @@ export default function Header() {
         </nav>
       </header>
 
-      <MobileNavDrawer
-        isOpen={isMenuOpen}
-        isActive={isActive}
-        onClose={closeMenu}
-      />
+      {isMenuOpen ? (
+        <MobileNavDrawer
+          isOpen={isMenuOpen}
+          isActive={isActive}
+          onClose={closeMenu}
+        />
+      ) : null}
     </>
   );
 }

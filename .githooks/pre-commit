@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+if command -v yarn >/dev/null 2>&1; then
+  yarn cover:variants:stage
+else
+  echo "yarn is required for pre-commit hook: skipping cover variant generation."
+fi
