@@ -13,6 +13,9 @@ const POST_FIELDS = [
   "excerpt",
   "coverImage",
   "tags",
+  "series",
+  "seriesOrder",
+  "related",
   "readingTimeMinutes",
   "draft",
   "content",
@@ -32,6 +35,9 @@ export type Post = {
   excerpt?: string;
   coverImage?: string;
   tags: string[];
+  series?: string;
+  seriesOrder?: number;
+  related: string[];
   readingTimeMinutes?: number;
   draft: boolean;
   content: string;
@@ -71,6 +77,22 @@ const PostFrontMatterSchema = z
       .array(z.string().trim().min(1))
       .default([])
       .describe("Optional list of taxonomy tags for post grouping."),
+    series: z
+      .string()
+      .trim()
+      .min(1)
+      .optional()
+      .describe("Optional series name for grouping related posts."),
+    seriesOrder: z
+      .number()
+      .int()
+      .positive()
+      .optional()
+      .describe("Optional order index for posts within a series."),
+    related: z
+      .array(z.string().trim().min(1))
+      .default([])
+      .describe("Optional manual related-post slug overrides."),
     readingTimeMinutes: z
       .number()
       .int()
@@ -117,6 +139,12 @@ function parseFrontMatter(
     throw new Error(`Invalid front matter in ${slug}.md: ${errors}`);
   }
 
+  if (parsed.data.seriesOrder && !parsed.data.series) {
+    throw new Error(
+      `Invalid front matter in ${slug}.md: seriesOrder requires series`
+    );
+  }
+
   return parsed.data;
 }
 
@@ -151,10 +179,95 @@ function parsePostBySlug(slug: string): Post | null {
     excerpt: frontMatter.excerpt,
     coverImage: frontMatter.coverImage,
     tags: frontMatter.tags,
+    series: frontMatter.series,
+    seriesOrder: frontMatter.seriesOrder,
+    related: frontMatter.related,
     readingTimeMinutes: frontMatter.readingTimeMinutes,
     draft: frontMatter.draft,
     content,
   };
+}
+
+function assertUniqueSeriesOrder(posts: readonly Post[]) {
+  const seen = new Map<string, Set<number>>();
+
+  for (const post of posts) {
+    if (!post.series || !post.seriesOrder) {
+      continue;
+    }
+
+    const existing = seen.get(post.series) ?? new Set<number>();
+
+    if (existing.has(post.seriesOrder)) {
+      throw new Error(
+        `Duplicate seriesOrder ${post.seriesOrder} in series "${post.series}"`
+      );
+    }
+
+    existing.add(post.seriesOrder);
+    seen.set(post.series, existing);
+  }
+}
+
+function assertRelatedSlugsExist(posts: readonly Post[]) {
+  const slugs = new Set(posts.map((post) => post.slug));
+
+  for (const post of posts) {
+    for (const relatedSlug of post.related) {
+      if (relatedSlug === post.slug) {
+        throw new Error(
+          `Invalid related slug in "${post.slug}": post cannot relate to itself`
+        );
+      }
+
+      if (!slugs.has(relatedSlug)) {
+        throw new Error(
+          `Invalid related slug in "${post.slug}": "${relatedSlug}" does not exist`
+        );
+      }
+    }
+  }
+}
+
+type RelatedPost = Pick<
+  Post,
+  "slug" | "title" | "date" | "excerpt" | "coverImage" | "tags"
+>;
+
+type GetRelatedPostsOptions = {
+  limit?: number;
+  includeDrafts?: boolean;
+};
+
+function toRelatedPost(post: Post): RelatedPost {
+  return {
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    excerpt: post.excerpt,
+    coverImage: post.coverImage,
+    tags: post.tags,
+  };
+}
+
+function getRelatedScore(target: Post, candidate: Post): number {
+  const targetTags = new Set(target.tags);
+  const sharedTagCount = candidate.tags.filter((tag) =>
+    targetTags.has(tag)
+  ).length;
+  const tagScore = sharedTagCount * 4;
+  const seriesScore =
+    target.series && candidate.series && target.series === candidate.series
+      ? 2
+      : 0;
+  const daysDiff =
+    Math.abs(
+      new Date(target.date).getTime() - new Date(candidate.date).getTime()
+    ) /
+    (1000 * 60 * 60 * 24);
+  const recencyScore = daysDiff <= 90 ? 1 : 0;
+
+  return tagScore + seriesScore + recencyScore;
 }
 
 function pickPostFields<T extends PostField>(
@@ -233,9 +346,14 @@ export function getAllPosts<T extends PostField>(
     : fieldsOrOptions;
 
   const includeDrafts = options?.includeDrafts ?? false;
-  const posts = getPostSlugs()
+  const allPosts = getPostSlugs()
     .map((slug) => parsePostBySlug(slug))
-    .filter((post): post is Post => post !== null)
+    .filter((post): post is Post => post !== null);
+
+  assertUniqueSeriesOrder(allPosts);
+  assertRelatedSlugsExist(allPosts);
+
+  const posts = allPosts
     .filter((post) => includeDrafts || !post.draft)
     .sort(
       (post1, post2) =>
@@ -253,4 +371,66 @@ export function getAllPosts<T extends PostField>(
   }
 
   return posts.map((post) => pickPostFields(post, fields));
+}
+
+export function getRelatedPosts(
+  slug: string,
+  options?: GetRelatedPostsOptions
+): RelatedPost[] {
+  const limit = options?.limit ?? 3;
+
+  if (limit <= 0) {
+    return [];
+  }
+
+  const allPosts = getAllPosts({
+    includeDrafts: options?.includeDrafts ?? false,
+  });
+  const target = allPosts.find((post) => post.slug === slug);
+
+  if (!target) {
+    return [];
+  }
+
+  const candidates = allPosts.filter((post) => post.slug !== slug);
+
+  if (target.related.length > 0) {
+    const relatedBySlug = new Map(candidates.map((post) => [post.slug, post]));
+
+    return target.related
+      .map((relatedSlug) => relatedBySlug.get(relatedSlug))
+      .filter((post): post is Post => Boolean(post))
+      .slice(0, limit)
+      .map(toRelatedPost);
+  }
+
+  const scored = candidates
+    .map((candidate) => ({
+      post: candidate,
+      score: getRelatedScore(target, candidate),
+    }))
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+
+      const dateDelta =
+        new Date(b.post.date).getTime() - new Date(a.post.date).getTime();
+
+      if (dateDelta !== 0) {
+        return dateDelta;
+      }
+
+      return a.post.slug.localeCompare(b.post.slug);
+    });
+
+  const hasNonZeroScore = scored.some((entry) => entry.score > 0);
+  const ranked = hasNonZeroScore
+    ? scored
+    : scored.sort(
+        (a, b) =>
+          new Date(b.post.date).getTime() - new Date(a.post.date).getTime()
+      );
+
+  return ranked.slice(0, limit).map((entry) => toRelatedPost(entry.post));
 }

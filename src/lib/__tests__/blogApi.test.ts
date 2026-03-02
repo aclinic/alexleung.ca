@@ -37,6 +37,7 @@ describe("blogApi front matter validation", () => {
     expect(post).not.toBeNull();
     expect(post?.title).toBe("Hello");
     expect(post?.tags).toEqual([]);
+    expect(post?.related).toEqual([]);
     expect(post?.draft).toBe(false);
   });
 
@@ -73,6 +74,18 @@ describe("blogApi front matter validation", () => {
 
     expect(() => getPostBySlug("unknown-key")).toThrow(
       /Invalid front matter.*Unrecognized key/
+    );
+  });
+
+  test("throws when seriesOrder exists without series", async () => {
+    const tempDir = setupTempPosts({
+      "bad-series": `---\ntitle: "Bad"\ndate: "2026-02-16"\nseriesOrder: 1\n---\nBody`,
+    });
+
+    const { getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+
+    expect(() => getPostBySlug("bad-series")).toThrow(
+      /seriesOrder requires series/
     );
   });
 
@@ -124,5 +137,134 @@ describe("blogApi front matter validation", () => {
     expect(
       getAllPosts({ includeDrafts: true }).map((post) => post.slug)
     ).toEqual(["draft"]);
+  });
+
+  test("throws when related slug does not exist", async () => {
+    const tempDir = setupTempPosts({
+      main: `---\ntitle: "Main"\ndate: "2026-02-16"\nrelated:\n  - "missing"\n---\nBody`,
+      other: `---\ntitle: "Other"\ndate: "2026-02-15"\n---\nBody`,
+    });
+
+    const { getAllPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(() => getAllPosts()).toThrow(/does not exist/);
+  });
+
+  test("throws when seriesOrder duplicates within the same series", async () => {
+    const tempDir = setupTempPosts({
+      a: `---\ntitle: "A"\ndate: "2026-02-16"\nseries: "s"\nseriesOrder: 1\n---\nBody`,
+      b: `---\ntitle: "B"\ndate: "2026-02-15"\nseries: "s"\nseriesOrder: 1\n---\nBody`,
+    });
+
+    const { getAllPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(() => getAllPosts()).toThrow(/Duplicate seriesOrder/);
+  });
+});
+
+describe("getRelatedPosts", () => {
+  test("returns manual overrides first when present", async () => {
+    const tempDir = setupTempPosts({
+      a: `---\ntitle: "A"\ndate: "2026-02-16"\nrelated:\n  - "c"\n  - "b"\n---\nBody`,
+      b: `---\ntitle: "B"\ndate: "2026-02-15"\n---\nBody`,
+      c: `---\ntitle: "C"\ndate: "2026-02-14"\n---\nBody`,
+    });
+
+    const { getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(getRelatedPosts("a").map((post) => post.slug)).toEqual(["c", "b"]);
+  });
+
+  test("ranks by score and then date for automatic selection", async () => {
+    const tempDir = setupTempPosts({
+      target: `---\ntitle: "Target"\ndate: "2026-02-16"\ntags:\n  - "AI"\n  - "Systems"\nseries: "notes"\n---\nBody`,
+      strong: `---\ntitle: "Strong"\ndate: "2026-02-15"\ntags:\n  - "AI"\n  - "Systems"\nseries: "notes"\n---\nBody`,
+      medium: `---\ntitle: "Medium"\ndate: "2026-02-14"\ntags:\n  - "AI"\n---\nBody`,
+      weak: `---\ntitle: "Weak"\ndate: "2025-01-01"\ntags:\n  - "Other"\n---\nBody`,
+    });
+
+    const { getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(getRelatedPosts("target").map((post) => post.slug)).toEqual([
+      "strong",
+      "medium",
+      "weak",
+    ]);
+  });
+
+  test("falls back to newest posts when no candidate has a positive score", async () => {
+    const tempDir = setupTempPosts({
+      target: `---\ntitle: "Target"\ndate: "2026-02-16"\ntags:\n  - "AI"\n---\nBody`,
+      newest: `---\ntitle: "Newest"\ndate: "2024-03-02"\ntags:\n  - "X"\n---\nBody`,
+      older: `---\ntitle: "Older"\ndate: "2024-03-01"\ntags:\n  - "Y"\n---\nBody`,
+      oldest: `---\ntitle: "Oldest"\ndate: "2024-02-20"\ntags:\n  - "Z"\n---\nBody`,
+    });
+
+    const { getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(
+      getRelatedPosts("target", { limit: 2 }).map((post) => post.slug)
+    ).toEqual(["newest", "older"]);
+  });
+
+  test("allows published posts to reference draft related slugs by default", async () => {
+    const tempDir = setupTempPosts({
+      published: `---
+title: "Published"
+date: "2026-02-16"
+related:
+  - "draft-post"
+---
+Body`,
+      "draft-post": `---
+title: "Draft"
+date: "2026-02-17"
+draft: true
+---
+Body`,
+    });
+
+    const { getAllPosts, getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(() => getAllPosts()).not.toThrow();
+    expect(getRelatedPosts("published")).toEqual([]);
+  });
+
+  test("includes draft related targets when includeDrafts is true", async () => {
+    const tempDir = setupTempPosts({
+      published: `---
+title: "Published"
+date: "2026-02-16"
+related:
+  - "draft-post"
+---
+Body`,
+      "draft-post": `---
+title: "Draft"
+date: "2026-02-17"
+draft: true
+---
+Body`,
+    });
+
+    const { getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(
+      getRelatedPosts("published", { includeDrafts: true }).map(
+        (post) => post.slug
+      )
+    ).toEqual(["draft-post"]);
+  });
+
+  test("returns an empty list for missing post or zero limit", async () => {
+    const tempDir = setupTempPosts({
+      a: `---\ntitle: "A"\ndate: "2026-02-16"\n---\nBody`,
+      b: `---\ntitle: "B"\ndate: "2026-02-15"\n---\nBody`,
+    });
+
+    const { getRelatedPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(getRelatedPosts("missing")).toEqual([]);
+    expect(getRelatedPosts("a", { limit: 0 })).toEqual([]);
   });
 });
