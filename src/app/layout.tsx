@@ -9,7 +9,11 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SocialLinks from "@/components/SocialLinks";
 import { BASE_URL } from "@/constants";
-import { buildPersonSchema, buildWebsiteSchema } from "@/lib/seo";
+import {
+  buildPersonSchema,
+  buildProfessionalServiceSchema,
+  buildWebsiteSchema,
+} from "@/lib/seo";
 
 import "./globals.css";
 
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
   title: title,
   description: description,
   keywords:
-    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, product development, technical leadership, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence",
+    "Alex Leung, Alexander Leung, Alexander Clayton Leung, Alex C Leung, Professional Engineer, P.Eng., PEO, Professional Engineers Ontario, licensed engineer, software engineer, product development, technical leadership, AI engineer, University of Waterloo, Georgia Tech, electrical engineering, distributed systems, embedded systems, full-stack developer, web development, artificial intelligence, aclinic, acl, aclyxpse, aclyx, yattaro, rootpanda, Ontario, California, Canada, United States, Waterloo, Toronto, San Francisco",
   authors: [{ name: "Alex Leung" }],
   creator: "Alex Leung",
   publisher: "Alex Leung",
@@ -90,6 +94,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={`${lato.className} flex min-h-screen flex-col`}>
         <JsonLd item={buildPersonSchema({ description })} />
         <JsonLd item={buildWebsiteSchema({ description })} />
+        <JsonLd item={buildProfessionalServiceSchema({ description })} />
         <AppBackground />
         <Header />
         <SocialLinks />

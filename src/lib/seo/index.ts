@@ -7,6 +7,7 @@ export {
   buildContactPageSchema,
   buildHomePageSchema,
   buildPersonSchema,
+  buildProfessionalServiceSchema,
   buildProfilePageSchema,
   buildWebPageSchema,
   buildWebsiteSchema,
