@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect } from "react";
 import { JsonLd } from "react-schemaorg";
 
 import type { WebPage } from "schema-dts";
@@ -14,15 +11,6 @@ const description =
 const path = "/";
 
 export default function Page() {
-  useEffect(() => {
-    if (window.location.hash) {
-      const element = document.querySelector(window.location.hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  }, []);
-
   return (
     <>
       <JsonLd<WebPage>

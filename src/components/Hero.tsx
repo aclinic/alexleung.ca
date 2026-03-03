@@ -2,7 +2,6 @@ import { FcEngineering } from "react-icons/fc";
 import { HiOutlineArrowRight, HiOutlineUser } from "react-icons/hi";
 
 import { CTAButton } from "./CTAButton";
-import { StaggerReveal } from "./StaggerReveal";
 
 export function Hero() {
   return (
@@ -12,32 +11,31 @@ export function Hero() {
     >
       <div className="section-center">
         <div>
-          <StaggerReveal delayMs={200}>
-            <p className="text-hero-subtitle mb-4 tracking-wider">
-              Hi, my name is
-            </p>
-            <h1 className="text-hero-title mb-4 inline-block font-black uppercase leading-[0.9] tracking-[0.2rem] md:pb-4">
-              Alex Leung
-            </h1>
-          </StaggerReveal>
-          <StaggerReveal delayMs={400}>
-            <h2 className="text-hero-description">
-              Syntropy Engineer | Programmer | P.Eng.{" "}
-              <FcEngineering className="mb-1 ml-1 inline-block align-middle" />
-            </h2>
-            <p className="mt-3 text-sm italic text-gray-200 md:text-gray-300">
-              Engineer writing about software, systems, and learning in public.
-            </p>
-          </StaggerReveal>
-          <StaggerReveal delayMs={600} className="mt-8 flex flex-wrap gap-4">
+          <p className="text-hero-subtitle mb-4 tracking-wider">
+            Hi, my name is
+          </p>
+          <h1 className="text-hero-title mb-4 inline-block font-black uppercase leading-[0.9] tracking-[0.2rem] md:pb-4">
+            Alex Leung
+          </h1>
+
+          <h2 className="text-hero-description">
+            Syntropy Engineer | Programmer | P.Eng.{" "}
+            <FcEngineering className="mb-1 ml-1 inline-block align-middle" />
+          </h2>
+          <p className="mt-3 text-sm italic text-gray-200 md:text-gray-300">
+            Engineer writing about software, systems, and learning in public.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
             <CTAButton href="/blog/">
               Read My Blog <HiOutlineArrowRight className="text-lg" />
             </CTAButton>
             <CTAButton href="/about/" variant="secondary">
               <HiOutlineUser className="text-lg" /> About Me
             </CTAButton>
-          </StaggerReveal>
-          <StaggerReveal delayMs={800} className="mt-10 max-w-2xl">
+          </div>
+
+          <div className="mt-10 max-w-2xl">
             <section
               aria-labelledby="positioning-heading"
               className="surface-static p-5 md:p-6"
@@ -57,7 +55,7 @@ export function Hero() {
                 practical lessons from learning in public.
               </p>
             </section>
-          </StaggerReveal>
+          </div>
         </div>
       </div>
     </section>
