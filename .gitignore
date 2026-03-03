@@ -5,40 +5,41 @@
 /.pnp
 .pnp.js
 
-# Chrome-for-Testing downloads used by local LHCI in Codespaces
-.cache
-
-# testing
-/coverage
-
-# production
-/build
-/out
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+# package manager logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# build output
+/build
+/out
+
 # next.js
 .next
 
+# testing and reports
+/coverage
+.lighthouseci
+
+# Chrome-for-Testing downloads used by local LHCI in Codespaces
+.cache
+
+# TypeScript
+tsconfig.tsbuildinfo
+
 # yarn berry
 /.yarn/*
-!/.yarn/releases
-!/.yarn/plugins
 !/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
 !/.yarn/sdks
 !/.yarn/versions
 
-# lighthouse
-.lighthouseci
+# environment files
+.env.development.local
+.env.local
+.env.production.local
+.env.test.local
 
-# tsc
-tsconfig.tsbuildinfo
+# misc
+.DS_Store
