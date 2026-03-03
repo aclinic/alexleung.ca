@@ -65,7 +65,7 @@ export default function NowPage() {
         <ResponsiveContainer element="section">
           <SectionBlock spacing="lg">
             <div className="text-body space-y-8 text-left leading-relaxed">
-              <IconTextRow icon="🚀" title="Top of Mind">
+              <IconTextRow icon="🚀" title="Top of Mind" headingLevel="h2">
                 <p>
                   I recently launched the blog section of this site. It&apos;s
                   been fun to build a "boring" but effective static architecture
@@ -87,7 +87,11 @@ export default function NowPage() {
                 </p>
               </IconTextRow>
 
-              <IconTextRow icon="📚" title="Currently Reading">
+              <IconTextRow
+                icon="📚"
+                title="Currently Reading"
+                headingLevel="h2"
+              >
                 <p>
                   I&apos;m currently on Chapter 7 of{" "}
                   <ExternalLink href="https://www.deeplearningbook.org/">
@@ -103,7 +107,7 @@ export default function NowPage() {
                 </p>
               </IconTextRow>
 
-              <IconTextRow icon="🎯" title="Current Goals">
+              <IconTextRow icon="🎯" title="Current Goals" headingLevel="h2">
                 <ul className="list-outside list-disc space-y-1 pl-6">
                   <li>Finish and understand the Deep Learning book</li>
                   <li>Leveling up my tennis game</li>
@@ -119,8 +123,10 @@ export default function NowPage() {
                   now page
                 </ExternalLink>
                 . You can read more about the format{" "}
-                <ExternalLink href="https://sive.rs/nowff">here</ExternalLink>.
-                It&apos;s a snapshot of what I&apos;m focused on at this point
+                <ExternalLink href="https://sive.rs/nowff">
+                  in Derek Sivers&apos; now page explainer
+                </ExternalLink>
+                . It&apos;s a snapshot of what I&apos;m focused on at this point
                 in my life.
               </p>
             </ProseContent>
