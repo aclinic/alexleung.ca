@@ -32,6 +32,12 @@ jobs:
       - name: 🏗️ Install Dependencies
         run: yarn install --immutable
 
+      - name: 🧩 Install WebP Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+          cwebp -version
+
       - name: 🖼️ Generate Cover Variants
         run: yarn cover:variants
 
@@ -40,6 +46,8 @@ jobs:
 
       - name: 🌐 Setup Chrome
         uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 146.0.7680.31
 
       - name: 🔦 Run Lighthouse CI
         run: yarn perf:lighthouse
