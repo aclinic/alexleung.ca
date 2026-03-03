@@ -43,9 +43,9 @@ export function BlogPostCard({
           imageClassName="transition-transform duration-200 group-hover:scale-105"
         />
       </div>
-      <h3 className="mb-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-accent-link">
+      <h2 className="mb-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-accent-link">
         {post.title}
-      </h3>
+      </h2>
       <div className="mb-4 text-sm text-gray-300">
         {formatIsoDateForDisplay(post.date)}
       </div>
