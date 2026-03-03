@@ -6,6 +6,7 @@ This folder contains active repository-internal documentation used for planning 
 
 | File | Purpose | Update cadence |
 | --- | --- | --- |
+| `codespaces.md` | Local environment notes for GitHub Codespaces, including Lighthouse prerequisites | When dev environment prerequisites change |
 | `technical-architecture-audit.md` | Current architecture status and forward-looking technical recommendations | After major framework/content-pipeline changes |
 | `seo-audit.md` | Current SEO implementation status and optimization backlog | After metadata/schema/content-model changes |
 | `content-ideas.md` | Backlog of future site/page/content ideas | As ideas are added, promoted, or completed |
