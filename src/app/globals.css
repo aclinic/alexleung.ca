@@ -1,6 +1,5 @@
 @config "../../tailwind.config.js";
 @import "tailwindcss";
-@import "katex/dist/katex.min.css";
 
 @layer base {
   :root {
