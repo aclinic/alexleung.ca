@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "numberOfRuns": 2,
+      "numberOfRuns": 3,
       "staticDistDir": "./out",
       "url": [
         "http://localhost/",
@@ -16,7 +16,7 @@
       }
     },
     "assert": {
-      "aggregationMethod": "pessimistic",
+      "aggregationMethod": "median",
       "assertions": {
         "categories:performance": [
           "error",
