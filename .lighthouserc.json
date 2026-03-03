@@ -3,12 +3,20 @@
     "collect": {
       "numberOfRuns": 2,
       "staticDistDir": "./out",
-      "url": ["http://localhost/", "http://localhost/blog/"],
+      "url": [
+        "http://localhost/",
+        "http://localhost/blog/",
+        "http://localhost/about/",
+        "http://localhost/now/",
+        "http://localhost/contact/",
+        "http://localhost/blog/from-coder-to-orchestrator/"
+      ],
       "settings": {
         "chromeFlags": "--headless=new --no-sandbox --disable-dev-shm-usage"
       }
     },
     "assert": {
+      "aggregationMethod": "pessimistic",
       "assertions": {
         "categories:performance": [
           "error",
