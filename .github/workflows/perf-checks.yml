@@ -47,7 +47,7 @@ jobs:
       - name: 🌐 Setup Chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: 147.0.7716.0
+          chrome-version: 146.0.7680.31
 
       - name: 🔦 Run Lighthouse CI
         run: yarn perf:lighthouse
