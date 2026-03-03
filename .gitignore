@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# Chrome-for-Testing downloads used by local LHCI in Codespaces
+.cache
+
 # testing
 /coverage
 
