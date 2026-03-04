@@ -1,9 +1,18 @@
-import fs from "fs";
-import { join } from "path";
-
-const IMAGE_EXTENSION_PATTERN = /\.(webp|jpe?g|png)$/i;
+import {
+  getCoverVariantProfile,
+  getImageVariantPath,
+  getImageVariantSourceSet,
+} from "@/lib/imageVariantManifest";
 
 export type CoverVariant = "card" | "hero";
+
+export function getCoverVariantSourceSet(
+  src: string | undefined,
+  variant: CoverVariant
+): string | undefined {
+  const variantNames = getCoverVariantProfile(variant);
+  return getImageVariantSourceSet(src, variantNames);
+}
 
 export function getCoverVariantPath(
   src: string | undefined,
@@ -13,15 +22,13 @@ export function getCoverVariantPath(
     return undefined;
   }
 
-  const normalizedSrc = src.startsWith("/") ? src : `/${src}`;
-  const variantPath = IMAGE_EXTENSION_PATTERN.test(normalizedSrc)
-    ? normalizedSrc.replace(IMAGE_EXTENSION_PATTERN, `-${variant}.webp`)
-    : `${normalizedSrc}-${variant}.webp`;
-  const absoluteVariantPath = join(
-    process.cwd(),
-    "public",
-    variantPath.slice(1)
-  );
+  const variantNames = getCoverVariantProfile(variant);
+  for (let index = variantNames.length - 1; index >= 0; index -= 1) {
+    const variantPath = getImageVariantPath(src, variantNames[index]);
+    if (variantPath) {
+      return variantPath;
+    }
+  }
 
-  return fs.existsSync(absoluteVariantPath) ? variantPath : undefined;
+  return undefined;
 }

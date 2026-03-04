@@ -1,7 +1,8 @@
-import Image from "next/image";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 
 type CoverImageProps = {
   src?: string;
+  srcSet?: string;
   alt: string;
   variant: "card" | "hero";
   sizes: string;
@@ -13,6 +14,7 @@ type CoverImageProps = {
 
 export function CoverImage({
   src,
+  srcSet,
   alt,
   variant,
   sizes,
@@ -43,8 +45,9 @@ export function CoverImage({
 
   return (
     <div className={`${wrapperClassName} ${className}`.trim()}>
-      <Image
+      <ResponsiveImage
         src={src}
+        srcSet={srcSet}
         alt={alt}
         width={1200}
         height={630}

@@ -1,3 +1,4 @@
+import type { Root } from "hast";
 import type { Schema } from "hast-util-sanitize";
 import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -6,6 +7,12 @@ import rehypeStringify from "rehype-stringify";
 import { remark } from "remark";
 import remarkMath from "remark-math";
 import remarkRehype from "remark-rehype";
+
+import {
+  getImageVariantSourceSet,
+  getInlineContentVariantProfile,
+  getLargestImageVariant,
+} from "@/lib/imageVariantManifest";
 
 const sanitizeSchema: Schema = {
   ...defaultSchema,
@@ -36,6 +43,16 @@ const sanitizeSchema: Schema = {
       ["stroke"],
       ["stroke-width"],
     ],
+    img: [
+      ...(defaultSchema.attributes?.img || []),
+      ["width"],
+      ["height"],
+      ["loading"],
+      ["decoding"],
+      ["fetchPriority"],
+      ["sizes"],
+      ["srcSet"],
+    ],
   },
   tagNames: [
     ...(defaultSchema.tagNames || []),
@@ -60,6 +77,62 @@ const sanitizeSchema: Schema = {
   ],
 };
 
+type HastNode = {
+  type: string;
+  tagName?: string;
+  properties?: Record<string, unknown>;
+  children?: HastNode[];
+};
+
+function visitNodes(node: HastNode, visitor: (node: HastNode) => void) {
+  visitor(node);
+  for (const child of node.children || []) {
+    visitNodes(child, visitor);
+  }
+}
+
+function getImageSourceSet(src: string) {
+  return getImageVariantSourceSet(src, getInlineContentVariantProfile());
+}
+
+function getPrimaryImageVariant(src: string) {
+  return getLargestImageVariant(src, getInlineContentVariantProfile());
+}
+
+function rehypeResponsiveImages() {
+  return (tree: Root) => {
+    visitNodes(tree as unknown as HastNode, (node) => {
+      if (node.type !== "element" || node.tagName !== "img") {
+        return;
+      }
+
+      const properties = (node.properties ||= {});
+      const src = properties.src;
+      if (typeof src !== "string" || !src.startsWith("/")) {
+        return;
+      }
+
+      const primaryVariant = getPrimaryImageVariant(src);
+      const primarySrc = primaryVariant?.path || src;
+      properties.src = primarySrc;
+      properties.loading = "lazy";
+      properties.decoding = "async";
+      properties.fetchPriority = "low";
+      properties.sizes = "(min-width: 1024px) 896px, 100vw";
+
+      const srcSet = getImageSourceSet(src);
+      if (srcSet) {
+        properties.srcSet = srcSet;
+      }
+
+      if (primaryVariant) {
+        properties.width = primaryVariant.width;
+        properties.height = primaryVariant.height;
+      }
+    });
+  };
+}
+
 export default async function markdownToHtml(markdown: string) {
   const result = await remark()
     .use(remarkMath)
@@ -69,6 +142,7 @@ export default async function markdownToHtml(markdown: string) {
       theme: "github-dark",
       keepBackground: true,
     })
+    .use(rehypeResponsiveImages)
     .use(rehypeSanitize, sanitizeSchema)
     .use(rehypeStringify)
     .process(markdown);

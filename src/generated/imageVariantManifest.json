@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "profiles": {
+    "cover": {
+      "card": ["card-sm", "card"],
+      "hero": ["hero-sm", "hero"]
+    },
+    "inlineContent": ["content-sm", "content"]
+  },
+  "sources": {
+    "/assets/about_portrait.webp": {
+      "variants": {
+        "lg": {
+          "path": "/assets/about_portrait-lg.webp",
+          "width": 1280,
+          "height": 960
+        },
+        "md": {
+          "path": "/assets/about_portrait-md.webp",
+          "width": 900,
+          "height": 675
+        },
+        "sm": {
+          "path": "/assets/about_portrait-sm.webp",
+          "width": 480,
+          "height": 360
+        }
+      }
+    },
+    "/assets/background.webp": {
+      "variants": {
+        "desktop": {
+          "path": "/assets/background-desktop.webp",
+          "width": 1600,
+          "height": 1068
+        },
+        "mobile": {
+          "path": "/assets/background-mobile.webp",
+          "width": 768,
+          "height": 513
+        },
+        "tablet": {
+          "path": "/assets/background-tablet.webp",
+          "width": 1280,
+          "height": 854
+        }
+      }
+    },
+    "/assets/blog/boring-blog-architecture/cover.jpg": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/boring-blog-architecture/cover-card.webp",
+          "width": 768,
+          "height": 768
+        },
+        "card-sm": {
+          "path": "/assets/blog/boring-blog-architecture/cover-card-sm.webp",
+          "width": 480,
+          "height": 480
+        },
+        "hero": {
+          "path": "/assets/blog/boring-blog-architecture/cover-hero.webp",
+          "width": 1280,
+          "height": 1280
+        },
+        "hero-sm": {
+          "path": "/assets/blog/boring-blog-architecture/cover-hero-sm.webp",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    "/assets/blog/deep-learning-part-1-review/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/deep-learning-part-1-review/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-sm": {
+          "path": "/assets/blog/deep-learning-part-1-review/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/deep-learning-part-1-review/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/deep-learning-part-1-review/cover-hero-sm.webp",
+          "width": 768,
+          "height": 512
+        }
+      }
+    },
+    "/assets/blog/everyone-is-a-builder/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/everyone-is-a-builder/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-sm": {
+          "path": "/assets/blog/everyone-is-a-builder/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/everyone-is-a-builder/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/everyone-is-a-builder/cover-hero-sm.webp",
+          "width": 768,
+          "height": 512
+        }
+      }
+    },
+    "/assets/blog/from-coder-to-orchestrator/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/from-coder-to-orchestrator/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-sm": {
+          "path": "/assets/blog/from-coder-to-orchestrator/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/from-coder-to-orchestrator/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/from-coder-to-orchestrator/cover-hero-sm.webp",
+          "width": 768,
+          "height": 512
+        }
+      }
+    },
+    "/assets/blog/from-coder-to-orchestrator/ralph-loop.webp": {
+      "variants": {
+        "content": {
+          "path": "/assets/blog/from-coder-to-orchestrator/ralph-loop-content.webp",
+          "width": 1024,
+          "height": 547
+        },
+        "content-sm": {
+          "path": "/assets/blog/from-coder-to-orchestrator/ralph-loop-content-sm.webp",
+          "width": 640,
+          "height": 342
+        }
+      }
+    },
+    "/assets/blog/from-coder-to-orchestrator/swe-effort-evolution.webp": {
+      "variants": {
+        "content": {
+          "path": "/assets/blog/from-coder-to-orchestrator/swe-effort-evolution-content.webp",
+          "width": 1024,
+          "height": 559
+        },
+        "content-sm": {
+          "path": "/assets/blog/from-coder-to-orchestrator/swe-effort-evolution-content-sm.webp",
+          "width": 640,
+          "height": 350
+        }
+      }
+    },
+    "/assets/blog/from-coder-to-orchestrator/swe-workflow-evolution.webp": {
+      "variants": {
+        "content": {
+          "path": "/assets/blog/from-coder-to-orchestrator/swe-workflow-evolution-content.webp",
+          "width": 1024,
+          "height": 559
+        },
+        "content-sm": {
+          "path": "/assets/blog/from-coder-to-orchestrator/swe-workflow-evolution-content-sm.webp",
+          "width": 640,
+          "height": 350
+        }
+      }
+    },
+    "/assets/blog/medium-and-meaning/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/medium-and-meaning/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-sm": {
+          "path": "/assets/blog/medium-and-meaning/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/medium-and-meaning/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/medium-and-meaning/cover-hero-sm.webp",
+          "width": 768,
+          "height": 512
+        }
+      }
+    },
+    "/assets/blog/structural-reasoning-about-deep-networks/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-sm": {
+          "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-hero-sm.webp",
+          "width": 768,
+          "height": 512
+        }
+      }
+    }
+  }
+}

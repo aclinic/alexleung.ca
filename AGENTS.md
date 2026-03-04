@@ -13,7 +13,7 @@ Always use `yarn` for installing dependencies and running scripts.
 
 ### Yarn 4 / Corepack requirements
 
-- The repo pins Yarn via `packageManager` in `package.json` (`yarn@4.12.0`).
+- The repo pins Yarn via `packageManager` in `package.json` (`yarn@4.13.0`).
 - Run `corepack enable` once per machine to activate Corepack shims.
 - Run `corepack install` in the repo to fetch the exact pinned Yarn version.
 - In CI, enable Corepack before `yarn install` to avoid falling back to global Yarn 1.x.
@@ -23,8 +23,8 @@ Always use `yarn` for installing dependencies and running scripts.
 ```bash
 yarn dev              # Start development server (port 3000)
 yarn prepare          # Configure repo Git hooks path (.githooks)
-yarn cover:variants   # Generate per-post cover variants (-card.webp, -hero.webp)
-yarn cover:variants:stage  # Generate variants for staged changes and git-add outputs
+yarn image:variants   # Generate image variants and refresh image variant manifest
+yarn image:variants:stage  # Generate variants for staged changes and git-add outputs
 yarn build            # Build static export to out/ (runs prebuild)
 yarn lint             # Run ESLint and Prettier checks
 yarn lint:fix         # Auto-fix lint issues
@@ -51,15 +51,28 @@ yarn deploy           # Build and deploy to GitHub Pages
 - `src/components/` - Shared components (Header, Footer, SocialLinks, etc.)
 - `src/constants/` - Data files (skills.ts, socialLinks.tsx)
 
-### Cover Variant Workflow
+### Image Variant Workflow
 
-- Build-time script `scripts/generate-cover-variants.mjs` generates per-post image variants from each post `coverImage`:
-  - `*-card.webp` for blog grid thumbnails
-  - `*-hero.webp` for post detail hero images
-- `yarn build` runs `prebuild`, which runs `yarn cover:variants`.
-- `src/components/BlogPostCard.tsx` resolves `-card.webp` paths for card rendering, with fallback to original cover.
-- `src/app/blog/[slug]/page.tsx` resolves `-hero.webp` paths for post hero rendering, with fallback to original cover.
-- Pre-commit hook `.githooks/pre-commit` runs `yarn cover:variants:stage` so generated variants stay in sync with staged content/image changes.
+- Build-time script `scripts/generate-image-variants.mjs` generates responsive variants and manifest metadata:
+  - cover variants: `*-card-sm.webp`, `*-card.webp`, `*-hero-sm.webp`, `*-hero.webp`
+  - inline markdown variants: `*-content-sm.webp`, `*-content.webp`
+  - static asset variants for background and about portrait
+  - manifest: `src/generated/imageVariantManifest.json` (profiles + variant paths + dimensions)
+- `yarn build` runs `prebuild`, which runs `yarn image:variants`.
+- `src/components/BlogPostCard.tsx` and `src/app/blog/[slug]/page.tsx` resolve cover variants from manifest profiles.
+- `src/lib/markdownToHtml.ts` resolves inline image variants from manifest profiles.
+- Pre-commit hook `.githooks/pre-commit` runs `yarn image:variants:stage` so generated variants and manifest stay in sync with staged content/image changes.
+- Runtime has hard-failure checks for missing required manifest profiles (`profiles.cover.card`, `profiles.cover.hero`, `profiles.inlineContent`).
+
+### Adding Images (Agent Guidance)
+
+- Always add source images under `public/assets/...`.
+- For blog covers: update frontmatter `coverImage` in `content/posts/*.md`.
+- For inline blog images: add standard markdown image references.
+- After any source image addition/update, run `yarn image:variants` (or `yarn image:variants:stage` when preparing a commit).
+- Ensure commits include:
+  - updated/generated files in `public/assets/...`
+  - updated `src/generated/imageVariantManifest.json`
 
 ### SEO and Structured Data
 

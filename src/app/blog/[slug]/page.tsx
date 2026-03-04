@@ -14,7 +14,10 @@ import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Surface } from "@/components/Surface";
 import { Tag } from "@/components/Tag";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blogApi";
-import { getCoverVariantPath } from "@/lib/coverVariants";
+import {
+  getCoverVariantPath,
+  getCoverVariantSourceSet,
+} from "@/lib/coverVariants";
 import { formatIsoDateForDisplay } from "@/lib/date";
 import markdownToHtml from "@/lib/markdownToHtml";
 import {
@@ -112,6 +115,7 @@ export default async function Post({ params }: Props) {
   const content = await markdownToHtml(post.content || "");
   const relatedPosts = getRelatedPosts(post.slug, { limit: 3 });
   const heroCoverImage = getCoverVariantPath(post.coverImage, "hero");
+  const heroCoverSrcSet = getCoverVariantSourceSet(post.coverImage, "hero");
 
   return (
     <>
@@ -170,6 +174,7 @@ export default async function Post({ params }: Props) {
             )}
             <CoverImage
               src={heroCoverImage || post.coverImage}
+              srcSet={heroCoverSrcSet}
               alt={`Cover for ${post.title}`}
               variant="hero"
               sizes="(min-width: 1024px) 896px, 100vw"
