@@ -129,11 +129,10 @@ src/
 
 ## Documentation Map
 
-- `docs/README.md` — docs directory guide
-- `docs/codespaces.md` — Codespaces environment notes (including Lighthouse setup)
-- `docs/technical-architecture-audit.md` — current architecture status
-- `docs/seo-audit.md` — current SEO status and backlog
-- `docs/content-ideas.md` — content/page idea backlog
+- `docs/README.md` — docs directory guide and consolidation notes
+- `docs/architecture-seo-status.md` — canonical architecture + SEO status snapshot
+- `docs/codespaces.md` — detailed Codespaces troubleshooting for Lighthouse prerequisites
+- `docs/typography-audit.md` — typography findings and implementation guardrails
 
 ## Licensing
 
