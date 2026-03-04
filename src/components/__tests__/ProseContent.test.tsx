@@ -18,4 +18,40 @@ describe("ProseContent", () => {
 
     expect(screen.getByText("Rendered HTML")).toBeInTheDocument();
   });
+
+  it("uses base prose sizing by default", () => {
+    render(
+      <ProseContent>
+        <p>Default size</p>
+      </ProseContent>
+    );
+
+    const wrapper = screen.getByText("Default size").closest("div");
+    expect(wrapper).toHaveClass("prose");
+    expect(wrapper).not.toHaveClass("md:prose-lg");
+    expect(wrapper).not.toHaveClass("prose-sm");
+  });
+
+  it("applies small prose sizing when size is sm", () => {
+    render(
+      <ProseContent size="sm">
+        <p>Small size</p>
+      </ProseContent>
+    );
+
+    const wrapper = screen.getByText("Small size").closest("div");
+    expect(wrapper).toHaveClass("prose-sm");
+    expect(wrapper).toHaveClass("md:prose-sm");
+  });
+
+  it("applies large prose sizing when size is lg", () => {
+    render(
+      <ProseContent size="lg">
+        <p>Large size</p>
+      </ProseContent>
+    );
+
+    const wrapper = screen.getByText("Large size").closest("div");
+    expect(wrapper).toHaveClass("md:prose-lg");
+  });
 });

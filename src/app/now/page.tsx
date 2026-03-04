@@ -116,7 +116,7 @@ export default function NowPage() {
               </IconTextRow>
             </div>
 
-            <ProseContent className="prose-sm border-t border-gray-700 pt-8 md:prose-sm">
+            <ProseContent size="sm" className="border-t border-gray-700 pt-8">
               <p>
                 This is a{" "}
                 <ExternalLink href="https://nownownow.com/about">

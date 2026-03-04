@@ -174,7 +174,7 @@ export default async function Post({ params }: Props) {
               sizes="(min-width: 1024px) 896px, 100vw"
               className="mb-6 sm:mx-0 md:mb-10"
             />
-            <ProseContent html={content} />
+            <ProseContent html={content} size="lg" />
             {post.tags.length > 0 && (
               <section aria-label="Post tags" className="mt-8 pt-2">
                 <div className="flex flex-wrap gap-2">
