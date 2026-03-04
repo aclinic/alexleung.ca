@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { CoverImage } from "@/components/CoverImage";
+import { ExcerptText } from "@/components/ExcerptText";
 import { surfaceClassNames } from "@/components/Surface";
 import { Tag } from "@/components/Tag";
 import { Post } from "@/lib/blogApi";
@@ -56,7 +57,7 @@ export function BlogPostCard({
       </div>
       {post.excerpt ? (
         <p className="mb-4 text-base leading-relaxed text-gray-200 md:text-gray-300">
-          {post.excerpt}
+          <ExcerptText text={post.excerpt} />
         </p>
       ) : null}
       {post.tags.length > 0 && (

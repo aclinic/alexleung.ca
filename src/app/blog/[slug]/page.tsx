@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { Article, BlogPosting } from "schema-dts";
 
 import { CoverImage } from "@/components/CoverImage";
+import { ExcerptText } from "@/components/ExcerptText";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ProseContent } from "@/components/ProseContent";
@@ -214,7 +215,7 @@ export default async function Post({ params }: Props) {
                         </p>
                         {relatedPost.excerpt ? (
                           <p className="mt-2 line-clamp-3 text-sm text-gray-200">
-                            {relatedPost.excerpt}
+                            <ExcerptText text={relatedPost.excerpt} />
                           </p>
                         ) : null}
                       </Surface>
