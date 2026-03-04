@@ -165,13 +165,6 @@ export default async function Post({ params }: Props) {
                 </time>
               )}
             </div>
-            {post.tags.length > 0 && (
-              <div className="mb-6 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <Tag key={`${post.slug}-${tag}`}>{tag}</Tag>
-                ))}
-              </div>
-            )}
             <CoverImage
               src={heroCoverImage || post.coverImage}
               srcSet={heroCoverSrcSet}
@@ -181,6 +174,15 @@ export default async function Post({ params }: Props) {
               className="mb-6 sm:mx-0 md:mb-10"
             />
             <ProseContent html={content} />
+            {post.tags.length > 0 && (
+              <section aria-label="Post tags" className="mt-8 pt-2">
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <Tag key={`${post.slug}-${tag}`}>{tag}</Tag>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {relatedPosts.length > 0 && (
               <section
