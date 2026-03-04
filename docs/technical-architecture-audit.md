@@ -1,4 +1,4 @@
-# Technical Architecture Audit (2026-02-22)
+# Technical Architecture Audit (2026-03-04)
 
 ## Executive Summary
 
@@ -17,7 +17,7 @@ The primary opportunities are now centered on content-model scale planning and c
 - **Deployment model**: Static export (`output: 'export'`) with GitHub Pages-compatible routing
 - **Content model**: Markdown posts parsed at build time with zod front matter validation
 - **Rendering model**: Static route generation for blog slugs
-- **Quality gates (local)**: lint, typecheck, tests, and build scripts are available
+- **Quality gates (CI + local)**: PR/deploy workflows run lint, tests, typecheck, build, and image-variant generation with Corepack-pinned Yarn
 
 ## Completed Improvements
 
@@ -29,19 +29,11 @@ The primary opportunities are now centered on content-model scale planning and c
 | SEO metadata abstraction | Done | Shared URL/metadata helpers are centralized in `src/lib/seo`. |
 | JSON-LD abstraction | Done | Shared schema builders are centralized and reused by routes. |
 | Performance baseline automation | Done | Lighthouse CI now runs against static export routes (`/` and `/blog/`) in a dedicated workflow. |
+| CI quality gate alignment | Done | PR and deploy workflows enforce `yarn lint`, `yarn test`, `yarn typecheck`, and `yarn build` with explicit Corepack setup. |
 
 ## Open Opportunities
 
-### 1) CI quality gate alignment
-
-Current scripts support strong local checks, but this audit does not track a guaranteed remote pipeline policy for every PR.
-
-**Recommendation**
-
-- Ensure CI consistently runs: `yarn lint`, `yarn typecheck`, `yarn test`, and `yarn build`.
-- Keep Yarn/Corepack setup explicit in workflow steps to avoid version drift.
-
-### 2) Future content-domain expansion plan
+### 1) Future content-domain expansion plan
 
 The current blog pipeline is robust; future sections (e.g., resources/notes/projects) should avoid duplicated loaders.
 

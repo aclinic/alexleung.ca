@@ -4,7 +4,7 @@ This file provides unified guidance for all AI agents (Claude, Gemini, etc.) whe
 
 ## Project Overview
 
-Personal portfolio website for Alex Leung. Single-page application with static export for GitHub Pages deployment. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS.
+Personal portfolio website for Alex Leung. Multi-page static-export site for GitHub Pages deployment. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS.
 
 ## Package Manager
 

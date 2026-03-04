@@ -1,4 +1,4 @@
-# SEO Audit & Recommendations (2026-02-22)
+# SEO Audit & Recommendations (2026-03-04)
 
 ## Executive Summary
 
@@ -20,6 +20,7 @@ Remaining work is incremental and focused on editorial freshness and internal li
 | Structured data coverage | Done | JSON-LD builders include page-level and blog-level schemas, including blog index item list. |
 | Sitemap + robots | Done | `src/app/sitemap.ts` and `src/app/robots.ts` are in place. |
 | Blog index list schema | Done | Blog index includes `ItemList` JSON-LD. |
+| Related posts module | Done | Post pages render related links via `getRelatedPosts`, improving crawl depth and page-to-page discovery. |
 
 ## Open Recommendations
 
@@ -35,7 +36,7 @@ Remaining work is incremental and focused on editorial freshness and internal li
 **Recommendation**
 
 - Add contextual links between evergreen pages (About/Now/Home) and relevant blog posts.
-- Consider related-post links on post pages for deeper crawl paths.
+- Continue adding contextual in-article links across semantically related posts.
 
 ### 3) Add lightweight ongoing SEO operations
 
