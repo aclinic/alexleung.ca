@@ -25,13 +25,16 @@ export function CoverImage({
 }: CoverImageProps) {
   const wrapperClassName =
     variant === "card"
-      ? "h-48 w-full overflow-hidden rounded-lg bg-gray-800"
-      : "overflow-hidden rounded-lg";
+      ? "h-52 w-full overflow-hidden rounded-lg bg-gray-800"
+      : "overflow-hidden rounded-lg bg-gray-800";
+
+  const basePictureClassName =
+    variant === "card" ? "block h-full w-full" : "block w-full";
 
   const baseImageClassName =
     variant === "card"
-      ? "h-full w-full object-cover"
-      : "aspect-[21/9] w-full object-cover shadow-sm";
+      ? "h-full w-full object-contain object-center"
+      : "aspect-[2/1] w-full object-contain object-center shadow-sm";
 
   if (!src) {
     return (
@@ -52,6 +55,7 @@ export function CoverImage({
         width={1200}
         height={630}
         sizes={sizes}
+        pictureClassName={basePictureClassName}
         priority={priority}
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}

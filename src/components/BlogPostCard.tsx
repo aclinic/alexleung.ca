@@ -45,7 +45,7 @@ export function BlogPostCard({
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           priority={coverPriority}
           className="mb-4"
-          imageClassName="transition-transform duration-200 group-hover:scale-105"
+          imageClassName="transition-opacity duration-200 group-hover:opacity-90"
         />
       </div>
       <h2 className="mb-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-accent-link">
