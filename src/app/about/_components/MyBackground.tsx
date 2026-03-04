@@ -16,7 +16,7 @@ export function Journey() {
     <ResponsiveContainer element="section">
       <SectionBlock title="My Background" titleId="background" spacing="lg">
         <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
-          <div className="text-md mb-8 space-y-6 text-left lg:text-lg">
+          <div className="text-body mb-8 space-y-6 text-left">
             <IconTextRow icon="👋" title="Hello" contentClassName="space-y-0">
               <p>Hi! I&apos;m Alex, and I&apos;m glad you&apos;re here.</p>
             </IconTextRow>

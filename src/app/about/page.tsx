@@ -49,9 +49,11 @@ export default function AboutPage() {
       />
 
       <PageShell title="About Me" titleId="about">
-        <Journey />
-        <Skills className="mt-12" />
-        <Credentials />
+        <div className="space-y-12 md:space-y-14">
+          <Journey />
+          <Skills />
+          <Credentials />
+        </div>
       </PageShell>
     </>
   );
