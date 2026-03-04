@@ -49,12 +49,6 @@ export const metadata: Metadata = {
     locale: "en_CA",
     images: [
       {
-        url: "/assets/screenshot.png",
-        width: 1200,
-        height: 630,
-        alt: title,
-      },
-      {
         url: "/assets/alex_vibing.webp",
         width: 1536,
         height: 1024,
@@ -69,10 +63,6 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/assets/alex_vibing.webp",
-        alt: title,
-      },
-      {
-        url: "/assets/screenshot.png",
         alt: title,
       },
     ],
