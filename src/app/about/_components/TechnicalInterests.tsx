@@ -2,11 +2,11 @@ import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { SectionBlock } from "@/components/SectionBlock";
 import { skills } from "@/constants/skills";
 
-export function Skills({ className }: { className?: string }) {
+export function Skills() {
   return (
     <ResponsiveContainer element="section">
       <SectionBlock title="Technical Interests" titleId="technicalinterests">
-        <div className={`text-md flex flex-col lg:text-lg ${className}`}>
+        <div className="text-body flex flex-col">
           Here are a few technical areas that I enjoy working in:
           <ul className="mt-4 grid grid-cols-1 gap-x-4 lg:grid-cols-4">
             {skills.map(({ skill }) => (
