@@ -1,11 +1,17 @@
-import Image from "next/image";
-
 import ExternalLink from "@/components/ExternalLink";
 import { IconTextRow } from "@/components/IconTextRow";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { SectionBlock } from "@/components/SectionBlock";
+import {
+  getStaticImageFallback,
+  getStaticImageSourceSet,
+} from "@/lib/localImageMetadata";
 
 export function Journey() {
+  const aboutPortraitSrcSet = getStaticImageSourceSet("aboutPortrait");
+  const aboutPortraitFallback = getStaticImageFallback("aboutPortrait");
+
   return (
     <ResponsiveContainer element="section">
       <SectionBlock title="My Background" titleId="background" spacing="lg">
@@ -61,14 +67,16 @@ export function Journey() {
           </div>
 
           <div className="flex flex-col gap-4 md:gap-6">
-            <Image
-              src="/assets/about_portrait.webp"
+            <ResponsiveImage
+              src={aboutPortraitFallback.path}
+              srcSet={aboutPortraitSrcSet}
               alt="Alex Leung sitting on a mountain trail during a hiking adventure"
-              width={400}
-              height={400}
-              priority
-              placeholder="blur"
-              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyLDSEsAy2kZTNL4a4VNPgABNVMm1kEhQXEmQr/AMHkABFxXjQW0iyRwwq"
+              width={aboutPortraitFallback.width}
+              height={aboutPortraitFallback.height}
+              sizes="(min-width: 1024px) 28vw, (min-width: 768px) 36vw, 88vw"
+              loading="lazy"
+              fetchPriority="low"
+              decoding="async"
             />
           </div>
         </div>

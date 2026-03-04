@@ -38,8 +38,8 @@ jobs:
           sudo apt-get install -y webp
           cwebp -version
 
-      - name: 🖼️ Generate Cover Variants
-        run: yarn cover:variants
+      - name: 🖼️ Generate Image Variants
+        run: yarn image:variants
 
       - name: 🏗️ Build Static Export
         run: yarn build

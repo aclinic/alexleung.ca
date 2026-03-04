@@ -4,7 +4,10 @@ import { CoverImage } from "@/components/CoverImage";
 import { surfaceClassNames } from "@/components/Surface";
 import { Tag } from "@/components/Tag";
 import { Post } from "@/lib/blogApi";
-import { getCoverVariantPath } from "@/lib/coverVariants";
+import {
+  getCoverVariantPath,
+  getCoverVariantSourceSet,
+} from "@/lib/coverVariants";
 import { formatIsoDateForDisplay } from "@/lib/date";
 
 type BlogPostCardProps = {
@@ -22,6 +25,7 @@ export function BlogPostCard({
   className = "",
 }: BlogPostCardProps) {
   const cardCoverImage = getCoverVariantPath(post.coverImage, "card");
+  const cardCoverSrcSet = getCoverVariantSourceSet(post.coverImage, "card");
 
   return (
     <Link
@@ -35,6 +39,7 @@ export function BlogPostCard({
       <div className="mb-5">
         <CoverImage
           src={cardCoverImage || post.coverImage}
+          srcSet={cardCoverSrcSet}
           alt={`Cover for ${post.title}`}
           variant="card"
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

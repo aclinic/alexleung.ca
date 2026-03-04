@@ -38,8 +38,8 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 
 - `yarn dev` — start development server
 - `yarn prepare` — configure repo Git hooks path (`.githooks`)
-- `yarn cover:variants` — generate per-post `-card.webp` and `-hero.webp` variants
-- `yarn cover:variants:stage` — generate and stage variants for staged post/image changes
+- `yarn image:variants` — generate image variants and refresh image variant manifest
+- `yarn image:variants:stage` — generate and stage variants for staged post/image changes
 - `yarn build` — build static export (`out/`) (runs `prebuild`)
 - `yarn lint` — run ESLint + Prettier checks
 - `yarn lint:fix` — auto-fix lint/format issues
@@ -80,22 +80,34 @@ yarn perf:lighthouse
 
 If you want `CHROME_PATH` to persist across terminals in Codespaces, add the export line to `~/.bashrc`.
 
-## Blog Cover Variant Automation
+## Image Variant Automation
 
 - Variant generator script:
-  - `scripts/generate-cover-variants.mjs`
-- Generated files per source cover:
-  - `*-card.webp` for blog index card thumbnails
-  - `*-hero.webp` for individual post hero images
-- Source selection:
-  - every `coverImage` referenced in `content/posts/*.md`
+  - `scripts/generate-image-variants.mjs`
+- Generated output:
+  - responsive cover variants: `*-card-sm.webp`, `*-card.webp`, `*-hero-sm.webp`, `*-hero.webp`
+  - responsive inline markdown image variants: `*-content-sm.webp`, `*-content.webp`
+  - static asset variants for global background and about portrait
+  - manifest: `src/generated/imageVariantManifest.json` (profiles + variant paths + dimensions)
 - Build integration:
-  - `yarn build` runs `prebuild`, which runs `yarn cover:variants`
+  - `yarn build` runs `prebuild`, which runs `yarn image:variants`
 - Commit integration:
-  - `.githooks/pre-commit` runs `yarn cover:variants:stage` to keep variants in sync with staged changes
+  - `.githooks/pre-commit` runs `yarn image:variants:stage` to keep variants in sync with staged changes
 - Runtime usage:
-  - `src/components/BlogPostCard.tsx` uses `-card.webp` (fallback to original cover)
-  - `src/app/blog/[slug]/page.tsx` uses `-hero.webp` (fallback to original cover)
+  - `src/components/BlogPostCard.tsx` and `src/app/blog/[slug]/page.tsx` read cover profiles from the manifest
+  - `src/lib/markdownToHtml.ts` reads inline image profiles from the manifest
+
+### Adding Images (Human Workflow)
+
+1. Add the source image under `public/assets/...`.
+2. If it is a blog post cover, set `coverImage` in that post frontmatter.
+3. If it is an inline blog image, reference it in markdown using a normal image link.
+4. Run `yarn image:variants` (or rely on pre-commit: `yarn image:variants:stage`).
+5. Commit both the source image and generated outputs:
+   - variant files under `public/assets/...`
+   - `src/generated/imageVariantManifest.json`
+
+If `profiles.cover` or `profiles.inlineContent` is missing in the manifest, runtime now fails fast by design.
 
 ## Architecture Snapshot
 

@@ -31,8 +31,8 @@ jobs:
       - name: 🏗️ Install Dependencies
         run: yarn install --immutable
 
-      - name: 🖼️ Generate Cover Variants
-        run: yarn cover:variants
+      - name: 🖼️ Generate Image Variants
+        run: yarn image:variants
 
       - name: ✅ Lint
         run: yarn lint
