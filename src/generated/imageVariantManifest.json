@@ -46,27 +46,27 @@
         }
       }
     },
-    "/assets/blog/boring-blog-architecture/cover.jpg": {
+    "/assets/blog/boring-blog-architecture/cover.webp": {
       "variants": {
         "card": {
           "path": "/assets/blog/boring-blog-architecture/cover-card.webp",
           "width": 768,
-          "height": 768
+          "height": 512
         },
         "card-sm": {
           "path": "/assets/blog/boring-blog-architecture/cover-card-sm.webp",
           "width": 480,
-          "height": 480
+          "height": 320
         },
         "hero": {
           "path": "/assets/blog/boring-blog-architecture/cover-hero.webp",
           "width": 1280,
-          "height": 1280
+          "height": 854
         },
         "hero-sm": {
           "path": "/assets/blog/boring-blog-architecture/cover-hero-sm.webp",
           "width": 768,
-          "height": 768
+          "height": 512
         }
       }
     },
