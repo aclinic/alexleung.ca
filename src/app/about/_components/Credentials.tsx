@@ -23,7 +23,7 @@ export function Credentials() {
               <p className="text-lg font-medium text-white">
                 Professional Engineer (P.Eng.)
               </p>
-              <p className="text-gray-300">Licensed in Ontario</p>
+              <p className="text-gray-300">Since 2017</p>
             </div>
             <div>
               <p className="text-sm text-gray-300">
