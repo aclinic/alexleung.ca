@@ -1,38 +1,37 @@
 # Documentation Directory Guide
 
-This folder contains active repository-internal documentation used for planning and maintenance.
+This folder contains active, maintainer-facing documentation that supports implementation and operational decisions.
 
 ## Active Document Index
 
 | File | Purpose | Update cadence |
 | --- | --- | --- |
-| `codespaces.md` | Local environment notes for GitHub Codespaces, including Lighthouse prerequisites | When dev environment prerequisites change |
-| `technical-architecture-audit.md` | Current architecture status and forward-looking technical recommendations | After major framework/content-pipeline changes |
-| `seo-audit.md` | Current SEO implementation status and optimization backlog | After metadata/schema/content-model changes |
-| `content-ideas.md` | Backlog of future site/page/content ideas | As ideas are added, promoted, or completed |
+| `architecture-seo-status.md` | Canonical status snapshot for technical architecture and SEO | After meaningful architecture, metadata, schema, or IA changes |
+| `codespaces.md` | Codespaces-specific Lighthouse setup and troubleshooting details | When Codespaces base image or Lighthouse prerequisites change |
+| `typography-audit.md` | Typography findings and guardrails for app/component edits | After typography-system or prose-behavior changes |
 
-## Documentation Scope Rules
+## Scope Rules
 
-### What belongs in `/docs`
+### Keep in `/docs`
 
-- Ongoing architecture and SEO status docs
-- Planning backlogs that still influence execution
-- Maintainer-facing process notes
+- Current status snapshots that affect decisions
+- Environment/troubleshooting references that are too detailed for root `README.md`
+- Maintainer process notes with ongoing operational value
 
-### What should stay at repository root
+### Keep at repository root
 
-- `README.md` (main project entrypoint)
+- `README.md` (primary project entrypoint)
 - `LICENSE` and `LICENSE-CONTENT`
 - `AGENTS.md`
 - `CLAUDE.md` and `GEMINI.md`
 
-### What should stay outside `/docs`
+### Keep outside `/docs`
 
-- User-facing web content (`public/`)
-- Application content (e.g., `content/posts/`)
+- User-facing site content (`public/`)
+- Application content (for example, `content/posts/`)
 
 ## Hygiene Checklist
 
-- Prefer status snapshots over long-lived speculative audits.
-- Remove stale review docs once recommendations are implemented or superseded.
-- Keep one canonical document per concern (architecture, SEO, content ideas).
+- Prefer concise, status-driven docs over speculative planning notes.
+- Keep one canonical document per concern.
+- Remove or merge docs when they become duplicative or stale.
