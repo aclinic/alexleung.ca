@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { CollectionPage, ItemList } from "schema-dts";
 
 import { BlogPostCard } from "@/components/BlogPostCard";
+import { FollowItSubscribeForm } from "@/components/FollowItSubscribeForm";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
@@ -25,7 +26,7 @@ export function generateMetadata(): Metadata {
   const posts = getAllPosts(["coverImage"]);
   const firstCoverImage = posts.find((post) => post.coverImage)?.coverImage;
 
-  return buildPageMetadata({
+  const metadata = buildPageMetadata({
     title,
     description,
     path,
@@ -37,6 +38,13 @@ export function generateMetadata(): Metadata {
         ]
       : undefined,
   });
+
+  return {
+    ...metadata,
+    other: {
+      "follow.it-verification-code": "qQRuRCQt2ltelEDXU602",
+    },
+  };
 }
 
 export default function BlogIndex() {
@@ -54,7 +62,7 @@ export default function BlogIndex() {
     <>
       <PageShell title="Blog">
         <ResponsiveContainer variant="wide">
-          <div className="mb-32 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {firstPost ? (
               <BlogPostCard
                 key={firstPost.slug}
@@ -70,6 +78,7 @@ export default function BlogIndex() {
               />
             ))}
           </div>
+          <FollowItSubscribeForm className="my-6" />
         </ResponsiveContainer>
       </PageShell>
       <JsonLdBreadcrumbs
