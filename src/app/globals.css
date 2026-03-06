@@ -41,6 +41,25 @@
 }
 
 @layer components {
+  .app-background-image {
+    background-image: url("/assets/background-mobile.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  @media (min-width: 768px) {
+    .app-background-image {
+      background-image: url("/assets/background-tablet.webp");
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .app-background-image {
+      background-image: url("/assets/background-desktop.webp");
+    }
+  }
+
   .section-center {
     @apply max-w-content mx-auto w-[90vw];
   }
