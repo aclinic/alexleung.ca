@@ -12,6 +12,14 @@ describe("buildPageMetadata", () => {
     const twitter = metadata.twitter;
 
     expect(metadata.alternates?.canonical).toBe("https://alexleung.ca/about/");
+    expect(metadata.alternates?.types).toEqual({
+      "application/rss+xml": [
+        {
+          url: "https://alexleung.ca/feed.xml",
+          title: "Alex Leung Blog RSS Feed",
+        },
+      ],
+    });
     expect(openGraph?.url).toBe("https://alexleung.ca/about/");
 
     expect(openGraph).toMatchObject({ type: "website" });

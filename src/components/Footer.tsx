@@ -1,3 +1,5 @@
+import { FaRss } from "react-icons/fa6";
+
 import { LinkText } from "@/components/LinkText";
 import { data } from "@/constants/socialLinks";
 
@@ -25,7 +27,10 @@ export default function Footer() {
         ))}
       </ul>
       <p className="text-body-sm pb-1">
-        <LinkText href="/feed.xml">Subscribe via RSS</LinkText>
+        <LinkText href="/feed.xml" className="inline-flex items-center gap-2">
+          <FaRss aria-hidden="true" />
+          <span>Subscribe via RSS</span>
+        </LinkText>
       </p>
       <p>Copyright &copy; 2020 - {currentYear} Alex Leung</p>
     </section>

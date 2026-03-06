@@ -1,6 +1,6 @@
 import { usePathname } from "next/navigation";
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import Header from "../Header";
 
@@ -86,12 +86,12 @@ describe("Header", () => {
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
-    it("should close menu when pathname changes", () => {
+    it("should close menu when pathname changes", async () => {
       let pathname = "/";
       (usePathname as jest.Mock).mockImplementation(() => pathname);
 
       const { rerender } = render(<Header />);
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
 
       fireEvent.click(button);
       expect(button).toHaveAttribute("aria-expanded", "true");
@@ -99,7 +99,9 @@ describe("Header", () => {
       pathname = "/about/";
       rerender(<Header />);
 
-      expect(button).toHaveAttribute("aria-expanded", "false");
+      await waitFor(() => {
+        expect(button).toHaveAttribute("aria-expanded", "false");
+      });
     });
   });
 

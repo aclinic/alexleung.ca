@@ -43,6 +43,7 @@ describe("buildRssFeedXml", () => {
           "Notes on software engineering, distributed systems, AI engineering, and practical product development.",
         id: "https://alexleung.ca/blog/",
         link: "https://alexleung.ca/blog/",
+        image: "https://alexleung.ca/icon4.png",
         language: "en-CA",
         feedLinks: { rss: "https://alexleung.ca/feed.xml" },
       })
