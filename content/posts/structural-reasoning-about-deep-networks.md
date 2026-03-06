@@ -6,8 +6,8 @@ excerpt: "Chapter 6 sharpened how I think about architecture as a structural ass
 coverImage: "/assets/blog/structural-reasoning-about-deep-networks/cover.webp"
 tags:
   - "Deep Learning"
-  - "Neural Networks"
   - "ML Theory"
+  - "Book Notes"
 
 ---
 

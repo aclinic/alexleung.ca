@@ -5,8 +5,9 @@ updated: "2026-02-14"
 excerpt: "How my AI workflow changed from quick snippets to a practical plan/implement/verify loop."
 coverImage: "/assets/blog/from-coder-to-orchestrator/cover.webp"
 tags:
-  - "AI Engineering"
+  - "AI"
   - "Developer Workflow"
+  - "Future of Work"
 
 ---
 
