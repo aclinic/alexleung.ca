@@ -98,7 +98,6 @@ describe("Header", () => {
 
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
-
   });
 
   describe("Active Link Detection", () => {
