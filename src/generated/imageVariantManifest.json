@@ -184,6 +184,30 @@
         }
       }
     },
+    "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-sm": {
+          "path": "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover-hero-sm.webp",
+          "width": 768,
+          "height": 512
+        }
+      }
+    },
     "/assets/blog/making-responsive-images-just-work/cover.webp": {
       "variants": {
         "card": {
