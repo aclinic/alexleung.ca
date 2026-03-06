@@ -82,6 +82,23 @@ describe("Header", () => {
 
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
+
+    it("should close menu when pathname changes", () => {
+      let pathname = "/";
+      (usePathname as jest.Mock).mockImplementation(() => pathname);
+
+      const { rerender } = render(<Header />);
+      const button = screen.getByLabelText("Toggle menu");
+
+      fireEvent.click(button);
+      expect(button).toHaveAttribute("aria-expanded", "true");
+
+      pathname = "/about/";
+      rerender(<Header />);
+
+      expect(button).toHaveAttribute("aria-expanded", "false");
+    });
+
   });
 
   describe("Active Link Detection", () => {
