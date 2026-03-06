@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 
 import { NOW_PAGE_LAST_UPDATED_ISO } from "@/app/now/page";
 import { getAllPosts } from "@/lib/blogApi";
+import { toCanonical } from "@/lib/seo/url";
 
 export const dynamic = "force-static";
 
@@ -16,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts(["slug", "date", "updated"]);
 
   const blogPosts = posts.map((post) => ({
-    url: `https://alexleung.ca/blog/${post.slug}`,
+    url: toCanonical(`/blog/${post.slug}`),
     lastModified: new Date(
       post.updated || post.date || PAGE_LAST_MODIFIED.home
     ),
