@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="https://alexleung.ca/feed.xsl"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Alex Leung's Blog</title>
@@ -8,6 +9,11 @@
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en-CA</language>
+        <image>
+            <title>Alex Leung's Blog</title>
+            <url>https://alexleung.ca/icon4.png</url>
+            <link>https://alexleung.ca/blog/</link>
+        </image>
         <atom:link href="https://alexleung.ca/feed.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[iPad Air M3 11-Inch: First Impressions]]></title>
