@@ -25,6 +25,12 @@ export function FollowItSubscribeForm({
   action = DEFAULT_FOLLOW_IT_ACTION,
 }: FollowItSubscribeFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const buttonClassName = [
+    "text-body inline-flex w-full items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-accent-primary px-5 py-2.5 font-bold text-white transition-all duration-200 ease-expo-out",
+    isSubmitting
+      ? "cursor-progress opacity-90"
+      : "cursor-pointer hover:from-blue-600 hover:to-accent-primary-hover",
+  ].join(" ");
 
   return (
     <section
@@ -62,13 +68,13 @@ export function FollowItSubscribeForm({
           required
           autoComplete="email"
           placeholder={placeholder}
-          disabled={isSubmitting}
+          readOnly={isSubmitting}
           className="text-body w-full rounded-md border-2 border-white/15 bg-white/5 px-4 py-2.5 text-center text-white placeholder:text-gray-400 focus:border-accent-link focus:placeholder-transparent focus:outline-none"
         />
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="text-body inline-flex w-full cursor-pointer items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-accent-primary px-5 py-2.5 font-bold text-white transition-all duration-200 ease-expo-out hover:from-blue-600 hover:to-accent-primary-hover disabled:cursor-progress disabled:opacity-90"
+          aria-disabled={isSubmitting}
+          className={buttonClassName}
         >
           {isSubmitting ? "Subscribing..." : buttonLabel}
         </button>

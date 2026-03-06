@@ -26,7 +26,7 @@ export function generateMetadata(): Metadata {
   const posts = getAllPosts(["coverImage"]);
   const firstCoverImage = posts.find((post) => post.coverImage)?.coverImage;
 
-  const metadata = buildPageMetadata({
+  return buildPageMetadata({
     title,
     description,
     path,
@@ -38,13 +38,6 @@ export function generateMetadata(): Metadata {
         ]
       : undefined,
   });
-
-  return {
-    ...metadata,
-    other: {
-      "follow.it-verification-code": "qQRuRCQt2ltelEDXU602",
-    },
-  };
 }
 
 export default function BlogIndex() {

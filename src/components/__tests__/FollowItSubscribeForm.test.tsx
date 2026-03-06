@@ -60,7 +60,8 @@ describe("FollowItSubscribeForm", () => {
 
     expect(
       screen.getByRole("button", { name: /subscribing\.\.\./i })
-    ).toBeDisabled();
-    expect(emailInput).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
+    expect(emailInput).toHaveAttribute("readonly");
+    expect(form).toHaveAttribute("aria-busy", "true");
   });
 });
