@@ -1,5 +1,5 @@
-import { getAllPosts } from "@/lib/blogApi";
 import { BASE_URL } from "@/constants";
+import { getAllPosts } from "@/lib/blogApi";
 import { buildRssFeedXml } from "@/lib/feed";
 
 export const dynamic = "force-static";
