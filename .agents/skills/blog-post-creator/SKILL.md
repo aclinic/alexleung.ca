@@ -20,6 +20,10 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 2. Default to cohesive paragraphs that carry one clear claim with supporting detail.
 3. Prefer specific trade-offs, mechanisms, and implications over slogans.
 4. Keep writing concise: remove filler, throat-clearing, and redundant qualifiers.
+5. Preserve user-provided facts exactly for agency and ownership (for example, who bought something, who decided, who uses it); do not infer missing relationship details.
+6. Default to concise titles; prefer short, plain phrasing unless the user asks for a longer or more stylized title.
+7. Use section headings that are specific and neutral; avoid cute, rhetorical, or parenthetical framing.
+8. When drafting a new post from notes, include cover prompts by default; only skip prompts if the user explicitly asks for post-only output.
 
 ## Workflow
 
@@ -27,10 +31,12 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Define topic, thesis, audience, and depth target (reflection vs technical deep dive).
 - Collect concrete examples, decisions, and trade-offs from user input.
 - Avoid inventing anecdotes, metrics, or timeline claims.
+- Lock key facts before drafting: actor/ownership details, product/version details, and scope boundaries.
 
 2. Select a post shape.
 - Open with context and a clear point of view in the first paragraph.
 - Use 2-4 `##` sections that progress by reasoning.
+- Keep section headings plain and descriptive (for example, "Why We Chose This Setup"), not rhetorical.
 - End with a concrete synthesis or forward-looking close.
 
 3. Draft in house voice.
@@ -49,12 +55,15 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Default visual direction to Ghibli-style unless user asks for another style.
 - Explicitly include instruction to use the provided Alex reference image for facial consistency.
 - Tie composition to the post thesis and keep scene clear at thumbnail size.
+- Provide both a primary prompt and a backup prompt in the same response as the draft unless the user opts out.
 
 6. Run final checks.
 - Ensure the argument is cohesive from opening to close.
 - Remove hype language and repeated one-sentence paragraph cadence.
 - Verify section headings are specific and reflect actual content.
 - Keep claims bounded and testable; mark assumptions when needed.
+- Run an assumption audit: check that agency/ownership wording matches the user's input and that title/heading tone matches the user's preference for directness.
+- Confirm output completeness: if this is a new-post draft, include both `Cover Prompt (Primary)` and `Cover Prompt (Backup)` blocks unless explicitly waived.
 
 ## Style References
 
@@ -69,6 +78,9 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Ensure claims are backed by context, not assertion alone.
 - Ensure trade-offs and limitations are explicit.
 - Ensure the close is forward-looking and concrete.
+- Ensure title length and phrasing are intentionally concise by default.
+- Ensure heading language is functional, not performative.
+- Ensure no inferred facts were introduced around who did what.
 
 ## Quick Rewrite Patterns
 
@@ -79,6 +91,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 
 ## Output Modes
 
+- Default mode selection: for new-post creation requests, use `Draft + cover prompt` unless the user explicitly requests another mode.
 - Full draft: Return complete markdown with frontmatter and final prose.
 - Revision pass: Return edited markdown that preserves existing facts and improves flow.
 - Outline-first: Return frontmatter plus a sectioned outline before writing the full draft.
