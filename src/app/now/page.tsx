@@ -14,7 +14,7 @@ import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { SectionBlock } from "@/components/SectionBlock";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
-export const NOW_PAGE_LAST_UPDATED_ISO = "2026-02-20";
+export const NOW_PAGE_LAST_UPDATED_ISO = "2026-03-05";
 
 const nowPageLastUpdatedDate = new Date(
   `${NOW_PAGE_LAST_UPDATED_ISO}T00:00:00Z`
@@ -81,9 +81,9 @@ export default function NowPage() {
                   ; I like the UI and how easy it is to spin up new worktrees.
                 </p>
                 <p>
-                  Right now my priorities are simple: ship consistently on the
-                  blog, use tooling pragmatically to move faster, and stay
-                  curious about emerging AI-native products.
+                  I&apos;ve also been experimenting a bit with SEO and thinking
+                  through what it would look like to make this website
+                  self-improving over time.
                 </p>
               </IconTextRow>
 
@@ -93,11 +93,16 @@ export default function NowPage() {
                 headingLevel="h2"
               >
                 <p>
-                  I&apos;m currently on Chapter 7 of{" "}
+                  I&apos;m currently on Chapter 8 of{" "}
                   <ExternalLink href="https://www.deeplearningbook.org/">
                     <em>Deep Learning</em>
                   </ExternalLink>{" "}
                   by Goodfellow, Bengio, and Courville.
+                </p>
+                <p>
+                  I also started reading <em>Children of Time</em> on a
+                  colleague&apos;s recommendation. The hook in Chapter 1.1
+                  pulled me in right away.
                 </p>
                 <p>
                   <ExternalLink href="https://www.domainlanguage.com/ddd/">
