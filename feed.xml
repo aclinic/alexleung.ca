@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Alex Leung's Blog</title>
+        <link>https://alexleung.ca/blog/</link>
+        <description>Notes on software engineering, distributed systems, AI engineering, and practical product development.</description>
+        <lastBuildDate>Thu, 05 Mar 2026 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en-CA</language>
+        <atom:link href="https://alexleung.ca/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[iPad Air M3 11-Inch: First Impressions]]></title>
+            <link>https://alexleung.ca/blog/ipad-air-m3-11-inch-first-impressions/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/ipad-air-m3-11-inch-first-impressions/</guid>
+            <pubDate>Thu, 05 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[For study-heavy workflows, a lightweight iPad Air setup with a keyboard, stand, and Pencil Pro can be a practical laptop replacement.]]></description>
+            <category>Tech</category>
+            <category>Review</category>
+            <category>Lifestyle</category>
+        </item>
+        <item>
+            <title><![CDATA[Making Responsive Images Just Work]]></title>
+            <link>https://alexleung.ca/blog/making-responsive-images-just-work/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/making-responsive-images-just-work/</guid>
+            <pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Instead of manually managing `-sm`/`-md`/`-lg` assets, I moved to a manifest-driven workflow that reduced duplication and made performance outcomes more consistent.]]></description>
+            <category>Web Performance</category>
+            <category>Architecture</category>
+            <category>Developer Workflow</category>
+        </item>
+        <item>
+            <title><![CDATA[Everyone Is a Builder Now]]></title>
+            <link>https://alexleung.ca/blog/everyone-is-a-builder/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/everyone-is-a-builder/</guid>
+            <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Over cocktails, my colleagues and I talked about why AI lowering the barrier to building is a net positive.]]></description>
+            <category>AI</category>
+            <category>Future of Work</category>
+            <category>Reflection</category>
+        </item>
+        <item>
+            <title><![CDATA[Medium and Meaning]]></title>
+            <link>https://alexleung.ca/blog/medium-and-meaning/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/medium-and-meaning/</guid>
+            <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A few reflections on building and creating with Codex and Sora.]]></description>
+            <category>AI</category>
+            <category>Creativity</category>
+            <category>Reflection</category>
+        </item>
+        <item>
+            <title><![CDATA[Structural Reasoning About Deep Networks]]></title>
+            <link>https://alexleung.ca/blog/structural-reasoning-about-deep-networks/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/structural-reasoning-about-deep-networks/</guid>
+            <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Chapter 6 sharpened how I think about architecture as a structural assumption, not just a tuning choice.]]></description>
+            <category>Deep Learning</category>
+            <category>ML Theory</category>
+            <category>Book Notes</category>
+        </item>
+        <item>
+            <title><![CDATA[Short Review: Deep Learning Part I]]></title>
+            <link>https://alexleung.ca/blog/deep-learning-part-1-review/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/deep-learning-part-1-review/</guid>
+            <pubDate>Sat, 07 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Thoughts on the mathematical foundations section of Goodfellow, Bengio, and Courville's Deep Learning textbook.]]></description>
+            <category>Deep Learning</category>
+            <category>Book Notes</category>
+            <category>Review</category>
+        </item>
+        <item>
+            <title><![CDATA[From Writing Code to Orchestrating Agents]]></title>
+            <link>https://alexleung.ca/blog/from-coder-to-orchestrator/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/from-coder-to-orchestrator/</guid>
+            <pubDate>Tue, 03 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[How my AI workflow changed from quick snippets to a practical plan/implement/verify loop.]]></description>
+            <category>AI</category>
+            <category>Developer Workflow</category>
+            <category>Future of Work</category>
+        </item>
+        <item>
+            <title><![CDATA[The 'Boring' Architecture Behind This Blog]]></title>
+            <link>https://alexleung.ca/blog/boring-blog-architecture/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/boring-blog-architecture/</guid>
+            <pubDate>Sat, 31 Jan 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[How I added a fully static, markdown-based blog to my Next.js portfolio.]]></description>
+            <category>Next.js</category>
+            <category>Architecture</category>
+            <category>Blogging</category>
+        </item>
+    </channel>
+</rss>
