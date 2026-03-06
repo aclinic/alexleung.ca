@@ -8,13 +8,23 @@ describe("Footer", () => {
   it("should render social links with proper security attributes", () => {
     const { container } = render(<Footer />);
 
-    const links = container.querySelectorAll("a");
+    const links = data.map((item) =>
+      container.querySelector(`a[aria-label="${item.label}"]`)
+    );
     expect(links).toHaveLength(data.length);
 
     links.forEach((link) => {
+      expect(link).not.toBeNull();
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveAttribute("rel", "me noopener");
     });
+  });
+
+  it("should render RSS subscription link", () => {
+    render(<Footer />);
+
+    const rssLink = screen.getByRole("link", { name: /subscribe via rss/i });
+    expect(rssLink).toHaveAttribute("href", "/feed.xml");
   });
 
   it("should display copyright with current year", () => {
