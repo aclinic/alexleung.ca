@@ -4,9 +4,9 @@ date: "2026-03-05"
 excerpt: "For study-heavy workflows, a lightweight iPad Air setup with a keyboard, stand, and Pencil Pro can be a practical laptop replacement."
 coverImage: "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover.webp"
 tags:
-  - "AI"
-  - "Developer Workflow"
-  - "Reflection"
+  - "Tech"
+  - "Review"
+  - "Lifestyle"
 ---
 
 My wife and I bought the 11-inch iPad Air M3, and the first thing we both noticed was the weight. It feels noticeably lighter than carrying a full laptop, and that one difference has already changed how often she reaches for it. We bought last year's model because it was the right value for what she actually needs, not because we were trying to optimize for top-end specs.
