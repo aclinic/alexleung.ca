@@ -148,6 +148,33 @@ describe("blogApi front matter validation", () => {
 
     expect(() => getAllPosts()).toThrow(/Duplicate seriesOrder/);
   });
+
+  test("reuses cached post parsing between repeated API calls", async () => {
+    const tempDir = setupTempPosts({
+      first: `---
+title: "First"
+date: "2026-02-16"
+---
+Body`,
+      second: `---
+title: "Second"
+date: "2026-02-15"
+---
+Body`,
+    });
+
+    const readFileSpy = jest.spyOn(fs, "readFileSync");
+    const { getAllPosts, getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+
+    getAllPosts();
+    getAllPosts(["slug"]);
+    getPostBySlug("first");
+    getPostBySlug("second", ["slug"]);
+
+    expect(readFileSpy).toHaveBeenCalledTimes(2);
+
+    readFileSpy.mockRestore();
+  });
 });
 
 describe("getRelatedPosts", () => {
