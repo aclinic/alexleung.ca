@@ -15,6 +15,7 @@ type FeedPost = {
 const FEED_TITLE = "Alex Leung's Blog";
 const FEED_DESCRIPTION =
   "Notes on software engineering, distributed systems, AI engineering, and practical product development.";
+const FEED_IMAGE_URL = `${BASE_URL}/icon4.png`;
 
 export function buildRssFeedXml(posts: readonly FeedPost[]): string {
   const lastUpdated =
@@ -32,6 +33,7 @@ export function buildRssFeedXml(posts: readonly FeedPost[]): string {
     description: FEED_DESCRIPTION,
     id: toCanonical("/blog"),
     link: toCanonical("/blog"),
+    image: FEED_IMAGE_URL,
     language: "en-CA",
     feedLinks: {
       rss: `${BASE_URL}/feed.xml`,

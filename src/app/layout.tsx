@@ -40,7 +40,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
     types: {
-      "application/rss+xml": "/feed.xml",
+      "application/rss+xml": [
+        {
+          url: "/feed.xml",
+          title: "Alex Leung Blog RSS Feed",
+        },
+      ],
     },
   },
   openGraph: {

@@ -24,6 +24,7 @@ export function buildPageMetadata(input: SeoInput): Metadata {
   const hasImages = normalizedImages.length > 0;
   const twitterCard =
     input.twitterCard || (hasImages ? "summary_large_image" : "summary");
+  const rssFeedUrl = toAbsoluteUrl("/feed.xml");
 
   return {
     title: input.title,
@@ -31,6 +32,14 @@ export function buildPageMetadata(input: SeoInput): Metadata {
     keywords: input.keywords,
     alternates: {
       canonical: canonicalUrl,
+      types: {
+        "application/rss+xml": [
+          {
+            url: rssFeedUrl,
+            title: "Alex Leung Blog RSS Feed",
+          },
+        ],
+      },
     },
     openGraph: {
       title: input.title,
