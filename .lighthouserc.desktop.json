@@ -12,7 +12,8 @@
         "http://localhost/blog/from-coder-to-orchestrator/"
       ],
       "settings": {
-        "chromeFlags": "--headless=new --no-sandbox --disable-dev-shm-usage"
+        "chromeFlags": "--headless=new --no-sandbox --disable-dev-shm-usage",
+        "preset": "desktop"
       }
     },
     "assert": {
