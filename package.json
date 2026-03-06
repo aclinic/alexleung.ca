@@ -14,11 +14,13 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "perf:lighthouse": "lhci autorun --config=.lighthouserc.json",
+    "perf:lighthouse": "yarn perf:lighthouse:mobile && yarn perf:lighthouse:desktop",
     "lint": "eslint . && prettier --check '{src,app,components}/**/*.{js,jsx,ts,tsx,css,md,json,yml}'",
     "lint:fix": "eslint --fix . && prettier --write '{src,app,components}/**/*.{js,jsx,ts,tsx,css,md,json,yml}'",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out",
+    "perf:lighthouse:mobile": "lhci autorun --config=.lighthouserc.mobile.json",
+    "perf:lighthouse:desktop": "lhci autorun --config=.lighthouserc.desktop.json"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
