@@ -30,20 +30,23 @@ describe("Header", () => {
   describe("Mobile Menu", () => {
     it("should toggle menu visibility via aria-expanded", () => {
       render(<Header />);
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
 
       expect(button).toHaveAttribute("aria-expanded", "false");
+      expect(button).toHaveAttribute("aria-controls", "mobile-nav-drawer");
 
       fireEvent.click(button);
       expect(button).toHaveAttribute("aria-expanded", "true");
+      expect(button).toHaveAccessibleName("Close menu");
 
       fireEvent.click(button);
       expect(button).toHaveAttribute("aria-expanded", "false");
+      expect(button).toHaveAccessibleName("Open menu");
     });
 
     it("should mount and unmount mobile menu when toggled", () => {
       const { container } = render(<Header />);
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
 
       expect(
         container.querySelector(".mobile-nav-link")
@@ -63,7 +66,7 @@ describe("Header", () => {
 
     it("should close menu when backdrop is clicked", () => {
       const { container } = render(<Header />);
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
 
       fireEvent.click(button);
       const backdrop = container.querySelector(".fixed.inset-0");
@@ -74,7 +77,7 @@ describe("Header", () => {
 
     it("should close menu when navigation link is clicked", () => {
       render(<Header />);
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
 
       fireEvent.click(button);
       const mobileLink = screen.getAllByText("Home")[1];
@@ -116,7 +119,7 @@ describe("Header", () => {
       (usePathname as jest.Mock).mockReturnValue("/about/");
       render(<Header />);
 
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
       fireEvent.click(button);
 
       const aboutLinks = screen.getAllByText("About");
@@ -132,12 +135,14 @@ describe("Header", () => {
   describe("Accessibility", () => {
     it("should have proper aria-label on menu button", () => {
       render(<Header />);
-      expect(screen.getByLabelText("Toggle menu")).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Open menu" })
+      ).toBeInTheDocument();
     });
 
     it("should have aria-expanded attribute on menu button", () => {
       render(<Header />);
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
@@ -148,12 +153,33 @@ describe("Header", () => {
 
     it("should set tabIndex=0 on mobile links when menu is open", () => {
       render(<Header />);
-      const button = screen.getByLabelText("Toggle menu");
+      const button = screen.getByRole("button", { name: "Open menu" });
 
       fireEvent.click(button);
 
       const mobileLink = screen.getAllByText("Home")[1];
       expect(mobileLink).toHaveAttribute("tabindex", "0");
+    });
+
+    it("should close the mobile menu when Escape is pressed", () => {
+      render(<Header />);
+      const button = screen.getByRole("button", { name: "Open menu" });
+
+      fireEvent.click(button);
+      expect(button).toHaveAttribute("aria-expanded", "true");
+
+      fireEvent.keyDown(document, { key: "Escape" });
+      expect(button).toHaveAttribute("aria-expanded", "false");
+    });
+
+    it("should return focus to the menu button when the menu closes", () => {
+      render(<Header />);
+      const button = screen.getByRole("button", { name: "Open menu" });
+
+      fireEvent.click(button);
+      fireEvent.keyDown(document, { key: "Escape" });
+
+      expect(button).toHaveFocus();
     });
   });
 });

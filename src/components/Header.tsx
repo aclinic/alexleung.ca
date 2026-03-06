@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 import Link from "next/link";
@@ -11,6 +11,7 @@ import { DesktopNav, MobileNavDrawer } from "@/components/NavMenu";
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -30,6 +31,14 @@ export default function Header() {
       return;
     }
 
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
     const mediaQuery = window.matchMedia("(min-width: 768px)");
     const handleResize = () => {
       if (mediaQuery.matches && isMenuOpen) {
@@ -37,7 +46,17 @@ export default function Header() {
       }
     };
     mediaQuery.addEventListener("change", handleResize);
-    return () => mediaQuery.removeEventListener("change", handleResize);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      mediaQuery.removeEventListener("change", handleResize);
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      menuButtonRef.current?.focus();
+    }
   }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -70,10 +89,12 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
+            ref={menuButtonRef}
             onClick={toggleMenu}
             className="relative z-50 text-2xl transition-all duration-300 hover:text-gray-300 md:hidden"
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav-drawer"
           >
             <span
               className={`block transition-transform duration-300 ${
