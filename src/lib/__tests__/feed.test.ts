@@ -1,40 +1,78 @@
+import { Feed } from "feed";
+
 import { buildRssFeedXml } from "@/lib/feed";
 
+const mockAddItem = jest.fn();
+const mockRss2 = jest.fn(() => "<rss>mock</rss>");
+
+jest.mock(
+  "feed",
+  () => ({
+    Feed: jest.fn().mockImplementation(() => ({
+      addItem: mockAddItem,
+      rss2: mockRss2,
+    })),
+  }),
+  { virtual: true }
+);
+
 describe("buildRssFeedXml", () => {
-  it("builds an RSS feed with canonical post links", () => {
+  beforeEach(() => {
+    mockAddItem.mockClear();
+    mockRss2.mockClear();
+    (Feed as unknown as jest.Mock).mockClear();
+  });
+
+  it("configures feed metadata and adds canonical post items", () => {
     const xml = buildRssFeedXml([
       {
         title: "Test Post",
         slug: "test-post",
         date: "2026-03-01T00:00:00.000Z",
+        updated: "2026-03-04T00:00:00.000Z",
         excerpt: "Short description",
         tags: ["AI", "Systems"],
       },
     ]);
 
-    expect(xml).toContain('<rss version="2.0"');
-    expect(xml).toContain("<title>Alex Leung&apos;s Blog</title>");
-    expect(xml).toContain("<link>https://alexleung.ca/blog/</link>");
-    expect(xml).toContain(
-      '<guid isPermaLink="true">https://alexleung.ca/blog/test-post/</guid>'
+    expect(xml).toBe("<rss>mock</rss>");
+    expect(Feed).toHaveBeenCalledWith(
+      expect.objectContaining({
+        title: "Alex Leung's Blog",
+        description:
+          "Notes on software engineering, distributed systems, AI engineering, and practical product development.",
+        id: "https://alexleung.ca/blog/",
+        link: "https://alexleung.ca/blog/",
+        language: "en-CA",
+        feedLinks: { rss: "https://alexleung.ca/feed.xml" },
+      })
     );
-    expect(xml).toContain("<category>AI</category>");
-    expect(xml).toContain("<category>Systems</category>");
+    expect(mockAddItem).toHaveBeenCalledWith({
+      title: "Test Post",
+      id: "https://alexleung.ca/blog/test-post/",
+      link: "https://alexleung.ca/blog/test-post/",
+      date: new Date("2026-03-01T00:00:00.000Z"),
+      description: "Short description",
+      category: [{ name: "AI" }, { name: "Systems" }],
+    });
+    expect(mockRss2).toHaveBeenCalledTimes(1);
   });
 
-  it("escapes XML-sensitive characters in title and excerpt", () => {
-    const xml = buildRssFeedXml([
+  it("omits optional fields when excerpt and tags are missing", () => {
+    buildRssFeedXml([
       {
-        title: `A&B <title> "quote"`,
-        slug: "escape-test",
+        title: "No Extras",
+        slug: "no-extras",
         date: "2026-03-02T00:00:00.000Z",
-        excerpt: "5 > 3 & 2 < 4",
       },
     ]);
 
-    expect(xml).toContain(
-      "<title>A&amp;B &lt;title&gt; &quot;quote&quot;</title>"
-    );
-    expect(xml).toContain("<description>5 &gt; 3 &amp; 2 &lt; 4</description>");
+    expect(mockAddItem).toHaveBeenCalledWith({
+      title: "No Extras",
+      id: "https://alexleung.ca/blog/no-extras/",
+      link: "https://alexleung.ca/blog/no-extras/",
+      date: new Date("2026-03-02T00:00:00.000Z"),
+      category: [],
+    });
   });
 });
