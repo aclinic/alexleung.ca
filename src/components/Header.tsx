@@ -59,6 +59,11 @@ export default function Header() {
     }
   }, [isMenuOpen]);
 
+  // Close mobile menu on route changes (including browser back/forward)
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
