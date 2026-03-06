@@ -1,15 +1,16 @@
 # Blog Post Notification Report
 
-Date: March 5, 2026
+Date: March 6, 2026
 
 ## 1. Current State (from your repo)
 
 - Blog posts are file-based markdown under `content/posts/*.md` and parsed by `src/lib/blogApi.ts`.
 - Draft handling already exists (`draft: true` frontmatter is filtered from published lists by default).
 - Deployment is static export + GitHub Pages, with deploy on `main` via `.github/workflows/build-deploy.yml`.
-- There is no existing RSS/Atom feed route and no existing subscriber system.
+- RSS feed exists at `/feed.xml` with a visible RSS subscribe link in the footer.
+- There is no existing email subscriber system yet.
 
-Implication: your publish event is currently "markdown file merged to `main` and deployed". That is the cleanest trigger point.
+Implication: your publish event is now "new post is deployed and appears in `/feed.xml`". That is the cleanest trigger point for RSS-to-email forwarding.
 
 ## 2. Design Dimensions
 
@@ -43,28 +44,28 @@ Cons
 - No direct email capture/list ownership unless layered with another channel.
 - Reader adoption is lower than email for many audiences.
 
-### Option B: Newsletter SaaS (recommended baseline for email)
+### Option B: RSS-to-email forwarding service (follow.it recommended baseline)
 
 Subscription mechanism
-- Embed provider signup form on site (static HTML form post is enough).
-- Optionally add a dedicated `/subscribe` page.
+- Link to a hosted follow.it subscription page, or
+- wire an on-site subscribe form to follow.it.
 
 Notification mechanism
-- Provider sends email to subscribers.
-- Can be fully automatic or "draft + manual approve".
+- follow.it monitors your RSS feed and sends email updates to subscribers.
+- Digest/frequency behavior is managed in follow.it settings.
 
 Trigger
-- GitHub Actions step after deploy checks if one or more non-draft posts were newly published.
-- If yes, call provider API to create/send campaign.
+- No CI notification job required.
+- When `/feed.xml` gets a new item after deploy, follow.it forwards it by email.
 
 Pros
-- Fastest path to reliable email notifications.
+- Fastest path to email subscriptions with minimal engineering.
 - Unsubscribe/deliverability/compliance handled by provider.
 - Works cleanly with static-export architecture.
 
 Cons
-- Ongoing SaaS dependency/cost.
-- Requires API secrets in GitHub Actions.
+- Ongoing SaaS dependency.
+- Less control over email template/workflow than a full newsletter platform.
 
 ### Option C: Self-managed email pipeline (Resend + your own subscription backend)
 
@@ -130,20 +131,17 @@ Use a layered model:
 1. RSS feed as universal source
 - Add `feed.xml` generation from `getAllPosts(...)`.
 
-2. Email notifications via newsletter SaaS
-- Start with Buttondown-style integration for subscriber management + sends.
-- Keep sending mode as "draft" initially for editorial control, then switch to full auto if desired.
+2. Email notifications via follow.it
+- Use follow.it as RSS-to-email forwarding on top of `/feed.xml`.
+- Add a visible "Subscribe by email" entry point that links to follow.it.
 
-3. CI-based publish trigger in existing deploy workflow
-- Extend `.github/workflows/build-deploy.yml` with a post-deploy notify job.
-- For `push` runs, detect newly published posts from commit range (`github.event.before` -> `github.sha`) limited to `content/posts/*.md`.
-- For `workflow_dispatch` runs, use a fallback baseline (for example `HEAD^ -> HEAD`) or require an explicit input SHA to diff from.
-- Parse frontmatter and skip `draft: true`.
-- Notify once per new slug.
+3. Keep CI workflow unchanged for notifications
+- Deploy already updates `/feed.xml`.
+- follow.it handles detection + forwarding from the feed.
 
 Why this is best for your stack
 - Matches your static GitHub Pages architecture.
-- Keeps operational burden low while giving you an owned subscription channel.
+- Keeps operational burden low and avoids introducing API-secret notification plumbing now.
 - Gives a clear upgrade path to multi-channel notifications later.
 
 ## 5. Trigger Strategy Details
@@ -151,56 +149,56 @@ Why this is best for your stack
 ### Publish event detection
 
 Preferred rule:
-- A file in `content/posts/*.md` is added or modified on `main` AND final frontmatter has `draft: false`.
-- Scope `github.event.before -> github.sha` diffing to `push` events only.
-- For `workflow_dispatch`, avoid implicit full-history scans; use a deterministic fallback range or a required `from_sha` input.
+- A new post appears as a new item in `/feed.xml`.
+- follow.it picks up that item and sends the corresponding email notification.
 
 Optional stricter rule:
-- Treat only newly added slugs as "new post" notifications.
-- Treat modified existing slugs as "updated post" notifications (separate template or no send).
+- Keep stable identifiers in feed items (`id`/`guid`) so subscribers are not re-notified for unchanged posts.
+- If you revise old posts, decide whether to treat those as fresh notifications or silent updates.
 
 ### Idempotency
 
-To avoid duplicate sends on workflow re-runs:
-- Store a sent-event marker externally (provider campaign metadata/tag using slug), or
-- Keep a small state file in-repo (for example `.github/notification-state.json`) updated only after successful send.
+To avoid duplicate sends:
+- Keep canonical post URLs stable.
+- Avoid mutating post publish dates unless intentionally re-announcing content.
+- Keep one canonical feed URL (`/feed.xml`) to prevent split subscriber behavior.
 
 ### Failure handling
 
-- If notification send fails, fail only the notify job, not deployment.
-- Add retry/backoff for provider API errors.
-- Send failure alert to Slack webhook (optional).
+- Treat feed validity as critical. If `/feed.xml` is broken, all downstream notifications break.
+- Add periodic feed health checks (manual or scheduled CI curl + XML parse).
+- If follow.it delivery is delayed, site publishing still succeeds because delivery is decoupled.
 
 ## 6. Suggested Rollout Plan
 
-### Phase 1 (1-2 hours)
-- Implement RSS feed (`/feed.xml`) and add visible subscribe link in blog/footer.
+### Phase 1 (done)
+- RSS feed at `/feed.xml`.
+- Visible RSS subscribe link in UI.
 
-### Phase 2 (2-4 hours)
-- Add email provider signup form (`/subscribe`) and provider API key in GitHub secrets.
-- Add notify job in deploy workflow with `draft` filtering.
-- Start with "create draft email" mode.
+### Phase 2 (1-2 hours)
+- Create follow.it feed using `https://alexleung.ca/feed.xml`.
+- Add "Subscribe by email" UI entry point (footer and/or dedicated `/subscribe` page) pointing to your follow.it subscription URL.
+- Add brief privacy copy explaining subscriber data is handled by follow.it.
 
 ### Phase 3 (optional)
-- Enable auto-send.
+- Add a dedicated `/subscribe` page with both RSS-reader and email options.
 - Add Slack/Discord webhook fan-out.
-- Add weekly digest mode via scheduled workflow.
+- If needed later, migrate to an owned newsletter platform while keeping `/feed.xml` as canonical source.
 
 ## 7. Decision Summary
 
 If you want the best effort-to-impact ratio:
-- Primary: RSS + newsletter SaaS + CI trigger after successful deploy.
+- Primary: RSS + follow.it forwarding (no CI notify job).
 - Secondary: Slack/Discord webhook for immediate community notifications.
-- Defer: fully self-managed subscriber system until list size/requirements justify it.
+- Defer: fully self-managed or API-driven newsletter automation until scale/requirements justify it.
 
 ## 8. Source Links
 
 - GitHub Actions workflow syntax (paths filters, schedules, limits): https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
 - Next.js static export and route handlers as static files: https://nextjs.org/docs/app/building-your-application/deploying/static-exports
 - Next.js route handlers docs: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
-- Buttondown API docs (subscribers, emails): https://docs.buttondown.com/
-- Buttondown import subscribers (CSV): https://docs.buttondown.com/importing-your-subscribers
+- follow.it publisher flow overview: https://follow.it/docs/publishers/introduction/how-does-it-work-basic-process
+- follow.it linking existing forms: https://follow.it/docs/publishers/getting-started/how-can-i-link-an-existing-form-to-my-follow-it-feed
+- follow.it email-access policy: https://follow.it/docs/publishers/introduction/do-i-get-access-to-my-follower-s-emails
 - OneSignal web push setup: https://documentation.onesignal.com/docs/en/web-push-setup
 - Slack incoming webhooks: https://docs.slack.dev/messaging/sending-messages-using-incoming-webhooks/
-- Resend email send API: https://resend.com/docs/api-reference/emails/send-email
-- Resend contacts/audience docs: https://resend.com/docs/api-reference/contacts
