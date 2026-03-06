@@ -1,3 +1,4 @@
+import { LinkText } from "@/components/LinkText";
 import { data } from "@/constants/socialLinks";
 
 export default function Footer() {
@@ -23,6 +24,9 @@ export default function Footer() {
           </li>
         ))}
       </ul>
+      <p className="text-body-sm pb-1">
+        <LinkText href="/feed.xml">Subscribe via RSS</LinkText>
+      </p>
       <p>Copyright &copy; 2020 - {currentYear} Alex Leung</p>
     </section>
   );

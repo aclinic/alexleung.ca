@@ -6,6 +6,7 @@ import { CollectionPage, ItemList } from "schema-dts";
 
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+import { LinkText } from "@/components/LinkText";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { getAllPosts } from "@/lib/blogApi";
@@ -54,6 +55,10 @@ export default function BlogIndex() {
     <>
       <PageShell title="Blog">
         <ResponsiveContainer variant="wide">
+          <p className="text-body-sm mb-8 text-gray-300">
+            Prefer a feed reader?{" "}
+            <LinkText href="/feed.xml">Subscribe via RSS.</LinkText>
+          </p>
           <div className="mb-32 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {firstPost ? (
               <BlogPostCard
