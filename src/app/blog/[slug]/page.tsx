@@ -8,6 +8,7 @@ import { Article, BlogPosting } from "schema-dts";
 
 import { CoverImage } from "@/components/CoverImage";
 import { ExcerptText } from "@/components/ExcerptText";
+import { FollowItSubscribeForm } from "@/components/FollowItSubscribeForm";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ProseContent } from "@/components/ProseContent";
@@ -184,6 +185,7 @@ export default async function Post({ params }: Props) {
                 </div>
               </section>
             )}
+            <FollowItSubscribeForm className="mt-10" />
 
             {relatedPosts.length > 0 && (
               <section

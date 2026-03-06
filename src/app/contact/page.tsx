@@ -4,8 +4,11 @@ import { Metadata } from "next";
 
 import * as schemadts from "schema-dts";
 
+import { FollowItSubscribeForm } from "@/components/FollowItSubscribeForm";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
+import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { Subtitle } from "@/components/Subtitle";
 import { buildContactPageSchema, buildPageMetadata } from "@/lib/seo";
 
 import { EmailMe } from "./_components/EmailMe";
@@ -42,6 +45,10 @@ export default function ContactPage() {
       <PageShell title="Contact" titleId="contact">
         <EmailMe />
         <SocialMediaList />
+        <ResponsiveContainer element="section">
+          <Subtitle title="Subscribe" id="subscribe" />
+          <FollowItSubscribeForm />
+        </ResponsiveContainer>
       </PageShell>
     </>
   );
