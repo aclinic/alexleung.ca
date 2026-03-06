@@ -4,6 +4,9 @@ import { join } from "path";
 import { z } from "zod";
 
 const postsDirectory = join(process.cwd(), "content/posts");
+const postBySlugCache = new Map<string, Post | null>();
+
+let allPostsCache: Post[] | null = null;
 
 const POST_FIELDS = [
   "slug",
@@ -181,6 +184,40 @@ function parsePostBySlug(slug: string): Post | null {
   };
 }
 
+function getCachedPostBySlug(slug: string): Post | null {
+  const realSlug = slug.replace(/\.md$/, "");
+
+  if (postBySlugCache.has(realSlug)) {
+    return postBySlugCache.get(realSlug) ?? null;
+  }
+
+  const post = parsePostBySlug(realSlug);
+
+  postBySlugCache.set(realSlug, post);
+
+  return post;
+}
+
+function getCachedAllPosts(): Post[] {
+  if (allPostsCache) {
+    return allPostsCache;
+  }
+
+  const posts = getPostSlugs()
+    .map((slug) => getCachedPostBySlug(slug))
+    .filter((post): post is Post => post !== null)
+    .sort(
+      (post1, post2) =>
+        new Date(post2.date).getTime() - new Date(post1.date).getTime()
+    );
+
+  assertUniqueSeriesOrder(posts);
+
+  allPostsCache = posts;
+
+  return allPostsCache;
+}
+
 function assertUniqueSeriesOrder(posts: readonly Post[]) {
   const seen = new Map<string, Set<number>>();
 
@@ -275,7 +312,7 @@ export function getPostBySlug<T extends PostField>(
   fieldsOrOptions?: readonly T[] | PostQueryOptions,
   maybeOptions?: PostQueryOptions
 ) {
-  const post = parsePostBySlug(slug);
+  const post = getCachedPostBySlug(slug);
   const fields = isPostFieldSelection(fieldsOrOptions)
     ? (fieldsOrOptions as readonly T[])
     : undefined;
@@ -319,18 +356,9 @@ export function getAllPosts<T extends PostField>(
     : fieldsOrOptions;
 
   const includeDrafts = options?.includeDrafts ?? false;
-  const allPosts = getPostSlugs()
-    .map((slug) => parsePostBySlug(slug))
-    .filter((post): post is Post => post !== null);
-
-  assertUniqueSeriesOrder(allPosts);
-
-  const posts = allPosts
-    .filter((post) => includeDrafts || !post.draft)
-    .sort(
-      (post1, post2) =>
-        new Date(post2.date).getTime() - new Date(post1.date).getTime()
-    );
+  const posts = getCachedAllPosts().filter(
+    (post) => includeDrafts || !post.draft
+  );
 
   if (!fields || fields.length === 0) {
     return posts;
