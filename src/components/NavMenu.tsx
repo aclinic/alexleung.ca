@@ -82,6 +82,7 @@ export function MobileNavDrawer({
       />
 
       <div
+        id="mobile-nav-drawer"
         className={`fixed left-0 right-0 top-[var(--header-height)] z-40 border-b border-white/10 bg-black/95 backdrop-blur-md transition-all duration-300 md:hidden ${
           isOpen
             ? "translate-y-0 opacity-100"
