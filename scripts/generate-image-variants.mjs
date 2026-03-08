@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import fs from "fs";
-import path from "path";
 import { execFileSync } from "child_process";
-
+import fs from "fs";
 import matter from "gray-matter";
+import path from "path";
 import prettier from "prettier";
 
 const repoRoot = process.cwd();
@@ -151,8 +150,7 @@ function getWebpDimensions(buffer) {
       const b2 = buffer[chunkStart + 3];
       const b3 = buffer[chunkStart + 4];
       const width = 1 + (((b1 & 0x3f) << 8) | b0);
-      const height =
-        1 + (((b3 & 0x0f) << 10) | (b2 << 2) | ((b1 & 0xc0) >> 6));
+      const height = 1 + (((b3 & 0x0f) << 10) | (b2 << 2) | ((b1 & 0xc0) >> 6));
       return { width, height };
     }
 
@@ -264,7 +262,53 @@ function hasCommand(command) {
 }
 
 function normalizePublicPath(inputPath) {
-  return inputPath.startsWith("/") ? inputPath : `/${inputPath}`;
+  if (typeof inputPath !== "string") {
+    return undefined;
+  }
+
+  const normalizedInput = inputPath.trim().replace(/\\/g, "/");
+  if (!normalizedInput) {
+    return undefined;
+  }
+
+  if (/^(?:[a-z]+:)?\/\//i.test(normalizedInput)) {
+    return undefined;
+  }
+
+  const candidate = normalizedInput.startsWith("/")
+    ? normalizedInput
+    : `/${normalizedInput}`;
+
+  if (candidate.split("/").includes("..")) {
+    return undefined;
+  }
+
+  const normalizedPath = path.posix.normalize(candidate);
+  if (
+    !normalizedPath.startsWith("/") ||
+    normalizedPath === "/" ||
+    normalizedPath.includes("\0")
+  ) {
+    return undefined;
+  }
+
+  return normalizedPath;
+}
+
+function resolvePublicAbsolutePath(publicPath) {
+  const absolutePath = path.resolve(publicDir, `.${publicPath}`);
+  const relativeToPublicDir = path.relative(publicDir, absolutePath);
+
+  if (
+    relativeToPublicDir.startsWith("..") ||
+    path.isAbsolute(relativeToPublicDir)
+  ) {
+    throw new Error(
+      `[image:variants] Unsafe public path resolved outside /public: ${publicPath}`
+    );
+  }
+
+  return absolutePath;
 }
 
 function getStagedFiles() {
@@ -321,7 +365,14 @@ function getCoverImageFromPost(postFile) {
     return undefined;
   }
 
-  return normalizePublicPath(frontMatter.coverImage);
+  const normalizedCoverImage = normalizePublicPath(frontMatter.coverImage);
+  if (!normalizedCoverImage) {
+    warn(
+      `[image:variants] Skipping unsafe coverImage in ${postFile}: ${frontMatter.coverImage}`
+    );
+  }
+
+  return normalizedCoverImage;
 }
 
 function extractMarkdownImagePaths(markdown) {
@@ -331,10 +382,17 @@ function extractMarkdownImagePaths(markdown) {
 
   while ((match = imageRegex.exec(markdown)) !== null) {
     const rawPath = match[1]?.trim();
-    if (!rawPath || rawPath.startsWith("http")) {
+    if (!rawPath || /^(?:[a-z]+:)?\/\//i.test(rawPath)) {
       continue;
     }
-    imagePaths.add(normalizePublicPath(rawPath));
+
+    const normalizedPath = normalizePublicPath(rawPath);
+    if (!normalizedPath) {
+      warn(`[image:variants] Skipping unsafe inline image path: ${rawPath}`);
+      continue;
+    }
+
+    imagePaths.add(normalizedPath);
   }
 
   return imagePaths;
@@ -354,6 +412,7 @@ function getStagedPublicFiles(stagedFiles) {
     [...stagedFiles]
       .filter((file) => file.startsWith("public/"))
       .map((file) => normalizePublicPath(file.slice("public/".length)))
+      .filter(Boolean)
   );
 }
 
@@ -481,13 +540,13 @@ function buildImageVariantManifest() {
   const sourceVariantCandidates = createSourceVariantCandidates();
   const sources = {};
 
-  for (const [sourcePath, variants] of [...sourceVariantCandidates.entries()].sort(
-    (a, b) => a[0].localeCompare(b[0])
-  )) {
+  for (const [sourcePath, variants] of [
+    ...sourceVariantCandidates.entries(),
+  ].sort((a, b) => a[0].localeCompare(b[0]))) {
     const normalizedVariants = {};
     for (const variant of variants) {
       const variantPath = toVariantPath(sourcePath, variant.name);
-      const absoluteVariantPath = path.join(publicDir, variantPath.slice(1));
+      const absoluteVariantPath = resolvePublicAbsolutePath(variantPath);
       if (!fs.existsSync(absoluteVariantPath)) {
         continue;
       }
@@ -536,7 +595,8 @@ async function writeImageVariantManifest() {
   let output = serializedManifest;
 
   try {
-    const prettierConfig = (await prettier.resolveConfig(imageVariantManifestPath)) || {};
+    const prettierConfig =
+      (await prettier.resolveConfig(imageVariantManifestPath)) || {};
     output = await prettier.format(serializedManifest, {
       ...prettierConfig,
       filepath: imageVariantManifestPath,
@@ -556,7 +616,10 @@ async function writeImageVariantManifest() {
 
 function toVariantPath(sourcePublicPath, variantName) {
   if (/\.(webp|jpe?g|png)$/i.test(sourcePublicPath)) {
-    return sourcePublicPath.replace(/\.(webp|jpe?g|png)$/i, `-${variantName}.webp`);
+    return sourcePublicPath.replace(
+      /\.(webp|jpe?g|png)$/i,
+      `-${variantName}.webp`
+    );
   }
 
   return `${sourcePublicPath}-${variantName}.webp`;
@@ -581,18 +644,13 @@ function generateVariant(sourcePath, targetPath, variant) {
   );
 }
 
-function generateVariantsForSources({
-  sources,
-  variants,
-  generated,
-  label,
-}) {
+function generateVariantsForSources({ sources, variants, generated, label }) {
   if (sources.size === 0) {
     return;
   }
 
   for (const sourcePublicPath of sources) {
-    const sourcePath = path.join(publicDir, sourcePublicPath.slice(1));
+    const sourcePath = resolvePublicAbsolutePath(sourcePublicPath);
     if (!fs.existsSync(sourcePath)) {
       warn(`[image:variants] Missing source image (${label}): ${sourcePath}`);
       continue;
@@ -600,7 +658,7 @@ function generateVariantsForSources({
 
     for (const variant of variants) {
       const targetPublicPath = toVariantPath(sourcePublicPath, variant.name);
-      const targetPath = path.join(publicDir, targetPublicPath.slice(1));
+      const targetPath = resolvePublicAbsolutePath(targetPublicPath);
       generateVariant(sourcePath, targetPath, variant);
       generated.push(path.relative(repoRoot, targetPath));
     }
@@ -642,7 +700,7 @@ async function run() {
     });
 
     for (const sourcePublicPath of staticSources) {
-      const sourcePath = path.join(publicDir, sourcePublicPath.slice(1));
+      const sourcePath = resolvePublicAbsolutePath(sourcePublicPath);
       if (!fs.existsSync(sourcePath)) {
         warn(`[image:variants] Missing source image (static): ${sourcePath}`);
         continue;
@@ -651,7 +709,7 @@ async function run() {
       const variants = staticVariantMap.get(sourcePublicPath) || [];
       for (const variant of variants) {
         const targetPublicPath = toVariantPath(sourcePublicPath, variant.name);
-        const targetPath = path.join(publicDir, targetPublicPath.slice(1));
+        const targetPath = resolvePublicAbsolutePath(targetPublicPath);
         generateVariant(sourcePath, targetPath, variant);
         generated.push(path.relative(repoRoot, targetPath));
       }
