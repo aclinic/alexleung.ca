@@ -5,7 +5,7 @@
         <title>Alex Leung's Blog</title>
         <link>https://alexleung.ca/blog/</link>
         <description>Notes on software engineering, distributed systems, AI engineering, and practical product development.</description>
-        <lastBuildDate>Thu, 05 Mar 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 07 Mar 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en-CA</language>
@@ -15,6 +15,17 @@
             <link>https://alexleung.ca/blog/</link>
         </image>
         <atom:link href="https://alexleung.ca/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Dropout as Implicit Bagging]]></title>
+            <link>https://alexleung.ca/blog/dropout-as-implicit-bagging/</link>
+            <guid isPermaLink="false">https://alexleung.ca/blog/dropout-as-implicit-bagging/</guid>
+            <pubDate>Sat, 07 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Chapter 7 clarified that dropout works so well because it approximates bagging over many thinned networks with shared parameters.]]></description>
+            <category>Deep Learning</category>
+            <category>ML Theory</category>
+            <category>Book Notes</category>
+            <category>Regularization</category>
+        </item>
         <item>
             <title><![CDATA[iPad Air M3 11-Inch: First Impressions]]></title>
             <link>https://alexleung.ca/blog/ipad-air-m3-11-inch-first-impressions/</link>
