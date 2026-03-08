@@ -1,9 +1,6 @@
-import Image from "next/image";
-
 type ResponsiveImageProps = {
   src: string;
   srcSet?: string;
-  sourceType?: string;
   alt: string;
   width: number;
   height: number;
@@ -19,7 +16,6 @@ type ResponsiveImageProps = {
 export function ResponsiveImage({
   src,
   srcSet,
-  sourceType = "image/webp",
   alt,
   width,
   height,
@@ -33,20 +29,17 @@ export function ResponsiveImage({
 }: ResponsiveImageProps) {
   return (
     <picture className={pictureClassName}>
-      {srcSet ? (
-        <source type={sourceType} srcSet={srcSet} sizes={sizes} />
-      ) : null}
-      <Image
+      <img
         src={src}
+        srcSet={srcSet}
         alt={alt}
         width={width}
         height={height}
         sizes={sizes}
         className={className}
-        loading={loading}
+        loading={priority ? "eager" : loading}
         fetchPriority={fetchPriority}
         decoding={decoding}
-        priority={priority}
       />
     </picture>
   );

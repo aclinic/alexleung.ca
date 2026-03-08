@@ -324,10 +324,10 @@ export function buildPersonSchema(input: {
     description: input.description,
     knowsLanguage: ["en-CA"],
     sameAs: [
-      "https://www.linkedin.com/in/aclinic",
-      "https://github.com/aclinic",
+      "https://www.linkedin.com/in/aclyx",
+      "https://github.com/aclyx",
       "https://www.x.com/aclyxpse",
-      "https://bsky.app/profile/aclinic.bsky.social",
+      "https://bsky.app/profile/alexleung.ca",
       "https://www.instagram.com/rootpanda",
       "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
     ],

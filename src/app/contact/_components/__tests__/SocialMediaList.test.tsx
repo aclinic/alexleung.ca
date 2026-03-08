@@ -21,11 +21,11 @@ describe("SocialMediaList", () => {
     render(<SocialMediaList />);
     expect(screen.getByLabelText("LinkedIn Profile")).toHaveAttribute(
       "href",
-      "https://www.linkedin.com/in/aclinic"
+      "https://www.linkedin.com/in/aclyx"
     );
     expect(screen.getByLabelText("GitHub Profile")).toHaveAttribute(
       "href",
-      "https://www.github.com/aclinic"
+      "https://www.github.com/aclyx"
     );
   });
 
