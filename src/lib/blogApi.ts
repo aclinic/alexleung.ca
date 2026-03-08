@@ -1,10 +1,11 @@
 import fs from "fs";
 import matter from "gray-matter";
-import { join } from "path";
+import { join, relative, resolve } from "path";
 import { z } from "zod";
 
 const postsDirectory = join(process.cwd(), "content/posts");
 const postBySlugCache = new Map<string, Post | null>();
+const postSlugPattern = /^[a-z0-9-]+$/i;
 
 let allPostsCache: Post[] | null = null;
 
@@ -147,7 +148,16 @@ function parseFrontMatter(
 
 function parsePostBySlug(slug: string): Post | null {
   const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
+  if (!postSlugPattern.test(realSlug)) {
+    return null;
+  }
+
+  const fullPath = resolve(postsDirectory, `${realSlug}.md`);
+  const relativePath = relative(postsDirectory, fullPath);
+
+  if (relativePath.startsWith("..") || /[\\/]/.test(relativePath)) {
+    return null;
+  }
 
   if (!fs.existsSync(fullPath)) {
     return null;

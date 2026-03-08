@@ -175,6 +175,22 @@ Body`,
 
     readFileSpy.mockRestore();
   });
+
+  test("returns null for traversal-like slugs outside content/posts", async () => {
+    const tempDir = setupTempPosts({
+      published: `---\ntitle: "Published"\ndate: "2026-02-16"\n---\nBody`,
+    });
+
+    fs.writeFileSync(
+      path.join(tempDir, "content", "secret.md"),
+      `---\ntitle: "Secret"\ndate: "2026-02-16"\n---\nSensitive`,
+      "utf8"
+    );
+
+    const { getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+
+    expect(getPostBySlug("../secret")).toBeNull();
+  });
 });
 
 describe("getRelatedPosts", () => {
