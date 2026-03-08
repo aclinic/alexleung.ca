@@ -25,9 +25,7 @@ The most useful refinement was separating topology from optimization. The archit
 
 ## Linear Layers, Factorization, and Parameter Efficiency
 
-One result I had not internalized before is what happens when we stack linear layers without nonlinearities between them. Two consecutive linear transformations collapse into a single linear transformation. Functionally, nothing changes.
-
-But parameterization changes.
+One result I had not internalized before is what happens when we stack linear layers without nonlinearities between them. Two consecutive linear transformations collapse into a single linear transformation. Functionally, nothing changes, but the parameterization does.
 
 If a weight matrix $W \in \mathbb{R}^{m \times n}$ is factored as $W = AB$ with $A \in \mathbb{R}^{m \times r}$ and $B \in \mathbb{R}^{r \times n}$, we have expressed the same linear map with a rank constraint and potentially far fewer parameters when $r \ll \min(m, n)$. In other words, depth without nonlinearity induces a low-rank factorization.
 

@@ -11,19 +11,19 @@ tags:
 
 My wife and I bought the 11-inch iPad Air M3, and the first thing we both noticed was the weight. It feels noticeably lighter than carrying a full laptop, and that one difference has already changed how often she reaches for it. We bought last year's model because it was the right value for what she actually needs, not because we were trying to optimize for top-end specs.
 
-## Why We Chose This Setup
+## Scope Before Specs
 
 Her main use case is studying, including prep for an upcoming machine learning course at Stanford. For that kind of work, she needs something fast to open, easy to carry, and comfortable for long reading and note-taking sessions. She does not need local active development on the device, so paying for a full laptop workflow would have been unnecessary overhead.
 
 When she wants to experiment with OpenClaw, she can still do that through a remote machine running on a DigitalOcean droplet. That split works well: the iPad handles interface, reading, writing, and navigation, while heavier compute or tooling stays remote.
 
-## How the Setup Came Together
+## Accessories Mattered More Than Expected
 
 The accessories ended up mattering more than I expected. A Bluetooth keyboard and an inexpensive $20 case with a built-in stand made it stable for longer desk sessions. The setup is still simple, but it now covers the basics without friction.
 
 The Apple Pencil Pro also worked better than expected for her. Compared with an e-reader stylus, writing feels smoother and more responsive, and the higher refresh rate reduces the slight lag she notices during note-taking. On paper that difference sounds minor, but in daily use it makes handwriting feel more natural.
 
-## Where It Fits Her Workflow
+## A Narrow but Practical Fit
 
 For her current workflow, the iPad Air covers the core tasks: reading, annotating, writing, joining calls, and light remote workflows. The key trade-off is that it is not trying to be a local development machine, and that boundary is what makes it practical day to day. By being explicit about scope, we avoided overbuying and ended up with a tool she uses every day.
 
