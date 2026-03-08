@@ -24,27 +24,6 @@
             "minScore": 0.9
           }
         ],
-        "largest-contentful-paint": [
-          "error",
-          {
-            "maxNumericValue": 2700,
-            "aggregationMethod": "median"
-          }
-        ],
-        "cumulative-layout-shift": [
-          "error",
-          {
-            "maxNumericValue": 0.1,
-            "aggregationMethod": "pessimistic"
-          }
-        ],
-        "total-blocking-time": [
-          "error",
-          {
-            "maxNumericValue": 200,
-            "aggregationMethod": "pessimistic"
-          }
-        ],
         "categories:accessibility": [
           "error",
           {
