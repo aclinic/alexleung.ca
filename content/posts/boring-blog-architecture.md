@@ -12,7 +12,7 @@ tags:
 
 I recently finished implementing the blog section of this personal website. Rather than reaching for a complex CMS, I decided to build it directly into my existing Next.js application using standard tools.
 
-## The Goal
+## Low-Maintenance Publishing
 
 I wanted a place to share technical thoughts without adding maintenance overhead. The requirements were simple:
 
@@ -20,7 +20,7 @@ I wanted a place to share technical thoughts without adding maintenance overhead
 2.  **Zero Runtime Cost**: The blog should be statically generated.
 3.  **Fast**: It should feel instant.
 
-## The Implementation
+## Static by Default
 
 ### 1. Filesystem as the Database
 
@@ -28,7 +28,7 @@ I created a simple utility, `blogApi.ts`, that reads directly from the file syst
 
 ### 2. Static Routing
 
-Next.js makes it incredibly easy to turn a folder of markdown files into routes. I used `generateStaticParams` to tell Next.js which paths to build at compile time:
+Next.js makes it straightforward to turn a folder of markdown files into routes. I used `generateStaticParams` to tell Next.js which paths to build at compile time:
 
 ```typescript
 export async function generateStaticParams() {
@@ -41,7 +41,7 @@ export async function generateStaticParams() {
 
 This ensures that `alexleung.ca/blog/boring-blog-architecture` is just a simple HTML file on the server, not a dynamic Node.js request.
 
-### 3. The Polish
+### 3. Details That Mattered
 
 To make it feel professional, I spent time on the details:
 
@@ -50,4 +50,4 @@ To make it feel professional, I spent time on the details:
 - **Syntax Highlighting**: I chose `rehype-pretty-code` (powered by Shiki). It uses the same TextMate grammars as VS Code, meaning the highlighting is extremely accurate. Because it generates inline styles, there's no brittle CSS to import from `node_modules`.
 - **Sitemap**: A dynamic script crawls my posts directory to keep `sitemap.xml` up to date automatically.
 
-This "boring" architecture allows me to focus entirely on writing, knowing the rendering is rock-solid and fast.
+This "boring" architecture lets me focus on writing, with a rendering path that is predictable and fast.

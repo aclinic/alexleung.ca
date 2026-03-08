@@ -9,14 +9,12 @@ tags:
   - "Reflection"
 ---
 
-Lately, I've been using Codex a lot to improve this site, often from my phone — fixing a layout bug, tweaking copy, adjusting spacing by a few pixels.
+Lately, I have been using Codex a lot to improve this site, often from my phone: fixing a layout bug, tweaking copy, adjusting spacing by a few pixels. There is something satisfying about shipping tiny upgrades while standing in line, on a train, or in between errands. It makes the whole project feel less like a formal build and more like an ongoing conversation with myself.
 
-There is something strangely satisfying about shipping tiny upgrades while standing in line, on a train, or in between errands. It makes the whole project feel less like a formal "build" and more like an ongoing conversation with myself.
+That has changed how I think about the boundary between making and living with a project. The site no longer feels like something I only work on when I sit down for a dedicated session. It feels more permeable than that, as if the medium has become light enough to stay close to me throughout the day.
 
-At the same time, I've been trying to express myself more through content creation with Sora. I'm still learning how to use these tools well; most of what I make feels exploratory rather than polished.
+At the same time, I have been trying to express myself more through content creation with Sora. I am still learning how to use these tools well, and most of what I make feels exploratory rather than polished. That difference matters to me. With Codex, the intention is usually narrow and practical. With Sora, I am often trying to figure out what I even want to say.
 
-I keep circling around the same tension: the cultural shorthand of “AI slop” and the fear that using these tools somehow disqualifies the work — and the counterpoint that they are simply new creative mediums.
+I keep circling around the same tension: the cultural shorthand of “AI slop,” the suspicion that using these tools somehow disqualifies the work, and the counterpoint that they may simply be new creative mediums. I do not think that question is settled yet. But I also do not think authorship disappears just because the interface changes. The intention is still mine. The judgment, the taste, and the direction still sit with me.
 
-Maybe that label matters. Maybe it doesn't. I don't know yet. What I do know is that the intention is still mine. The judgment, the taste, the direction — those remain with me.
-
-If art is art, perhaps the medium matters less than whether something real is being expressed through it — and whether that expression is intentional.
+Maybe the medium matters somewhat. It shapes texture, pace, and what kinds of mistakes are easy to make. But I am less interested in defending the tools in the abstract than in asking whether something real is being worked out through them. For me, that is the more useful question.

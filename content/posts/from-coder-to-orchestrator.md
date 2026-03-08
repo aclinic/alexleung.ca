@@ -19,27 +19,13 @@ This post summarizes what changed, what improved, and what remains unreliable in
 
 ## 2024: Useful, but limited
 
-I started experimenting with **Cline** for straightforward tasks:
-
-- boilerplate,
-- test scaffolding,
-- repetitive refactors.
-
-I avoided giving it larger tasks for two reasons:
-
-- It was easy to get code that looked fine but was wrong in non-obvious ways.
-- Anything non-trivial took too much prompt back-and-forth.
+I started experimenting with **Cline** for straightforward tasks such as boilerplate, test scaffolding, and repetitive refactors. I avoided giving it larger tasks for two reasons. First, it was easy to get code that looked fine but was wrong in non-obvious ways. Second, anything non-trivial took too much prompt back-and-forth.
 
 ## 2025: Better plans, same failure modes
 
 I switched to **Claude Code** and stopped asking for immediate implementation. Instead, I asked for a plan first and reviewed it.
 
-That improved outcomes, but two problems were persistent:
-
-- Plans were often overbuilt for the actual problem.
-- The agent would report "done" before handling edge cases.
-
-So the bottleneck moved from writing code to verification.
+That improved outcomes, but two problems stayed persistent. Plans were often overbuilt for the actual problem, and the agent would report "done" before handling edge cases. The bottleneck moved from writing code to verification.
 
 ## Late 2025 onward: what actually helped
 
@@ -68,12 +54,7 @@ The biggest improvement was switching from one-pass execution to a repeatable lo
 
 ## Current workflow
 
-I usually run a planner and an implementer in parallel.
-
-1. Write a short feature brief with constraints and non-goals.
-2. Turn that into checkpoints.
-3. Let the implementer run the loop per checkpoint.
-4. Review design and risk, not just syntax.
+I usually run a planner and an implementer in parallel. In practice, that means I write a short feature brief with constraints and non-goals, turn that into checkpoints, let the implementer run the loop per checkpoint, and then review design and risk rather than just syntax.
 
 Example brief:
 
@@ -88,7 +69,7 @@ This workflow is productive, but it has clear costs:
 - **Personal skill drift:** I type less code directly than I used to.
 - **Attention overhead:** Running multiple agents sounds parallel, but review and coordination still funnel through one person. Human attention is limited, and I still don't have a great system for managing that bottleneck consistently.
 
-## What this changes about the job
+## The Job Shifts Upward
 
 The useful part of my work has shifted upward: clearer requirements, tighter constraints, and stronger review discipline.
 

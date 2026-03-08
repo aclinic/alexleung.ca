@@ -19,33 +19,20 @@ Image behavior was spread across scripts and components with repeated convention
 
 That made drift easy, and small changes in one place could quietly break expectations elsewhere. I replaced that with a simpler pattern: generate one manifest at build time (`src/generated/imageVariantManifest.json`) and resolve variants from it at runtime.
 
-## What got simpler
+## Simpler Operating Model
 
-Three things became simpler:
+Three things became simpler. First, there is now one canonical workflow: `yarn image:variants`. Second, rendering logic is less duplicated because a shared `ResponsiveImage` component replaced repeated `<picture>` patterns. Third, static assets became data-driven, so background and portrait `srcSet` values now come from manifest-backed metadata rather than JSX literals.
 
-1. One canonical workflow:
-   - `yarn image:variants`
-2. Less duplicated rendering logic:
-   - shared `ResponsiveImage` component instead of repeated `<picture>` patterns
-3. Static assets became data-driven:
-   - background and portrait `srcSet` values now come from manifest-backed metadata, not JSX literals
-
-## Human constraint: it should just work
+## Authoring Constraint: It Should Just Work
 
 This was an important constraint for me: I do not want to manually create `-sm`, `-md`, `-lg` files every time I add an image.
 
-The workflow is now:
-
-1. Add the source image.
-2. Reference it in frontmatter or markdown.
-3. Run `yarn image:variants`.
-
-That keeps authoring simple while still making outputs consistent.
+The workflow is now simple: add the source image, reference it in frontmatter or markdown, then run `yarn image:variants`. That keeps authoring lightweight while still making outputs consistent.
 
 ## Reliability and Performance as Outcomes
 
 Once maintainability improved, reliability and performance improved with it. I also removed silent fallback for required profiles (`cover.card`, `cover.hero`, `inlineContent`). If a required variant is missing, it now fails fast instead of shipping a hidden regression.
 
-## Takeaway
+## Durable Lesson
 
 I started by chasing LCP. The durable fix was maintainability: fewer scattered conventions, one source of truth, and clearer build/runtime boundaries. For this site, performance improvements became much easier once the image system became easier to reason about.
