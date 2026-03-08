@@ -28,6 +28,11 @@ const coverVariantProfiles = {
       quality: process.env.COVER_CARD_SM_QUALITY || "66",
     },
     {
+      name: "card-md",
+      width: process.env.COVER_CARD_MD_WIDTH || "640",
+      quality: process.env.COVER_CARD_MD_QUALITY || "70",
+    },
+    {
       name: "card",
       width: process.env.COVER_CARD_WIDTH || "768",
       quality: process.env.COVER_CARD_QUALITY || "72",
@@ -36,8 +41,8 @@ const coverVariantProfiles = {
   hero: [
     {
       name: "hero-sm",
-      width: process.env.COVER_HERO_SM_WIDTH || "768",
-      quality: process.env.COVER_HERO_SM_QUALITY || "70",
+      width: process.env.COVER_HERO_SM_WIDTH || "640",
+      quality: process.env.COVER_HERO_SM_QUALITY || "68",
     },
     {
       name: "hero",

@@ -30,7 +30,7 @@ describe("coverVariants", () => {
         "card"
       )
     ).toBe(
-      "/assets/blog/everyone-is-a-builder/cover-card-sm.webp 480w, /assets/blog/everyone-is-a-builder/cover-card.webp 768w"
+      "/assets/blog/everyone-is-a-builder/cover-card-sm.webp 480w, /assets/blog/everyone-is-a-builder/cover-card-md.webp 640w, /assets/blog/everyone-is-a-builder/cover-card.webp 768w"
     );
     expect(
       getCoverVariantSourceSet(
@@ -38,7 +38,7 @@ describe("coverVariants", () => {
         "hero"
       )
     ).toBe(
-      "/assets/blog/everyone-is-a-builder/cover-hero-sm.webp 768w, /assets/blog/everyone-is-a-builder/cover-hero.webp 1280w"
+      "/assets/blog/everyone-is-a-builder/cover-hero-sm.webp 640w, /assets/blog/everyone-is-a-builder/cover-hero.webp 1280w"
     );
   });
 
