@@ -109,7 +109,7 @@ describe("seo jsonld builders", () => {
       name: "Professional Engineers Ontario",
     });
     expect(person.knowsLanguage).toEqual(["en-CA"]);
-    expect(person.sameAs).toContain("https://github.com/aclinic");
+    expect(person.sameAs).toContain("https://github.com/aclyx");
     expect(person.hasOccupation).toMatchObject({
       "@type": "Occupation",
       name: "Software Engineer",

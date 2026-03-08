@@ -10,13 +10,13 @@ export const data = [
   {
     id: 1,
     icon: <FaLinkedinIn />,
-    url: "https://www.linkedin.com/in/aclinic",
+    url: "https://www.linkedin.com/in/aclyx",
     label: "LinkedIn Profile",
   },
   {
     id: 2,
     icon: <FaGithub />,
-    url: "https://www.github.com/aclinic",
+    url: "https://www.github.com/aclyx",
     label: "GitHub Profile",
   },
   {
@@ -28,7 +28,7 @@ export const data = [
   {
     id: 4,
     icon: <FaBluesky />,
-    url: "https://bsky.app/profile/aclinic.bsky.social",
+    url: "https://bsky.app/profile/alexleung.ca",
     label: "Bluesky Profile",
   },
   {
