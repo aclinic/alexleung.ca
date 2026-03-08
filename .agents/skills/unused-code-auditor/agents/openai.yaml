@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unused Code Auditor"
+  short_description: "Audit for dead code, unused imports/files, and unreferenced dependencies"
+  default_prompt: "Use $unused-code-auditor to scan this repository for unused files, symbols, imports, dead branches, and dependencies, then provide evidence-backed cleanup patches and manual verification flags."
