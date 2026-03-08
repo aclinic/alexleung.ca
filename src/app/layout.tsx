@@ -24,7 +24,7 @@ const description =
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400", "900"],
-  display: "optional",
+  display: "swap",
 });
 
 export const metadata: Metadata = {

@@ -29,6 +29,7 @@ export function ResponsiveImage({
 }: ResponsiveImageProps) {
   return (
     <picture className={pictureClassName}>
+      {/* Static export on GitHub Pages uses pre-generated image variants, so a native img with srcSet/sizes is simpler than next/image here. */}
       <img
         src={src}
         srcSet={srcSet}

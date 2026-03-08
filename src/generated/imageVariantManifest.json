@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "profiles": {
     "cover": {
-      "card": ["card-sm", "card"],
+      "card": ["card-sm", "card-md", "card"],
       "hero": ["hero-sm", "hero"]
     },
     "inlineContent": ["content-sm", "content"]
@@ -53,6 +53,11 @@
           "width": 768,
           "height": 512
         },
+        "card-md": {
+          "path": "/assets/blog/boring-blog-architecture/cover-card-md.webp",
+          "width": 640,
+          "height": 427
+        },
         "card-sm": {
           "path": "/assets/blog/boring-blog-architecture/cover-card-sm.webp",
           "width": 480,
@@ -65,8 +70,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/boring-blog-architecture/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -76,6 +81,11 @@
           "path": "/assets/blog/deep-learning-part-1-review/cover-card.webp",
           "width": 768,
           "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/deep-learning-part-1-review/cover-card-md.webp",
+          "width": 640,
+          "height": 427
         },
         "card-sm": {
           "path": "/assets/blog/deep-learning-part-1-review/cover-card-sm.webp",
@@ -89,8 +99,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/deep-learning-part-1-review/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -100,6 +110,11 @@
           "path": "/assets/blog/dropout-as-implicit-bagging/cover-card.webp",
           "width": 768,
           "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/dropout-as-implicit-bagging/cover-card-md.webp",
+          "width": 640,
+          "height": 427
         },
         "card-sm": {
           "path": "/assets/blog/dropout-as-implicit-bagging/cover-card-sm.webp",
@@ -113,8 +128,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/dropout-as-implicit-bagging/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -124,6 +139,11 @@
           "path": "/assets/blog/everyone-is-a-builder/cover-card.webp",
           "width": 768,
           "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/everyone-is-a-builder/cover-card-md.webp",
+          "width": 640,
+          "height": 427
         },
         "card-sm": {
           "path": "/assets/blog/everyone-is-a-builder/cover-card-sm.webp",
@@ -137,8 +157,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/everyone-is-a-builder/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -148,6 +168,11 @@
           "path": "/assets/blog/from-coder-to-orchestrator/cover-card.webp",
           "width": 768,
           "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/from-coder-to-orchestrator/cover-card-md.webp",
+          "width": 640,
+          "height": 427
         },
         "card-sm": {
           "path": "/assets/blog/from-coder-to-orchestrator/cover-card-sm.webp",
@@ -161,8 +186,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/from-coder-to-orchestrator/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -215,6 +240,11 @@
           "width": 768,
           "height": 512
         },
+        "card-md": {
+          "path": "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover-card-md.webp",
+          "width": 640,
+          "height": 427
+        },
         "card-sm": {
           "path": "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover-card-sm.webp",
           "width": 480,
@@ -227,8 +257,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -238,6 +268,11 @@
           "path": "/assets/blog/making-responsive-images-just-work/cover-card.webp",
           "width": 768,
           "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/making-responsive-images-just-work/cover-card-md.webp",
+          "width": 640,
+          "height": 427
         },
         "card-sm": {
           "path": "/assets/blog/making-responsive-images-just-work/cover-card-sm.webp",
@@ -251,8 +286,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/making-responsive-images-just-work/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -262,6 +297,11 @@
           "path": "/assets/blog/medium-and-meaning/cover-card.webp",
           "width": 768,
           "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/medium-and-meaning/cover-card-md.webp",
+          "width": 640,
+          "height": 427
         },
         "card-sm": {
           "path": "/assets/blog/medium-and-meaning/cover-card-sm.webp",
@@ -275,8 +315,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/medium-and-meaning/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     },
@@ -286,6 +326,11 @@
           "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-card.webp",
           "width": 768,
           "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-card-md.webp",
+          "width": 640,
+          "height": 427
         },
         "card-sm": {
           "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-card-sm.webp",
@@ -299,8 +344,8 @@
         },
         "hero-sm": {
           "path": "/assets/blog/structural-reasoning-about-deep-networks/cover-hero-sm.webp",
-          "width": 768,
-          "height": 512
+          "width": 640,
+          "height": 427
         }
       }
     }
