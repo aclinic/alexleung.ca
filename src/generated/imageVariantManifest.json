@@ -94,6 +94,30 @@
         }
       }
     },
+    "/assets/blog/dropout-as-implicit-bagging/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/dropout-as-implicit-bagging/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-sm": {
+          "path": "/assets/blog/dropout-as-implicit-bagging/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/dropout-as-implicit-bagging/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/dropout-as-implicit-bagging/cover-hero-sm.webp",
+          "width": 768,
+          "height": 512
+        }
+      }
+    },
     "/assets/blog/everyone-is-a-builder/cover.webp": {
       "variants": {
         "card": {
