@@ -7,6 +7,7 @@ export default [
   {
     ignores: [
       ".next/**",
+      "coverage/**",
       "out/**",
       "node_modules/**",
       "*.config.js",

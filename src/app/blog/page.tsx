@@ -54,7 +54,7 @@ export default function BlogIndex() {
   return (
     <>
       <PageShell title="Blog">
-        <ResponsiveContainer variant="wide">
+        <ResponsiveContainer variant="wide" className="lg:pl-24 xl:pl-28">
           <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {firstPost ? (
               <BlogPostCard
