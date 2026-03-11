@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Maintainability Audit"
+  short_description: "Prioritized correctness and maintainability audit with concrete remediation diffs"
+  default_prompt: "Use $repo-maintainability-audit to audit this repository for correctness and maintainability issues, prioritize findings by impact and risk, and provide focused patch diffs."
