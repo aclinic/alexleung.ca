@@ -7,7 +7,7 @@ type TagProps = {
   className?: string;
 };
 
-export function tagClassName(className = "") {
+function tagClassName(className = "") {
   return chipClassName(`border-white/20 text-gray-200 ${className}`.trim());
 }
 

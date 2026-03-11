@@ -463,7 +463,3 @@ export function buildWebsiteSchema(input: {
     inLanguage: "en-CA",
   };
 }
-
-export function getPersonId() {
-  return toAbsoluteUrl(PERSON_ID);
-}

@@ -16,7 +16,7 @@ const toneClasses: Record<BadgeTone, string> = {
   warning: "border-accent-warning/40 bg-accent-warning/15 text-accent-warning",
 };
 
-export function badgeClassName({
+function badgeClassName({
   tone = "info",
   className = "",
 }: {
