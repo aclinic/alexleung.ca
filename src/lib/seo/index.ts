@@ -11,7 +11,6 @@ export {
   buildProfilePageSchema,
   buildWebPageSchema,
   buildWebsiteSchema,
-  getPersonId,
 } from "./jsonld";
 export type { SeoImage, SeoInput } from "./types";
 export { toAbsoluteUrl, toCanonical } from "./url";

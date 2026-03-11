@@ -304,7 +304,7 @@ function pickPostFields<T extends PostField>(
   );
 }
 
-export function getPostSlugs() {
+function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
