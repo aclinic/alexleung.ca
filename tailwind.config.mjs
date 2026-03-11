@@ -1,7 +1,9 @@
+import typography from "@tailwindcss/typography";
+
 /** @type {import('tailwindcss').Config} */
 const EXPO_OUT = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-module.exports = {
+const config = {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -71,5 +73,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [typography],
 };
+
+export default config;
