@@ -7,7 +7,9 @@ import * as schemadts from "schema-dts";
 import { Credentials } from "@/app/about/_components/Credentials";
 import { Journey } from "@/app/about/_components/MyBackground";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+import { LatestWritingSection } from "@/components/LatestWritingSection";
 import { PageShell } from "@/components/PageShell";
+import { getAllPosts } from "@/lib/blogApi";
 import { buildPageMetadata, buildProfilePageSchema } from "@/lib/seo";
 
 import { Skills } from "./_components/TechnicalInterests";
@@ -32,6 +34,11 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function AboutPage() {
+  const latestPosts = getAllPosts(["slug", "title", "date", "excerpt"]).slice(
+    0,
+    3
+  );
+
   return (
     <>
       <JsonLdBreadcrumbs
@@ -55,6 +62,7 @@ export default function AboutPage() {
           <Credentials />
         </div>
       </PageShell>
+      <LatestWritingSection posts={latestPosts} />
     </>
   );
 }

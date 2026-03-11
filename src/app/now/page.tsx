@@ -8,10 +8,12 @@ import { Badge } from "@/components/Badge";
 import ExternalLink from "@/components/ExternalLink";
 import { IconTextRow } from "@/components/IconTextRow";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
+import { LatestWritingSection } from "@/components/LatestWritingSection";
 import { PageShell } from "@/components/PageShell";
 import { ProseContent } from "@/components/ProseContent";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { SectionBlock } from "@/components/SectionBlock";
+import { getAllPosts } from "@/lib/blogApi";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 export const NOW_PAGE_LAST_UPDATED_ISO = "2026-03-05";
@@ -39,6 +41,11 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function NowPage() {
+  const latestPosts = getAllPosts(["slug", "title", "date", "excerpt"]).slice(
+    0,
+    3
+  );
+
   return (
     <>
       <JsonLdBreadcrumbs
@@ -138,6 +145,7 @@ export default function NowPage() {
           </SectionBlock>
         </ResponsiveContainer>
       </PageShell>
+      <LatestWritingSection posts={latestPosts} />
     </>
   );
 }

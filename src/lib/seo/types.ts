@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 export type SeoImage = {
   alt?: string;
   height?: number;
@@ -10,7 +8,6 @@ export type SeoImage = {
 export type SeoInput = {
   description: string;
   images?: SeoImage[];
-  keywords?: Metadata["keywords"];
   path: string;
   title: string;
   type?: "article" | "website";

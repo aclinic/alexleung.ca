@@ -2,7 +2,7 @@ import { JsonLd } from "react-schemaorg";
 
 import { BreadcrumbList } from "schema-dts";
 
-import { BASE_URL } from "@/constants";
+import { toCanonical } from "@/lib/seo";
 
 export type JsonLdBreadcrumbItem = {
   name: string;
@@ -23,9 +23,7 @@ export function JsonLdBreadcrumbs({ items }: JsonLdBreadcrumbsProps) {
           "@type": "ListItem",
           position: index + 1,
           name: item.name,
-          item: item.item.startsWith("http")
-            ? item.item
-            : `${BASE_URL}${item.item}`,
+          item: toCanonical(item.item),
         })),
       }}
     />
