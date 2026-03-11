@@ -10,7 +10,7 @@ export function Hero() {
       className="flex flex-grow items-center justify-center pb-12 pt-[calc(var(--header-height)+1.5rem)] md:pb-12 md:pt-[calc(var(--header-height)+3rem)]"
     >
       <div className="section-center">
-        <div>
+        <div className="max-w-3xl">
           <p className="text-hero-subtitle mb-4 tracking-wider">
             Hi, my name is
           </p>
@@ -35,7 +35,7 @@ export function Hero() {
             </CTAButton>
           </div>
 
-          <div className="mt-10 max-w-2xl">
+          <div className="mt-10">
             <section
               aria-labelledby="positioning-heading"
               className="surface-static p-5 md:p-6"
@@ -47,12 +47,12 @@ export function Hero() {
                 What you&apos;ll find here
               </h2>
               <p className="text-body mt-4 text-gray-200">
-                I focus on building thoughtful software systems and sharing
-                ideas that help teams build with clarity.
+                I build thoughtful software systems and share ideas that help
+                teams move with clarity.
               </p>
               <p className="text-body mt-3 text-gray-200">
-                Most posts cover software architecture, product engineering, and
-                practical lessons from learning in public.
+                I write mostly about software architecture, product engineering,
+                and lessons from learning in public.
               </p>
             </section>
           </div>

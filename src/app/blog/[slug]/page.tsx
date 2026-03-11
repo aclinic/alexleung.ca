@@ -63,7 +63,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
           },
         ]
       : undefined,
-    keywords: post.tags.length > 0 ? post.tags : undefined,
   });
 
   return {

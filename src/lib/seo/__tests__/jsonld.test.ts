@@ -33,6 +33,12 @@ describe("seo jsonld builders", () => {
     expect(profile["@id"]).toBe("https://alexleung.ca/about/");
     expect(contact["@id"]).toBe("https://alexleung.ca/contact/");
     expect(now["@id"]).toBe("https://alexleung.ca/now/");
+    expect(profile.mainEntity).toMatchObject({
+      "@id": "https://alexleung.ca/#person",
+      name: "Alex Leung",
+      url: "https://alexleung.ca/about/",
+      image: "https://alexleung.ca/assets/about_portrait.webp",
+    });
   });
 
   it("builds blog collection and item list schemas", () => {
@@ -170,6 +176,12 @@ describe("seo jsonld builders", () => {
     expect(posting.keywords).toBe("ai, systems");
     expect(posting.datePublished).toBe("2026-02-16T00:00:00.000Z");
     expect(posting.dateModified).toBe("2026-02-18T00:00:00.000Z");
+    expect(posting.author).toMatchObject({
+      "@id": "https://alexleung.ca/#person",
+      name: "Alex Leung",
+      url: "https://alexleung.ca/about/",
+      image: "https://alexleung.ca/assets/about_portrait.webp",
+    });
     expect(posting.mainEntityOfPage).toEqual({
       "@type": "WebPage",
       "@id": "https://alexleung.ca/blog/deep-dive/",
@@ -192,6 +204,10 @@ describe("seo jsonld builders", () => {
     expect(article.author).toMatchObject({
       "@id": "https://alexleung.ca/#person",
       url: "https://alexleung.ca/about/",
+    });
+    expect(article.publisher).toMatchObject({
+      "@id": "https://alexleung.ca/#person",
+      name: "Alex Leung",
     });
   });
 });

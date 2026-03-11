@@ -17,6 +17,7 @@ import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 
 const PERSON_ID = "/#person";
 const WEBSITE_ID = "/#website";
+const ABOUT_PATH = "/about";
 
 const GEO_SERVICE_AREAS = [
   {
@@ -60,6 +61,24 @@ function getSiteRoot(): string {
   return toAbsoluteUrl("/").replace(/\/$/, "");
 }
 
+function buildPersonReference() {
+  return {
+    "@type": "Person" as const,
+    "@id": toAbsoluteUrl(PERSON_ID),
+    name: "Alex Leung",
+    url: toCanonical(ABOUT_PATH),
+    image: toAbsoluteUrl("/assets/about_portrait.webp"),
+    sameAs: [
+      "https://www.linkedin.com/in/aclyx",
+      "https://github.com/aclyx",
+      "https://www.x.com/aclyxpse",
+      "https://bsky.app/profile/alexleung.ca",
+      "https://www.instagram.com/rootpanda",
+      "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
+    ],
+  };
+}
+
 function buildBasePageSchema<TPageType extends string>({
   description,
   pageType,
@@ -94,8 +113,8 @@ export function buildProfilePageSchema(input: {
   return {
     ...buildBasePageSchema({ ...input, pageType: "ProfilePage" }),
     mainEntity: {
-      "@type": "Person",
-      "@id": toAbsoluteUrl(PERSON_ID),
+      ...buildPersonReference(),
+      description: input.description,
     },
   };
 }
@@ -209,13 +228,10 @@ export function buildBlogPostingSchema(input: {
     datePublished: new Date(input.date).toISOString(),
     dateModified: new Date(input.updated || input.date).toISOString(),
     author: {
-      "@type": "Person",
-      "@id": toAbsoluteUrl(PERSON_ID),
-      name: "Alex Leung",
+      ...buildPersonReference(),
     },
     publisher: {
-      "@type": "Person",
-      "@id": toAbsoluteUrl(PERSON_ID),
+      ...buildPersonReference(),
     },
     inLanguage: "en-CA",
     mainEntityOfPage: {
@@ -253,14 +269,10 @@ export function buildArticleSchema(input: {
     datePublished: new Date(input.date).toISOString(),
     dateModified: new Date(input.updated || input.date).toISOString(),
     author: {
-      "@type": "Person",
-      "@id": toAbsoluteUrl(PERSON_ID),
-      name: "Alex Leung",
-      url: toCanonical("/about"),
+      ...buildPersonReference(),
     },
     publisher: {
-      "@type": "Person",
-      "@id": toAbsoluteUrl(PERSON_ID),
+      ...buildPersonReference(),
     },
     inLanguage: "en-CA",
     mainEntityOfPage: {
