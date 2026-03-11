@@ -1,4 +1,4 @@
-import { type VariantInfo, getImageVariant } from "@/lib/imageVariantManifest";
+import { getImageVariant, type VariantInfo } from "@/lib/imageVariantManifest";
 
 const staticImageProfiles = {
   aboutPortrait: {
