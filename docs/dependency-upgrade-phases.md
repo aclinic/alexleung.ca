@@ -41,12 +41,23 @@ Scope:
 
 Status: Completed
 
-## Remaining audit noise after Phase 3
+## Audit follow-up after Phase 3
 
-- `glob@10.5.0` and `minimatch@9.0.5` via `jest@30.3.0`
-- `glob@13.0.3` and `minimatch@10.2.0` via transitive tooling
+Applied follow-up transitive resolutions in `package.json`:
+
+- `minimatch@^9.0.4 -> 9.0.9`
+- `minimatch@^10.2.0 -> 10.2.4`
+- `glob@^13.0.0 -> 13.0.6`
+- `tar@^7.5.4 -> 7.5.11`
+
+This removed the previously reported high-severity `minimatch` and `tar` findings.
+
+## Remaining audit noise after follow-up
+
+- `glob@10.5.0` via `jest@30.3.0`
 - `tmp@0.1.0` via `@lhci/cli@0.15.1`
-- `tar@7.5.10` via `node-gyp@12.2.0`
+- `tmp@0.0.33` via `external-editor@3.1.0`
+- `rimraf@2.7.1` and `inflight@1.0.6` under the `tmp`/legacy `glob` chain
 - `whatwg-encoding@3.1.1` via `jsdom@26.1.0`
 
-These are upstream transitive issues; the repo no longer depends directly on the previously flagged import-sorting plugin or unused `ts-node`.
+These are upstream transitive issues. The remaining work would require replacing or patching Jest/jsdom and Lighthouse CI rather than simply refreshing direct dependencies.
