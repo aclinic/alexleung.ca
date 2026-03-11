@@ -40,7 +40,7 @@ yarn deploy           # Build and deploy to GitHub Pages
 
 ### Static Export Configuration
 
-- `output: 'export'` in next.config.js generates static files to `out/`
+- `output: 'export'` in `next.config.mjs` generates static files to `out/`
 - `trailingSlash: true` for GitHub Pages compatibility
 - `.nojekyll` in public/ prevents Jekyll processing of `_next/` assets
 - Images are unoptimized (required for static export)
@@ -86,28 +86,6 @@ yarn deploy           # Build and deploy to GitHub Pages
 - Tests located in `__tests__/` subdirectories alongside source files
 - 70% coverage threshold enforced
 - Module alias `@/` maps to `src/`
-
-### Typography and Prose Guardrails (Agent Guidance)
-
-- Reference audit: `docs/typography-audit.md`.
-- Prefer semantic typography utilities for body/headline copy:
-  - body: `text-body-sm`, `text-body`, `text-body-lg`
-  - headings: `text-heading-sm`, `text-heading`
-  - hero: `text-hero-subtitle`, `text-hero-title`, `text-hero-description`
-- Do not use `text-md` (not a Tailwind default utility).
-- `ProseContent` includes `md:prose-lg` by default. For small notes/footers, explicitly set both `prose-sm` and `md:prose-sm`.
-- When editing typography classes, verify rendered size at both mobile and `md`+ breakpoints before finalizing.
-
-### Typography and Prose Guardrails (Agent Guidance)
-
-- Reference audit: `docs/typography-audit.md`.
-- Prefer semantic typography utilities for body/headline copy:
-  - body: `text-body-sm`, `text-body`, `text-body-lg`
-  - headings: `text-heading-sm`, `text-heading`
-  - hero: `text-hero-subtitle`, `text-hero-title`, `text-hero-description`
-- Do not use `text-md` (not a Tailwind default utility).
-- `ProseContent` includes `md:prose-lg` by default. For small notes/footers, explicitly set both `prose-sm` and `md:prose-sm`.
-- When editing typography classes, verify rendered size at both mobile and `md`+ breakpoints before finalizing.
 
 ### Typography and Prose Guardrails (Agent Guidance)
 
