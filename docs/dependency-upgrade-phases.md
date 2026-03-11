@@ -29,7 +29,7 @@ Scope:
 - ESLint 10 migration and config validation
 - Shiki 4 migration and markdown highlighting validation
 
-Status: In progress
+Status: Completed
 
 ## Phase 3: Deprecations and cleanup
 
@@ -39,4 +39,4 @@ Scope:
 - Reduce remaining audit noise where practical without regressions
 - Keep formatting, linting, and builds stable
 
-Status: Pending
+Status: In progress

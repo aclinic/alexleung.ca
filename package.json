@@ -45,7 +45,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
-    "eslint": "^9.32.0",
+    "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "gh-pages": "^6.3.0",
@@ -64,7 +64,7 @@
     "remark-math": "^6.0.0",
     "remark-rehype": "^11.1.2",
     "schema-dts": "^1.1.5",
-    "shiki": "^3.22.0",
+    "shiki": "^4.0.2",
     "tailwindcss": "^4.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
