@@ -18,15 +18,15 @@ const FEED_DESCRIPTION =
 const FEED_IMAGE_URL = `${BASE_URL}/icon4.png`;
 
 export function buildRssFeedXml(posts: readonly FeedPost[]): string {
-  const lastUpdated =
-    posts.length > 0
-      ? posts.reduce((latest, post) => {
-          const candidate = post.updated || post.date;
-          return new Date(candidate).getTime() > new Date(latest).getTime()
-            ? candidate
-            : latest;
-        }, posts[0].updated || posts[0].date)
-      : new Date().toISOString();
+  const firstPost = posts[0];
+  const lastUpdated = firstPost
+    ? posts.reduce((latest, post) => {
+        const candidate = post.updated ?? post.date;
+        return new Date(candidate).getTime() > new Date(latest).getTime()
+          ? candidate
+          : latest;
+      }, firstPost.updated ?? firstPost.date)
+    : new Date().toISOString();
 
   const feed = new Feed({
     title: FEED_TITLE,
@@ -48,7 +48,7 @@ export function buildRssFeedXml(posts: readonly FeedPost[]): string {
       id: url,
       link: url,
       date: new Date(post.date),
-      category: (post.tags || []).map((tag) => ({ name: tag })),
+      category: post.tags?.map((tag) => ({ name: tag })) ?? [],
       ...(post.excerpt ? { description: post.excerpt } : {}),
     });
   }

@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 
-import { Chip, chipClassName } from "@/components/Chip";
+import { Chip } from "@/components/Chip";
 
 type TagProps = {
   children: ReactNode;
   className?: string;
 };
 
-function tagClassName(className = "") {
-  return chipClassName(`border-white/20 text-gray-200 ${className}`.trim());
-}
-
 export function Tag({ children, className = "" }: TagProps) {
-  return <Chip className={tagClassName(className)}>{children}</Chip>;
+  return (
+    <Chip className={`border-white/20 text-gray-200 ${className}`.trim()}>
+      {children}
+    </Chip>
+  );
 }

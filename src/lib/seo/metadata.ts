@@ -8,14 +8,12 @@ const SITE_NAME = "Alex Leung";
 const DEFAULT_LOCALE = "en_CA";
 
 function normalizeImages(images: SeoImage[] | undefined): SeoImage[] {
-  if (!images || images.length === 0) {
-    return [];
-  }
-
-  return images.map((image) => ({
-    ...image,
-    url: toAbsoluteUrl(image.url),
-  }));
+  return (
+    images?.map((image) => ({
+      ...image,
+      url: toAbsoluteUrl(image.url),
+    })) ?? []
+  );
 }
 
 export function buildPageMetadata(input: SeoInput): Metadata {
