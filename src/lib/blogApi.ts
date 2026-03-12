@@ -164,6 +164,11 @@ function parsePostBySlug(slug: string): Post | null {
     return null;
   }
 
+  const stat = fs.statSync(fullPath);
+  if (!stat.isFile()) {
+    return null;
+  }
+
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   const frontMatter = parseFrontMatter(

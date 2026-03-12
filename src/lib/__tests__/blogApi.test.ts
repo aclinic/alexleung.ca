@@ -176,6 +176,23 @@ Body`,
     readFileSpy.mockRestore();
   });
 
+
+  test("returns null when slug resolves to a directory", async () => {
+    const tempDir = setupTempPosts({
+      published: `---
+title: "Published"
+date: "2026-02-16"
+---
+Body`,
+    });
+
+    fs.mkdirSync(path.join(tempDir, "content", "posts", "folder.md"));
+
+    const { getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+
+    expect(getPostBySlug("folder")).toBeNull();
+  });
+
   test("returns null for traversal-like slugs outside content/posts", async () => {
     const tempDir = setupTempPosts({
       published: `---\ntitle: "Published"\ndate: "2026-02-16"\n---\nBody`,
