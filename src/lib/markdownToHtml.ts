@@ -86,20 +86,14 @@ type HastNode = {
 
 function visitNodes(node: HastNode, visitor: (node: HastNode) => void) {
   visitor(node);
-  for (const child of node.children || []) {
+  for (const child of node.children ?? []) {
     visitNodes(child, visitor);
   }
 }
 
-function getImageSourceSet(src: string) {
-  return getImageVariantSourceSet(src, getInlineContentVariantProfile());
-}
-
-function getPrimaryImageVariant(src: string) {
-  return getLargestImageVariant(src, getInlineContentVariantProfile());
-}
-
 function rehypeResponsiveImages() {
+  const inlineContentVariantProfile = getInlineContentVariantProfile();
+
   return (tree: Root) => {
     visitNodes(tree as unknown as HastNode, (node) => {
       if (node.type !== "element" || node.tagName !== "img") {
@@ -112,7 +106,10 @@ function rehypeResponsiveImages() {
         return;
       }
 
-      const primaryVariant = getPrimaryImageVariant(src);
+      const primaryVariant = getLargestImageVariant(
+        src,
+        inlineContentVariantProfile
+      );
       const primarySrc = primaryVariant?.path || src;
       properties.src = primarySrc;
       properties.loading = "lazy";
@@ -120,7 +117,7 @@ function rehypeResponsiveImages() {
       properties.fetchPriority = "low";
       properties.sizes = "(min-width: 1024px) 896px, 100vw";
 
-      const srcSet = getImageSourceSet(src);
+      const srcSet = getImageVariantSourceSet(src, inlineContentVariantProfile);
       if (srcSet) {
         properties.srcSet = srcSet;
       }

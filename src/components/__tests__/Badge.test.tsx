@@ -6,7 +6,14 @@ describe("Badge", () => {
   it("uses default info tone", () => {
     render(<Badge>Status</Badge>);
 
-    expect(screen.getByText("Status")).toHaveClass("text-white");
+    const badge = screen.getByText("Status");
+
+    expect(badge).toHaveClass("text-white");
+    expect(
+      badge.className
+        .split(/\s+/)
+        .filter((className) => className === "inline-flex")
+    ).toHaveLength(1);
   });
 
   it("supports success tone", () => {

@@ -8,5 +8,10 @@ describe("Tag", () => {
 
     const tag = screen.getByText("TypeScript");
     expect(tag).toHaveClass("rounded-full", "border", "text-xs");
+    expect(
+      tag.className
+        .split(/\s+/)
+        .filter((className) => className === "inline-flex")
+    ).toHaveLength(1);
   });
 });
