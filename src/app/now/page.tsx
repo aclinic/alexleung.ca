@@ -16,7 +16,7 @@ import { SectionBlock } from "@/components/SectionBlock";
 import { getAllPosts } from "@/lib/blogApi";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
-export const NOW_PAGE_LAST_UPDATED_ISO = "2026-03-05";
+export const NOW_PAGE_LAST_UPDATED_ISO = "2026-03-13";
 
 const nowPageLastUpdatedDate = new Date(
   `${NOW_PAGE_LAST_UPDATED_ISO}T00:00:00Z`
@@ -74,23 +74,18 @@ export default function NowPage() {
             <div className="text-body space-y-8 text-left leading-relaxed">
               <IconTextRow icon="🚀" title="Top of Mind" headingLevel="h2">
                 <p>
-                  I recently launched the blog section of this site. It&apos;s
-                  been fun to build a "boring" but effective static architecture
-                  for sharing technical ideas.
+                  I started playing with OpenClaw a bit. On Windows in WSL, I
+                  added some basic orchestration commands to manipulate a Docker
+                  container.
                 </p>
                 <p>
-                  I&apos;ve also been using Codex more often for practical
-                  tasks, especially quick site updates and small maintenance
-                  workflows. I&apos;ve also started using{" "}
-                  <ExternalLink href="https://www.conductor.build/">
-                    Conductor
-                  </ExternalLink>
-                  ; I like the UI and how easy it is to spin up new worktrees.
+                  I started the container with OpenClaw, ran{" "}
+                  <code>openclaw onboard</code>, and set things up with Gemini
+                  3.1 Pro Preview plus a WhatsApp connection.
                 </p>
                 <p>
-                  I&apos;ve also been experimenting a bit with SEO and thinking
-                  through what it would look like to make this website
-                  self-improving over time.
+                  I&apos;ve only chatted with it briefly so far, and I
+                  haven&apos;t gone much further yet.
                 </p>
               </IconTextRow>
 
