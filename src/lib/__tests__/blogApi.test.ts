@@ -176,7 +176,6 @@ Body`,
     readFileSpy.mockRestore();
   });
 
-
   test("returns null when slug resolves to a directory", async () => {
     const tempDir = setupTempPosts({
       published: `---

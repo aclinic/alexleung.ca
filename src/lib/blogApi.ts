@@ -160,11 +160,14 @@ function parsePostBySlug(slug: string): Post | null {
     return null;
   }
 
-  if (!fs.existsSync(fullPath)) {
+  let stat: fs.Stats;
+
+  try {
+    stat = fs.statSync(fullPath);
+  } catch {
     return null;
   }
 
-  const stat = fs.statSync(fullPath);
   if (!stat.isFile()) {
     return null;
   }
