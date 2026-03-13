@@ -17,6 +17,8 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 if (!window.performance.mark) {
+  // `@next/third-parties` records feature usage on mount, but JSDOM doesn't
+  // implement `performance.mark`, so layout tests need a lightweight shim.
   Object.defineProperty(window.performance, "mark", {
     writable: true,
     value: jest.fn(),
