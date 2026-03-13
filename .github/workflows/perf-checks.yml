@@ -11,8 +11,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lighthouse:
-    name: Lighthouse Baseline
+  build-static:
+    name: Build Static Export
     runs-on: ubuntu-latest
 
     steps:
@@ -43,16 +43,73 @@ jobs:
           sudo apt-get install -y webp
           cwebp -version
 
-      - name: 🖼️ Generate Image Variants
-        run: yarn image:variants
-
       - name: 🏗️ Build Static Export
         run: yarn build
+
+      - name: 📤 Upload Static Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-out
+          path: out
+          if-no-files-found: error
+
+  lighthouse:
+    name: Lighthouse ${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    needs: build-static
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard: shard-a
+            urls: "http://localhost/ http://localhost/blog/ http://localhost/about/"
+          - shard: shard-b
+            urls: "http://localhost/now/ http://localhost/contact/ http://localhost/blog/from-coder-to-orchestrator/"
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🧰 Enable Corepack
+        run: corepack enable
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: 🧰 Enable Corepack (Yarn v4)
+        run: |
+          corepack enable
+          corepack install
+
+      - name: 📥 Download Static Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-out
+          path: out
 
       - name: 🌐 Setup Chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 146.0.7680.31
 
-      - name: 🔦 Run Lighthouse CI
-        run: yarn perf:lighthouse
+      - name: 🔦 Collect Lighthouse Reports
+        run: |
+          URL_ARGS=""
+          for url in ${{ matrix.urls }}; do
+            URL_ARGS="$URL_ARGS --url=$url"
+          done
+          yarn dlx @lhci/cli@0.15.1 collect \
+            --staticDistDir=./out \
+            --numberOfRuns=2 \
+            --settings.chromeFlags="--headless=new --no-sandbox --disable-dev-shm-usage" \
+            $URL_ARGS
+
+      - name: ✅ Assert Lighthouse Scores
+        run: yarn dlx @lhci/cli@0.15.1 assert --config=.lighthouserc.json
+
+      - name: 📤 Upload Lighthouse Results
+        run: yarn dlx @lhci/cli@0.15.1 upload --config=.lighthouserc.json
