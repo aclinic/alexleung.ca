@@ -4,6 +4,8 @@ import { JsonLd } from "react-schemaorg";
 import type { Metadata, Viewport } from "next";
 import { Lato } from "next/font/google";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 import { AppBackground } from "@/components/AppBackground";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -88,6 +90,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`${lato.className} flex min-h-screen flex-col`}>
+        <GoogleAnalytics gaId="G-KJXZVT8X1E" />
         <AppBackground />
         <Header />
         <SocialLinks />
