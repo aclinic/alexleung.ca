@@ -90,7 +90,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`${lato.className} flex min-h-screen flex-col`}>
-        <GoogleAnalytics gaId="G-KJXZVT8X1E" />
         <AppBackground />
         <Header />
         <SocialLinks />
@@ -100,6 +99,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <JsonLd item={buildWebsiteSchema({ description })} />
         <JsonLd item={buildProfessionalServiceSchema({ description })} />
       </body>
+      <GoogleAnalytics gaId="G-KJXZVT8X1E" />
     </html>
   );
 }
