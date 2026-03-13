@@ -15,3 +15,10 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: jest.fn(),
   })),
 });
+
+if (!window.performance.mark) {
+  Object.defineProperty(window.performance, "mark", {
+    writable: true,
+    value: jest.fn(),
+  });
+}
