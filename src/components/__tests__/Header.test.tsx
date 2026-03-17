@@ -151,6 +151,14 @@ describe("Header", () => {
   });
 
   describe("Accessibility", () => {
+    it("should not move focus to the menu button on initial render", () => {
+      render(<Header />);
+
+      const button = screen.getByRole("button", { name: "Open menu" });
+
+      expect(button).not.toHaveFocus();
+    });
+
     it("should have proper aria-label on menu button", () => {
       render(<Header />);
       expect(
