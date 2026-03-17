@@ -79,6 +79,16 @@ function buildPersonReference() {
   };
 }
 
+type PostSchemaInput = {
+  coverImage?: string;
+  date: string;
+  description?: string;
+  slug: string;
+  tags: string[];
+  title: string;
+  updated?: string;
+};
+
 function buildBasePageSchema<TPageType extends string>({
   description,
   pageType,
@@ -101,6 +111,31 @@ function buildBasePageSchema<TPageType extends string>({
     isPartOf: {
       "@type": "WebSite" as const,
       "@id": toAbsoluteUrl(WEBSITE_ID),
+    },
+  };
+}
+
+function buildBasePostSchema(input: PostSchemaInput) {
+  const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
+  const personReference = buildPersonReference();
+
+  return {
+    canonicalPostUrl,
+    schema: {
+      url: canonicalPostUrl,
+      headline: input.title,
+      description: input.description,
+      keywords: input.tags.length > 0 ? input.tags.join(", ") : undefined,
+      image: input.coverImage ? [toAbsoluteUrl(input.coverImage)] : undefined,
+      datePublished: new Date(input.date).toISOString(),
+      dateModified: new Date(input.updated ?? input.date).toISOString(),
+      author: personReference,
+      publisher: personReference,
+      inLanguage: "en-CA",
+      mainEntityOfPage: {
+        "@type": "WebPage" as const,
+        "@id": canonicalPostUrl,
+      },
     },
   };
 }
@@ -205,39 +240,16 @@ export function buildBlogItemListSchema(
   };
 }
 
-export function buildBlogPostingSchema(input: {
-  coverImage?: string;
-  date: string;
-  description?: string;
-  slug: string;
-  tags: string[];
-  title: string;
-  updated?: string;
-}): WithContext<BlogPosting> {
-  const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
+export function buildBlogPostingSchema(
+  input: PostSchemaInput
+): WithContext<BlogPosting> {
+  const { canonicalPostUrl, schema } = buildBasePostSchema(input);
 
   return {
     "@context": "https://schema.org" as const,
     "@type": "BlogPosting",
     "@id": `${canonicalPostUrl}#blogposting`,
-    url: canonicalPostUrl,
-    headline: input.title,
-    description: input.description,
-    keywords: input.tags.length > 0 ? input.tags.join(", ") : undefined,
-    image: input.coverImage ? [toAbsoluteUrl(input.coverImage)] : undefined,
-    datePublished: new Date(input.date).toISOString(),
-    dateModified: new Date(input.updated || input.date).toISOString(),
-    author: {
-      ...buildPersonReference(),
-    },
-    publisher: {
-      ...buildPersonReference(),
-    },
-    inLanguage: "en-CA",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonicalPostUrl,
-    },
+    ...schema,
     isPartOf: {
       "@type": "Blog",
       "@id": toAbsoluteUrl("/blog/#blog"),
@@ -246,39 +258,16 @@ export function buildBlogPostingSchema(input: {
   };
 }
 
-export function buildArticleSchema(input: {
-  coverImage?: string;
-  date: string;
-  description?: string;
-  slug: string;
-  tags: string[];
-  title: string;
-  updated?: string;
-}): WithContext<Article> {
-  const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
+export function buildArticleSchema(
+  input: PostSchemaInput
+): WithContext<Article> {
+  const { canonicalPostUrl, schema } = buildBasePostSchema(input);
 
   return {
     "@context": "https://schema.org" as const,
     "@type": "Article",
     "@id": `${canonicalPostUrl}#article`,
-    url: canonicalPostUrl,
-    headline: input.title,
-    description: input.description,
-    keywords: input.tags.length > 0 ? input.tags.join(", ") : undefined,
-    image: input.coverImage ? [toAbsoluteUrl(input.coverImage)] : undefined,
-    datePublished: new Date(input.date).toISOString(),
-    dateModified: new Date(input.updated || input.date).toISOString(),
-    author: {
-      ...buildPersonReference(),
-    },
-    publisher: {
-      ...buildPersonReference(),
-    },
-    inLanguage: "en-CA",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonicalPostUrl,
-    },
+    ...schema,
   };
 }
 

@@ -138,6 +138,18 @@ describe("blogApi front matter validation", () => {
     ).toEqual(["draft"]);
   });
 
+  test("throws when callers request unsupported post fields", async () => {
+    const tempDir = setupTempPosts({
+      published: `---\ntitle: "Published"\ndate: "2026-02-16"\n---\nBody`,
+    });
+
+    const { getAllPosts } = await loadBlogApiAtCwd(tempDir);
+
+    expect(() => getAllPosts(["slug", "notAField" as never])).toThrow(
+      /Unsupported post field requested: notAField/
+    );
+  });
+
   test("throws when seriesOrder duplicates within the same series", async () => {
     const tempDir = setupTempPosts({
       a: `---\ntitle: "A"\ndate: "2026-02-16"\nseries: "s"\nseriesOrder: 1\n---\nBody`,

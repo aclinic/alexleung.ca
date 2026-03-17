@@ -105,18 +105,38 @@ const PostFrontMatterSchema = z
   })
   .strict();
 
-function isPostField(value: string): value is PostField {
-  return POST_FIELDS.includes(value as PostField);
-}
-
-function isPostFieldSelection(value: unknown): value is readonly PostField[] {
-  return Array.isArray(value);
-}
-
 function assertValidDate(date: string, slug: string, key: "date" | "updated") {
   if (Number.isNaN(Date.parse(date))) {
     throw new Error(`Invalid ${key} in post "${slug}": ${date}`);
   }
+}
+
+function resolvePostQuery<T extends PostField>(
+  fieldsOrOptions?: readonly T[] | PostQueryOptions,
+  maybeOptions?: PostQueryOptions
+): {
+  fields: readonly T[] | undefined;
+  options: PostQueryOptions | undefined;
+} {
+  if (!Array.isArray(fieldsOrOptions)) {
+    return {
+      fields: undefined,
+      options: fieldsOrOptions as PostQueryOptions | undefined,
+    };
+  }
+
+  const invalidField = fieldsOrOptions.find(
+    (field) => !POST_FIELDS.includes(field as PostField)
+  );
+
+  if (invalidField) {
+    throw new Error(`Unsupported post field requested: ${invalidField}`);
+  }
+
+  return {
+    fields: fieldsOrOptions,
+    options: maybeOptions,
+  };
 }
 
 function parseFrontMatter(
@@ -268,17 +288,6 @@ type GetRelatedPostsOptions = {
   includeDrafts?: boolean;
 };
 
-function toRelatedPost(post: Post): RelatedPost {
-  return {
-    slug: post.slug,
-    title: post.title,
-    date: post.date,
-    excerpt: post.excerpt,
-    coverImage: post.coverImage,
-    tags: post.tags,
-  };
-}
-
 function getRelatedScore(target: Post, candidate: Post): number {
   const targetTags = new Set(target.tags);
   const sharedTagCount = candidate.tags.filter((tag) =>
@@ -332,12 +341,7 @@ export function getPostBySlug<T extends PostField>(
   maybeOptions?: PostQueryOptions
 ) {
   const post = getCachedPostBySlug(slug);
-  const fields = isPostFieldSelection(fieldsOrOptions)
-    ? (fieldsOrOptions as readonly T[])
-    : undefined;
-  const options = isPostFieldSelection(fieldsOrOptions)
-    ? maybeOptions
-    : fieldsOrOptions;
+  const { fields, options } = resolvePostQuery(fieldsOrOptions, maybeOptions);
 
   const includeDrafts = options?.includeDrafts ?? false;
 
@@ -347,12 +351,6 @@ export function getPostBySlug<T extends PostField>(
 
   if (!fields || fields.length === 0) {
     return post;
-  }
-
-  const invalidField = fields.find((field) => !isPostField(field));
-
-  if (invalidField) {
-    throw new Error(`Unsupported post field requested: ${invalidField}`);
   }
 
   return pickPostFields(post, fields);
@@ -367,13 +365,7 @@ export function getAllPosts<T extends PostField>(
   fieldsOrOptions?: readonly T[] | PostQueryOptions,
   maybeOptions?: PostQueryOptions
 ) {
-  const fields = isPostFieldSelection(fieldsOrOptions)
-    ? (fieldsOrOptions as readonly T[])
-    : undefined;
-  const options = isPostFieldSelection(fieldsOrOptions)
-    ? maybeOptions
-    : fieldsOrOptions;
-
+  const { fields, options } = resolvePostQuery(fieldsOrOptions, maybeOptions);
   const includeDrafts = options?.includeDrafts ?? false;
   const posts = getCachedAllPosts().filter(
     (post) => includeDrafts || !post.draft
@@ -381,12 +373,6 @@ export function getAllPosts<T extends PostField>(
 
   if (!fields || fields.length === 0) {
     return posts;
-  }
-
-  const invalidField = fields.find((field) => !isPostField(field));
-
-  if (invalidField) {
-    throw new Error(`Unsupported post field requested: ${invalidField}`);
   }
 
   return posts.map((post) => pickPostFields(post, fields));
@@ -411,9 +397,8 @@ export function getRelatedPosts(
     return [];
   }
 
-  const candidates = allPosts.filter((post) => post.slug !== slug);
-
-  const scored = candidates
+  const scored = allPosts
+    .filter((post) => post.slug !== slug)
     .map((candidate) => ({
       post: candidate,
       score: getRelatedScore(target, candidate),
@@ -441,5 +426,12 @@ export function getRelatedPosts(
           new Date(b.post.date).getTime() - new Date(a.post.date).getTime()
       );
 
-  return ranked.slice(0, limit).map((entry) => toRelatedPost(entry.post));
+  return ranked.slice(0, limit).map(({ post }) => ({
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    excerpt: post.excerpt,
+    coverImage: post.coverImage,
+    tags: post.tags,
+  }));
 }
