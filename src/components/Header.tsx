@@ -12,6 +12,7 @@ export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const hasMountedRef = useRef(false);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -54,6 +55,11 @@ export default function Header() {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
+
     if (!isMenuOpen) {
       menuButtonRef.current?.focus();
     }
