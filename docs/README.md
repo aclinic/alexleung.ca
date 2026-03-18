@@ -10,6 +10,7 @@ This folder contains active, maintainer-facing documentation that supports imple
 | `blog-notification-report.md` | Current notification architecture and operational runbook for new-post alerts | When notification provider, subscribe UX, or feed workflow changes |
 | `codespaces.md` | Codespaces-specific Lighthouse setup and troubleshooting details | When Codespaces base image or Lighthouse prerequisites change |
 | `typography-audit.md` | Typography findings and guardrails for app/component edits | After typography-system or prose-behavior changes |
+| `playwright-testing-design.md` | Proposed hermetic Playwright smoke + visual testing design and rollout plan | When E2E test architecture, CI strategy, or baseline workflow changes |
 
 ## Scope Rules
 
