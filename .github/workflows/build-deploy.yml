@@ -1,5 +1,5 @@
-name: Build and Deploy to GitHub Pages
-run-name: Build and Deploy to GitHub Pages
+name: Build and Deploy
+run-name: Build and Deploy
 on:
   push:
     branches:
