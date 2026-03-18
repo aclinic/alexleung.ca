@@ -35,9 +35,8 @@ describe("LatestWritingSection", () => {
       "href",
       "/blog/test-post/"
     );
-    expect(screen.getByRole("link", { name: /see all posts/i })).toHaveAttribute(
-      "href",
-      "/blog/"
-    );
+    expect(
+      screen.getByRole("link", { name: /see all posts/i })
+    ).toHaveAttribute("href", "/blog/");
   });
 });
