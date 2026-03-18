@@ -2,6 +2,20 @@ import { render, screen } from "@testing-library/react";
 
 import { BlogPostCard } from "../BlogPostCard";
 
+jest.mock("next/link", () => {
+  return function MockLink({
+    href,
+    children,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  };
+});
+
 describe("BlogPostCard", () => {
   it("renders title, excerpt, and link", () => {
     render(
@@ -19,7 +33,7 @@ describe("BlogPostCard", () => {
 
     expect(screen.getByRole("link", { name: "Test Post" })).toHaveAttribute(
       "href",
-      "/blog/test-post"
+      "/blog/test-post/"
     );
     expect(screen.getByText("A short summary")).toBeInTheDocument();
     expect(screen.getByText("January 1, 2026")).toBeInTheDocument();

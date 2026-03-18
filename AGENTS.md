@@ -47,6 +47,8 @@ yarn deploy           # Build and deploy to GitHub Pages
 - `trailingSlash: true` for GitHub Pages compatibility
 - `.nojekyll` in public/ prevents Jekyll processing of `_next/` assets
 - Images are unoptimized (required for static export)
+- Internal site-route links should use trailing slashes to match the export shape and avoid unnecessary GitHub Pages redirects (for example, `/about/` and `/blog/post-slug/`, not `/about` or `/blog/post-slug`)
+- Do not add trailing slashes to file-like endpoints or assets such as `/feed.xml`, `/robots.txt`, `/sitemap.xml`, or `/assets/...`
 
 ### Component Organization
 

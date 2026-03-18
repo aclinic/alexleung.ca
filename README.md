@@ -148,6 +148,13 @@ If `profiles.cover` or `profiles.inlineContent` is missing in the manifest, runt
 - **SEO**: centralized metadata + JSON-LD helpers in `src/lib/seo`
 - **Content**: Markdown posts parsed and validated at build time
 
+### URL Convention
+
+- Site routes use trailing slashes to match `trailingSlash: true` and the GitHub Pages static export shape.
+- Prefer `/about/` and `/blog/post-slug/` over slashless internal links.
+- Keep internal links, canonical URLs, sitemap entries, and tests aligned with that convention.
+- Do not add trailing slashes to file-like endpoints or assets such as `/feed.xml`, `/robots.txt`, `/sitemap.xml`, or `/assets/...`.
+
 ### High-level Structure
 
 ```bash

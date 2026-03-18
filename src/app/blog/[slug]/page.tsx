@@ -201,7 +201,7 @@ export default async function Post({ params }: Props) {
                   {relatedPosts.map((relatedPost) => (
                     <Link
                       key={relatedPost.slug}
-                      href={`/blog/${relatedPost.slug}`}
+                      href={`/blog/${relatedPost.slug}/`}
                       className="block"
                     >
                       <Surface
