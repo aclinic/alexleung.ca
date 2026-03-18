@@ -129,7 +129,7 @@ jobs:
           for attempt in $(seq 1 30); do
             deploy_marker="$(curl --fail --silent --show-error --location https://alexleung.ca/deploy-meta.json || true)"
 
-            if printf '%s' "${deploy_marker}" | grep -Fq "\"sha\":\"${GITHUB_SHA}\""; then
+            if printf '%s' "${deploy_marker}" | grep -Eq "\"sha\"[[:space:]]*:[[:space:]]*\"${GITHUB_SHA}\""; then
               exit 0
             fi
 
