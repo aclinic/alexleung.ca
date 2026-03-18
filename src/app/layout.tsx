@@ -29,6 +29,11 @@ const lato = Lato({
   display: "swap",
 });
 
+const googleAnalyticsId =
+  process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === "true"
+    ? "G-KJXZVT8X1E"
+    : undefined;
+
 export const metadata: Metadata = {
   title: title,
   description: description,
@@ -99,7 +104,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <JsonLd item={buildWebsiteSchema({ description })} />
         <JsonLd item={buildProfessionalServiceSchema({ description })} />
       </body>
-      <GoogleAnalytics gaId="G-KJXZVT8X1E" />
+      {googleAnalyticsId ? <GoogleAnalytics gaId={googleAnalyticsId} /> : null}
     </html>
   );
 }

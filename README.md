@@ -55,6 +55,8 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 
 > This project targets static export deployment, so there is no runtime Next.js production server command.
 
+Google Analytics is gated behind `NEXT_PUBLIC_ENABLE_ANALYTICS=true`. CI workflows set this to `false` for verification/perf runs so Lighthouse and other automated checks do not pollute production analytics, while the deploy workflow enables it for the published static export.
+
 ## End-to-End Testing
 
 Playwright runs in the official Playwright Docker image by default via `docker compose`, and the suite targets the static export rather than `yarn dev`. That keeps browser/system dependencies pinned and matches the GitHub Pages deployment model without the Next.js dev indicator.

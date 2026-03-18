@@ -12,6 +12,8 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_ENABLE_ANALYTICS: "false"
     steps:
       - name: 📦 Checkout
         uses: actions/checkout@v4
@@ -57,6 +59,8 @@ jobs:
 
   playwright:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_ENABLE_ANALYTICS: "false"
 
     steps:
       - name: 📦 Checkout
@@ -72,6 +76,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_ENABLE_ANALYTICS: "true"
     needs:
       - verify
       - playwright
@@ -115,6 +121,8 @@ jobs:
 
   playwright-live:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_ENABLE_ANALYTICS: "false"
     needs:
       - deploy
 
