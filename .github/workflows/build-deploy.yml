@@ -122,20 +122,22 @@ jobs:
       - name: 📦 Checkout
         uses: actions/checkout@v4
 
-      - name: ⏳ Wait for alexleung.ca to respond
+      - name: ⏳ Wait for alexleung.ca to serve the new deploy marker
         run: |
           set -euo pipefail
 
           for attempt in $(seq 1 30); do
-            if curl --fail --silent --show-error --location https://alexleung.ca/ >/dev/null; then
+            deploy_marker="$(curl --fail --silent --show-error --location https://alexleung.ca/deploy-meta.json || true)"
+
+            if printf '%s' "${deploy_marker}" | grep -Fq "\"sha\":\"${GITHUB_SHA}\""; then
               exit 0
             fi
 
-            echo "alexleung.ca not ready yet; retrying in 10s (${attempt}/30)"
+            echo "alexleung.ca has not served deploy-meta.json for ${GITHUB_SHA} yet; retrying in 10s (${attempt}/30)"
             sleep 10
           done
 
-          echo "alexleung.ca did not become reachable within 5 minutes"
+          echo "alexleung.ca did not serve deploy-meta.json for ${GITHUB_SHA} within 5 minutes"
           exit 1
 
       - name: 🎭 Playwright Live Smoke Tests

@@ -43,6 +43,7 @@ test("primary navigation routes render expected page headings", async ({
 
   const routes = [
     { label: "About", heading: "About Me" },
+    { label: "Now", heading: "What I'm Doing Now" },
     { label: "Blog", heading: "Blog" },
     { label: "Contact", heading: "Contact" },
   ];

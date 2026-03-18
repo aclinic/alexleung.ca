@@ -64,3 +64,27 @@ test("unknown routes render the exported not found page", async ({ page }) => {
     "/"
   );
 });
+
+test("static export metadata artifacts are served", async ({ request }) => {
+  const [feedResponse, robotsResponse, sitemapResponse] = await Promise.all([
+    request.get("/feed.xml"),
+    request.get("/robots.txt"),
+    request.get("/sitemap.xml"),
+  ]);
+
+  await expect(feedResponse).toBeOK();
+  await expect(robotsResponse).toBeOK();
+  await expect(sitemapResponse).toBeOK();
+
+  const feedText = await feedResponse.text();
+  const robotsText = await robotsResponse.text();
+  const sitemapText = await sitemapResponse.text();
+
+  expect(feedResponse.headers()["content-type"]).toContain("xml");
+  expect(feedText).toContain("<rss");
+  expect(feedText).toContain("https://alexleung.ca/feed.xsl");
+
+  expect(robotsText).toContain("Sitemap: https://alexleung.ca/sitemap.xml");
+  expect(sitemapText).toContain("<urlset");
+  expect(sitemapText).toContain("https://alexleung.ca/now/");
+});
