@@ -1,7 +1,7 @@
-import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
-import prettierPlugin from "eslint-plugin-prettier";
+import tsParser from "@typescript-eslint/parser";
 import prettierConfig from "eslint-config-prettier";
+import prettierPlugin from "eslint-plugin-prettier";
 
 export default [
   {
@@ -10,12 +10,14 @@ export default [
       "coverage/**",
       "out/**",
       "node_modules/**",
+      "playwright-report/**",
+      "test-results/**",
       "*.config.js",
       "*.config.mjs",
     ],
   },
   {
-    files: ["src/**/*.{ts,tsx}"],
+    files: ["src/**/*.{ts,tsx}", "playwright.config.ts", "playwright/**/*.ts"],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: "latest",
@@ -37,7 +39,7 @@ export default [
     },
   },
   {
-    files: ["src/**/*.{js,jsx}"],
+    files: ["src/**/*.{js,jsx}", "scripts/**/*.mjs"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

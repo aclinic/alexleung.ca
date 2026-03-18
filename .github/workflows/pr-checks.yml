@@ -50,3 +50,17 @@ jobs:
 
       - name: 🏗️ Build
         run: yarn build
+
+  playwright:
+    name: Playwright Docker E2E
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🎭 Playwright Smoke Tests
+        run: docker compose run --rm playwright-smoke
+
+      - name: 🖼️ Playwright Visual Tests
+        run: docker compose run --rm playwright-visual
