@@ -13,8 +13,6 @@ jobs:
   verify:
     name: Verify Typecheck, Build, Lint, and Tests
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_ENABLE_ANALYTICS: "false"
 
     steps:
       - name: 📦 Checkout

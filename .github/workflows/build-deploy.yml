@@ -12,8 +12,6 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_ENABLE_ANALYTICS: "false"
     steps:
       - name: 📦 Checkout
         uses: actions/checkout@v4
@@ -74,8 +72,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_ENABLE_ANALYTICS: "true"
     needs:
       - verify
       - playwright
@@ -109,7 +105,7 @@ jobs:
 
       - name: 🏗️ Build
         run: |
-          yarn build
+          yarn build:prod
 
       - name: 🚢 Deploy
         uses: JamesIves/github-pages-deploy-action@v4

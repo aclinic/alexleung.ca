@@ -14,8 +14,6 @@ jobs:
   lighthouse:
     name: Lighthouse Baseline
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_ENABLE_ANALYTICS: "false"
 
     steps:
       - name: 📦 Checkout
