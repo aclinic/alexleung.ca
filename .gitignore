@@ -20,6 +20,8 @@ yarn-error.log*
 # testing and reports
 /coverage
 .lighthouseci
+/playwright-report
+/test-results
 
 # Chrome-for-Testing downloads used by local LHCI in Codespaces
 .cache

@@ -1,0 +1,69 @@
+x-playwright-base: &playwright-base
+  image: mcr.microsoft.com/playwright:v1.57.0-noble
+  working_dir: /workspace
+  init: true
+  ipc: host
+  environment:
+    TZ: UTC
+    LANG: C.UTF-8
+    HOME: /tmp/pw-home
+    TMPDIR: /tmp
+  volumes:
+    - .:/workspace
+    - playwright-node-modules:/workspace/node_modules
+    - playwright-yarn-cache:/usr/local/share/.cache/yarn
+    - playwright-tmp:/tmp
+
+services:
+  playwright-smoke:
+    <<: *playwright-base
+    command:
+      - /bin/bash
+      - -lc
+      - >-
+        set -euo pipefail &&
+        mkdir -p /tmp/pw-home &&
+        corepack enable &&
+        corepack install &&
+        yarn install --immutable &&
+        yarn playwright test
+        --project=chromium-smoke
+        --project=webkit-smoke
+        --project=mobile-chromium-smoke
+        --project=mobile-webkit-smoke
+
+  playwright-visual:
+    <<: *playwright-base
+    command:
+      - /bin/bash
+      - -lc
+      - >-
+        set -euo pipefail &&
+        mkdir -p /tmp/pw-home &&
+        corepack enable &&
+        corepack install &&
+        yarn install --immutable &&
+        yarn playwright test
+        --project=chromium-visual
+        --project=mobile-chromium-visual
+
+  playwright-update:
+    <<: *playwright-base
+    command:
+      - /bin/bash
+      - -lc
+      - >-
+        set -euo pipefail &&
+        mkdir -p /tmp/pw-home &&
+        corepack enable &&
+        corepack install &&
+        yarn install --immutable &&
+        yarn playwright test
+        --project=chromium-visual
+        --project=mobile-chromium-visual
+        --update-snapshots
+
+volumes:
+  playwright-node-modules:
+  playwright-yarn-cache:
+  playwright-tmp:

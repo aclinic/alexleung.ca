@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-
 import { execFileSync } from "child_process";
 import fs from "fs";
-import matter from "gray-matter";
 import path from "path";
+
+import matter from "gray-matter";
 import prettier from "prettier";
 
 const repoRoot = process.cwd();

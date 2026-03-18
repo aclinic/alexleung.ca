@@ -44,6 +44,9 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 - `yarn lint` — run ESLint + Prettier checks
 - `yarn lint:fix` — auto-fix lint/format issues
 - `yarn test` — run Jest tests
+- `yarn test:e2e` — run Playwright smoke tests in Docker against the exported site
+- `yarn test:e2e:visual` — run Playwright visual regression tests in Docker
+- `yarn test:e2e:visual:update` — regenerate Playwright visual snapshots in Docker
 - `yarn typecheck` — run TypeScript check (`tsc --noEmit`)
 - `yarn test:watch` — run tests in watch mode
 - `yarn test:coverage` — run tests with coverage
@@ -51,6 +54,31 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 - `yarn deploy` — build and deploy `out/` to GitHub Pages
 
 > This project targets static export deployment, so there is no runtime Next.js production server command.
+
+## End-to-End Testing
+
+Playwright runs in the official Playwright Docker image by default via `docker compose`, and the suite targets the static export rather than `yarn dev`. That keeps browser/system dependencies pinned and matches the GitHub Pages deployment model without the Next.js dev indicator.
+
+The smoke suite currently runs across desktop Chrome, desktop Safari/WebKit, Android Chrome, and Mobile Safari. The visual suite runs on desktop Chromium plus a single mobile Chromium lane so mobile layout regressions are covered without exploding the snapshot matrix.
+
+1. Run smoke tests against a locally built export:
+
+   ```bash
+   yarn test:e2e
+   ```
+
+2. Run visual regression tests or intentionally refresh their snapshots:
+
+   ```bash
+   yarn test:e2e:visual
+   yarn test:e2e:visual:update
+   ```
+
+3. To retarget the same smoke suite at a deployed site, provide `PLAYWRIGHT_BASE_URL`:
+
+   ```bash
+   PLAYWRIGHT_BASE_URL=https://alexleung.ca yarn test:e2e
+   ```
 
 ## Codespaces: Lighthouse Setup
 
@@ -132,6 +160,7 @@ src/
 - `docs/README.md` — docs directory guide and consolidation notes
 - `docs/architecture-seo-status.md` — canonical architecture + SEO status snapshot
 - `docs/codespaces.md` — detailed Codespaces troubleshooting for Lighthouse prerequisites
+- `docs/playwright-testing-design.md` — current Playwright E2E and visual testing setup
 - `docs/typography-audit.md` — typography findings and implementation guardrails
 
 ## Licensing

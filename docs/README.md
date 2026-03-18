@@ -4,13 +4,13 @@ This folder contains active, maintainer-facing documentation that supports imple
 
 ## Active Document Index
 
-| File | Purpose | Update cadence |
-| --- | --- | --- |
-| `architecture-seo-status.md` | Canonical status snapshot for technical architecture and SEO | After meaningful architecture, metadata, schema, or IA changes |
-| `blog-notification-report.md` | Current notification architecture and operational runbook for new-post alerts | When notification provider, subscribe UX, or feed workflow changes |
-| `codespaces.md` | Codespaces-specific Lighthouse setup and troubleshooting details | When Codespaces base image or Lighthouse prerequisites change |
-| `typography-audit.md` | Typography findings and guardrails for app/component edits | After typography-system or prose-behavior changes |
-| `playwright-testing-design.md` | Proposed hermetic Playwright smoke + visual testing design and rollout plan | When E2E test architecture, CI strategy, or baseline workflow changes |
+| File                           | Purpose                                                                       | Update cadence                                                        |
+| ------------------------------ | ----------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `architecture-seo-status.md`   | Canonical status snapshot for technical architecture and SEO                  | After meaningful architecture, metadata, schema, or IA changes        |
+| `blog-notification-report.md`  | Current notification architecture and operational runbook for new-post alerts | When notification provider, subscribe UX, or feed workflow changes    |
+| `codespaces.md`                | Codespaces-specific Lighthouse setup and troubleshooting details              | When Codespaces base image or Lighthouse prerequisites change         |
+| `typography-audit.md`          | Typography findings and guardrails for app/component edits                    | After typography-system or prose-behavior changes                     |
+| `playwright-testing-design.md` | Current hermetic Playwright smoke + visual testing setup and workflow         | When E2E test architecture, CI strategy, or baseline workflow changes |
 
 ## Scope Rules
 

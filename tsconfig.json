@@ -25,6 +25,8 @@
   },
   "include": [
     "src/**/*",
+    "playwright.config.ts",
+    "playwright/**/*.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "jest.setup.ts",

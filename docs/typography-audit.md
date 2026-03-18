@@ -37,25 +37,25 @@ Most frequent typography tokens:
 
 ### High
 
-1. Hidden prose upscaling in shared component  
-   - File: `src/components/ProseContent.tsx`  
+1. Hidden prose upscaling in shared component
+   - File: `src/components/ProseContent.tsx`
    - `ProseContent` includes `md:prose-lg` by default, which increases typography size at medium breakpoints regardless of local intent.
    - This caused the now-page footer note to appear larger than expected when only `text-sm` was provided at call site.
    - Example call site: `src/app/now/page.tsx`.
 
 ### Medium
 
-1. Heavy reliance on ad hoc text classes for regular content  
+1. Heavy reliance on ad hoc text classes for regular content
    - Most `text-*` usage is ad hoc (`67/79`) rather than semantic token classes.
    - This makes typography harder to reason about and easier to regress during incremental edits.
 
-2. Shared typography tokens are partially unused  
+2. Shared typography tokens are partially unused
    - `text-body-sm` and `text-body-lg` are defined in `src/app/globals.css` but not currently used by app/components source files.
    - Signals either dead utilities or missing adoption guidance.
 
 ### Low
 
-1. No route-level typography verification checklist in docs  
+1. No route-level typography verification checklist in docs
    - Without a documented breakpoint check, regressions like prose-size jumps are easy to miss in review.
 
 ## Recommended Actions
