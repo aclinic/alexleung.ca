@@ -30,7 +30,7 @@ export function BlogPostCard({
 
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/blog/${post.slug}/`}
       className={surfaceClassNames({
         interactive: true,
         className: `group mb-8 block p-6 ${className}`.trim(),

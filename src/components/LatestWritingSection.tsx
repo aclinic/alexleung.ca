@@ -33,7 +33,11 @@ export function LatestWritingSection({
       <SectionBlock title={title} spacing="lg">
         <div className="grid gap-4 md:grid-cols-3">
           {posts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className="block">
+            <Link
+              key={post.slug}
+              href={`/blog/${post.slug}/`}
+              className="block"
+            >
               <Surface
                 className="h-full p-4 transition-colors hover:border-white/30"
                 interactive
