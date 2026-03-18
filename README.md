@@ -40,7 +40,8 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 - `yarn prepare` — configure repo Git hooks path (`.githooks`)
 - `yarn image:variants` — generate image variants and refresh image variant manifest
 - `yarn image:variants:stage` — generate and stage variants for staged post/image changes
-- `yarn build` — build static export (`out/`) (runs `prebuild`)
+- `yarn build` — build static export (`out/`) with analytics disabled by default (runs `prebuild`)
+- `yarn build:prod` — build static export (`out/`) with analytics enabled for a production deploy
 - `yarn lint` — run ESLint + Prettier checks
 - `yarn lint:fix` — auto-fix lint/format issues
 - `yarn test` — run Jest tests
@@ -54,6 +55,8 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 - `yarn deploy` — build and deploy `out/` to GitHub Pages
 
 > This project targets static export deployment, so there is no runtime Next.js production server command.
+
+Google Analytics is gated behind `NEXT_PUBLIC_ENABLE_ANALYTICS=true`, so analytics stays off for ordinary `yarn build`, CI verification builds, and Lighthouse runs unless a production deploy explicitly opts in. Both the GitHub Actions deploy workflow and the manual `yarn deploy` flow enable analytics via `yarn build:prod`. Playwright does not rely on this flag because its shared fixture aborts requests to Google Tag Manager and Google Analytics even when tests target the live site.
 
 ## End-to-End Testing
 

@@ -60,8 +60,9 @@ When `PLAYWRIGHT_BASE_URL` is set:
 - Playwright uses that URL as `baseURL`
 - `webServer` is disabled
 - the same smoke or visual suite runs against the supplied site
+- analytics requests are still blocked by the shared fixture before navigation begins
 
-This keeps local and live targeting behind the same command surface.
+This keeps local and live targeting behind the same command surface without leaking Playwright traffic into Google Analytics.
 
 ## Test Topology
 
