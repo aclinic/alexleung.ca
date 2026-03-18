@@ -59,6 +59,8 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 
 Playwright runs in the official Playwright Docker image by default via `docker compose`, and the suite targets the static export rather than `yarn dev`. That keeps browser/system dependencies pinned and matches the GitHub Pages deployment model without the Next.js dev indicator.
 
+The smoke suite currently runs across desktop Chrome, desktop Safari/WebKit, Android Chrome, and Mobile Safari. The visual suite runs on desktop Chromium plus a single mobile Chromium lane so mobile layout regressions are covered without exploding the snapshot matrix.
+
 1. Run smoke tests against a locally built export:
 
    ```bash

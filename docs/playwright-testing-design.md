@@ -79,6 +79,15 @@ Coverage:
 - contact CTA and social links
 - not-found route behavior
 
+Current smoke projects:
+
+- `chromium-smoke`
+- `webkit-smoke`
+- `mobile-chromium-smoke`
+- `mobile-webkit-smoke`
+
+This keeps the same functional checks running against desktop Chrome, desktop Safari/WebKit, Android Chrome, and Mobile Safari. The navigation smoke flow is mobile-aware and opens the drawer menu when the desktop nav is not present.
+
 ### Visual
 
 Files:
@@ -93,7 +102,14 @@ Current visual baselines are Linux snapshots generated in Docker and focus on to
 - blog index top fold
 - blog post top fold
 
+Current visual projects:
+
+- `chromium-visual`
+- `mobile-chromium-visual`
+
 The current suite favors viewport/page-level top-fold screenshots over narrow element-only screenshots so diffs better reflect the composition users actually see.
+
+Visual coverage intentionally stays narrow: desktop Chromium plus one mobile Chromium lane. That keeps the baseline set small and reviewable while still covering mobile layout regressions without introducing a full multi-browser visual matrix.
 
 ## Stability Guardrails
 

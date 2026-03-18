@@ -29,6 +29,9 @@ yarn build            # Build static export to out/ (runs prebuild)
 yarn lint             # Run ESLint and Prettier checks
 yarn lint:fix         # Auto-fix lint issues
 yarn test             # Run Jest tests
+yarn test:e2e         # Run Playwright smoke tests in Docker
+yarn test:e2e:visual  # Run Playwright visual regression tests in Docker
+yarn test:e2e:visual:update  # Regenerate Playwright visual snapshots in Docker
 yarn typecheck        # Run TypeScript type checking (no emit)
 yarn test:watch       # Run tests in watch mode
 yarn test:coverage    # Run tests with coverage report
@@ -83,7 +86,11 @@ yarn deploy           # Build and deploy to GitHub Pages
 ### Testing
 
 - Jest with React Testing Library
-- Tests located in `__tests__/` subdirectories alongside source files
+- Playwright E2E coverage runs in Docker via `docker compose`
+- Jest tests live in `__tests__/` subdirectories alongside source files
+- Playwright tests live under `playwright/tests/` with shared setup in `playwright.config.ts` and `playwright/fixtures/`
+- `yarn test:e2e` covers smoke flows across desktop/mobile Chrome and Safari/WebKit
+- `yarn test:e2e:visual` covers desktop and mobile Chromium visual baselines
 - 70% coverage threshold enforced
 - Module alias `@/` maps to `src/`
 

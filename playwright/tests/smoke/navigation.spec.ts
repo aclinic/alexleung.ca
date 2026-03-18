@@ -1,9 +1,29 @@
+import type { Page } from "@playwright/test";
+
 import {
   expect,
   gotoAndStabilize,
   test,
   waitForStablePage,
 } from "../../fixtures/stableRendering";
+
+async function clickPrimaryNavLink(page: Page, label: string) {
+  const menuButton = page.getByRole("button", { name: /Open menu|Close menu/ });
+
+  if (await menuButton.isVisible().catch(() => false)) {
+    await menuButton.click();
+    await page
+      .locator("#mobile-nav-drawer")
+      .getByRole("link", { name: label })
+      .click();
+    return;
+  }
+
+  await page
+    .locator("header")
+    .getByRole("link", { name: label, exact: true })
+    .click();
+}
 
 test("home page renders the hero content", async ({ page }) => {
   await gotoAndStabilize(page, "/");
@@ -21,7 +41,6 @@ test("primary navigation routes render expected page headings", async ({
 }) => {
   await gotoAndStabilize(page, "/");
 
-  const header = page.locator("header");
   const routes = [
     { label: "About", heading: "About Me" },
     { label: "Blog", heading: "Blog" },
@@ -29,7 +48,7 @@ test("primary navigation routes render expected page headings", async ({
   ];
 
   for (const route of routes) {
-    await header.getByRole("link", { name: route.label }).click();
+    await clickPrimaryNavLink(page, route.label);
     await waitForStablePage(page);
 
     await expect(

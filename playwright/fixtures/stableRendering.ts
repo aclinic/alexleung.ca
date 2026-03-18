@@ -66,6 +66,7 @@ async function waitForFonts(page: Page) {
 
 async function waitForImages(page: Page) {
   await page.evaluate(async () => {
+    const imageLoadTimeoutMs = 5_000;
     const images = Array.from(document.images).filter((image) => {
       if (image.loading !== "lazy") {
         return true;
@@ -84,8 +85,15 @@ async function waitForImages(page: Page) {
               return;
             }
 
-            image.addEventListener("load", () => resolve(), { once: true });
-            image.addEventListener("error", () => resolve(), { once: true });
+            const finish = () => {
+              clearTimeout(timeoutId);
+              resolve();
+            };
+
+            const timeoutId = window.setTimeout(finish, imageLoadTimeoutMs);
+
+            image.addEventListener("load", finish, { once: true });
+            image.addEventListener("error", finish, { once: true });
           })
       )
     );

@@ -51,10 +51,38 @@ export default defineConfig({
       },
     },
     {
+      name: "webkit-smoke",
+      testMatch: /smoke\/.*\.spec\.ts/,
+      use: {
+        ...devices["Desktop Safari"],
+      },
+    },
+    {
+      name: "mobile-chromium-smoke",
+      testMatch: /smoke\/.*\.spec\.ts/,
+      use: {
+        ...devices["Pixel 7"],
+      },
+    },
+    {
+      name: "mobile-webkit-smoke",
+      testMatch: /smoke\/.*\.spec\.ts/,
+      use: {
+        ...devices["iPhone 13"],
+      },
+    },
+    {
       name: "chromium-visual",
       testMatch: /visual\/.*\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
+      },
+    },
+    {
+      name: "mobile-chromium-visual",
+      testMatch: /visual\/.*\.spec\.ts/,
+      use: {
+        ...devices["Pixel 7"],
       },
     },
   ],
