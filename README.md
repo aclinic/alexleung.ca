@@ -55,7 +55,7 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 
 > This project targets static export deployment, so there is no runtime Next.js production server command.
 
-Google Analytics is gated behind `NEXT_PUBLIC_ENABLE_ANALYTICS=true`. CI workflows set this to `false` for verification/perf runs so Lighthouse and other automated checks do not pollute production analytics, while the deploy workflow enables it for the published static export.
+Google Analytics is gated behind `NEXT_PUBLIC_ENABLE_ANALYTICS=true`. The verify and Lighthouse workflows build with it disabled so automated checks do not pollute production analytics, while the deploy workflow enables it for the published static export. Playwright does not rely on this flag because its shared fixture aborts requests to Google Tag Manager and Google Analytics even when tests target the live site.
 
 ## End-to-End Testing
 
