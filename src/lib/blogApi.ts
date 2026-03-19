@@ -48,60 +48,16 @@ export type Post = {
 
 const PostFrontMatterSchema = z
   .object({
-    title: z
-      .string()
-      .trim()
-      .min(1, "title must be a non-empty string")
-      .describe("Post title displayed in page heading and SEO metadata."),
-    date: z
-      .string()
-      .trim()
-      .min(1, "date must be a non-empty string")
-      .describe("Publish date string parsed and normalized to ISO format."),
-    updated: z
-      .string()
-      .trim()
-      .min(1)
-      .optional()
-      .describe("Optional last-updated date string for sitemap and metadata."),
-    excerpt: z
-      .string()
-      .trim()
-      .min(1)
-      .optional()
-      .describe("Optional short description shown in previews and metadata."),
-    coverImage: z
-      .string()
-      .trim()
-      .min(1)
-      .optional()
-      .describe("Optional public path for the post cover image asset."),
-    tags: z
-      .array(z.string().trim().min(1))
-      .default([])
-      .describe("Optional list of taxonomy tags for post grouping."),
-    series: z
-      .string()
-      .trim()
-      .min(1)
-      .optional()
-      .describe("Optional series name for grouping related posts."),
-    seriesOrder: z
-      .number()
-      .int()
-      .positive()
-      .optional()
-      .describe("Optional order index for posts within a series."),
-    readingTimeMinutes: z
-      .number()
-      .int()
-      .positive()
-      .optional()
-      .describe("Optional whole-minute estimate for article reading time."),
-    draft: z
-      .boolean()
-      .default(false)
-      .describe("Optional draft flag; defaults to published (`false`)."),
+    title: z.string().trim().min(1, "title must be a non-empty string"),
+    date: z.string().trim().min(1, "date must be a non-empty string"),
+    updated: z.string().trim().min(1).optional(),
+    excerpt: z.string().trim().min(1).optional(),
+    coverImage: z.string().trim().min(1).optional(),
+    tags: z.array(z.string().trim().min(1)).default([]),
+    series: z.string().trim().min(1).optional(),
+    seriesOrder: z.number().int().positive().optional(),
+    readingTimeMinutes: z.number().int().positive().optional(),
+    draft: z.boolean().default(false),
   })
   .strict();
 
