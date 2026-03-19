@@ -12,8 +12,10 @@ Load [references/review-dimensions.md](references/review-dimensions.md) before w
 ## Workflow
 
 1. Establish the review target.
-   - Default to comparing `HEAD` against `main`.
-   - If `main` is unavailable locally, use `origin/main`.
+   - If reviewing an open PR, detect the actual base branch from PR metadata first (for example `gh pr view --json baseRefName`).
+   - Otherwise default to comparing `HEAD` against `main`.
+   - If the chosen base branch is unavailable locally, use its remote-tracking equivalent (for example `origin/<base>`).
+   - If no PR base is available and `main` is unavailable locally, use `origin/main`.
    - State the exact base you used.
    - Collect shared context once before delegating:
      - current branch name
@@ -22,16 +24,18 @@ Load [references/review-dimensions.md](references/review-dimensions.md) before w
      - changed-file list
      - any obvious hotspots from the diff
 
-2. Spawn exactly one sub-agent per review dimension.
-   - Prefer `explorer` agents for read-only review.
-   - Give every agent the same base context and changed files.
+2. Choose the review execution mode.
+   - If sub-agent delegation is available, spawn exactly one sub-agent per review dimension.
+   - Prefer `explorer` agents for read-only review when that agent type exists; otherwise use the closest available read-only agent type.
+   - Give every delegated agent the same base context and changed files.
    - Change only the review dimension and checklist.
    - Keep the prompts concrete. Ask for evidence-backed findings only, not general advice.
    - Require explicit `no findings` when the agent does not find a real issue.
+   - If sub-agent delegation is unavailable, run the same six review dimensions sequentially in the main agent and state that the result is a non-parallel fallback.
 
-3. Wait for all agents together.
-   - Start all six agents first.
-   - Use a single wait over all agent ids instead of serial waits.
+3. Collect delegated results completely.
+   - Start all six delegated agents before waiting on results.
+   - Do not rely on a single `wait_agent` call over all ids; keep collecting results until every delegated agent reaches a terminal status or the run times out.
    - If an agent times out, note that explicitly in the summary instead of silently omitting it.
 
 4. Summarize by dimension.
@@ -51,6 +55,8 @@ Load [references/review-dimensions.md](references/review-dimensions.md) before w
 ## Output Contract
 
 Return findings first. Keep each section short and evidence-based.
+
+If you had to fall back to a non-parallel review because delegation was unavailable, say so before the six sections.
 
 - `Security issue`: confirmed or likely vulnerabilities in the diff
 - `Code quality`: harmful complexity, duplication, or poor abstractions

@@ -7,7 +7,7 @@ Use this file to build the six sub-agent prompts and to keep the review output c
 Use this when the user asks for a six-way PR review:
 
 ```text
-Review this branch against main. Spawn one agent per review dimension, wait for all of them, and summarize each result separately.
+Review this PR or branch against its true base branch. Use parallel sub-agents when the toolset supports them; otherwise run the same six review dimensions sequentially yourself and say that parallel mode was unavailable.
 
 Review dimensions:
 1. Security issue
@@ -18,8 +18,10 @@ Review dimensions:
 6. Maintainability of the code
 
 Requirements:
-- Compare the current branch against `main` or `origin/main`, and state which base was used.
-- Give each agent the same diff context and changed-file list, but a different review focus.
+- Detect the actual PR base branch when PR metadata is available; otherwise fall back to `main`, then `origin/main`, and state which base was used.
+- If sub-agents are available, give each agent the same diff context and changed-file list, but a different review focus.
+- If sub-agents are unavailable, keep the same six review dimensions and produce them sequentially in one response.
+- If delegated agents are used, keep collecting results until every agent reaches a terminal status or times out; do not assume one wait over multiple ids returns all results.
 - Ask each agent for evidence-backed findings only, with `No findings` if clean.
 - Summarize the result for each dimension with severity and file references where applicable.
 - Call out incomplete coverage if any agent times out or lacks enough evidence.
@@ -27,7 +29,7 @@ Requirements:
 
 ## Shared Agent Prompt Frame
 
-Every agent should receive:
+When sub-agents are used, every agent should receive:
 
 - the base branch used
 - the current branch name
