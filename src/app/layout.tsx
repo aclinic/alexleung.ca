@@ -103,10 +103,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <JsonLd item={buildPersonSchema({ description })} />
         <JsonLd item={buildWebsiteSchema({ description })} />
         <JsonLd item={buildProfessionalServiceSchema({ description })} />
-        {googleAnalyticsId ? (
-          <GoogleAnalytics gaId={googleAnalyticsId} />
-        ) : null}
       </body>
+      {googleAnalyticsId ? <GoogleAnalytics gaId={googleAnalyticsId} /> : null}
     </html>
   );
 }
