@@ -1,0 +1,4 @@
+interface:
+  display_name: "Parallel PR Review"
+  short_description: "Six-agent branch-vs-main review summary"
+  default_prompt: "Use $pr-parallel-review to review this branch against main by spawning one agent for security, code quality, bugs, race conditions, test flakiness, and maintainability, then summarize each result."
