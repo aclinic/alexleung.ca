@@ -15,8 +15,18 @@ jest.mock("@/lib/blogApi", () => ({
 }));
 
 describe("sitemap", () => {
-  it("emits canonical trailing-slash blog post URLs", () => {
+  it("emits canonical trailing-slash URLs", () => {
     const entries = sitemap();
+    expect(entries).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ url: "https://alexleung.ca/" }),
+        expect.objectContaining({ url: "https://alexleung.ca/about/" }),
+        expect.objectContaining({ url: "https://alexleung.ca/now/" }),
+        expect.objectContaining({ url: "https://alexleung.ca/blog/" }),
+        expect.objectContaining({ url: "https://alexleung.ca/contact/" }),
+      ])
+    );
+
     const blogPostEntry = entries.find(
       (entry) => entry.url === "https://alexleung.ca/blog/my-post/"
     );

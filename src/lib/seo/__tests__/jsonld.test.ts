@@ -65,7 +65,7 @@ describe("seo jsonld builders", () => {
     expect(itemListElement[0]).toMatchObject({
       name: "Post 1",
       position: 1,
-      url: "https://alexleung.ca/blog/post-1",
+      url: "https://alexleung.ca/blog/post-1/",
     });
   });
 
