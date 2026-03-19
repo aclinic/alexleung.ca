@@ -12,6 +12,16 @@ import {
   buildWebsiteSchema,
 } from "@/lib/seo";
 
+function expectSchemaArray<T>(value: unknown): readonly T[] {
+  expect(Array.isArray(value)).toBe(true);
+  return value as readonly T[];
+}
+
+function expectSchemaObject<T>(value: T): Exclude<T, string> {
+  expect(typeof value).toBe("object");
+  return value as Exclude<T, string>;
+}
+
 describe("seo jsonld builders", () => {
   it("builds profile/contact/web page schemas with canonical IDs", () => {
     const profile = buildProfilePageSchema({
@@ -54,13 +64,12 @@ describe("seo jsonld builders", () => {
 
     expect(collection.mainEntity).toBeDefined();
 
-    const itemListElement = itemList.itemListElement;
-    expect(Array.isArray(itemListElement)).toBe(true);
+    const itemListElement = expectSchemaArray<{
+      name?: string;
+      position?: number;
+      url?: string;
+    }>(itemList.itemListElement);
     expect(itemList.numberOfItems).toBe(2);
-
-    if (!Array.isArray(itemListElement)) {
-      throw new Error("Expected itemListElement to be an array");
-    }
 
     expect(itemListElement[0]).toMatchObject({
       name: "Post 1",
@@ -84,12 +93,10 @@ describe("seo jsonld builders", () => {
       url: "https://alexleung.ca/assets/alex_vibing.webp",
     });
 
-    const hasPart = website.hasPart;
-    expect(Array.isArray(hasPart)).toBe(true);
-
-    if (!Array.isArray(hasPart)) {
-      throw new Error("Expected hasPart to be an array");
-    }
+    const hasPart = expectSchemaArray<{
+      "@type"?: string;
+      "@id"?: string;
+    }>(website.hasPart);
 
     expect(hasPart).toHaveLength(4);
     expect(hasPart[0]).toEqual({
@@ -99,13 +106,11 @@ describe("seo jsonld builders", () => {
   });
 
   it("builds person schema with richer identity metadata", () => {
-    const person = buildPersonSchema({
-      description: "Person description",
-    });
-
-    if (typeof person === "string") {
-      throw new Error("Expected person schema object");
-    }
+    const person = expectSchemaObject(
+      buildPersonSchema({
+        description: "Person description",
+      })
+    );
 
     expect(person.givenName).toBe("Alex");
     expect(person.familyName).toBe("Leung");
@@ -133,13 +138,11 @@ describe("seo jsonld builders", () => {
   });
 
   it("builds professional service schema with service areas", () => {
-    const service = buildProfessionalServiceSchema({
-      description: "Personal website of Alex Leung",
-    });
-
-    if (typeof service === "string") {
-      throw new Error("Expected service schema to be an object");
-    }
+    const service = expectSchemaObject(
+      buildProfessionalServiceSchema({
+        description: "Personal website of Alex Leung",
+      })
+    );
 
     expect(service["@type"]).toBe("Service");
     expect(service.areaServed).toEqual(

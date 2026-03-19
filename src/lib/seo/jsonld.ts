@@ -18,6 +18,23 @@ import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 const PERSON_ID = "/#person";
 const WEBSITE_ID = "/#website";
 const ABOUT_PATH = "/about";
+const SITE_ROOT = toAbsoluteUrl("/").replace(/\/$/, "");
+const SOCIAL_PROFILES = [
+  "https://www.linkedin.com/in/aclyx",
+  "https://github.com/aclyx",
+  "https://www.x.com/aclyxpse",
+  "https://bsky.app/profile/alexleung.ca",
+  "https://www.instagram.com/rootpanda",
+  "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
+];
+const PERSON_REFERENCE = {
+  "@type": "Person" as const,
+  "@id": toAbsoluteUrl(PERSON_ID),
+  name: "Alex Leung",
+  url: toCanonical(ABOUT_PATH),
+  image: toAbsoluteUrl("/assets/about_portrait.webp"),
+  sameAs: SOCIAL_PROFILES,
+};
 
 const GEO_SERVICE_AREAS = [
   {
@@ -57,28 +74,6 @@ const GEO_SERVICE_AREAS = [
   },
 ];
 
-function getSiteRoot(): string {
-  return toAbsoluteUrl("/").replace(/\/$/, "");
-}
-
-function buildPersonReference() {
-  return {
-    "@type": "Person" as const,
-    "@id": toAbsoluteUrl(PERSON_ID),
-    name: "Alex Leung",
-    url: toCanonical(ABOUT_PATH),
-    image: toAbsoluteUrl("/assets/about_portrait.webp"),
-    sameAs: [
-      "https://www.linkedin.com/in/aclyx",
-      "https://github.com/aclyx",
-      "https://www.x.com/aclyxpse",
-      "https://bsky.app/profile/alexleung.ca",
-      "https://www.instagram.com/rootpanda",
-      "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
-    ],
-  };
-}
-
 type PostSchemaInput = {
   coverImage?: string;
   date: string;
@@ -117,7 +112,6 @@ function buildBasePageSchema<TPageType extends string>({
 
 function buildBasePostSchema(input: PostSchemaInput) {
   const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
-  const personReference = buildPersonReference();
 
   return {
     canonicalPostUrl,
@@ -129,8 +123,8 @@ function buildBasePostSchema(input: PostSchemaInput) {
       image: input.coverImage ? [toAbsoluteUrl(input.coverImage)] : undefined,
       datePublished: new Date(input.date).toISOString(),
       dateModified: new Date(input.updated ?? input.date).toISOString(),
-      author: personReference,
-      publisher: personReference,
+      author: PERSON_REFERENCE,
+      publisher: PERSON_REFERENCE,
       inLanguage: "en-CA",
       mainEntityOfPage: {
         "@type": "WebPage" as const,
@@ -148,7 +142,7 @@ export function buildProfilePageSchema(input: {
   return {
     ...buildBasePageSchema({ ...input, pageType: "ProfilePage" }),
     mainEntity: {
-      ...buildPersonReference(),
+      ...PERSON_REFERENCE,
       description: input.description,
     },
   };
@@ -303,10 +297,10 @@ export function buildPersonSchema(input: {
       "yattaro",
       "rootpanda",
     ],
-    url: getSiteRoot(),
+    url: SITE_ROOT,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": getSiteRoot(),
+      "@id": SITE_ROOT,
     },
     image: [
       {
@@ -324,14 +318,7 @@ export function buildPersonSchema(input: {
     hasOccupation: currentOccupation,
     description: input.description,
     knowsLanguage: ["en-CA"],
-    sameAs: [
-      "https://www.linkedin.com/in/aclyx",
-      "https://github.com/aclyx",
-      "https://www.x.com/aclyxpse",
-      "https://bsky.app/profile/alexleung.ca",
-      "https://www.instagram.com/rootpanda",
-      "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
-    ],
+    sameAs: SOCIAL_PROFILES,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Waterloo",
@@ -434,7 +421,7 @@ export function buildWebsiteSchema(input: {
     "@context": "https://schema.org" as const,
     "@type": "WebSite",
     "@id": toAbsoluteUrl(WEBSITE_ID),
-    url: getSiteRoot(),
+    url: SITE_ROOT,
     name: "Alex Leung",
     description: input.description,
     about: {
