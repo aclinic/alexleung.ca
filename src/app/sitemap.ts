@@ -38,31 +38,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: "https://alexleung.ca",
+      url: toCanonical("/"),
       lastModified: new Date(PAGE_LAST_MODIFIED.home),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: "https://alexleung.ca/about/",
+      url: toCanonical("/about"),
       lastModified: new Date(PAGE_LAST_MODIFIED.about),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: "https://alexleung.ca/now/",
+      url: toCanonical("/now"),
       lastModified: new Date(PAGE_LAST_MODIFIED.now),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: "https://alexleung.ca/blog/",
+      url: toCanonical("/blog"),
       lastModified: latestPostUpdate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://alexleung.ca/contact/",
+      url: toCanonical("/contact"),
       lastModified: new Date(PAGE_LAST_MODIFIED.contact),
       changeFrequency: "yearly",
       priority: 0.5,

@@ -233,7 +233,7 @@ export function buildBlogItemListSchema(
     itemListElement: posts.map((post, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: toAbsoluteUrl(`/blog/${post.slug}`),
+      url: toCanonical(`/blog/${post.slug}`),
       name: post.title,
     })),
     numberOfItems: posts.length,
