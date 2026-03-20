@@ -31,7 +31,7 @@ PLAYWRIGHT_BASE_URL=https://alexleung.ca yarn test:e2e
 ## Container Runtime
 
 - Compose file: `docker-compose.yml`
-- Base image: `mcr.microsoft.com/playwright:v1.57.0-noble`
+- Base image: `mcr.microsoft.com/playwright:v1.58.2-noble`
 - Fixed environment:
   - `TZ=UTC`
   - `LANG=C.UTF-8`

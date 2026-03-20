@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS=\"${NODE_OPTIONS:+$NODE_OPTIONS }--use-system-ca\" next dev",
     "prepare": "git config core.hooksPath .githooks || true",
     "image:variants": "node scripts/generate-image-variants.mjs",
     "image:variants:stage": "node scripts/generate-image-variants.mjs --staged --stage-generated",
