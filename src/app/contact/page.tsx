@@ -16,7 +16,7 @@ import { SocialMediaList } from "./_components/SocialMediaList";
 
 const title = "Contact | Alex Leung";
 const description =
-  "Get in touch with Alex Leung - Syntropy Engineer and Programmer. Available for collaboration, consulting, and professional inquiries.";
+  "Get in touch with Alex Leung about software engineering, AI systems, writing, and collaboration.";
 const path = "/contact";
 
 export const metadata: Metadata = buildPageMetadata({

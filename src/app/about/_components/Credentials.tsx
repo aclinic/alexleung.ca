@@ -7,11 +7,6 @@ export function Credentials() {
   return (
     <ResponsiveContainer element="section">
       <SectionBlock title="Credentials" titleId="credentials">
-        <p className="mb-6 leading-relaxed text-gray-300">
-          My approach to technology work is grounded in rigor, accountability,
-          and pragmatism.
-        </p>
-
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <Card>
             <div className="mb-4">
@@ -27,8 +22,8 @@ export function Credentials() {
             </div>
             <div>
               <p className="text-sm text-gray-300">
-                I apply engineering discipline and ethics to software and AI
-                systems.
+                Grounds my software work in disciplined decision-making,
+                professional accountability, and systems thinking.
               </p>
             </div>
           </Card>
@@ -41,14 +36,14 @@ export function Credentials() {
                 </ExternalLink>
               </h3>
               <p className="text-lg font-medium text-white">
-                MSECE, Electrical & Computer Engineering
+                MSECE, Electrical &amp; Computer Engineering
               </p>
               <p className="text-gray-300">2013 - 2016</p>
             </div>
             <div>
               <p className="text-sm text-gray-300">
-                <strong>Concentrations:</strong> Computer Engineering,
-                Telecommunications
+                Graduate work in computer engineering and telecommunications
+                deepened my systems background.
               </p>
             </div>
           </Card>
@@ -61,13 +56,14 @@ export function Credentials() {
                 </ExternalLink>
               </h3>
               <p className="text-lg font-medium text-white">
-                BASc, Electrical Engineering & Pure Mathematics
+                BASc, Electrical Engineering &amp; Pure Mathematics
               </p>
               <p className="text-gray-300">2008 - 2013</p>
             </div>
             <div>
               <p className="text-sm text-gray-300">
-                <strong>Concentrations:</strong> Control, Power, Mathematics
+                Built the mathematical and engineering foundation behind how I
+                reason about complex technical systems.
               </p>
             </div>
           </Card>

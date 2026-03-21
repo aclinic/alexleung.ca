@@ -39,4 +39,23 @@ describe("LatestWritingSection", () => {
       screen.getByRole("link", { name: /see all posts/i })
     ).toHaveAttribute("href", "/blog/");
   });
+
+  it("renders custom CTA copy", () => {
+    render(
+      <LatestWritingSection
+        posts={[
+          {
+            slug: "test-post",
+            title: "Test Post",
+            date: "2026-01-01T00:00:00.000Z",
+          },
+        ]}
+        ctaLabel="Browse all writing"
+      />
+    );
+
+    expect(
+      screen.getByRole("link", { name: /browse all writing/i })
+    ).toHaveAttribute("href", "/blog/");
+  });
 });

@@ -1,4 +1,3 @@
-import { FcEngineering } from "react-icons/fc";
 import { HiOutlineArrowRight, HiOutlineUser } from "react-icons/hi";
 
 import { CTAButton } from "./CTAButton";
@@ -19,16 +18,16 @@ export function Hero() {
           </h1>
 
           <h2 className="text-hero-description">
-            Syntropy Engineer | Programmer | P.Eng.{" "}
-            <FcEngineering className="mb-1 ml-1 inline-block align-middle" />
+            Software engineer and writer.
           </h2>
           <p className="mt-3 text-sm italic text-gray-200 md:text-gray-300">
-            Engineer writing about software, systems, and learning in public.
+            I build software and write about systems, AI, and learning in
+            public.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
             <CTAButton href="/blog/">
-              Read My Blog <HiOutlineArrowRight className="text-lg" />
+              Read My Writing <HiOutlineArrowRight className="text-lg" />
             </CTAButton>
             <CTAButton href="/about/" variant="secondary">
               <HiOutlineUser className="text-lg" /> About Me
@@ -47,12 +46,14 @@ export function Hero() {
                 What you&apos;ll find here
               </h2>
               <p className="text-body mt-4 text-gray-200">
-                I build thoughtful software systems and share ideas that help
-                teams move with clarity.
+                You&apos;ll find essays, notes, and personal reflections on
+                software engineering, system design, AI, product work, and
+                learning.
               </p>
               <p className="text-body mt-3 text-gray-200">
-                I write mostly about software architecture, product engineering,
-                and lessons from learning in public.
+                I care about the practical edge of those topics: how products
+                get built, how systems hold up, and how new AI capabilities fit
+                into real software.
               </p>
             </section>
           </div>

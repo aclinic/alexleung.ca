@@ -26,7 +26,7 @@ describe("seo jsonld builders", () => {
   it("builds profile/contact/web page schemas with canonical IDs", () => {
     const profile = buildProfilePageSchema({
       path: "/about",
-      title: "About Me | Alex Leung",
+      title: "About Alex Leung | Software Engineer",
       description: "About page description",
     });
     const contact = buildContactPageSchema({
@@ -81,7 +81,7 @@ describe("seo jsonld builders", () => {
   it("builds enhanced home and website schemas", () => {
     const home = buildHomePageSchema({
       path: "/",
-      title: "Alex Leung | Syntropy Engineer and Programmer, P.Eng.",
+      title: "Alex Leung | Software Engineer and Writer",
       description: "Homepage description",
     });
     const website = buildWebsiteSchema({
@@ -124,7 +124,20 @@ describe("seo jsonld builders", () => {
     expect(person.hasOccupation).toMatchObject({
       "@type": "Occupation",
       name: "Software Engineer",
+      skills: expect.stringContaining("AI systems"),
     });
+    expect(person.disambiguatingDescription).toBe(
+      "Software engineer and writer."
+    );
+    expect(person.knowsAbout).toEqual(
+      expect.arrayContaining([
+        "Applied AI",
+        "Agentic Systems",
+        "Machine Learning Systems",
+        "Full-Stack Product Engineering",
+        "Technical Leadership",
+      ])
+    );
     expect(person.alternateName).toEqual(
       expect.arrayContaining([
         "aclinic",
@@ -145,6 +158,9 @@ describe("seo jsonld builders", () => {
     );
 
     expect(service["@type"]).toBe("Service");
+    expect(service.name).toBe(
+      "Software Engineering, AI Systems, and Technical Leadership"
+    );
     expect(service.areaServed).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ name: "Ontario" }),

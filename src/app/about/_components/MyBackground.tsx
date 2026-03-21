@@ -41,17 +41,12 @@ export function Journey() {
             </IconTextRow>
 
             <IconTextRow icon="🚀" title="How I Work">
-              <p>I build products from 0→1 and help scale them from 1→100.</p>
               <p>
-                My background spans distributed systems, embedded systems, and
-                AI. My approach is simple:{" "}
-                <strong>prioritize momentum, then optimize for scale.</strong>
+                I enjoy 0→1 work and helping products grow once the fundamentals
+                are in place. I care about product taste, strong engineering
+                fundamentals, and tight feedback loops, especially when the path
+                forward is still ambiguous.
               </p>
-              <ul className="list-inside list-disc space-y-1">
-                <li>Lean into ambiguity</li>
-                <li>Break large problems into clear roadmaps</li>
-                <li>Keep teams aligned and shipping</li>
-              </ul>
             </IconTextRow>
 
             <IconTextRow icon="❤️" title="Outside Work">

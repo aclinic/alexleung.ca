@@ -18,11 +18,13 @@ type LatestWritingPost = {
 type LatestWritingSectionProps = {
   posts: LatestWritingPost[];
   title?: string;
+  ctaLabel?: string;
 };
 
 export function LatestWritingSection({
   posts,
   title = "Latest Writing",
+  ctaLabel = "See all posts",
 }: LatestWritingSectionProps) {
   if (posts.length === 0) {
     return null;
@@ -62,7 +64,7 @@ export function LatestWritingSection({
             href="/blog/"
             className="text-body inline-flex items-center gap-2 font-semibold text-accent-link transition-colors hover:text-accent-link-hover"
           >
-            See All Posts
+            {ctaLabel}
             <HiOutlineArrowRight aria-hidden="true" className="text-lg" />
           </Link>
         </div>
