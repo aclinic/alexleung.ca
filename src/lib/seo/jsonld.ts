@@ -318,8 +318,7 @@ export function buildPersonSchema(input: {
     jobTitle: "Software Engineer",
     hasOccupation: currentOccupation,
     description: input.description,
-    disambiguatingDescription:
-      "Software engineer focused on AI systems, machine learning systems, distributed systems, and product engineering.",
+    disambiguatingDescription: "Software engineer and writer.",
     knowsLanguage: ["en-CA"],
     sameAs: SOCIAL_PROFILES,
     address: {

@@ -81,8 +81,7 @@ describe("seo jsonld builders", () => {
   it("builds enhanced home and website schemas", () => {
     const home = buildHomePageSchema({
       path: "/",
-      title:
-        "Alex Leung | Software Engineer for AI Systems, Product Engineering, and Distributed Systems",
+      title: "Alex Leung | Software Engineer and Writer",
       description: "Homepage description",
     });
     const website = buildWebsiteSchema({
@@ -127,7 +126,9 @@ describe("seo jsonld builders", () => {
       name: "Software Engineer",
       skills: expect.stringContaining("AI systems"),
     });
-    expect(person.disambiguatingDescription).toMatch(/AI systems/i);
+    expect(person.disambiguatingDescription).toBe(
+      "Software engineer and writer."
+    );
     expect(person.knowsAbout).toEqual(
       expect.arrayContaining([
         "Applied AI",

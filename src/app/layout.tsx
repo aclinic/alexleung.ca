@@ -19,10 +19,8 @@ import {
 
 import "./globals.css";
 
-const title =
-  "Alex Leung | Software Engineer for AI Systems, Product Engineering, and Distributed Systems";
-const description =
-  "Alex Leung is a software engineer writing about AI systems, machine learning systems, distributed systems, and thoughtful product engineering.";
+const title = "Alex Leung | Software Engineer and Writer";
+const description = "Alex Leung is a software engineer and writer.";
 
 const lato = Lato({
   subsets: ["latin"],

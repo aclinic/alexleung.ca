@@ -12,7 +12,7 @@ describe("Hero", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Software engineer focused on AI systems, distributed systems, and product engineering\./i,
+        name: /Software engineer and writer\./i,
       })
     ).toBeInTheDocument();
   });
@@ -22,7 +22,7 @@ describe("Hero", () => {
 
     expect(
       screen.getByText(
-        /I build software, work across early-stage and scaling problems/i
+        /I build software and write about systems, AI, and learning in public\./i
       )
     ).toBeInTheDocument();
     expect(

@@ -18,12 +18,11 @@ export function Hero() {
           </h1>
 
           <h2 className="text-hero-description">
-            Software engineer focused on AI systems, distributed systems, and
-            product engineering.
+            Software engineer and writer.
           </h2>
           <p className="mt-3 text-sm italic text-gray-200 md:text-gray-300">
-            I build software, work across early-stage and scaling problems, and
-            write about systems, AI, and learning in public.
+            I build software and write about systems, AI, and learning in
+            public.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
