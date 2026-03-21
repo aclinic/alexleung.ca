@@ -31,7 +31,7 @@ export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
 
 const title = "Now | Alex Leung";
 const description =
-  "A living snapshot of Alex Leung's current priorities, projects, reading, and experiments.";
+  "A living snapshot of Alex Leung's current focus across AI systems, software engineering, reading, and experiments.";
 const path = "/now";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -102,15 +102,15 @@ export default function NowPage() {
                   by Goodfellow, Bengio, and Courville.
                 </p>
                 <p>
-                  I also started reading <em>Children of Time</em> on a
-                  colleague&apos;s recommendation. The hook in Chapter 1.1
+                  I also started reading <em>Children of Time</em>{" "}
+                  {"on a colleague's recommendation."} The hook in Chapter 1.1
                   pulled me in right away.
                 </p>
                 <p>
                   <ExternalLink href="https://www.domainlanguage.com/ddd/">
                     <em>Domain Driven Design</em>
                   </ExternalLink>{" "}
-                  is on hold for now while I go deeper on AI.
+                  is on hold for a while I tackle Deep Learning.
                 </p>
               </IconTextRow>
 

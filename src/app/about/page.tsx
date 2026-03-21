@@ -12,11 +12,12 @@ import { PageShell } from "@/components/PageShell";
 import { getAllPosts } from "@/lib/blogApi";
 import { buildPageMetadata, buildProfilePageSchema } from "@/lib/seo";
 
-import { Skills } from "./_components/TechnicalInterests";
+import { Interests } from "./_components/Interests";
 
-const title = "About | Alex Leung";
+const title =
+  "About Alex Leung | Software Engineer for AI Systems, Product Engineering, and Distributed Systems";
 const description =
-  "Learn about Alex Leung's background, credentials, and approach to building software products end to end.";
+  "Learn about Alex Leung's background across AI-adjacent products, distributed systems, embedded systems, and full-stack product engineering.";
 const path = "/about";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -44,7 +45,7 @@ export default function AboutPage() {
       <JsonLdBreadcrumbs
         items={[
           { name: "Home", item: "/" },
-          { name: "About Me", item: "/about" },
+          { name: "About", item: "/about" },
         ]}
       />
       <JsonLd<schemadts.ProfilePage>
@@ -55,10 +56,10 @@ export default function AboutPage() {
         })}
       />
 
-      <PageShell title="About Me" titleId="about">
+      <PageShell title="About" titleId="about">
         <div className="space-y-12 md:space-y-14">
           <Journey />
-          <Skills />
+          <Interests />
           <Credentials />
         </div>
       </PageShell>

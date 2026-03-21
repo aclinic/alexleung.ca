@@ -7,9 +7,10 @@ import { LatestWritingSection } from "@/components/LatestWritingSection";
 import { getAllPosts } from "@/lib/blogApi";
 import { buildHomePageSchema } from "@/lib/seo";
 
-const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
+const title =
+  "Alex Leung | Software Engineer for AI Systems, Product Engineering, and Distributed Systems";
 const description =
-  "Alex Leung is a Syntropy Engineer and Programmer writing about software systems, AI engineering, and learning in public.";
+  "Alex Leung is a software engineer writing about AI systems, machine learning systems, distributed systems, and thoughtful product engineering.";
 const path = "/";
 
 export default function Page() {

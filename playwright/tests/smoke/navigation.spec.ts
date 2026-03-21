@@ -42,7 +42,7 @@ test("primary navigation routes render expected page headings", async ({
   await gotoAndStabilize(page, "/");
 
   const routes = [
-    { label: "About", heading: "About Me" },
+    { label: "About", heading: "About" },
     { label: "Now", heading: "What I'm Doing Now" },
     { label: "Blog", heading: "Blog" },
     { label: "Contact", heading: "Contact" },

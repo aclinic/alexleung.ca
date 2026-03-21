@@ -12,28 +12,33 @@ describe("Hero", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Syntropy Engineer \| Programmer \| P\.Eng\./i,
+        name: /Software engineer focused on AI systems, distributed systems, and product engineering\./i,
       })
     ).toBeInTheDocument();
   });
 
-  it("should render blog-first supporting copy", () => {
+  it("should render friendly supporting copy", () => {
     render(<Hero />);
 
     expect(
       screen.getByText(
-        "Engineer writing about software, systems, and learning in public."
+        /I build software, work across early-stage and scaling problems/i
       )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: /What you'll find here/i,
+      })
     ).toBeInTheDocument();
   });
 
   it("should render blog and about CTA links", () => {
     render(<Hero />);
 
-    expect(screen.getByRole("link", { name: /read my blog/i })).toHaveAttribute(
-      "href",
-      "/blog"
-    );
+    expect(
+      screen.getByRole("link", { name: /read my writing/i })
+    ).toHaveAttribute("href", "/blog");
     expect(screen.getByRole("link", { name: /about me/i })).toHaveAttribute(
       "href",
       "/about"

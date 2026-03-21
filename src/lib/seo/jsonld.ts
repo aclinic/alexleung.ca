@@ -275,7 +275,8 @@ export function buildPersonSchema(input: {
       "@type": "City",
       name: "Waterloo, Ontario, Canada",
     },
-    skills: "Product development, software architecture, and AI engineering",
+    skills:
+      "AI systems, machine learning systems, distributed systems, full-stack product engineering, technical leadership, and software architecture",
   };
 
   return {
@@ -317,6 +318,8 @@ export function buildPersonSchema(input: {
     jobTitle: "Software Engineer",
     hasOccupation: currentOccupation,
     description: input.description,
+    disambiguatingDescription:
+      "Software engineer focused on AI systems, machine learning systems, distributed systems, and product engineering.",
     knowsLanguage: ["en-CA"],
     sameAs: SOCIAL_PROFILES,
     address: {
@@ -338,14 +341,19 @@ export function buildPersonSchema(input: {
       },
     ],
     knowsAbout: [
-      "Product Development",
-      "Technical Leadership",
       "Software Engineering",
       "AI Engineering",
+      "Applied AI",
+      "AI Products",
+      "Machine Learning Systems",
+      "Agentic Systems",
+      "Evaluation Loops",
       "Distributed Systems",
-      "Embedded Systems",
-      "Web Development",
+      "Backend Architecture",
+      "Full-Stack Product Engineering",
+      "Technical Leadership",
       "Systems Design",
+      "Embedded Systems",
       "Electrical Engineering",
     ],
     worksFor: {
@@ -405,7 +413,7 @@ export function buildProfessionalServiceSchema(input: {
     "@context": "https://schema.org" as const,
     "@type": "Service",
     "@id": toAbsoluteUrl("/#service"),
-    name: "Software Engineering and Technical Leadership Services",
+    name: "Software Engineering, AI Systems, and Technical Leadership",
     description: input.description,
     provider: {
       "@id": toAbsoluteUrl(PERSON_ID),

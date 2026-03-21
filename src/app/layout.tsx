@@ -19,9 +19,10 @@ import {
 
 import "./globals.css";
 
-const title = "Alex Leung | Syntropy Engineer and Programmer, P.Eng.";
+const title =
+  "Alex Leung | Software Engineer for AI Systems, Product Engineering, and Distributed Systems";
 const description =
-  "Alex Leung is a Syntropy Engineer and Programmer writing about software systems, AI engineering, and learning in public.";
+  "Alex Leung is a software engineer writing about AI systems, machine learning systems, distributed systems, and thoughtful product engineering.";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
         url: "/assets/alex_vibing.webp",
         width: 1536,
         height: 1024,
-        alt: title,
+        alt: "Portrait of Alex Leung",
       },
     ],
   },
@@ -76,7 +77,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/assets/alex_vibing.webp",
-        alt: title,
+        alt: "Portrait of Alex Leung",
       },
     ],
   },
