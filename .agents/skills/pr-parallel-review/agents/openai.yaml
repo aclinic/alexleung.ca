@@ -1,0 +1,4 @@
+interface:
+  display_name: "Parallel PR Review"
+  short_description: "Review a PR or branch across six dimensions"
+  default_prompt: "Use $pr-parallel-review to review this PR or branch against its actual base branch, running one reviewer per dimension when delegation is available and otherwise falling back to a sequential six-section summary."
