@@ -5,7 +5,7 @@ import { interests } from "@/constants/interests";
 export function Interests() {
   return (
     <ResponsiveContainer element="section">
-      <SectionBlock title="Interests" titleId="interests">
+      <SectionBlock title="Technical Focus" titleId="technical-focus">
         <ul className="text-body grid grid-cols-1 gap-x-4 lg:grid-cols-4">
           {interests.map((interest) => (
             <li

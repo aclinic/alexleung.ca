@@ -19,8 +19,9 @@ import {
 
 import "./globals.css";
 
-const title = "Alex Leung | Software Engineer and Writer";
-const description = "Alex Leung is a software engineer and writer.";
+const title = "Alex Leung | Software engineer and writer";
+const description =
+  "Software engineer and writer sharing notes on systems, AI, and learning in public.";
 
 const lato = Lato({
   subsets: ["latin"],

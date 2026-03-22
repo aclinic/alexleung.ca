@@ -5,6 +5,7 @@ describe("buildPageMetadata", () => {
     const metadata = buildPageMetadata({
       title: "About Me | Alex Leung",
       description: "Learn more about Alex Leung.",
+      keywords: ["software engineer", "AI systems"],
       path: "/about",
     });
 
@@ -20,6 +21,7 @@ describe("buildPageMetadata", () => {
         },
       ],
     });
+    expect(metadata.keywords).toEqual(["software engineer", "AI systems"]);
     expect(openGraph?.url).toBe("https://alexleung.ca/about/");
 
     expect(openGraph).toMatchObject({ type: "website" });

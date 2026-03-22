@@ -276,7 +276,7 @@ export function buildPersonSchema(input: {
       name: "Waterloo, Ontario, Canada",
     },
     skills:
-      "AI systems, machine learning systems, distributed systems, full-stack product engineering, technical leadership, and software architecture",
+      "Software engineering, systems design, AI systems, distributed systems, product engineering, and writing in public",
   };
 
   return {
@@ -318,7 +318,8 @@ export function buildPersonSchema(input: {
     jobTitle: "Software Engineer",
     hasOccupation: currentOccupation,
     description: input.description,
-    disambiguatingDescription: "Software engineer and writer.",
+    disambiguatingDescription:
+      "Software engineer and writer sharing notes on systems, AI, and learning in public.",
     knowsLanguage: ["en-CA"],
     sameAs: SOCIAL_PROFILES,
     address: {
@@ -341,12 +342,12 @@ export function buildPersonSchema(input: {
     ],
     knowsAbout: [
       "Software Engineering",
-      "AI Engineering",
+      "AI Systems",
       "Applied AI",
       "AI Products",
       "Machine Learning Systems",
       "Agentic Systems",
-      "Evaluation Loops",
+      "Evaluation",
       "Distributed Systems",
       "Backend Architecture",
       "Full-Stack Product Engineering",
@@ -355,11 +356,6 @@ export function buildPersonSchema(input: {
       "Embedded Systems",
       "Electrical Engineering",
     ],
-    worksFor: {
-      "@type": "Organization",
-      name: "Jetson",
-      url: "https://jetsonhome.com",
-    },
     hasCredential: [
       {
         "@type": "EducationalOccupationalCredential",
@@ -412,7 +408,7 @@ export function buildProfessionalServiceSchema(input: {
     "@context": "https://schema.org" as const,
     "@type": "Service",
     "@id": toAbsoluteUrl("/#service"),
-    name: "Software Engineering, AI Systems, and Technical Leadership",
+    name: "Software Engineering, AI Systems, and Product Engineering",
     description: input.description,
     provider: {
       "@id": toAbsoluteUrl(PERSON_ID),

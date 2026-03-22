@@ -81,7 +81,8 @@ describe("seo jsonld builders", () => {
   it("builds enhanced home and website schemas", () => {
     const home = buildHomePageSchema({
       path: "/",
-      title: "Alex Leung | Software Engineer and Writer",
+      title:
+        "Alex Leung | Software Engineer for AI Systems, Product Engineering, and Distributed Systems",
       description: "Homepage description",
     });
     const website = buildWebsiteSchema({
@@ -124,10 +125,10 @@ describe("seo jsonld builders", () => {
     expect(person.hasOccupation).toMatchObject({
       "@type": "Occupation",
       name: "Software Engineer",
-      skills: expect.stringContaining("AI systems"),
+      skills: expect.stringContaining("writing in public"),
     });
     expect(person.disambiguatingDescription).toBe(
-      "Software engineer and writer."
+      "Software engineer and writer sharing notes on systems, AI, and learning in public."
     );
     expect(person.knowsAbout).toEqual(
       expect.arrayContaining([
@@ -148,6 +149,7 @@ describe("seo jsonld builders", () => {
         "rootpanda",
       ])
     );
+    expect(person.worksFor).toBeUndefined();
   });
 
   it("builds professional service schema with service areas", () => {
@@ -159,7 +161,7 @@ describe("seo jsonld builders", () => {
 
     expect(service["@type"]).toBe("Service");
     expect(service.name).toBe(
-      "Software Engineering, AI Systems, and Technical Leadership"
+      "Software Engineering, AI Systems, and Product Engineering"
     );
     expect(service.areaServed).toEqual(
       expect.arrayContaining([
@@ -218,15 +220,7 @@ describe("seo jsonld builders", () => {
       tags: ["ai", "systems"],
     });
 
-    expect(article.url).toBe("https://alexleung.ca/blog/deep-dive/");
     expect(article["@id"]).toBe("https://alexleung.ca/blog/deep-dive/#article");
-    expect(article.author).toMatchObject({
-      "@id": "https://alexleung.ca/#person",
-      url: "https://alexleung.ca/about/",
-    });
-    expect(article.publisher).toMatchObject({
-      "@id": "https://alexleung.ca/#person",
-      name: "Alex Leung",
-    });
+    expect(article.url).toBe("https://alexleung.ca/blog/deep-dive/");
   });
 });

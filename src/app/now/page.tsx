@@ -31,7 +31,7 @@ export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
 
 const title = "Now | Alex Leung";
 const description =
-  "A living snapshot of Alex Leung's current focus across AI systems, software engineering, reading, and experiments.";
+  "A living snapshot of Alex Leung's current focus across systems, AI, reading, and experiments.";
 const path = "/now";
 
 export const metadata: Metadata = buildPageMetadata({

@@ -84,7 +84,7 @@ describe("RootLayout", () => {
       );
     });
 
-    it("should include education and work information", () => {
+    it("should include education and expertise information", () => {
       const { container } = render(
         <RootLayout>
           <div>Content</div>
@@ -98,8 +98,10 @@ describe("RootLayout", () => {
 
       expect(schema.alumniOf).toBeDefined();
       expect(schema.alumniOf.length).toBe(2);
-      expect(schema.worksFor).toBeDefined();
-      expect(schema.worksFor.name).toBe("Jetson");
+      expect(schema.worksFor).toBeUndefined();
+      expect(schema.knowsAbout).toEqual(
+        expect.arrayContaining(["AI Systems", "Distributed Systems"])
+      );
     });
 
     it("should include social profile links", () => {
