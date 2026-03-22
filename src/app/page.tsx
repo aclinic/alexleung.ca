@@ -44,11 +44,7 @@ export default function Page() {
         })}
       />
       <Hero />
-      <LatestWritingSection
-        posts={latestPosts}
-        title="Writing on systems, AI, and learning in public"
-        ctaLabel="Browse all writing"
-      />
+      <LatestWritingSection posts={latestPosts} />
     </>
   );
 }

@@ -62,11 +62,7 @@ export default function AboutPage() {
           <Credentials />
         </div>
       </PageShell>
-      <LatestWritingSection
-        posts={latestPosts}
-        title="Recent writing on systems, AI, and learning in public"
-        ctaLabel="See all essays and notes"
-      />
+      <LatestWritingSection posts={latestPosts} />
     </>
   );
 }
