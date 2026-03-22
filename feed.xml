@@ -4,7 +4,7 @@
     <channel>
         <title>Alex Leung's Blog</title>
         <link>https://alexleung.ca/blog/</link>
-        <description>Notes on software engineering, distributed systems, AI engineering, and practical product development.</description>
+        <description>Notes on systems, AI, software engineering, and learning in public.</description>
         <lastBuildDate>Sat, 07 Mar 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
