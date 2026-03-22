@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import ExternalLink from "@/components/ExternalLink";
 import { IconTextRow } from "@/components/IconTextRow";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
@@ -17,46 +19,76 @@ export function Journey() {
       <SectionBlock title="My Background" titleId="background" spacing="lg">
         <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
           <div className="text-body mb-8 space-y-6 text-left">
-            <IconTextRow icon="👋" title="Hello" contentClassName="space-y-0">
-              <p>Hi! I&apos;m Alex, and I&apos;m glad you&apos;re here.</p>
-            </IconTextRow>
-
-            <IconTextRow icon="💼" title="What I Do">
+            <IconTextRow icon="👋" title="Overview">
+              <p>Hi, I&apos;m Alex, a software engineer based in Waterloo.</p>
               <p>
-                I&apos;m currently at{" "}
+                My background spans embedded systems, distributed systems, and
+                full-stack product engineering, with work across home
+                electrification at{" "}
                 <ExternalLink href="https://jetsonhome.com">
                   Jetson
                 </ExternalLink>
-                , helping electrify North American homes with vertically
-                integrated energy solutions.
-              </p>
-              <p>
-                Before that, I worked on AR/AI glasses at{" "}
+                , AR/AI glasses at{" "}
                 <ExternalLink href="https://arvr.google.com/">
                   Google
-                </ExternalLink>{" "}
-                and product engineering at{" "}
+                </ExternalLink>
+                , and product engineering at{" "}
                 <ExternalLink href="https://cash.app/">Cash App</ExternalLink>.
               </p>
             </IconTextRow>
 
-            <IconTextRow icon="🚀" title="How I Work">
+            <IconTextRow icon="🛠️" title="What I build">
               <p>
-                I enjoy 0→1 work and helping products grow once the fundamentals
-                are in place. I care about product taste, strong engineering
-                fundamentals, and tight feedback loops, especially when the path
-                forward is still ambiguous.
+                I like building software products and systems that feel simple
+                to use.
+              </p>
+              <p>
+                That often means working across boundaries: product definition,
+                backend systems, data flows, infrastructure, frontend surfaces,
+                and the engineering details that make new capabilities
+                dependable.
               </p>
             </IconTextRow>
 
-            <IconTextRow icon="❤️" title="Outside Work">
+            <IconTextRow icon="🧭" title="Problems I like">
               <p>
-                I&apos;m motivated by building useful things, getting meaningful
-                work done, and learning continuously.
+                I&apos;m most energized by ambiguous, high-leverage problems:
+                early ideas, product inflection points, and systems that need to
+                grow without becoming harder to reason about.
               </p>
               <p>
-                Outside of work, I spend time playing tennis 🎾, reading 📚,
-                hiking 🏔️, rock climbing 🧗, and hanging out with my furmily 🐱.
+                Lately, I&apos;ve been especially interested in AI systems and
+                agentic workflows, especially the work of turning new
+                capabilities into something dependable and useful.
+              </p>
+              <p>
+                I tend to like work where there are many possible paths forward,
+                and progress depends on taste, iteration, and good feedback.
+              </p>
+            </IconTextRow>
+
+            <IconTextRow icon="✍️" title="Writing and outside work">
+              <p>
+                I write about systems, AI, and learning in public. If you want a
+                better sense of how I think, start with my{" "}
+                <Link
+                  href="/blog/"
+                  className="text-accent-link transition-colors hover:text-accent-link-hover"
+                >
+                  writing on systems, AI, and learning in public
+                </Link>{" "}
+                or{" "}
+                <Link
+                  href="/contact/"
+                  className="text-accent-link transition-colors hover:text-accent-link-hover"
+                >
+                  get in touch here
+                </Link>
+                .
+              </p>
+              <p>
+                Outside of work, I spend time playing tennis, reading, hiking,
+                rock climbing, and hanging out with my furmily 🐱.
               </p>
             </IconTextRow>
           </div>

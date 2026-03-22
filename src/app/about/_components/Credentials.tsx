@@ -22,8 +22,7 @@ export function Credentials() {
             </div>
             <div>
               <p className="text-sm text-gray-300">
-                Grounds my software work in disciplined decision-making,
-                professional accountability, and systems thinking.
+                Professional licensure in Ontario since 2017.
               </p>
             </div>
           </Card>
@@ -42,8 +41,7 @@ export function Credentials() {
             </div>
             <div>
               <p className="text-sm text-gray-300">
-                Graduate work in computer engineering and telecommunications
-                deepened my systems background.
+                Graduate studies in computer engineering and telecommunications.
               </p>
             </div>
           </Card>
@@ -62,8 +60,8 @@ export function Credentials() {
             </div>
             <div>
               <p className="text-sm text-gray-300">
-                Built the mathematical and engineering foundation behind how I
-                reason about complex technical systems.
+                Undergraduate training in electrical engineering and pure
+                mathematics.
               </p>
             </div>
           </Card>

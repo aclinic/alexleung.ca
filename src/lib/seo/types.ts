@@ -8,6 +8,7 @@ export type SeoImage = {
 export type SeoInput = {
   description: string;
   images?: SeoImage[];
+  keywords?: string[];
   path: string;
   title: string;
   type?: "article" | "website";

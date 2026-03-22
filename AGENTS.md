@@ -2,6 +2,10 @@
 
 This file provides unified guidance for all AI agents (Claude, Gemini, etc.) when working with code in this repository.
 
+Agents may create commits and pull requests when explicitly asked, so pre-commit and pre-PR verification requirements in this file are operational requirements, not suggestions.
+
+Assume the worktree may already contain unrelated user changes. Inspect `git status` before editing. Before touching any file that already has staged or unstaged changes, inspect both `git diff -- <file>` and `git diff --cached -- <file>`. Do not overwrite staged user intent with full-file restaging, do not overwrite or revert unrelated work, and stop to ask if user-made changes directly conflict with the requested task. After any command that rewrites files or mutates the index, re-run `git status` plus file-scoped `git diff -- <touched-file>` and `git diff --cached -- <touched-file>` for the files you actually changed.
+
 ## Project Overview
 
 Personal portfolio website for Alex Leung. Multi-page static-export site for GitHub Pages deployment. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS.
@@ -9,13 +13,22 @@ Personal portfolio website for Alex Leung. Multi-page static-export site for Git
 ## Package Manager
 
 **This project uses Yarn.** Do not use `npm` or `pnpm`.
-Always use `yarn` for installing dependencies and running scripts.
+Use the repo-pinned Yarn 4 toolchain for installs and scripts. Before relying on normal repo scripts or Git hooks in this repository, verify that plain `yarn --version` reports `4.13.0`.
+
+- If you change dependencies, run `yarn install` after the local Yarn 4 setup is verified, update `yarn.lock`, and include that change in the commit or PR.
 
 ### Yarn 4 / Corepack requirements
 
+- Align local Node with `.nvmrc` (`v24.11.1`) before diagnosing Yarn/Corepack or repo-script failures.
 - The repo pins Yarn via `packageManager` in `package.json` (`yarn@4.13.0`).
-- Run `corepack enable` once per machine to activate Corepack shims.
 - Run `corepack install` in the repo to fetch the exact pinned Yarn version.
+- Before plain `yarn --version` is `4.13.0`, the allowed bootstrap/fallback commands are: `corepack install`, `corepack yarn install`, `corepack yarn prepare`, and `corepack yarn image:variants:stage`.
+- Before plain `yarn --version` is `4.13.0`, do not rely on normal repo scripts such as `yarn build`, `yarn test`, `yarn lint`, or on Git hooks.
+- Only run `corepack enable` when machine-level changes are permitted and appropriate for the environment.
+- After bootstrap, verify `yarn --version` reports `4.13.0`. Only then rely on normal repo scripts and Git hooks.
+- Only check hook setup when you are preparing to rely on hook automation for a commit/PR workflow.
+- If `git config core.hooksPath` is not `.githooks`, run `corepack yarn prepare` while bootstrapping or `yarn prepare` after plain `yarn --version` is verified.
+- After `prepare`, verify `git config core.hooksPath` returns `.githooks` before relying on hook behavior.
 - In CI, enable Corepack before `yarn install` to avoid falling back to global Yarn 1.x.
 
 ## Development Commands
@@ -66,7 +79,7 @@ yarn deploy           # Build and deploy to GitHub Pages
 - `yarn build` runs `prebuild`, which runs `yarn image:variants`.
 - `src/components/BlogPostCard.tsx` and `src/app/blog/[slug]/page.tsx` resolve cover variants from manifest profiles.
 - `src/lib/markdownToHtml.ts` resolves inline image variants from manifest profiles.
-- Pre-commit hook `.githooks/pre-commit` runs `yarn image:variants:stage` so generated variants and manifest stay in sync with staged content/image changes.
+- Pre-commit hook `.githooks/pre-commit` runs `yarn image:variants:stage` so generated variants and manifest stay in sync with staged content/image changes, but only after `prepare` has configured the hooks path and plain `yarn` is available on `PATH` as the pinned Yarn version. Treat the hook as best-effort automation; if hooks are not active or if the hook reports a skip because Yarn is unavailable, run `corepack yarn image:variants:stage` manually before commit when relevant.
 - Runtime has hard-failure checks for missing required manifest profiles (`profiles.cover.card`, `profiles.cover.hero`, `profiles.inlineContent`).
 
 ### Adding Images (Agent Guidance)
@@ -74,14 +87,11 @@ yarn deploy           # Build and deploy to GitHub Pages
 - Always add source images under `public/assets/...`.
 - For blog covers: update frontmatter `coverImage` in `content/posts/*.md`.
 - For inline blog images: add standard markdown image references.
-- After any source image addition/update, run `yarn image:variants` (or `yarn image:variants:stage` when preparing a commit).
-- Ensure commits include:
-  - updated/generated files in `public/assets/...`
-  - updated `src/generated/imageVariantManifest.json`
+- After any source image addition/update, run `yarn image:variants` (or `yarn image:variants:stage` when preparing a commit) and ensure the generated assets under `public/assets/...` plus `src/generated/imageVariantManifest.json` are included.
 
 ### SEO and Structured Data
 
-- Comprehensive metadata defined in `src/app/layout.tsx`
+- Shared metadata defaults live in `src/app/layout.tsx`, with page-specific metadata in route files via `buildPageMetadata` where needed
 - JSON-LD Person schema with `react-schemaorg` and `schema-dts`
 - Open Graph and Twitter card metadata
 
@@ -93,8 +103,22 @@ yarn deploy           # Build and deploy to GitHub Pages
 - Playwright tests live under `playwright/tests/` with shared setup in `playwright.config.ts` and `playwright/fixtures/`
 - `yarn test:e2e` covers smoke flows across desktop/mobile Chrome and Safari/WebKit
 - `yarn test:e2e:visual` covers desktop and mobile Chromium visual baselines
-- 70% coverage threshold enforced
+- 70% coverage threshold enforced under `yarn test:coverage` / coverage runs, not the default `yarn test` command
 - Module alias `@/` maps to `src/`
+
+### Verification Guardrails (Agent Guidance)
+
+- Do not claim the repo is clean or that changes are verified unless you have run the relevant checks in this workspace and seen them pass.
+- During normal iteration, run `yarn lint`, `yarn typecheck`, `yarn test`, and `yarn build` for any repository change unless the user explicitly asked for a narrower verification scope.
+- If typography classes, prose sizing, or breakpoint-sensitive copy/layout are changed, also verify the affected UI at both mobile and `md`+ breakpoints via local browser inspection or relevant Playwright coverage.
+- If a failure is only formatting, fix it and rerun the failing command rather than reporting partial success.
+- Prefer file-scoped fixes over repo-wide autofix commands. In a dirty worktree, do not run repo-wide mutating commands such as `yarn lint:fix` unless the user explicitly wants that broader scope.
+- When a test or lint failure contradicts an earlier assumption, do not treat the failure as incidental. If you are already fixing code or guidance, update it and rerun the relevant checks; otherwise surface the contradiction clearly and stop for direction rather than widening scope silently.
+- If verification fails because of unrelated pre-existing changes or baseline repo issues, report that separately from failures introduced by your current change. Do not silently absorb unrelated breakage into your task unless the user explicitly asks.
+- Before creating a commit or pull request, manually run the full verification gate: `yarn lint`, `yarn typecheck`, `yarn test`, `yarn build`, `yarn test:e2e`, and `yarn test:e2e:visual`.
+- The full pre-commit / pre-PR gate is intentionally universal in this repository, even for docs-only or policy-only changes, unless the user explicitly narrows the requirement. The Git hook does not enforce this gate for you.
+- If intentional UI changes cause visual snapshot failures, run `yarn test:e2e:visual:update` to refresh snapshots, then rerun `yarn test:e2e:visual`, mention the snapshot update explicitly, and ensure updated snapshot artifacts are included in the commit or PR.
+- If any required verification step is blocked by the local environment (for example Docker, browser, or visual test prerequisites), say so explicitly in the final handoff, do not claim full verification, and do not create a commit or PR unless the user explicitly waives that requirement.
 
 ### Typography and Prose Guardrails (Agent Guidance)
 
@@ -104,5 +128,17 @@ yarn deploy           # Build and deploy to GitHub Pages
   - headings: `text-heading-sm`, `text-heading`
   - hero: `text-hero-subtitle`, `text-hero-title`, `text-hero-description`
 - Do not use `text-md` (not a Tailwind default utility).
-- `ProseContent` includes `md:prose-lg` by default. For small notes/footers, explicitly set both `prose-sm` and `md:prose-sm`.
-- When editing typography classes, verify rendered size at both mobile and `md`+ breakpoints before finalizing.
+- `ProseContent` defaults to base prose sizing. Use `size="lg"` for `md:prose-lg`; for small notes/footers, explicitly set `size="sm"` so both `prose-sm` and `md:prose-sm` are applied.
+- When editing typography classes, verify rendered size at both mobile and `md`+ breakpoints via local browser inspection or the relevant Playwright coverage. Do not claim breakpoint verification unless you actually performed one of those checks.
+
+### Copy Editing Guardrails (Agent Guidance)
+
+- Tone should be thoughtful, understated, concrete, and mildly warm. Prefer clear first-person language and specific descriptions over polished positioning copy.
+- Prefer revising existing copy over rewriting from scratch unless the current structure is actively causing clarity or tone problems.
+- Prefer site-representative language over recruiter-optimized phrasing in top-level labels such as homepage headlines, page titles, section names, metadata descriptions, `public/manifest.json`, `public/llms.txt`, RSS/feed text, and JSON-LD descriptions.
+- Preserve warmth and voice before adding positioning language. Avoid recruiter-buzzy or self-promotional filler such as `thought leader`, `world-class`, `high-impact`, `passionate`, `results-driven`, or similar phrasing. Avoid inflated claims or interpretive self-assessments when a simpler factual description will do.
+- Do not force SEO phrases into headings when they fit better in supporting copy or metadata descriptions.
+- Avoid repeating the same positioning claim across hero, section intros, metadata, manifest text, RSS text, `llms.txt`, and JSON-LD. Keep them directionally consistent without making them all identical.
+- Before changing labels or short copy in response to a brief user instruction like `do it`, state the chosen interpretation in a short update before editing if there were multiple plausible options in the immediately preceding discussion.
+- Do not add emphasis styling such as bold inline links unless the existing page already uses that pattern or the user asked for stronger emphasis.
+- Treat `meta keywords` as low-value by default. Only add them if the repo has a concrete downstream use for them.

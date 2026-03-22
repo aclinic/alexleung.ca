@@ -19,7 +19,7 @@ import {
 
 const title = "Blog | Alex Leung";
 const description =
-  "Writing on AI systems, machine learning systems, distributed systems, software engineering, and practical product execution.";
+  "Writing on systems, AI, software engineering, and learning in public.";
 const path = "/blog";
 
 export function generateMetadata(): Metadata {
@@ -54,8 +54,11 @@ export default function BlogIndex() {
   return (
     <>
       <PageShell title="Blog">
-        <ResponsiveContainer variant="wide" className="lg:pl-24 xl:pl-28">
-          <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <ResponsiveContainer
+          variant="wide"
+          className="space-y-8 lg:pl-24 xl:pl-28"
+        >
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {firstPost ? (
               <BlogPostCard
                 key={firstPost.slug}

@@ -1,10 +1,8 @@
 export const interests = [
-  "AI products and applied AI engineering",
-  "Agentic systems, orchestration, and evaluation loops",
-  "Machine learning systems",
-  "Distributed systems and backend architecture",
-  "Full-stack product engineering",
-  "Cloud infrastructure, developer tooling, and platform reliability",
-  "Embedded systems",
-  "System design, technical leadership, and execution under ambiguity",
+  "AI systems and software for AI products",
+  "Agentic systems, tooling, and evaluation",
+  "Distributed systems, backend architecture, and reliability",
+  "Full-stack and product engineering",
+  "Cloud infrastructure and developer tooling",
+  "Embedded and hardware-adjacent systems",
 ];
