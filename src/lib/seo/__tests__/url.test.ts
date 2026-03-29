@@ -22,4 +22,11 @@ describe("seo url helpers", () => {
       toCanonical("https://alexleung.ca/blog?utm_source=test#section")
     ).toBe("https://alexleung.ca/blog/");
   });
+
+  it("does not append trailing slash to file-like paths", () => {
+    expect(toCanonical("/feed.xml")).toBe("https://alexleung.ca/feed.xml");
+    expect(toCanonical("/assets/logo.svg")).toBe(
+      "https://alexleung.ca/assets/logo.svg"
+    );
+  });
 });
