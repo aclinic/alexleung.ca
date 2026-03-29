@@ -31,7 +31,11 @@ export function LatestWritingSection({
   }
 
   return (
-    <ResponsiveContainer element="section" className="pb-12">
+    <ResponsiveContainer
+      element="section"
+      id="latest-writing"
+      className="pb-12"
+    >
       <SectionBlock title={title} spacing="lg">
         <div className="grid gap-4 md:grid-cols-3">
           {posts.map((post) => (

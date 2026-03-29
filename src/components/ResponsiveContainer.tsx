@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 type ContainerVariant = "content" | "wide" | "prose";
 
@@ -7,7 +7,7 @@ type ResponsiveContainerProps<T extends ElementType = "div"> = {
   children: ReactNode;
   className?: string;
   variant?: ContainerVariant;
-};
+} & Omit<ComponentPropsWithoutRef<T>, "children" | "className">;
 
 const variantClasses: Record<ContainerVariant, string> = {
   content: "section-center",
@@ -20,11 +20,15 @@ export function ResponsiveContainer<T extends ElementType = "div">({
   children,
   className = "",
   variant = "content",
+  ...rest
 }: ResponsiveContainerProps<T>) {
   const Component = element ?? "div";
 
   return (
-    <Component className={`${variantClasses[variant]} ${className}`.trim()}>
+    <Component
+      {...rest}
+      className={`${variantClasses[variant]} ${className}`.trim()}
+    >
       {children}
     </Component>
   );
