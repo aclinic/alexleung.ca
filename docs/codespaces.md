@@ -3,7 +3,7 @@
 Machine profile used for these notes:
 
 - GitHub Codespaces container on Ubuntu 24.04
-- Node.js `v24.11.1`
+- Node.js `v24.14.0`
 - Corepack `0.34.2`
 - Yarn `4.13.0` (from `packageManager`, installed via `corepack install`)
 

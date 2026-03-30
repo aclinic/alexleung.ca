@@ -26,11 +26,7 @@ services:
         corepack enable &&
         corepack install &&
         yarn install --immutable &&
-        yarn playwright test
-        --project=chromium-smoke
-        --project=webkit-smoke
-        --project=mobile-chromium-smoke
-        --project=mobile-webkit-smoke
+        yarn playwright:smoke:run
 
   playwright-visual:
     <<: *playwright-base
@@ -43,9 +39,7 @@ services:
         corepack enable &&
         corepack install &&
         yarn install --immutable &&
-        yarn playwright test
-        --project=chromium-visual
-        --project=mobile-chromium-visual
+        yarn playwright:visual:run
 
   playwright-update:
     <<: *playwright-base
@@ -58,10 +52,7 @@ services:
         corepack enable &&
         corepack install &&
         yarn install --immutable &&
-        yarn playwright test
-        --project=chromium-visual
-        --project=mobile-chromium-visual
-        --update-snapshots
+        yarn playwright:visual:update:run
 
 volumes:
   playwright-node-modules:
