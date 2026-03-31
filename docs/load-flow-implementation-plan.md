@@ -26,6 +26,7 @@ Completed in this slice (PR 1 scope):
 - ✅ Added `/load-flow` route shell and placeholder workspace component.
 - ✅ Added initial domain model contracts under `src/features/load-flow/model/` (`types.ts`, `defaults.ts`, `validation.ts`).
 - ✅ Added validator unit tests covering baseline pre-solve checks.
+- ✅ Follow-up review hardening: added duplicate bus-ID validation and route coverage tests for the `/load-flow/` shell.
 
 Next recommended slice:
 

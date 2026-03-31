@@ -71,6 +71,29 @@ describe("validateLoadFlowCase", () => {
     );
   });
 
+  it("flags duplicate bus identifiers", () => {
+    const result = validateLoadFlowCase(
+      createCase({
+        buses: [
+          {
+            id: "bus-1",
+            name: "Bus 1",
+            baseKV: 230,
+            type: "SLACK",
+          },
+          {
+            id: "bus-1",
+            name: "Bus 1 Duplicate",
+            baseKV: 230,
+            type: "PQ",
+          },
+        ],
+      })
+    );
+
+    expect(result.errors).toContain("Duplicate bus id detected: bus-1.");
+  });
+
   it("requires PV buses to have online generator associations", () => {
     const result = validateLoadFlowCase(
       createCase({

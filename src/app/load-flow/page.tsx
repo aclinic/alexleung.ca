@@ -14,7 +14,7 @@ import { LoadFlowWorkspace } from "./_components/LoadFlowWorkspace";
 const title = "Load Flow | Alex Leung";
 const description =
   "A browser-based AC load flow workspace for building one-line models and solving bus voltages and power flows.";
-const path = "/load-flow";
+const path = "/load-flow/";
 
 export const metadata: Metadata = buildPageMetadata({
   title,
@@ -28,7 +28,7 @@ export default function LoadFlowPage() {
       <JsonLdBreadcrumbs
         items={[
           { name: "Home", item: "/" },
-          { name: "Load Flow", item: "/load-flow" },
+          { name: "Load Flow", item: "/load-flow/" },
         ]}
       />
       <JsonLd<WebPage>

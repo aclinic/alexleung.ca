@@ -7,6 +7,10 @@ export interface LoadFlowValidationResult {
 const hasInvalidBranchImpedance = (r: number, x: number): boolean =>
   Math.abs(r) < Number.EPSILON && Math.abs(x) < Number.EPSILON;
 
+const getDuplicateIds = (ids: string[]): string[] => [
+  ...new Set(ids.filter((id, index) => ids.indexOf(id) !== index)),
+];
+
 export const validateLoadFlowCase = (
   loadFlowCase: LoadFlowCase
 ): LoadFlowValidationResult => {
@@ -23,6 +27,13 @@ export const validateLoadFlowCase = (
   }
 
   const busIds = new Set(loadFlowCase.buses.map((bus) => bus.id));
+  const duplicateBusIds = getDuplicateIds(
+    loadFlowCase.buses.map((bus) => bus.id)
+  );
+
+  for (const duplicateBusId of duplicateBusIds) {
+    errors.push(`Duplicate bus id detected: ${duplicateBusId}.`);
+  }
 
   for (const branch of loadFlowCase.branches) {
     if (!busIds.has(branch.fromBusId) || !busIds.has(branch.toBusId)) {
