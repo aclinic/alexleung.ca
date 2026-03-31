@@ -2,8 +2,9 @@
 
 ## Current Setup
 
-- Browser tests run hermetically in Docker via `docker compose`.
+- Browser tests run hermetically in Docker via `docker compose` by default.
 - Local runs and GitHub Actions both use the same Compose services.
+- Host-mode wrapper commands exist for environments where Docker is unavailable, such as cloud agent sandboxes.
 - The same commands can target:
   - a local static export
   - a live URL supplied through `PLAYWRIGHT_BASE_URL`
@@ -13,18 +14,29 @@
 - `yarn test:e2e`
   - Runs the smoke suite in Docker.
   - Uses a local exported build unless `PLAYWRIGHT_BASE_URL` is set.
+- `yarn test:e2e:host`
+  - Runs the same smoke suite directly on the host.
+  - Intended for environments where Docker is missing or unusable.
 - `yarn test:e2e:visual`
   - Runs the visual regression suite in Docker.
   - Uses the same local-vs-live targeting behavior as `test:e2e`.
+- `yarn test:e2e:visual:host`
+  - Runs the same visual regression suite directly on the host.
+  - Intended for environments where Docker is missing or unusable.
 - `yarn test:e2e:visual:update`
   - Regenerates visual baselines intentionally in Docker.
+- `yarn test:e2e:visual:update:host`
+  - Regenerates visual baselines intentionally on the host when Docker is unavailable.
 
 Examples:
 
 ```bash
 yarn test:e2e
+yarn test:e2e:host
 yarn test:e2e:visual
+yarn test:e2e:visual:host
 yarn test:e2e:visual:update
+yarn test:e2e:visual:update:host
 PLAYWRIGHT_BASE_URL=https://alexleung.ca yarn test:e2e
 ```
 

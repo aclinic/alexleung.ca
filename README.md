@@ -60,7 +60,7 @@ Google Analytics is gated behind `NEXT_PUBLIC_ENABLE_ANALYTICS=true`, so analyti
 
 ## End-to-End Testing
 
-Playwright runs in the official Playwright Docker image by default via `docker compose`, and the suite targets the static export rather than `yarn dev`. That keeps browser/system dependencies pinned and matches the GitHub Pages deployment model without the Next.js dev indicator.
+Playwright runs in the official Playwright Docker image by default via `docker compose`, and the suite targets the static export rather than `yarn dev`. That keeps browser/system dependencies pinned and matches the GitHub Pages deployment model without the Next.js dev indicator. When Docker is unavailable, use the host-mode wrappers instead of the Docker commands so the same suites can still run in cloud agent environments.
 
 The smoke suite currently runs across desktop Chrome, desktop Safari/WebKit, Android Chrome, and Mobile Safari. The visual suite runs on desktop Chromium plus a single mobile Chromium lane so mobile layout regressions are covered without exploding the snapshot matrix.
 
@@ -70,11 +70,24 @@ The smoke suite currently runs across desktop Chrome, desktop Safari/WebKit, And
    yarn test:e2e
    ```
 
+   If Docker is unavailable:
+
+   ```bash
+   yarn test:e2e:host
+   ```
+
 2. Run visual regression tests or intentionally refresh their snapshots:
 
    ```bash
    yarn test:e2e:visual
    yarn test:e2e:visual:update
+   ```
+
+   If Docker is unavailable:
+
+   ```bash
+   yarn test:e2e:visual:host
+   yarn test:e2e:visual:update:host
    ```
 
 3. To retarget the same smoke suite at a deployed site, provide `PLAYWRIGHT_BASE_URL`:

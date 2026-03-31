@@ -43,8 +43,11 @@ yarn lint             # Run ESLint and Prettier checks
 yarn lint:fix         # Auto-fix lint issues
 yarn test             # Run Jest tests
 yarn test:e2e         # Run Playwright smoke tests in Docker
+yarn test:e2e:host    # Run Playwright smoke tests directly on the host when Docker is unavailable
 yarn test:e2e:visual  # Run Playwright visual regression tests in Docker
+yarn test:e2e:visual:host  # Run Playwright visual regression tests directly on the host when Docker is unavailable
 yarn test:e2e:visual:update  # Regenerate Playwright visual snapshots in Docker
+yarn test:e2e:visual:update:host  # Regenerate Playwright visual snapshots directly on the host when Docker is unavailable
 yarn typecheck        # Run TypeScript type checking (no emit)
 yarn test:watch       # Run tests in watch mode
 yarn test:coverage    # Run tests with coverage report
@@ -98,7 +101,7 @@ yarn deploy           # Build and deploy to GitHub Pages
 ### Testing
 
 - Jest with React Testing Library
-- Playwright E2E coverage runs in Docker via `docker compose`
+- Playwright E2E coverage runs in Docker via `docker compose` by default, with host-mode wrappers available for environments where Docker is unavailable: `yarn test:e2e:host`, `yarn test:e2e:visual:host`, and `yarn test:e2e:visual:update:host`
 - Jest tests live in `__tests__/` subdirectories alongside source files
 - Playwright tests live under `playwright/tests/` with shared setup in `playwright.config.ts` and `playwright/fixtures/`
 - `yarn test:e2e` covers smoke flows across desktop/mobile Chrome and Safari/WebKit
@@ -110,15 +113,16 @@ yarn deploy           # Build and deploy to GitHub Pages
 
 - Do not claim the repo is clean or that changes are verified unless you have run the relevant checks in this workspace and seen them pass.
 - During normal iteration, run `yarn lint`, `yarn typecheck`, `yarn test`, and `yarn build` for any repository change unless the user explicitly asked for a narrower verification scope.
+- For Playwright verification, use the Docker commands when Docker is available. If `docker` is missing or the daemon is unavailable, run the corresponding host-mode wrappers instead of skipping E2E coverage, and state which path you used.
 - If typography classes, prose sizing, or breakpoint-sensitive copy/layout are changed, also verify the affected UI at both mobile and `md`+ breakpoints via local browser inspection or relevant Playwright coverage.
 - If a failure is only formatting, fix it and rerun the failing command rather than reporting partial success.
 - Prefer file-scoped fixes over repo-wide autofix commands. In a dirty worktree, do not run repo-wide mutating commands such as `yarn lint:fix` unless the user explicitly wants that broader scope.
 - When a test or lint failure contradicts an earlier assumption, do not treat the failure as incidental. If you are already fixing code or guidance, update it and rerun the relevant checks; otherwise surface the contradiction clearly and stop for direction rather than widening scope silently.
 - If verification fails because of unrelated pre-existing changes or baseline repo issues, report that separately from failures introduced by your current change. Do not silently absorb unrelated breakage into your task unless the user explicitly asks.
-- Before creating a commit or pull request, manually run the full verification gate: `yarn lint`, `yarn typecheck`, `yarn test`, `yarn build`, `yarn test:e2e`, and `yarn test:e2e:visual`.
+- Before creating a commit or pull request, manually run the full verification gate: `yarn lint`, `yarn typecheck`, `yarn test`, `yarn build`, plus Playwright smoke and visual coverage via `yarn test:e2e` and `yarn test:e2e:visual` when Docker is available, otherwise `yarn test:e2e:host` and `yarn test:e2e:visual:host`.
 - The full pre-commit / pre-PR gate is intentionally universal in this repository, even for docs-only or policy-only changes, unless the user explicitly narrows the requirement. The Git hook does not enforce this gate for you.
-- If intentional UI changes cause visual snapshot failures, run `yarn test:e2e:visual:update` to refresh snapshots, then rerun `yarn test:e2e:visual`, mention the snapshot update explicitly, and ensure updated snapshot artifacts are included in the commit or PR.
-- If any required verification step is blocked by the local environment (for example Docker, browser, or visual test prerequisites), say so explicitly in the final handoff, do not claim full verification, and do not create a commit or PR unless the user explicitly waives that requirement.
+- If intentional UI changes cause visual snapshot failures, run `yarn test:e2e:visual:update` to refresh snapshots when Docker is available, otherwise `yarn test:e2e:visual:update:host`, then rerun the matching visual suite, mention the snapshot update explicitly, and ensure updated snapshot artifacts are included in the commit or PR.
+- If any required verification step is blocked by the local environment after trying the supported Docker or host Playwright path as appropriate, say so explicitly in the final handoff, do not claim full verification, and do not create a commit or PR unless the user explicitly waives that requirement.
 
 ### Typography and Prose Guardrails (Agent Guidance)
 
