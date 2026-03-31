@@ -8,6 +8,7 @@ import type {
   Person,
   ProfilePage,
   Service,
+  SiteNavigationElement,
   WebPage,
   WebSite,
   WithContext,
@@ -17,8 +18,16 @@ import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 
 const PERSON_ID = "/#person";
 const WEBSITE_ID = "/#website";
+const SITE_NAVIGATION_ID = "/#site-navigation";
 const ABOUT_PATH = "/about";
 const SITE_ROOT = toAbsoluteUrl("/").replace(/\/$/, "");
+const MAIN_NAV_ITEMS = [
+  { id: "home", name: "Home", path: "/" },
+  { id: "about", name: "About", path: "/about" },
+  { id: "blog", name: "Blog", path: "/blog" },
+  { id: "now", name: "Now", path: "/now" },
+  { id: "contact", name: "Contact", path: "/contact" },
+] as const;
 const SOCIAL_PROFILES = [
   "https://www.linkedin.com/in/aclyx",
   "https://github.com/aclyx",
@@ -451,6 +460,27 @@ export function buildWebsiteSchema(input: {
         "@id": toCanonical("/now"),
       },
     ],
+    inLanguage: "en-CA",
+  };
+}
+
+export function buildSiteNavigationSchema(): WithContext<SiteNavigationElement> {
+  return {
+    "@context": "https://schema.org" as const,
+    "@type": "SiteNavigationElement",
+    "@id": toAbsoluteUrl(SITE_NAVIGATION_ID),
+    name: "Main navigation",
+    url: SITE_ROOT,
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": toAbsoluteUrl(WEBSITE_ID),
+    },
+    hasPart: MAIN_NAV_ITEMS.map((item) => ({
+      "@type": "SiteNavigationElement" as const,
+      "@id": toAbsoluteUrl(`/#site-navigation-${item.id}`),
+      name: item.name,
+      url: toCanonical(item.path),
+    })),
     inLanguage: "en-CA",
   };
 }

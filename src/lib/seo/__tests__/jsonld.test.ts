@@ -8,6 +8,7 @@ import {
   buildPersonSchema,
   buildProfessionalServiceSchema,
   buildProfilePageSchema,
+  buildSiteNavigationSchema,
   buildWebPageSchema,
   buildWebsiteSchema,
 } from "@/lib/seo";
@@ -104,6 +105,54 @@ describe("seo jsonld builders", () => {
       "@type": "WebPage",
       "@id": "https://alexleung.ca/about/",
     });
+  });
+
+  it("builds site navigation schema with canonical nav entry urls", () => {
+    const navigation = buildSiteNavigationSchema();
+    const hasPart = expectSchemaArray<{
+      "@type"?: string;
+      "@id"?: string;
+      name?: string;
+      url?: string;
+    }>(navigation.hasPart);
+
+    expect(navigation["@id"]).toBe("https://alexleung.ca/#site-navigation");
+    expect(navigation.isPartOf).toEqual({
+      "@type": "WebSite",
+      "@id": "https://alexleung.ca/#website",
+    });
+    expect(hasPart).toEqual([
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-home",
+        name: "Home",
+        url: "https://alexleung.ca/",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-about",
+        name: "About",
+        url: "https://alexleung.ca/about/",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-blog",
+        name: "Blog",
+        url: "https://alexleung.ca/blog/",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-now",
+        name: "Now",
+        url: "https://alexleung.ca/now/",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-contact",
+        name: "Contact",
+        url: "https://alexleung.ca/contact/",
+      },
+    ]);
   });
 
   it("builds person schema with richer identity metadata", () => {
