@@ -19,6 +19,20 @@ This plan is intentionally modular so the solver can be extracted into a separat
 
 ---
 
+## Progress Update (March 31, 2026)
+
+Completed in this slice (PR 1 scope):
+
+- ✅ Added `/load-flow` route shell and placeholder workspace component.
+- ✅ Added initial domain model contracts under `src/features/load-flow/model/` (`types.ts`, `defaults.ts`, `validation.ts`).
+- ✅ Added validator unit tests covering baseline pre-solve checks.
+
+Next recommended slice:
+
+- Build the canvas editor foundation (palette, bus/line placement, and normalized store) as described in PR 2.
+
+---
+
 ## Non-Goals (Initial Scope)
 
 - Real-time transient simulation
@@ -244,11 +258,11 @@ Below are bite-sized slices designed for clean review. They can be run as stacke
 
 ### MVP Track
 
-#### PR 1 — Route shell + domain model contracts
+#### PR 1 — Route shell + domain model contracts _(Completed March 31, 2026)_
 
-- Add `/load-flow` route with placeholder workspace layout
-- Introduce `model/types.ts`, defaults, and validation scaffolding
-- Add documentation for sign conventions and bus types
+- ✅ Add `/load-flow` route with placeholder workspace layout
+- ✅ Introduce `model/types.ts`, defaults, and validation scaffolding
+- ✅ Add documentation for sign conventions and bus types
 
 **Acceptance:** route renders; type contracts compile; unit tests for validators pass.
 
