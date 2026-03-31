@@ -9,6 +9,7 @@ export {
   buildPersonSchema,
   buildProfessionalServiceSchema,
   buildProfilePageSchema,
+  buildSiteNavigationSchema,
   buildWebPageSchema,
   buildWebsiteSchema,
 } from "./jsonld";

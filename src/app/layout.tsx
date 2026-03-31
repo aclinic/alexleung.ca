@@ -14,6 +14,7 @@ import { BASE_URL } from "@/constants";
 import {
   buildPersonSchema,
   buildProfessionalServiceSchema,
+  buildSiteNavigationSchema,
   buildWebsiteSchema,
 } from "@/lib/seo";
 
@@ -103,6 +104,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <JsonLd item={buildPersonSchema({ description })} />
         <JsonLd item={buildWebsiteSchema({ description })} />
         <JsonLd item={buildProfessionalServiceSchema({ description })} />
+        <JsonLd item={buildSiteNavigationSchema()} />
       </body>
       {googleAnalyticsId ? <GoogleAnalytics gaId={googleAnalyticsId} /> : null}
     </html>

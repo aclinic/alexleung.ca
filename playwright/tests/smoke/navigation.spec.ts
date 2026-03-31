@@ -8,21 +8,21 @@ import {
 } from "../../fixtures/stableRendering";
 
 async function clickPrimaryNavLink(page: Page, label: string) {
-  const menuButton = page.getByRole("button", { name: /Open menu|Close menu/ });
+  const desktopLink = page
+    .locator("header")
+    .getByRole("link", { name: label, exact: true });
 
-  if (await menuButton.isVisible().catch(() => false)) {
-    await menuButton.click();
-    await page
-      .locator("#mobile-nav-drawer")
-      .getByRole("link", { name: label })
-      .click();
+  if (await desktopLink.isVisible().catch(() => false)) {
+    await desktopLink.click();
     return;
   }
 
-  await page
-    .locator("header")
-    .getByRole("link", { name: label, exact: true })
-    .click();
+  const menuButton = page.getByRole("button", { name: /Open menu|Close menu/ });
+  await menuButton.click();
+
+  const mobileNavDrawer = page.locator("#mobile-nav-drawer");
+  await expect(mobileNavDrawer).toBeVisible();
+  await mobileNavDrawer.getByRole("link", { name: label, exact: true }).click();
 }
 
 test("home page renders the hero content", async ({ page }) => {
