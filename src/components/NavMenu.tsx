@@ -1,12 +1,6 @@
 import Link from "next/link";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about/", label: "About" },
-  { href: "/now/", label: "Now" },
-  { href: "/blog/", label: "Blog" },
-  { href: "/contact/", label: "Contact" },
-];
+import { NAV_LINKS } from "@/constants/navigation";
 
 type NavItemProps = {
   href: string;
@@ -49,7 +43,7 @@ type DesktopNavProps = {
 export function DesktopNav({ isActive }: DesktopNavProps) {
   return (
     <ul className="hidden gap-8 md:flex">
-      {navLinks.map((link) => (
+      {NAV_LINKS.map((link) => (
         <li key={link.href}>
           <NavItem {...link} active={isActive(link.href)} />
         </li>
@@ -91,7 +85,7 @@ export function MobileNavDrawer({
         aria-hidden={!isOpen}
       >
         <ul className="flex flex-col py-8">
-          {navLinks.map((link, index) => (
+          {NAV_LINKS.map((link, index) => (
             <li
               key={link.href}
               className={`transition-all duration-300 ${

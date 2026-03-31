@@ -136,15 +136,15 @@ describe("seo jsonld builders", () => {
       },
       {
         "@type": "SiteNavigationElement",
-        "@id": "https://alexleung.ca/#site-navigation-blog",
-        name: "Blog",
-        url: "https://alexleung.ca/blog/",
-      },
-      {
-        "@type": "SiteNavigationElement",
         "@id": "https://alexleung.ca/#site-navigation-now",
         name: "Now",
         url: "https://alexleung.ca/now/",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-blog",
+        name: "Blog",
+        url: "https://alexleung.ca/blog/",
       },
       {
         "@type": "SiteNavigationElement",

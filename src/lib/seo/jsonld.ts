@@ -14,6 +14,7 @@ import type {
   WithContext,
 } from "schema-dts";
 
+import { NAV_LINKS } from "@/constants/navigation";
 import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 
 const PERSON_ID = "/#person";
@@ -21,13 +22,6 @@ const WEBSITE_ID = "/#website";
 const SITE_NAVIGATION_ID = "/#site-navigation";
 const ABOUT_PATH = "/about";
 const SITE_ROOT = toAbsoluteUrl("/").replace(/\/$/, "");
-const MAIN_NAV_ITEMS = [
-  { id: "home", name: "Home", path: "/" },
-  { id: "about", name: "About", path: "/about" },
-  { id: "blog", name: "Blog", path: "/blog" },
-  { id: "now", name: "Now", path: "/now" },
-  { id: "contact", name: "Contact", path: "/contact" },
-] as const;
 const SOCIAL_PROFILES = [
   "https://www.linkedin.com/in/aclyx",
   "https://github.com/aclyx",
@@ -475,11 +469,11 @@ export function buildSiteNavigationSchema(): WithContext<SiteNavigationElement> 
       "@type": "WebSite",
       "@id": toAbsoluteUrl(WEBSITE_ID),
     },
-    hasPart: MAIN_NAV_ITEMS.map((item) => ({
+    hasPart: NAV_LINKS.map((item) => ({
       "@type": "SiteNavigationElement" as const,
       "@id": toAbsoluteUrl(`/#site-navigation-${item.id}`),
-      name: item.name,
-      url: toCanonical(item.path),
+      name: item.label,
+      url: toCanonical(item.canonicalPath),
     })),
     inLanguage: "en-CA",
   };
