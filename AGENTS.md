@@ -19,7 +19,7 @@ Use the repo-pinned Yarn 4 toolchain for installs and scripts. Before relying on
 
 ### Yarn 4 / Corepack requirements
 
-- Align local Node with `.nvmrc` (`v24.11.1`) before diagnosing Yarn/Corepack or repo-script failures.
+- Align local Node with `.nvmrc` (`v24.14.0`) before diagnosing Yarn/Corepack or repo-script failures.
 - The repo pins Yarn via `packageManager` in `package.json` (`yarn@4.13.0`).
 - Run `corepack install` in the repo to fetch the exact pinned Yarn version.
 - Before plain `yarn --version` is `4.13.0`, the allowed bootstrap/fallback commands are: `corepack install`, `corepack yarn install`, `corepack yarn prepare`, and `corepack yarn image:variants:stage`.
