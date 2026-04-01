@@ -586,8 +586,15 @@ export const solveWithNewtonRaphson = (
     });
   }
 
+  const finalCalculated = calculatePowerInjections(yBus, state);
+
   return {
-    buses: buildSolvedBusStates(loadFlowCase, state, pCalculated, qCalculated),
+    buses: buildSolvedBusStates(
+      loadFlowCase,
+      state,
+      finalCalculated.pCalculated,
+      finalCalculated.qCalculated
+    ),
     branchFlows: buildBranchFlows(loadFlowCase, busIndexById, state),
     diagnostics: {
       converged: false,

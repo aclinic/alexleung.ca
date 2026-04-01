@@ -60,6 +60,27 @@ describe("runLoadFlow", () => {
     expect(result.diagnostics.iterationMaxMismatchPu.length).toBeGreaterThan(0);
   });
 
+  it("returns consistent bus injections when max iterations are hit", () => {
+    const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
+      (item) => item.id === "two-bus-radial"
+    );
+
+    expect(scenario).toBeDefined();
+
+    const result = runLoadFlow(scenario!.loadFlowCase, {
+      maxIterations: 1,
+      tolerance: 1e-12,
+    });
+
+    expect(result.diagnostics.converged).toBe(false);
+    expect(result.buses).toBeDefined();
+
+    for (const bus of result.buses ?? []) {
+      expect(Number.isFinite(bus.pInjectionPu)).toBe(true);
+      expect(Number.isFinite(bus.qInjectionPu)).toBe(true);
+    }
+  });
+
   it("reports island diagnostics for disconnected networks", () => {
     const islandedCase = {
       ...DEFAULT_LOAD_FLOW_CASE,
