@@ -39,6 +39,30 @@ Next recommended slice:
 
 ---
 
+## Assessment Snapshot (April 1, 2026)
+
+### 1) UI layer vs core engine separation
+
+Current status: **partially good, but not complete**.
+
+- Good: the editor state is already in a pure store module (`state/loadFlowStore.ts`), and domain DTOs are in `model/types.ts`.
+- Gap: graph serialization was previously colocated in the UI/editor state module, which couples editor concerns to solve-case DTO concerns.
+- Remediation in this slice: move serialization to `graph/toLoadFlowCase.ts` and keep `state/` focused on editor interactions only.
+
+### 2) Engine implementation plan quality
+
+Current status: **high-level plan existed; algorithm and initialization decisions were under-specified**.
+
+- Newton-Raphson remains the primary path for correctness and mixed bus-type robustness.
+- Add explicit strategy for optional algorithm fallback and deterministic initialization policy.
+- Add typed solver options and diagnostics interfaces now so solver internals can evolve without breaking UI contracts.
+
+### 3) Planned directory structure
+
+Current status: **planned in prose, not represented in code yet**.
+
+- Remediation in this slice: introduce `graph/` and `solver/` scaffolding directories with typed entrypoints for algorithm selection, initialization, and execution facade.
+
 ## Non-Goals (Initial Scope)
 
 - Real-time transient simulation
@@ -73,7 +97,7 @@ src/
         validation.ts
         defaults.ts
       graph/
-        graphToCase.ts
+        toLoadFlowCase.ts
       solver/
         core/
           newtonRaphson.ts
@@ -177,6 +201,30 @@ Document and enforce conventions in one place:
 7. Apply damping/step limiting as needed
 8. Enforce `Q` limits on PV buses with PV→PQ switching
 9. Stop on tolerance or max iterations
+
+### Algorithm decision policy (v1)
+
+Current implementation phase decision:
+
+1. Use **Newton-Raphson only** until the core kernels (`Ybus`, mismatch, Jacobian, solve/update loop) are complete and benchmarked.
+2. Evaluate **Fast-Decoupled** only after Newton-Raphson parity is validated on the benchmark fixture set (3/5/14 bus + internal stress cases).
+3. Keep Gauss-Seidel out of the primary path (possible educational mode only).
+
+Rationale:
+
+- A single production path keeps correctness/debug diagnostics focused while the first engine kernel is maturing.
+- Alternate algorithm work should be gated behind parity benchmarks rather than heuristics in a skeleton phase.
+
+### Initialization policy (v1)
+
+Current implementation phase decision:
+
+- `FLAT_START` only (`|V|=1.0 pu`, `θ=0°` for all buses).
+
+Follow-up expansion criteria:
+
+- Add warm start only when solve results are persisted in a stable state model.
+- Add DC angle seed only when a dedicated DC pre-solve path and regression benchmarks exist.
 
 ### Robustness requirements
 

@@ -1,9 +1,4 @@
-import {
-  Branch,
-  Bus,
-  BusType,
-  LoadFlowCase,
-} from "@/features/load-flow/model/types";
+import { BusType } from "@/features/load-flow/model/types";
 
 export interface BusNode {
   id: string;
@@ -160,35 +155,3 @@ export const selectElement = (
   selectedElementType: elementType,
   selectedElementId: elementId,
 });
-
-export const toLoadFlowCase = (state: LoadFlowEditorState): LoadFlowCase => {
-  const buses: Bus[] = state.busOrder.map((busId) => {
-    const bus = state.busesById[busId];
-    return {
-      id: bus.id,
-      name: bus.name,
-      baseKV: bus.baseKV,
-      type: bus.type,
-    };
-  });
-  const branches: Branch[] = state.branchOrder.map((branchId) => {
-    const branch = state.branchesById[branchId];
-    return {
-      id: branch.id,
-      fromBusId: branch.fromBusId,
-      toBusId: branch.toBusId,
-      r: branch.r,
-      x: branch.x,
-      bHalf: branch.bHalf,
-    };
-  });
-
-  return {
-    baseMVA: state.baseMVA,
-    buses,
-    branches,
-    generators: [],
-    loads: [],
-    shunts: [],
-  };
-};

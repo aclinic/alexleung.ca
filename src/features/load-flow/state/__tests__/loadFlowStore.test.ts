@@ -1,8 +1,8 @@
+import { toLoadFlowCase } from "@/features/load-flow/graph/toLoadFlowCase";
 import {
   addBranch,
   addBus,
   createInitialLoadFlowEditorState,
-  toLoadFlowCase,
   updateBus,
 } from "@/features/load-flow/state/loadFlowStore";
 

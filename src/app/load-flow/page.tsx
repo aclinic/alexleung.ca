@@ -45,7 +45,9 @@ export default function LoadFlowPage() {
             This page is the foundation for an in-browser AC power flow tool.
             This milestone now includes a first-pass canvas foundation for
             adding buses and lines, plus normalized editor state serialization.
-            Newton-Raphson solver modules are planned next.
+            Solver scaffolding now separates graph serialization from the
+            upcoming engine layer and documents algorithm/initialization policy
+            before numerical kernels land.
           </p>
           <LoadFlowWorkspace />
         </ResponsiveContainer>
