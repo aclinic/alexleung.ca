@@ -39,6 +39,30 @@ Next recommended slice:
 
 ---
 
+## Assessment Snapshot (April 1, 2026)
+
+### 1) UI layer vs core engine separation
+
+Current status: **partially good, but not complete**.
+
+- Good: the editor state is already in a pure store module (`state/loadFlowStore.ts`), and domain DTOs are in `model/types.ts`.
+- Gap: graph serialization was previously colocated in the UI/editor state module, which couples editor concerns to solve-case DTO concerns.
+- Remediation in this slice: move serialization to `graph/toLoadFlowCase.ts` and keep `state/` focused on editor interactions only.
+
+### 2) Engine implementation plan quality
+
+Current status: **high-level plan existed; algorithm and initialization decisions were under-specified**.
+
+- Newton-Raphson remains the primary path for correctness and mixed bus-type robustness.
+- Add explicit strategy for optional algorithm fallback and deterministic initialization policy.
+- Add typed solver options and diagnostics interfaces now so solver internals can evolve without breaking UI contracts.
+
+### 3) Planned directory structure
+
+Current status: **planned in prose, not represented in code yet**.
+
+- Remediation in this slice: introduce `graph/` and `solver/` scaffolding directories with typed entrypoints for algorithm selection, initialization, and execution facade.
+
 ## Non-Goals (Initial Scope)
 
 - Real-time transient simulation
@@ -177,6 +201,34 @@ Document and enforce conventions in one place:
 7. Apply damping/step limiting as needed
 8. Enforce `Q` limits on PV buses with PV→PQ switching
 9. Stop on tolerance or max iterations
+
+### Algorithm decision policy (v1)
+
+Default decision tree:
+
+1. Use **Newton-Raphson** for small/medium systems and for mixed PV/PQ behavior where robust convergence and Jacobian diagnostics are most important.
+2. Permit **Fast-Decoupled** as an explicit override, and allow heuristic defaulting for very large systems as a performance-oriented baseline.
+3. Keep Gauss-Seidel out of the primary path (possible educational mode only).
+
+Rationale:
+
+- Newton-Raphson has stronger convergence behavior near solution and handles full AC coupling directly.
+- Fast-Decoupled can be materially faster at scale when assumptions are acceptable.
+- A typed selection layer avoids hard-coding policy inside the numerical kernel.
+
+### Initialization policy (v1)
+
+Support the following initialization modes from the public solve API:
+
+- `FLAT_START` (default): `|V|=1.0 pu`, `θ=0°` for all buses
+- `WARM_START`: caller-supplied prior solved state (for repeated runs)
+- `DC_ANGLE_SEED`: flat magnitudes with DC-seeded angles when available
+
+Practical guidance:
+
+- Start with flat start for deterministic baseline behavior and easier tests.
+- Add warm-start support before performance sweeps and interactive repeated solves.
+- Use DC angle seeding as a targeted acceleration option for larger meshed cases.
 
 ### Robustness requirements
 

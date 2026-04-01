@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from "react";
 
+import { toLoadFlowCase } from "@/features/load-flow/graph/toLoadFlowCase";
 import { BusType } from "@/features/load-flow/model/types";
 import {
   addBranch,
   addBus,
   createInitialLoadFlowEditorState,
   selectElement,
-  toLoadFlowCase,
   updateBranch,
   updateBus,
 } from "@/features/load-flow/state/loadFlowStore";
