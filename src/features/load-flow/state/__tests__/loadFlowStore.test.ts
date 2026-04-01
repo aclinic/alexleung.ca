@@ -44,4 +44,29 @@ describe("loadFlowStore", () => {
       })
     );
   });
+
+  it("serializes detached DTOs without editor-only fields", () => {
+    let state = createInitialLoadFlowEditorState();
+    state = addBus(state, { x: 20, y: 30 });
+    state = addBus(state, { x: 40, y: 50 });
+    state = addBranch(state, "bus-1", "bus-2");
+
+    const snapshot = toLoadFlowCase(state);
+
+    expect(snapshot.buses[0]).toEqual(
+      expect.objectContaining({
+        id: "bus-1",
+        name: "Bus 1",
+        baseKV: 230,
+      })
+    );
+    expect(snapshot.buses[0]).not.toHaveProperty("x");
+    expect(snapshot.buses[0]).not.toHaveProperty("y");
+
+    snapshot.buses[0].name = "Mutated name";
+    snapshot.branches[0].r = 0.23;
+
+    expect(state.busesById["bus-1"].name).toBe("Bus 1");
+    expect(state.branchesById["line-1"].r).toBe(0.01);
+  });
 });

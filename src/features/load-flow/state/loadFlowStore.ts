@@ -26,8 +26,14 @@ export interface LineEdge {
 export interface LoadFlowEditorState {
   baseMVA: number;
   busesById: Record<string, BusNode>;
+  /**
+   * Stable insertion/display order for buses independent of object key order.
+   */
   busOrder: string[];
   branchesById: Record<string, LineEdge>;
+  /**
+   * Stable insertion/display order for branches independent of object key order.
+   */
   branchOrder: string[];
   selectedElementId: string | null;
   selectedElementType: "BUS" | "BRANCH" | null;
@@ -156,10 +162,26 @@ export const selectElement = (
 });
 
 export const toLoadFlowCase = (state: LoadFlowEditorState): LoadFlowCase => {
-  const buses: Bus[] = state.busOrder.map((busId) => state.busesById[busId]);
-  const branches: Branch[] = state.branchOrder.map(
-    (branchId) => state.branchesById[branchId]
-  );
+  const buses: Bus[] = state.busOrder.map((busId) => {
+    const bus = state.busesById[busId];
+    return {
+      id: bus.id,
+      name: bus.name,
+      baseKV: bus.baseKV,
+      type: bus.type,
+    };
+  });
+  const branches: Branch[] = state.branchOrder.map((branchId) => {
+    const branch = state.branchesById[branchId];
+    return {
+      id: branch.id,
+      fromBusId: branch.fromBusId,
+      toBusId: branch.toBusId,
+      r: branch.r,
+      x: branch.x,
+      bHalf: branch.bHalf,
+    };
+  });
 
   return {
     baseMVA: state.baseMVA,

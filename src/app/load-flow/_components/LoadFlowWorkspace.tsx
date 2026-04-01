@@ -15,7 +15,13 @@ import {
 
 const BUS_TYPE_OPTIONS: BusType[] = ["SLACK", "PV", "PQ"];
 
-const numberFromInput = (value: string): number => Number.parseFloat(value);
+const parseFiniteNumber = (value: string): number | null => {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const isBusType = (value: string): value is BusType =>
+  BUS_TYPE_OPTIONS.some((type) => type === value);
 
 export function LoadFlowWorkspace() {
   const [editorState, setEditorState] = useState(
@@ -140,13 +146,18 @@ export function LoadFlowWorkspace() {
                 <select
                   value={selectedBus.type}
                   className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
-                  onChange={(event) =>
+                  onChange={(event) => {
+                    const nextType = event.target.value;
+                    if (!isBusType(nextType)) {
+                      return;
+                    }
+
                     setEditorState((prev) =>
                       updateBus(prev, selectedBus.id, {
-                        type: event.target.value as BusType,
+                        type: nextType,
                       })
-                    )
-                  }
+                    );
+                  }}
                 >
                   {BUS_TYPE_OPTIONS.map((type) => (
                     <option key={type} value={type}>
@@ -166,13 +177,20 @@ export function LoadFlowWorkspace() {
                   type="number"
                   value={selectedBranch.r}
                   className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
-                  onChange={(event) =>
+                  onChange={(event) => {
+                    const parsedResistance = parseFiniteNumber(
+                      event.target.value
+                    );
+                    if (parsedResistance === null) {
+                      return;
+                    }
+
                     setEditorState((prev) =>
                       updateBranch(prev, selectedBranch.id, {
-                        r: numberFromInput(event.target.value),
+                        r: parsedResistance,
                       })
-                    )
-                  }
+                    );
+                  }}
                 />
               </label>
             </div>
