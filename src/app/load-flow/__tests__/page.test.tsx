@@ -9,7 +9,7 @@ describe("LoadFlowPage", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Load Flow" })
     ).toBeInTheDocument();
-    expect(screen.getByText("Workspace (MVP)")).toBeInTheDocument();
+    expect(screen.getByText("Workspace")).toBeInTheDocument();
     expect(
       screen.getByText(/foundation for an in-browser AC power flow tool/i)
     ).toBeInTheDocument();
