@@ -124,6 +124,15 @@ yarn deploy           # Build and deploy to GitHub Pages
 - If intentional UI changes cause visual snapshot failures, run `yarn test:e2e:visual:update` to refresh snapshots when Docker is available, otherwise `yarn test:e2e:visual:update:host`, then rerun the matching visual suite, mention the snapshot update explicitly, and ensure updated snapshot artifacts are included in the commit or PR.
 - If any required verification step is blocked by the local environment after trying the supported Docker or host Playwright path as appropriate, say so explicitly in the final handoff, do not claim full verification, and do not create a commit or PR unless the user explicitly waives that requirement.
 
+### Remote PR Feedback Workflow (Agent Guidance)
+
+- If the user asks you to respond to GitHub PR feedback/review comments and the local checkout does not contain PR discussion context, use the public repository on GitHub as the source of truth: `https://github.com/aclyx/alexleung.ca`.
+- For PR feedback tasks, first determine the exact PR number (from user input, branch context, or linked PR URL). If you cannot determine it reliably, ask for the PR URL/number before making code changes.
+- Retrieve and review PR discussion context from the PR page, including review comments, issue comments, and unresolved conversations before editing files.
+- Before implementing changes, summarize the unresolved feedback items you plan to address so interpretation is explicit.
+- If GitHub access is unavailable in the current environment, report the limitation clearly and stop instead of guessing about PR feedback state.
+- Do not assume local git history or commit messages include complete reviewer feedback.
+
 ### Typography and Prose Guardrails (Agent Guidance)
 
 - Reference audit: `docs/typography-audit.md`.
