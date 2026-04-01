@@ -43,9 +43,9 @@ export default function LoadFlowPage() {
         <ResponsiveContainer element="section" className="space-y-6">
           <p className="text-body text-gray-300">
             This page is the foundation for an in-browser AC power flow tool.
-            The current milestone establishes route structure and domain
-            contracts, with graph editing and Newton-Raphson solving coming in
-            subsequent slices.
+            This milestone now includes a first-pass canvas foundation for
+            adding buses and lines, plus normalized editor state serialization.
+            Newton-Raphson solver modules are planned next.
           </p>
           <LoadFlowWorkspace />
         </ResponsiveContainer>

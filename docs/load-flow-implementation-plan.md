@@ -19,19 +19,23 @@ This plan is intentionally modular so the solver can be extracted into a separat
 
 ---
 
-## Progress Update (March 31, 2026)
+## Progress Update (April 1, 2026)
 
-Completed in this slice (PR 1 scope):
+Completed across the first two slices (PR 1 + PR 2 scope):
 
-- ✅ Added `/load-flow` route shell and placeholder workspace component.
+- ✅ Added `/load-flow` route shell and initial workspace layout.
 - ✅ Added initial domain model contracts under `src/features/load-flow/model/` (`types.ts`, `defaults.ts`, `validation.ts`).
 - ✅ Added validator unit tests covering baseline pre-solve checks.
 - ✅ Follow-up review hardening: added duplicate bus-ID validation and route coverage tests for the `/load-flow/` shell.
 - ✅ PR #191 review follow-up: reject non-finite `baseMVA` values and non-finite branch impedance inputs.
+- ✅ Implemented a first-pass canvas editor foundation with palette actions for bus/line creation.
+- ✅ Added normalized editor store helpers under `src/features/load-flow/state/loadFlowStore.ts`.
+- ✅ Added serialization path from editor graph state to `LoadFlowCase` shape (`toLoadFlowCase`).
+- ✅ Added store unit tests for deterministic bus defaults and bus/line serialization behavior.
 
 Next recommended slice:
 
-- Build the canvas editor foundation (palette, bus/line placement, and normalized store) as described in PR 2.
+- Build PR 3 solver skeleton: add `graphToCase.ts`, Ybus assembly, and first Newton-Raphson solve loop with deterministic mini-case tests.
 
 ---
 
@@ -268,11 +272,11 @@ Below are bite-sized slices designed for clean review. They can be run as stacke
 
 **Acceptance:** route renders; type contracts compile; unit tests for validators pass.
 
-#### PR 2 — Canvas editor foundation
+#### PR 2 — Canvas editor foundation _(Completed April 1, 2026)_
 
-- Introduce graph editor (palette + node placement + edge wiring)
-- Add normalized state store and selection/edit panel basics
-- Support buses and lines first
+- ✅ Introduced first-pass graph editor UX (palette actions, bus list/canvas snapshot, line wiring via initial connect action).
+- ✅ Added normalized state store and selection/edit panel basics.
+- ✅ Added bus and line creation/editing foundation with serialized case preview.
 
 **Acceptance:** users can create/edit buses and lines; state serializes correctly.
 
