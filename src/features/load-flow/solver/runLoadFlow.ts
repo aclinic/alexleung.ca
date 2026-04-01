@@ -33,7 +33,7 @@ export const runLoadFlow = (
       algorithm: algorithmDecision.selected,
       initialization: initialization.source,
       message:
-        "Solver skeleton is configured. Newton-Raphson and fast-decoupled iteration kernels are not yet implemented.",
+        "Solver skeleton is configured. Newton-Raphson iteration kernels are not yet implemented.",
       iterationsCompleted: 0,
     },
   };

@@ -1,31 +1,17 @@
 import { LoadFlowCase } from "@/features/load-flow/model/types";
 
-import { AlgorithmSelectionDecision, SolveOptions } from "./types";
+import { SolveOptions, SolverAlgorithm } from "./types";
 
-const LARGE_CASE_THRESHOLD = 120;
+export interface AlgorithmSelectionDecision {
+  selected: SolverAlgorithm;
+  reason: string;
+}
 
 export const selectSolverAlgorithm = (
-  loadFlowCase: LoadFlowCase,
+  _loadFlowCase: LoadFlowCase,
   options: SolveOptions
-): AlgorithmSelectionDecision => {
-  if (options.algorithm !== "NEWTON_RAPHSON") {
-    return {
-      selected: options.algorithm,
-      reason: "Explicit solver override from options.",
-    };
-  }
-
-  if (loadFlowCase.buses.length >= LARGE_CASE_THRESHOLD) {
-    return {
-      selected: "FAST_DECOUPLED",
-      reason:
-        "Large network heuristic: prefer fast-decoupled as default baseline for iteration speed.",
-    };
-  }
-
-  return {
-    selected: "NEWTON_RAPHSON",
-    reason:
-      "Default for small/medium systems and robust mixed-bus convergence.",
-  };
-};
+): AlgorithmSelectionDecision => ({
+  selected: options.algorithm,
+  reason:
+    "Newton-Raphson is the only implemented algorithm in the current engine phase.",
+});

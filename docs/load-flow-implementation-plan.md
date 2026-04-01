@@ -97,7 +97,7 @@ src/
         validation.ts
         defaults.ts
       graph/
-        graphToCase.ts
+        toLoadFlowCase.ts
       solver/
         core/
           newtonRaphson.ts
@@ -204,31 +204,27 @@ Document and enforce conventions in one place:
 
 ### Algorithm decision policy (v1)
 
-Default decision tree:
+Current implementation phase decision:
 
-1. Use **Newton-Raphson** for small/medium systems and for mixed PV/PQ behavior where robust convergence and Jacobian diagnostics are most important.
-2. Permit **Fast-Decoupled** as an explicit override, and allow heuristic defaulting for very large systems as a performance-oriented baseline.
+1. Use **Newton-Raphson only** until the core kernels (`Ybus`, mismatch, Jacobian, solve/update loop) are complete and benchmarked.
+2. Evaluate **Fast-Decoupled** only after Newton-Raphson parity is validated on the benchmark fixture set (3/5/14 bus + internal stress cases).
 3. Keep Gauss-Seidel out of the primary path (possible educational mode only).
 
 Rationale:
 
-- Newton-Raphson has stronger convergence behavior near solution and handles full AC coupling directly.
-- Fast-Decoupled can be materially faster at scale when assumptions are acceptable.
-- A typed selection layer avoids hard-coding policy inside the numerical kernel.
+- A single production path keeps correctness/debug diagnostics focused while the first engine kernel is maturing.
+- Alternate algorithm work should be gated behind parity benchmarks rather than heuristics in a skeleton phase.
 
 ### Initialization policy (v1)
 
-Support the following initialization modes from the public solve API:
+Current implementation phase decision:
 
-- `FLAT_START` (default): `|V|=1.0 pu`, `θ=0°` for all buses
-- `WARM_START`: caller-supplied prior solved state (for repeated runs)
-- `DC_ANGLE_SEED`: flat magnitudes with DC-seeded angles when available
+- `FLAT_START` only (`|V|=1.0 pu`, `θ=0°` for all buses).
 
-Practical guidance:
+Follow-up expansion criteria:
 
-- Start with flat start for deterministic baseline behavior and easier tests.
-- Add warm-start support before performance sweeps and interactive repeated solves.
-- Use DC angle seeding as a targeted acceleration option for larger meshed cases.
+- Add warm start only when solve results are persisted in a stable state model.
+- Add DC angle seed only when a dedicated DC pre-solve path and regression benchmarks exist.
 
 ### Robustness requirements
 

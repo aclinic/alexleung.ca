@@ -1,7 +1,11 @@
 import { LoadFlowCase } from "@/features/load-flow/model/types";
 
-export type SolverAlgorithm = "NEWTON_RAPHSON" | "FAST_DECOUPLED";
-export type InitializationMode = "FLAT_START" | "WARM_START" | "DC_ANGLE_SEED";
+/**
+ * Keep the public surface area intentionally narrow until the first
+ * numerical kernel is production-ready.
+ */
+export type SolverAlgorithm = "NEWTON_RAPHSON";
+export type InitializationMode = "FLAT_START";
 
 export interface SolveOptions {
   tolerance: number;
@@ -16,11 +20,6 @@ export interface SolverInitialization {
   voltageMagnitudeByBusId: Record<string, number>;
   voltageAngleDegByBusId: Record<string, number>;
   source: InitializationMode;
-}
-
-export interface AlgorithmSelectionDecision {
-  selected: SolverAlgorithm;
-  reason: string;
 }
 
 export interface LoadFlowDiagnostics {
