@@ -22,16 +22,40 @@ export interface SolverInitialization {
   source: InitializationMode;
 }
 
+export interface BusSolution {
+  busId: string;
+  voltageMagnitudePu: number;
+  voltageAngleDeg: number;
+  pInjectionPu: number;
+  qInjectionPu: number;
+}
+
+export interface BranchFlowSolution {
+  branchId: string;
+  fromBusId: string;
+  toBusId: string;
+  pFromToMW: number;
+  qFromToMVar: number;
+  pToFromMW: number;
+  qToFromMVar: number;
+  pLossMW: number;
+  qLossMVar: number;
+}
+
 export interface LoadFlowDiagnostics {
   converged: boolean;
   algorithm: SolverAlgorithm;
   initialization: InitializationMode;
   message: string;
   iterationsCompleted: number;
+  maxMismatchPu: number | null;
+  iterationMaxMismatchPu: number[];
 }
 
 export interface LoadFlowResult {
   diagnostics: LoadFlowDiagnostics;
+  buses?: BusSolution[];
+  branchFlows?: BranchFlowSolution[];
 }
 
 export interface LoadFlowEngine {
@@ -43,7 +67,7 @@ export interface LoadFlowEngine {
 
 export const DEFAULT_SOLVE_OPTIONS: SolveOptions = {
   tolerance: 1e-6,
-  maxIterations: 20,
+  maxIterations: 30,
   damping: 1,
   enforceReactiveLimits: true,
   algorithm: "NEWTON_RAPHSON",

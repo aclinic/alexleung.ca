@@ -5,6 +5,11 @@ import { useMemo, useState } from "react";
 import { toLoadFlowCase } from "@/features/load-flow/graph/toLoadFlowCase";
 import { BusType } from "@/features/load-flow/model/types";
 import {
+  getReferenceScenarioById,
+  LOAD_FLOW_REFERENCE_SCENARIOS,
+} from "@/features/load-flow/solver/referenceScenarios";
+import { runLoadFlow } from "@/features/load-flow/solver/runLoadFlow";
+import {
   addBranch,
   addBus,
   createInitialLoadFlowEditorState,
@@ -27,6 +32,8 @@ export function LoadFlowWorkspace() {
   const [editorState, setEditorState] = useState(
     createInitialLoadFlowEditorState
   );
+  const [selectedReferenceScenarioId, setSelectedReferenceScenarioId] =
+    useState<string | null>(null);
 
   const selectedBus =
     editorState.selectedElementType === "BUS" && editorState.selectedElementId
@@ -42,14 +49,63 @@ export function LoadFlowWorkspace() {
     () => toLoadFlowCase(editorState),
     [editorState]
   );
+  const selectedReferenceScenario = selectedReferenceScenarioId
+    ? getReferenceScenarioById(selectedReferenceScenarioId)
+    : undefined;
+
+  const activeSolveCase = selectedReferenceScenario
+    ? selectedReferenceScenario.loadFlowCase
+    : serializedCase;
+
+  const solveResult = useMemo(
+    () => runLoadFlow(activeSolveCase),
+    [activeSolveCase]
+  );
 
   return (
     <section className="rounded-xl border border-gray-700 bg-gray-900/60 p-6 shadow-sm">
       <h2 className="text-heading-sm text-white">Workspace</h2>
       <p className="text-body mt-2 text-gray-300">
-        Foundation editor for buses and lines with normalized state
-        serialization.
+        Build a one-line model, run an AC load flow solve, and inspect voltage
+        and branch flow outputs.
       </p>
+
+      <div className="mt-4 rounded-lg border border-emerald-700/70 bg-emerald-950/30 p-4">
+        <h3 className="font-semibold text-emerald-200">Reference scenarios</h3>
+        <p className="mt-1 text-sm text-emerald-100/90">
+          Solve against standard benchmark cases, or switch back to the current
+          editor graph model.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="rounded-md border border-emerald-500 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/50"
+            onClick={() => setSelectedReferenceScenarioId(null)}
+          >
+            Use editor model
+          </button>
+          {LOAD_FLOW_REFERENCE_SCENARIOS.map((scenario) => (
+            <button
+              key={scenario.id}
+              type="button"
+              className="rounded-md border border-emerald-500 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/50"
+              onClick={() => setSelectedReferenceScenarioId(scenario.id)}
+            >
+              {scenario.name}
+            </button>
+          ))}
+        </div>
+        {selectedReferenceScenario ? (
+          <p className="mt-2 text-xs text-emerald-100/80">
+            Active solve case: {selectedReferenceScenario.name} —{" "}
+            {selectedReferenceScenario.description}
+          </p>
+        ) : (
+          <p className="mt-2 text-xs text-emerald-100/80">
+            Active solve case: editor graph serialization.
+          </p>
+        )}
+      </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         <div className="rounded-lg border border-gray-700 p-4">
@@ -202,6 +258,41 @@ export function LoadFlowWorkspace() {
             </p>
           ) : null}
         </div>
+      </div>
+
+      <div className="mt-6 rounded-lg border border-gray-700 p-4">
+        <h3 className="font-semibold text-white">Solve results</h3>
+        <p className="mt-2 text-sm text-gray-300">
+          {solveResult.diagnostics.message}
+        </p>
+        {solveResult.buses ? (
+          <div className="mt-3 overflow-auto">
+            <table className="min-w-full text-left text-xs text-gray-200">
+              <thead>
+                <tr>
+                  <th className="pr-3">Bus</th>
+                  <th className="pr-3">|V| (pu)</th>
+                  <th className="pr-3">θ (deg)</th>
+                  <th className="pr-3">P inj (pu)</th>
+                  <th>Q inj (pu)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {solveResult.buses.map((bus) => (
+                  <tr key={bus.busId}>
+                    <td className="pr-3">{bus.busId}</td>
+                    <td className="pr-3">
+                      {bus.voltageMagnitudePu.toFixed(4)}
+                    </td>
+                    <td className="pr-3">{bus.voltageAngleDeg.toFixed(3)}</td>
+                    <td className="pr-3">{bus.pInjectionPu.toFixed(4)}</td>
+                    <td>{bus.qInjectionPu.toFixed(4)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-6 rounded-lg border border-gray-700 p-4">

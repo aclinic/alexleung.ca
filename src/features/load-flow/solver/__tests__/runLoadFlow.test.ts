@@ -1,15 +1,103 @@
 import { DEFAULT_LOAD_FLOW_CASE } from "@/features/load-flow/model/defaults";
 
+import { LOAD_FLOW_REFERENCE_SCENARIOS } from "../referenceScenarios";
 import { runLoadFlow } from "../runLoadFlow";
 
 describe("runLoadFlow", () => {
-  it("returns structured diagnostics from solver skeleton", () => {
-    const loadFlowCase = JSON.parse(JSON.stringify(DEFAULT_LOAD_FLOW_CASE));
+  it("returns validation diagnostics for invalid cases", () => {
+    const invalidCase = {
+      ...DEFAULT_LOAD_FLOW_CASE,
+      baseMVA: 0,
+    };
 
-    const result = runLoadFlow(loadFlowCase);
+    const result = runLoadFlow(invalidCase);
 
     expect(result.diagnostics.converged).toBe(false);
-    expect(result.diagnostics.algorithm).toBe("NEWTON_RAPHSON");
-    expect(result.diagnostics.initialization).toBe("FLAT_START");
+    expect(result.diagnostics.message).toMatch(/base mva/i);
+    expect(result.buses).toBeUndefined();
+  });
+
+  it("solves the two-bus radial reference scenario", () => {
+    const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
+      (item) => item.id === "two-bus-radial"
+    );
+
+    expect(scenario).toBeDefined();
+
+    const result = runLoadFlow(scenario!.loadFlowCase);
+
+    expect(result.diagnostics.converged).toBe(true);
+    expect(result.buses).toHaveLength(2);
+
+    const plantBus = result.buses?.find((bus) => bus.busId === "bus-2");
+    expect(plantBus).toBeDefined();
+    expect(plantBus?.voltageMagnitudePu).toBeGreaterThan(0.94);
+    expect(plantBus?.voltageMagnitudePu).toBeLessThan(0.98);
+    expect(plantBus?.voltageAngleDeg).toBeLessThan(0);
+    expect(result.branchFlows).toHaveLength(1);
+  });
+
+  it("solves the three-bus PV + PQ reference scenario", () => {
+    const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
+      (item) => item.id === "three-bus-with-pv"
+    );
+
+    expect(scenario).toBeDefined();
+
+    const result = runLoadFlow(scenario!.loadFlowCase);
+
+    expect(result.diagnostics.converged).toBe(true);
+    expect(result.buses).toHaveLength(3);
+
+    const pvBus = result.buses?.find((bus) => bus.busId === "bus-2");
+    const pqBus = result.buses?.find((bus) => bus.busId === "bus-3");
+
+    expect(pvBus?.voltageMagnitudePu).toBeCloseTo(1.025, 6);
+    expect(pqBus?.voltageMagnitudePu).toBeGreaterThan(0.94);
+    expect(pqBus?.voltageMagnitudePu).toBeLessThan(0.99);
+    expect(pqBus?.voltageAngleDeg).toBeLessThan(0);
+    expect(result.diagnostics.maxMismatchPu).not.toBeNull();
+    expect(result.diagnostics.iterationMaxMismatchPu.length).toBeGreaterThan(0);
+  });
+
+  it("returns consistent bus injections when max iterations are hit", () => {
+    const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
+      (item) => item.id === "two-bus-radial"
+    );
+
+    expect(scenario).toBeDefined();
+
+    const result = runLoadFlow(scenario!.loadFlowCase, {
+      maxIterations: 1,
+      tolerance: 1e-12,
+    });
+
+    expect(result.diagnostics.converged).toBe(false);
+    expect(result.buses).toBeDefined();
+
+    for (const bus of result.buses ?? []) {
+      expect(Number.isFinite(bus.pInjectionPu)).toBe(true);
+      expect(Number.isFinite(bus.qInjectionPu)).toBe(true);
+    }
+  });
+
+  it("reports island diagnostics for disconnected networks", () => {
+    const islandedCase = {
+      ...DEFAULT_LOAD_FLOW_CASE,
+      buses: [
+        ...DEFAULT_LOAD_FLOW_CASE.buses,
+        {
+          id: "bus-2",
+          name: "Islanded bus",
+          baseKV: 13.8,
+          type: "PQ" as const,
+        },
+      ],
+    };
+
+    const result = runLoadFlow(islandedCase);
+
+    expect(result.diagnostics.converged).toBe(false);
+    expect(result.diagnostics.message).toMatch(/island/i);
   });
 });

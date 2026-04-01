@@ -11,7 +11,7 @@ describe("LoadFlowPage", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Workspace")).toBeInTheDocument();
     expect(
-      screen.getByText(/foundation for an in-browser AC power flow tool/i)
+      screen.getByText(/newton-raphson ac load flow engine/i)
     ).toBeInTheDocument();
   });
 });
