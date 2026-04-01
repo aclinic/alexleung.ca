@@ -42,12 +42,10 @@ export default function LoadFlowPage() {
       <PageShell title="Load Flow" titleId="load-flow">
         <ResponsiveContainer element="section" className="space-y-6">
           <p className="text-body text-gray-300">
-            This page is the foundation for an in-browser AC power flow tool.
-            This milestone now includes a first-pass canvas foundation for
-            adding buses and lines, plus normalized editor state serialization.
-            Solver scaffolding now separates graph serialization from the
-            upcoming engine layer and documents algorithm/initialization policy
-            before numerical kernels land.
+            This workspace now includes a Newton-Raphson AC load flow engine
+            with reference scenarios, bus-voltage results, and branch-flow
+            outputs. You can start from a standard benchmark case or build and
+            tune a custom one-line model directly in the browser.
           </p>
           <LoadFlowWorkspace />
         </ResponsiveContainer>
