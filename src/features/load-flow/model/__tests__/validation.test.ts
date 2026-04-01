@@ -31,6 +31,26 @@ describe("validateLoadFlowCase", () => {
     expect(result.errors).toContain("Exactly one slack bus is required.");
   });
 
+  it("rejects non-finite base MVA values", () => {
+    const nanResult = validateLoadFlowCase(
+      createCase({
+        baseMVA: Number.NaN,
+      })
+    );
+    const infinityResult = validateLoadFlowCase(
+      createCase({
+        baseMVA: Number.POSITIVE_INFINITY,
+      })
+    );
+
+    expect(nanResult.errors).toContain(
+      "Base MVA must be a finite number greater than zero."
+    );
+    expect(infinityResult.errors).toContain(
+      "Base MVA must be a finite number greater than zero."
+    );
+  });
+
   it("flags branches that reference missing buses", () => {
     const result = validateLoadFlowCase(
       createCase({
@@ -68,6 +88,26 @@ describe("validateLoadFlowCase", () => {
 
     expect(result.errors).toContain(
       "Branch branch-1 has invalid impedance (r and x cannot both be zero)."
+    );
+  });
+
+  it("flags branches with non-finite impedance values", () => {
+    const result = validateLoadFlowCase(
+      createCase({
+        branches: [
+          {
+            id: "branch-1",
+            fromBusId: "bus-1",
+            toBusId: "bus-1",
+            r: Number.NaN,
+            x: 0.03,
+          },
+        ],
+      })
+    );
+
+    expect(result.errors).toContain(
+      "Branch branch-1 has invalid impedance (r and x must be finite numbers)."
     );
   });
 

@@ -11,13 +11,15 @@ const getDuplicateIds = (ids: string[]): string[] => [
   ...new Set(ids.filter((id, index) => ids.indexOf(id) !== index)),
 ];
 
+const isFiniteNumber = (value: number): boolean => Number.isFinite(value);
+
 export const validateLoadFlowCase = (
   loadFlowCase: LoadFlowCase
 ): LoadFlowValidationResult => {
   const errors: string[] = [];
 
-  if (loadFlowCase.baseMVA <= 0) {
-    errors.push("Base MVA must be greater than zero.");
+  if (!isFiniteNumber(loadFlowCase.baseMVA) || loadFlowCase.baseMVA <= 0) {
+    errors.push("Base MVA must be a finite number greater than zero.");
   }
 
   const slackBuses = loadFlowCase.buses.filter((bus) => bus.type === "SLACK");
@@ -39,6 +41,12 @@ export const validateLoadFlowCase = (
     if (!busIds.has(branch.fromBusId) || !busIds.has(branch.toBusId)) {
       errors.push(
         `Branch ${branch.id} references a bus that does not exist in the case.`
+      );
+    }
+
+    if (!isFiniteNumber(branch.r) || !isFiniteNumber(branch.x)) {
+      errors.push(
+        `Branch ${branch.id} has invalid impedance (r and x must be finite numbers).`
       );
     }
 
