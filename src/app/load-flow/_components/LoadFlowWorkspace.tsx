@@ -32,6 +32,8 @@ export function LoadFlowWorkspace() {
   const [editorState, setEditorState] = useState(
     createInitialLoadFlowEditorState
   );
+  const [selectedReferenceScenarioId, setSelectedReferenceScenarioId] =
+    useState<string | null>(null);
 
   const selectedBus =
     editorState.selectedElementType === "BUS" && editorState.selectedElementId
@@ -47,9 +49,17 @@ export function LoadFlowWorkspace() {
     () => toLoadFlowCase(editorState),
     [editorState]
   );
+  const selectedReferenceScenario = selectedReferenceScenarioId
+    ? getReferenceScenarioById(selectedReferenceScenarioId)
+    : undefined;
+
+  const activeSolveCase = selectedReferenceScenario
+    ? selectedReferenceScenario.loadFlowCase
+    : serializedCase;
+
   const solveResult = useMemo(
-    () => runLoadFlow(serializedCase),
-    [serializedCase]
+    () => runLoadFlow(activeSolveCase),
+    [activeSolveCase]
   );
 
   return (
@@ -63,58 +73,38 @@ export function LoadFlowWorkspace() {
       <div className="mt-4 rounded-lg border border-emerald-700/70 bg-emerald-950/30 p-4">
         <h3 className="font-semibold text-emerald-200">Reference scenarios</h3>
         <p className="mt-1 text-sm text-emerald-100/90">
-          Load a standard scenario to validate the solver before building a
-          custom case.
+          Solve against standard benchmark cases, or switch back to the current
+          editor graph model.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="rounded-md border border-emerald-500 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/50"
+            onClick={() => setSelectedReferenceScenarioId(null)}
+          >
+            Use editor model
+          </button>
           {LOAD_FLOW_REFERENCE_SCENARIOS.map((scenario) => (
             <button
               key={scenario.id}
               type="button"
               className="rounded-md border border-emerald-500 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/50"
-              onClick={() => {
-                const selectedScenario = getReferenceScenarioById(scenario.id);
-                if (!selectedScenario) {
-                  return;
-                }
-
-                setEditorState((prev) => ({
-                  ...prev,
-                  baseMVA: selectedScenario.loadFlowCase.baseMVA,
-                  busesById: Object.fromEntries(
-                    selectedScenario.loadFlowCase.buses.map((bus, index) => [
-                      bus.id,
-                      {
-                        ...bus,
-                        x: 120 + index * 120,
-                        y: 140,
-                      },
-                    ])
-                  ),
-                  busOrder: selectedScenario.loadFlowCase.buses.map(
-                    (bus) => bus.id
-                  ),
-                  branchesById: Object.fromEntries(
-                    selectedScenario.loadFlowCase.branches.map((branch) => [
-                      branch.id,
-                      {
-                        ...branch,
-                        bHalf: branch.bHalf ?? 0,
-                      },
-                    ])
-                  ),
-                  branchOrder: selectedScenario.loadFlowCase.branches.map(
-                    (branch) => branch.id
-                  ),
-                  selectedElementType: null,
-                  selectedElementId: null,
-                }));
-              }}
+              onClick={() => setSelectedReferenceScenarioId(scenario.id)}
             >
               {scenario.name}
             </button>
           ))}
         </div>
+        {selectedReferenceScenario ? (
+          <p className="mt-2 text-xs text-emerald-100/80">
+            Active solve case: {selectedReferenceScenario.name} —{" "}
+            {selectedReferenceScenario.description}
+          </p>
+        ) : (
+          <p className="mt-2 text-xs text-emerald-100/80">
+            Active solve case: editor graph serialization.
+          </p>
+        )}
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">

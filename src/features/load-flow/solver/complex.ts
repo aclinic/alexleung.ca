@@ -33,9 +33,6 @@ export const conjugateComplex = (value: Complex): Complex => ({
   im: -value.im,
 });
 
-export const absComplex = (value: Complex): number =>
-  Math.hypot(value.re, value.im);
-
 export const polarToComplex = (
   magnitude: number,
   angleRad: number
