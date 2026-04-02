@@ -2,7 +2,9 @@ import { toLoadFlowCase } from "@/features/load-flow/graph/toLoadFlowCase";
 import {
   addBranch,
   addBus,
+  autoLayoutBuses,
   createInitialLoadFlowEditorState,
+  replaceEditorStateFromLoadFlowCase,
   updateBus,
 } from "@/features/load-flow/state/loadFlowStore";
 
@@ -68,5 +70,71 @@ describe("loadFlowStore", () => {
 
     expect(state.busesById["bus-1"].name).toBe("Bus 1");
     expect(state.branchesById["line-1"].r).toBe(0.01);
+  });
+
+  it("applies auto-layout by connectivity levels", () => {
+    let state = createInitialLoadFlowEditorState();
+    state = addBus(state);
+    state = addBus(state);
+    state = addBus(state);
+    state = addBranch(state, "bus-1", "bus-2");
+    state = addBranch(state, "bus-2", "bus-3");
+
+    const laidOut = autoLayoutBuses(state);
+    expect(laidOut.busesById["bus-1"].x).toBe(120);
+    expect(laidOut.busesById["bus-2"].x).toBe(300);
+    expect(laidOut.busesById["bus-3"].x).toBe(480);
+  });
+
+  it("replaces editor state from a reference case including device data", () => {
+    const replaced = replaceEditorStateFromLoadFlowCase({
+      baseMVA: 100,
+      buses: [
+        {
+          id: "bus-a",
+          name: "A",
+          baseKV: 115,
+          type: "SLACK",
+          voltageMagnitudeSetpoint: 1.04,
+          voltageAngleSetpointDeg: 2.5,
+        },
+        { id: "bus-b", name: "B", baseKV: 115, type: "PQ" },
+      ],
+      branches: [
+        {
+          id: "line-a-b",
+          fromBusId: "bus-a",
+          toBusId: "bus-b",
+          r: 0.01,
+          x: 0.05,
+          bHalf: 0.01,
+        },
+      ],
+      generators: [
+        {
+          id: "gen-a",
+          busId: "bus-a",
+          pSet: 100,
+          vSet: 1.02,
+          qMin: -50,
+          qMax: 80,
+          status: "ON",
+        },
+      ],
+      loads: [{ id: "load-b", busId: "bus-b", p: 70, q: 30, status: "ON" }],
+      shunts: [],
+    });
+
+    const snapshot = toLoadFlowCase(replaced);
+    expect(replaced.selectedElementId).toBe("bus-a");
+    expect(replaced.selectedElementType).toBe("BUS");
+    expect(snapshot.buses[0]).toEqual(
+      expect.objectContaining({
+        voltageMagnitudeSetpoint: 1.04,
+        voltageAngleSetpointDeg: 2.5,
+      })
+    );
+    expect(snapshot.generators).toHaveLength(1);
+    expect(snapshot.loads).toHaveLength(1);
   });
 });

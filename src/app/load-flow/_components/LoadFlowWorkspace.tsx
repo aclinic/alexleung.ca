@@ -13,7 +13,9 @@ import { runLoadFlow } from "@/features/load-flow/solver/runLoadFlow";
 import {
   addBranch,
   addBus,
+  autoLayoutBuses,
   createInitialLoadFlowEditorState,
+  replaceEditorStateFromLoadFlowCase,
   selectElement,
   updateBranch,
   updateBus,
@@ -54,13 +56,9 @@ export function LoadFlowWorkspace() {
     ? getReferenceScenarioById(selectedReferenceScenarioId)
     : undefined;
 
-  const activeSolveCase = selectedReferenceScenario
-    ? selectedReferenceScenario.loadFlowCase
-    : serializedCase;
-
   const solveResult = useMemo(
-    () => runLoadFlow(activeSolveCase),
-    [activeSolveCase]
+    () => runLoadFlow(serializedCase),
+    [serializedCase]
   );
 
   return (
@@ -81,16 +79,24 @@ export function LoadFlowWorkspace() {
           <button
             type="button"
             className="rounded-md border border-emerald-500 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/50"
-            onClick={() => setSelectedReferenceScenarioId(null)}
+            onClick={() => {
+              setSelectedReferenceScenarioId(null);
+              setEditorState(createInitialLoadFlowEditorState());
+            }}
           >
-            Use editor model
+            Reset editor model
           </button>
           {LOAD_FLOW_REFERENCE_SCENARIOS.map((scenario) => (
             <button
               key={scenario.id}
               type="button"
               className="rounded-md border border-emerald-500 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/50"
-              onClick={() => setSelectedReferenceScenarioId(scenario.id)}
+              onClick={() => {
+                setSelectedReferenceScenarioId(scenario.id);
+                setEditorState(
+                  replaceEditorStateFromLoadFlowCase(scenario.loadFlowCase)
+                );
+              }}
             >
               {scenario.name}
             </button>
@@ -120,6 +126,13 @@ export function LoadFlowWorkspace() {
             onClick={() => setEditorState((prev) => addBus(prev))}
           >
             Add bus
+          </button>
+          <button
+            type="button"
+            className="ml-2 mt-3 rounded-md border border-gray-500 px-3 py-2 text-sm text-white hover:bg-gray-800"
+            onClick={() => setEditorState((prev) => autoLayoutBuses(prev))}
+          >
+            Auto-layout SLD
           </button>
 
           <div className="mt-3 space-y-2 text-sm text-gray-200">
@@ -156,6 +169,9 @@ export function LoadFlowWorkspace() {
             selectedElementType={editorState.selectedElementType}
             onBusSelect={(busId) =>
               setEditorState((prev) => selectElement(prev, "BUS", busId))
+            }
+            onBusMove={(busId, x, y) =>
+              setEditorState((prev) => updateBus(prev, busId, { x, y }))
             }
             onBranchSelect={(branchId) =>
               setEditorState((prev) => selectElement(prev, "BRANCH", branchId))

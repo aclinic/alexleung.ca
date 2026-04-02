@@ -16,5 +16,20 @@ describe("LoadFlowWorkspace", () => {
     expect(
       screen.getByText(/Active solve case: 2-Bus Radial/i)
     ).toBeInTheDocument();
+    expect(screen.getByText(/Grid • SLACK • 230 kV/i)).toBeInTheDocument();
+    expect(screen.getByText(/\"id\": \"load-1\"/i)).toBeInTheDocument();
+  });
+
+  it("keeps reference-bus setpoints when loading a scenario", () => {
+    render(<LoadFlowWorkspace />);
+
+    fireEvent.click(screen.getByRole("button", { name: "3-Bus PV + PQ" }));
+
+    expect(
+      screen.getByText(/"voltageMagnitudeSetpoint": 1.04/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/"voltageAngleSetpointDeg": 0/i)
+    ).toBeInTheDocument();
   });
 });

@@ -1,10 +1,20 @@
-import { BusType } from "@/features/load-flow/model/types";
+import {
+  BusType,
+  Generator,
+  Load,
+  LoadFlowCase,
+  ShuntDevice,
+} from "@/features/load-flow/model/types";
 
 export interface BusNode {
   id: string;
   name: string;
   baseKV: number;
   type: BusType;
+  voltageMagnitudeSetpoint?: number;
+  voltageAngleSetpointDeg?: number;
+  voltageMagnitudeMin?: number;
+  voltageMagnitudeMax?: number;
   x: number;
   y: number;
 }
@@ -30,6 +40,9 @@ export interface LoadFlowEditorState {
    * Stable insertion/display order for branches independent of object key order.
    */
   branchOrder: string[];
+  generators: Generator[];
+  loads: Load[];
+  shunts: ShuntDevice[];
   selectedElementId: string | null;
   selectedElementType: "BUS" | "BRANCH" | null;
 }
@@ -42,6 +55,9 @@ export const createInitialLoadFlowEditorState = (): LoadFlowEditorState => ({
   busOrder: [],
   branchesById: {},
   branchOrder: [],
+  generators: [],
+  loads: [],
+  shunts: [],
   selectedElementId: null,
   selectedElementType: null,
 });
@@ -155,3 +171,155 @@ export const selectElement = (
   selectedElementType: elementType,
   selectedElementId: elementId,
 });
+
+const AUTO_LAYOUT_X_SPACING = 180;
+const AUTO_LAYOUT_Y_SPACING = 120;
+const AUTO_LAYOUT_START_X = 120;
+const AUTO_LAYOUT_START_Y = 120;
+
+export const autoLayoutBuses = (
+  state: LoadFlowEditorState
+): LoadFlowEditorState => {
+  if (state.busOrder.length === 0) {
+    return state;
+  }
+
+  const adjacency = new Map<string, string[]>();
+  for (const busId of state.busOrder) {
+    adjacency.set(busId, []);
+  }
+
+  for (const branchId of state.branchOrder) {
+    const branch = state.branchesById[branchId];
+    adjacency.get(branch.fromBusId)?.push(branch.toBusId);
+    adjacency.get(branch.toBusId)?.push(branch.fromBusId);
+  }
+
+  const slackBusId = state.busOrder.find(
+    (busId) => state.busesById[busId]?.type === "SLACK"
+  );
+  const roots = [
+    ...(slackBusId ? [slackBusId] : []),
+    ...state.busOrder.filter((busId) => busId !== slackBusId),
+  ];
+
+  const levelByBusId = new Map<string, number>();
+  const visited = new Set<string>();
+
+  for (const root of roots) {
+    if (visited.has(root)) {
+      continue;
+    }
+
+    const queue: Array<{ busId: string; level: number }> = [
+      { busId: root, level: 0 },
+    ];
+    visited.add(root);
+
+    while (queue.length > 0) {
+      const current = queue.shift();
+      if (!current) {
+        continue;
+      }
+
+      const existing = levelByBusId.get(current.busId);
+      if (existing === undefined || current.level < existing) {
+        levelByBusId.set(current.busId, current.level);
+      }
+
+      for (const nextBusId of adjacency.get(current.busId) ?? []) {
+        if (visited.has(nextBusId)) {
+          continue;
+        }
+        visited.add(nextBusId);
+        queue.push({ busId: nextBusId, level: current.level + 1 });
+      }
+    }
+  }
+
+  const busesByLevel = new Map<number, string[]>();
+  for (const busId of state.busOrder) {
+    const level = levelByBusId.get(busId) ?? 0;
+    const busesInLevel = busesByLevel.get(level) ?? [];
+    busesInLevel.push(busId);
+    busesByLevel.set(level, busesInLevel);
+  }
+
+  const positionedBuses: Record<string, BusNode> = { ...state.busesById };
+  const orderedLevels = [...busesByLevel.keys()].sort((a, b) => a - b);
+  for (const level of orderedLevels) {
+    const buses = busesByLevel.get(level) ?? [];
+    buses.forEach((busId, index) => {
+      const bus = positionedBuses[busId];
+      positionedBuses[busId] = {
+        ...bus,
+        x: AUTO_LAYOUT_START_X + level * AUTO_LAYOUT_X_SPACING,
+        y: AUTO_LAYOUT_START_Y + index * AUTO_LAYOUT_Y_SPACING,
+      };
+    });
+  }
+
+  return {
+    ...state,
+    busesById: positionedBuses,
+  };
+};
+
+export const replaceEditorStateFromLoadFlowCase = (
+  loadFlowCase: LoadFlowCase
+): LoadFlowEditorState => {
+  const busOrder = loadFlowCase.buses.map((bus) => bus.id);
+  const branchOrder = loadFlowCase.branches.map((branch) => branch.id);
+
+  const busesById = Object.fromEntries(
+    loadFlowCase.buses.map((bus, index) => [
+      bus.id,
+      {
+        id: bus.id,
+        name: bus.name,
+        baseKV: bus.baseKV,
+        type: bus.type,
+        voltageMagnitudeSetpoint: bus.voltageMagnitudeSetpoint,
+        voltageAngleSetpointDeg: bus.voltageAngleSetpointDeg,
+        voltageMagnitudeMin: bus.voltageMagnitudeMin,
+        voltageMagnitudeMax: bus.voltageMagnitudeMax,
+        x: AUTO_LAYOUT_START_X + index * AUTO_LAYOUT_X_SPACING,
+        y: AUTO_LAYOUT_START_Y,
+      },
+    ])
+  );
+
+  const branchesById = Object.fromEntries(
+    loadFlowCase.branches.map((branch) => [
+      branch.id,
+      {
+        id: branch.id,
+        fromBusId: branch.fromBusId,
+        toBusId: branch.toBusId,
+        r: branch.r,
+        x: branch.x,
+        bHalf: branch.bHalf ?? 0,
+      },
+    ])
+  );
+
+  const selectedElementId = busOrder[0] ?? branchOrder[0] ?? null;
+  const selectedElementType: "BUS" | "BRANCH" | null = busOrder[0]
+    ? "BUS"
+    : branchOrder[0]
+      ? "BRANCH"
+      : null;
+
+  return autoLayoutBuses({
+    baseMVA: loadFlowCase.baseMVA,
+    busesById,
+    busOrder,
+    branchesById,
+    branchOrder,
+    generators: loadFlowCase.generators.map((generator) => ({ ...generator })),
+    loads: loadFlowCase.loads.map((load) => ({ ...load })),
+    shunts: loadFlowCase.shunts.map((shunt) => ({ ...shunt })),
+    selectedElementId,
+    selectedElementType,
+  });
+};

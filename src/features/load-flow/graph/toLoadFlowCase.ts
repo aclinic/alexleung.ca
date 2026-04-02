@@ -9,6 +9,10 @@ export const toLoadFlowCase = (state: LoadFlowEditorState): LoadFlowCase => {
       name: bus.name,
       baseKV: bus.baseKV,
       type: bus.type,
+      voltageMagnitudeSetpoint: bus.voltageMagnitudeSetpoint,
+      voltageAngleSetpointDeg: bus.voltageAngleSetpointDeg,
+      voltageMagnitudeMin: bus.voltageMagnitudeMin,
+      voltageMagnitudeMax: bus.voltageMagnitudeMax,
     };
   });
 
@@ -28,8 +32,8 @@ export const toLoadFlowCase = (state: LoadFlowEditorState): LoadFlowCase => {
     baseMVA: state.baseMVA,
     buses,
     branches,
-    generators: [],
-    loads: [],
-    shunts: [],
+    generators: state.generators.map((generator) => ({ ...generator })),
+    loads: state.loads.map((load) => ({ ...load })),
+    shunts: state.shunts.map((shunt) => ({ ...shunt })),
   };
 };

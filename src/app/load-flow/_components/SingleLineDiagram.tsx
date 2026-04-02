@@ -1,3 +1,5 @@
+import { PointerEvent, useRef } from "react";
+
 import { BusNode, LineEdge } from "@/features/load-flow/state/loadFlowStore";
 
 interface SingleLineDiagramProps {
@@ -6,6 +8,7 @@ interface SingleLineDiagramProps {
   selectedElementId: string | null;
   selectedElementType: "BUS" | "BRANCH" | null;
   onBusSelect: (busId: string) => void;
+  onBusMove: (busId: string, x: number, y: number) => void;
   onBranchSelect: (branchId: string) => void;
 }
 
@@ -38,8 +41,58 @@ export function SingleLineDiagram({
   selectedElementId,
   selectedElementType,
   onBusSelect,
+  onBusMove,
   onBranchSelect,
 }: SingleLineDiagramProps) {
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const draggingBusIdRef = useRef<string | null>(null);
+
+  const toSvgPoint = (clientX: number, clientY: number) => {
+    const svg = svgRef.current;
+    if (!svg) {
+      return null;
+    }
+
+    const point = svg.createSVGPoint();
+    point.x = clientX;
+    point.y = clientY;
+    const transform = svg.getScreenCTM();
+    if (!transform) {
+      return null;
+    }
+
+    return point.matrixTransform(transform.inverse());
+  };
+
+  const handleBusPointerDown = (
+    event: PointerEvent<SVGRectElement>,
+    busId: string
+  ) => {
+    event.preventDefault();
+    draggingBusIdRef.current = busId;
+    onBusSelect(busId);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handleBusPointerMove = (event: PointerEvent<SVGRectElement>) => {
+    const draggingBusId = draggingBusIdRef.current;
+    if (!draggingBusId) {
+      return;
+    }
+
+    const point = toSvgPoint(event.clientX, event.clientY);
+    if (!point) {
+      return;
+    }
+
+    onBusMove(draggingBusId, point.x, point.y);
+  };
+
+  const handleBusPointerUp = (event: PointerEvent<SVGRectElement>) => {
+    draggingBusIdRef.current = null;
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
   const busesById = new Map(buses.map((bus) => [bus.id, bus]));
   const busCentersX = buses.map((bus) => bus.x);
   const busCentersY = buses.map((bus) => bus.y);
@@ -73,6 +126,7 @@ export function SingleLineDiagram({
         </p>
       ) : (
         <svg
+          ref={svgRef}
           viewBox={`${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`}
           role="img"
           aria-label="Single line diagram"
@@ -139,6 +193,9 @@ export function SingleLineDiagram({
                   height={BUS_HEIGHT}
                   className={`${busClassName(isSelected)} cursor-pointer stroke-2 transition`}
                   onClick={() => onBusSelect(bus.id)}
+                  onPointerDown={(event) => handleBusPointerDown(event, bus.id)}
+                  onPointerMove={handleBusPointerMove}
+                  onPointerUp={handleBusPointerUp}
                 />
                 <text
                   x={BUS_HALF_WIDTH}
