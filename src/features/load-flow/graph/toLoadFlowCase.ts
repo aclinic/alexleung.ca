@@ -9,6 +9,10 @@ export const toLoadFlowCase = (state: LoadFlowEditorState): LoadFlowCase => {
       name: bus.name,
       baseKV: bus.baseKV,
       type: bus.type,
+      voltageMagnitudeSetpoint: bus.voltageMagnitudeSetpoint,
+      voltageAngleSetpointDeg: bus.voltageAngleSetpointDeg,
+      voltageMagnitudeMin: bus.voltageMagnitudeMin,
+      voltageMagnitudeMax: bus.voltageMagnitudeMax,
     };
   });
 

@@ -90,7 +90,14 @@ describe("loadFlowStore", () => {
     const replaced = replaceEditorStateFromLoadFlowCase({
       baseMVA: 100,
       buses: [
-        { id: "bus-a", name: "A", baseKV: 115, type: "SLACK" },
+        {
+          id: "bus-a",
+          name: "A",
+          baseKV: 115,
+          type: "SLACK",
+          voltageMagnitudeSetpoint: 1.04,
+          voltageAngleSetpointDeg: 2.5,
+        },
         { id: "bus-b", name: "B", baseKV: 115, type: "PQ" },
       ],
       branches: [
@@ -121,6 +128,12 @@ describe("loadFlowStore", () => {
     const snapshot = toLoadFlowCase(replaced);
     expect(replaced.selectedElementId).toBe("bus-a");
     expect(replaced.selectedElementType).toBe("BUS");
+    expect(snapshot.buses[0]).toEqual(
+      expect.objectContaining({
+        voltageMagnitudeSetpoint: 1.04,
+        voltageAngleSetpointDeg: 2.5,
+      })
+    );
     expect(snapshot.generators).toHaveLength(1);
     expect(snapshot.loads).toHaveLength(1);
   });

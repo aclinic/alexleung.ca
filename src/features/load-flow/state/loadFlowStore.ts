@@ -11,6 +11,10 @@ export interface BusNode {
   name: string;
   baseKV: number;
   type: BusType;
+  voltageMagnitudeSetpoint?: number;
+  voltageAngleSetpointDeg?: number;
+  voltageMagnitudeMin?: number;
+  voltageMagnitudeMax?: number;
   x: number;
   y: number;
 }
@@ -275,6 +279,10 @@ export const replaceEditorStateFromLoadFlowCase = (
         name: bus.name,
         baseKV: bus.baseKV,
         type: bus.type,
+        voltageMagnitudeSetpoint: bus.voltageMagnitudeSetpoint,
+        voltageAngleSetpointDeg: bus.voltageAngleSetpointDeg,
+        voltageMagnitudeMin: bus.voltageMagnitudeMin,
+        voltageMagnitudeMax: bus.voltageMagnitudeMax,
         x: AUTO_LAYOUT_START_X + index * AUTO_LAYOUT_X_SPACING,
         y: AUTO_LAYOUT_START_Y,
       },
