@@ -1,5 +1,7 @@
 import { LoadFlowCase } from "@/features/load-flow/model/types";
 
+import { IEEE_REFERENCE_SCENARIOS } from "./ieeeReferenceScenarios";
+
 export interface LoadFlowReferenceScenario {
   id: string;
   name: string;
@@ -7,7 +9,7 @@ export interface LoadFlowReferenceScenario {
   loadFlowCase: LoadFlowCase;
 }
 
-export const LOAD_FLOW_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
+const BUILTIN_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
   {
     id: "two-bus-radial",
     name: "2-Bus Radial",
@@ -140,6 +142,11 @@ export const LOAD_FLOW_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
       shunts: [],
     },
   },
+];
+
+export const LOAD_FLOW_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
+  ...BUILTIN_REFERENCE_SCENARIOS,
+  ...IEEE_REFERENCE_SCENARIOS,
 ];
 
 export const getReferenceScenarioById = (

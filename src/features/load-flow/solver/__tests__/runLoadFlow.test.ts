@@ -100,4 +100,30 @@ describe("runLoadFlow", () => {
     expect(result.diagnostics.converged).toBe(false);
     expect(result.diagnostics.message).toMatch(/island/i);
   });
+
+  it("loads IEEE benchmark reference scenarios without validation errors", () => {
+    const ieeeScenarioIds = [
+      "ieee-9-bus",
+      "ieee-14-bus",
+      "ieee-30-bus",
+      "ieee-57-bus",
+      "ieee-118-bus",
+    ];
+
+    for (const scenarioId of ieeeScenarioIds) {
+      const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
+        (item) => item.id === scenarioId
+      );
+
+      expect(scenario).toBeDefined();
+
+      const result = runLoadFlow(scenario!.loadFlowCase);
+
+      expect(result.diagnostics.message).not.toMatch(
+        /required|does not exist/i
+      );
+      expect(result.buses).toHaveLength(scenario!.loadFlowCase.buses.length);
+      expect(result.diagnostics.iterationsCompleted).toBeGreaterThan(0);
+    }
+  });
 });
