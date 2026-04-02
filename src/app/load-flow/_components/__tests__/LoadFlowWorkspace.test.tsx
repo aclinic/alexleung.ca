@@ -16,5 +16,7 @@ describe("LoadFlowWorkspace", () => {
     expect(
       screen.getByText(/Active solve case: 2-Bus Radial/i)
     ).toBeInTheDocument();
+    expect(screen.getByText(/Grid • SLACK • 230 kV/i)).toBeInTheDocument();
+    expect(screen.getByText(/\"id\": \"load-1\"/i)).toBeInTheDocument();
   });
 });

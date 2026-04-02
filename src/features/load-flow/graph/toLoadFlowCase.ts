@@ -28,8 +28,8 @@ export const toLoadFlowCase = (state: LoadFlowEditorState): LoadFlowCase => {
     baseMVA: state.baseMVA,
     buses,
     branches,
-    generators: [],
-    loads: [],
-    shunts: [],
+    generators: state.generators.map((generator) => ({ ...generator })),
+    loads: state.loads.map((load) => ({ ...load })),
+    shunts: state.shunts.map((shunt) => ({ ...shunt })),
   };
 };
