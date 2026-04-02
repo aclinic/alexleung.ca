@@ -130,7 +130,7 @@ export function SingleLineDiagram({
           viewBox={`${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`}
           role="img"
           aria-label="Single line diagram"
-          className="h-[280px] min-w-[680px] w-full"
+          className="h-[360px] min-w-[980px] w-full"
         >
           <rect
             x={viewBoxX}
@@ -150,23 +150,23 @@ export function SingleLineDiagram({
 
             const from = getBusCenter(fromBus);
             const to = getBusCenter(toBus);
+            const elbowX = to.x;
+            const elbowY = from.y;
             const isSelected =
               selectedElementType === "BRANCH" &&
               selectedElementId === branch.id;
 
             return (
               <g key={branch.id}>
-                <line
-                  x1={from.x}
-                  y1={from.y}
-                  x2={to.x}
-                  y2={to.y}
+                <polyline
+                  points={`${from.x},${from.y} ${elbowX},${elbowY} ${to.x},${to.y}`}
+                  fill="none"
                   className={`${lineClassName(isSelected)} cursor-pointer transition`}
                   onClick={() => onBranchSelect(branch.id)}
                 />
                 <text
-                  x={(from.x + to.x) / 2}
-                  y={(from.y + to.y) / 2 - 10}
+                  x={elbowX}
+                  y={elbowY - 10}
                   textAnchor="middle"
                   className="fill-slate-300 text-[10px]"
                 >

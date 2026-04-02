@@ -34,6 +34,18 @@ Completed across the first two slices (PR 1 + PR 2 scope):
 - ✅ Added store unit tests for deterministic bus defaults and bus/line serialization behavior.
 - ✅ Added an interactive SVG single-line diagram panel in `/load-flow` with clickable buses/branches and selected-element highlighting.
 
+## Feedback Follow-ups (April 2, 2026)
+
+- ✅ Updated the workspace layout so the SLD panel spans the full content width before the editor side panels.
+- ✅ Defaulted reference scenario selection to `IEEE 14-Bus` on initial load.
+- ✅ Switched branch rendering from direct segment lines to orthogonal right-angle polylines.
+- ✅ Synchronized topology-list button highlight state with SLD click selection for both buses and lines.
+- ✅ Kept IEEE 14-bus `baseKV` values aligned with MATPOWER case14 source data (0 kV placeholders in the published reference case).
+- ✅ Expanded property editing coverage:
+  - bus: name, base kV, type, voltage setpoint, angle setpoint, voltage min/max
+  - branch: `R (pu)`, `X (pu)`, `B/2 (pu)`, thermal limit (MVA), and status
+- ✅ Added a dedicated “Reset active reference case” action so edited reference scenarios can be restored from canonical source data.
+
 Next recommended slice:
 
 - Build PR 3 solver skeleton: add `graphToCase.ts`, Ybus assembly, and first Newton-Raphson solve loop with deterministic mini-case tests.
