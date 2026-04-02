@@ -32,6 +32,7 @@ Completed across the first two slices (PR 1 + PR 2 scope):
 - ✅ Added normalized editor store helpers under `src/features/load-flow/state/loadFlowStore.ts`.
 - ✅ Added serialization path from editor graph state to `LoadFlowCase` shape (`toLoadFlowCase`).
 - ✅ Added store unit tests for deterministic bus defaults and bus/line serialization behavior.
+- ✅ Added an interactive SVG single-line diagram panel in `/load-flow` with clickable buses/branches and selected-element highlighting.
 
 Next recommended slice:
 
@@ -257,6 +258,23 @@ Follow-up expansion criteria:
 - Global base MVA
 - Solver settings (tolerance, max iterations, damping)
 - Solve / Reset / Export actions
+
+### Single-line diagram expectations (implemented baseline)
+
+The workspace should include a dedicated **single-line diagram** visualization
+rather than a plain topology list. The baseline implementation now renders:
+
+- Bus nodes (name + type label) using their editor coordinates
+- Branch segments between bus centers
+- Selection highlighting for the currently selected bus/branch
+- Click interactions on both buses and branches that sync with the properties panel
+
+Planned follow-up upgrades:
+
+- Drag-to-reposition buses directly in the diagram (persisting `x`,`y`)
+- Device glyph overlays for generators/loads/shunts at each bus
+- Zoom/pan controls for larger multi-bus systems
+- Optional result overlays (voltage magnitude heatmap and branch flow labels)
 
 ### Validation UX
 

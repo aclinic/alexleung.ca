@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { SingleLineDiagram } from "@/app/load-flow/_components/SingleLineDiagram";
 import { toLoadFlowCase } from "@/features/load-flow/graph/toLoadFlowCase";
 import { BusType } from "@/features/load-flow/model/types";
 import {
@@ -140,7 +141,26 @@ export function LoadFlowWorkspace() {
         </div>
 
         <div className="rounded-lg border border-gray-700 p-4">
-          <h3 className="font-semibold text-white">Canvas Snapshot</h3>
+          <h3 className="font-semibold text-white">Single-line diagram</h3>
+          <p className="mt-1 text-sm text-gray-300">
+            Interactive topology view of buses and branches.
+          </p>
+          <SingleLineDiagram
+            buses={editorState.busOrder.map(
+              (busId) => editorState.busesById[busId]
+            )}
+            branches={editorState.branchOrder.map(
+              (branchId) => editorState.branchesById[branchId]
+            )}
+            selectedElementId={editorState.selectedElementId}
+            selectedElementType={editorState.selectedElementType}
+            onBusSelect={(busId) =>
+              setEditorState((prev) => selectElement(prev, "BUS", busId))
+            }
+            onBranchSelect={(branchId) =>
+              setEditorState((prev) => selectElement(prev, "BRANCH", branchId))
+            }
+          />
           <div className="mt-3 space-y-2 text-sm text-gray-200">
             {editorState.busOrder.map((busId) => {
               const bus = editorState.busesById[busId];
