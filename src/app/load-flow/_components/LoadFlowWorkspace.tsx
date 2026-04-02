@@ -22,6 +22,7 @@ import {
 } from "@/features/load-flow/state/loadFlowStore";
 
 const BUS_TYPE_OPTIONS: BusType[] = ["SLACK", "PV", "PQ"];
+const BRANCH_STATUS_OPTIONS = ["IN_SERVICE", "OUT_OF_SERVICE"] as const;
 
 const parseFiniteNumber = (value: string): number | null => {
   const parsed = Number.parseFloat(value);
@@ -31,12 +32,22 @@ const parseFiniteNumber = (value: string): number | null => {
 const isBusType = (value: string): value is BusType =>
   BUS_TYPE_OPTIONS.some((type) => type === value);
 
+const isBranchStatus = (
+  value: string
+): value is (typeof BRANCH_STATUS_OPTIONS)[number] =>
+  BRANCH_STATUS_OPTIONS.some((status) => status === value);
+
 export function LoadFlowWorkspace() {
-  const [editorState, setEditorState] = useState(
-    createInitialLoadFlowEditorState
+  const defaultReferenceScenario = getReferenceScenarioById("ieee-14-bus");
+  const [editorState, setEditorState] = useState(() =>
+    defaultReferenceScenario
+      ? replaceEditorStateFromLoadFlowCase(
+          defaultReferenceScenario.loadFlowCase
+        )
+      : createInitialLoadFlowEditorState()
   );
   const [selectedReferenceScenarioId, setSelectedReferenceScenarioId] =
-    useState<string | null>(null);
+    useState<string | null>(defaultReferenceScenario?.id ?? null);
 
   const selectedBus =
     editorState.selectedElementType === "BUS" && editorState.selectedElementId
@@ -60,6 +71,37 @@ export function LoadFlowWorkspace() {
     () => runLoadFlow(serializedCase),
     [serializedCase]
   );
+
+  const resetActiveReferenceCase = () => {
+    if (!selectedReferenceScenario) {
+      return;
+    }
+
+    setEditorState((previousState) => {
+      const resetState = replaceEditorStateFromLoadFlowCase(
+        selectedReferenceScenario.loadFlowCase
+      );
+
+      const selectedElementStillExists =
+        previousState.selectedElementType === "BUS"
+          ? previousState.selectedElementId !== null &&
+            Boolean(resetState.busesById[previousState.selectedElementId])
+          : previousState.selectedElementType === "BRANCH"
+            ? previousState.selectedElementId !== null &&
+              Boolean(resetState.branchesById[previousState.selectedElementId])
+            : false;
+
+      if (!selectedElementStillExists) {
+        return resetState;
+      }
+
+      return selectElement(
+        resetState,
+        previousState.selectedElementType,
+        previousState.selectedElementId
+      );
+    });
+  };
 
   return (
     <section className="rounded-xl border border-gray-700 bg-gray-900/60 p-6 shadow-sm">
@@ -101,6 +143,15 @@ export function LoadFlowWorkspace() {
               {scenario.name}
             </button>
           ))}
+          {selectedReferenceScenario ? (
+            <button
+              type="button"
+              className="rounded-md border border-emerald-400 bg-emerald-900/30 px-3 py-2 text-sm text-emerald-50 hover:bg-emerald-900/50"
+              onClick={resetActiveReferenceCase}
+            >
+              Reset active reference case
+            </button>
+          ) : null}
         </div>
         {selectedReferenceScenario ? (
           <p className="mt-2 text-xs text-emerald-100/80">
@@ -114,7 +165,33 @@ export function LoadFlowWorkspace() {
         )}
       </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
+      <div className="mt-6 rounded-lg border border-gray-700 p-4">
+        <h3 className="font-semibold text-white">Single-line diagram</h3>
+        <p className="mt-1 text-sm text-gray-300">
+          Interactive topology view of buses and branches.
+        </p>
+        <SingleLineDiagram
+          buses={editorState.busOrder.map(
+            (busId) => editorState.busesById[busId]
+          )}
+          branches={editorState.branchOrder.map(
+            (branchId) => editorState.branchesById[branchId]
+          )}
+          selectedElementId={editorState.selectedElementId}
+          selectedElementType={editorState.selectedElementType}
+          onBusSelect={(busId) =>
+            setEditorState((prev) => selectElement(prev, "BUS", busId))
+          }
+          onBusMove={(busId, x, y) =>
+            setEditorState((prev) => updateBus(prev, busId, { x, y }))
+          }
+          onBranchSelect={(branchId) =>
+            setEditorState((prev) => selectElement(prev, "BRANCH", branchId))
+          }
+        />
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <div className="rounded-lg border border-gray-700 p-4">
           <h3 className="font-semibold text-white">Palette</h3>
           <p className="mt-1 text-sm text-gray-300">
@@ -154,37 +231,22 @@ export function LoadFlowWorkspace() {
         </div>
 
         <div className="rounded-lg border border-gray-700 p-4">
-          <h3 className="font-semibold text-white">Single-line diagram</h3>
-          <p className="mt-1 text-sm text-gray-300">
-            Interactive topology view of buses and branches.
-          </p>
-          <SingleLineDiagram
-            buses={editorState.busOrder.map(
-              (busId) => editorState.busesById[busId]
-            )}
-            branches={editorState.branchOrder.map(
-              (branchId) => editorState.branchesById[branchId]
-            )}
-            selectedElementId={editorState.selectedElementId}
-            selectedElementType={editorState.selectedElementType}
-            onBusSelect={(busId) =>
-              setEditorState((prev) => selectElement(prev, "BUS", busId))
-            }
-            onBusMove={(busId, x, y) =>
-              setEditorState((prev) => updateBus(prev, busId, { x, y }))
-            }
-            onBranchSelect={(branchId) =>
-              setEditorState((prev) => selectElement(prev, "BRANCH", branchId))
-            }
-          />
+          <h3 className="font-semibold text-white">Topology selection</h3>
           <div className="mt-3 space-y-2 text-sm text-gray-200">
             {editorState.busOrder.map((busId) => {
               const bus = editorState.busesById[busId];
+              const isSelected =
+                editorState.selectedElementType === "BUS" &&
+                editorState.selectedElementId === bus.id;
               return (
                 <button
                   key={bus.id}
                   type="button"
-                  className="block w-full rounded-md border border-gray-600 px-3 py-2 text-left hover:bg-gray-800"
+                  className={`block w-full rounded-md border px-3 py-2 text-left transition ${
+                    isSelected
+                      ? "border-emerald-300 bg-emerald-900/40 text-emerald-100"
+                      : "border-gray-600 hover:bg-gray-800"
+                  }`}
                   onClick={() =>
                     setEditorState((prev) => selectElement(prev, "BUS", bus.id))
                   }
@@ -196,11 +258,18 @@ export function LoadFlowWorkspace() {
 
             {editorState.branchOrder.map((branchId) => {
               const branch = editorState.branchesById[branchId];
+              const isSelected =
+                editorState.selectedElementType === "BRANCH" &&
+                editorState.selectedElementId === branch.id;
               return (
                 <button
                   key={branch.id}
                   type="button"
-                  className="block w-full rounded-md border border-blue-800 px-3 py-2 text-left text-blue-200 hover:bg-gray-800"
+                  className={`block w-full rounded-md border px-3 py-2 text-left transition ${
+                    isSelected
+                      ? "border-emerald-300 bg-emerald-900/40 text-emerald-100"
+                      : "border-blue-800 text-blue-200 hover:bg-gray-800"
+                  }`}
                   onClick={() =>
                     setEditorState((prev) =>
                       selectElement(prev, "BRANCH", branch.id)
@@ -232,7 +301,151 @@ export function LoadFlowWorkspace() {
                   }
                 />
               </label>
+              <label className="block">
+                <span>Base kV</span>
+                <input
+                  type="number"
+                  value={selectedBus.baseKV}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    const parsedBaseKV = parseFiniteNumber(event.target.value);
+                    if (parsedBaseKV === null) {
+                      return;
+                    }
 
+                    setEditorState((prev) =>
+                      updateBus(prev, selectedBus.id, {
+                        baseKV: parsedBaseKV,
+                      })
+                    );
+                  }}
+                />
+              </label>
+
+              <label className="block">
+                <span>Voltage setpoint |V| (pu)</span>
+                <input
+                  type="number"
+                  value={selectedBus.voltageMagnitudeSetpoint ?? ""}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    if (event.target.value.trim() === "") {
+                      setEditorState((prev) =>
+                        updateBus(prev, selectedBus.id, {
+                          voltageMagnitudeSetpoint: undefined,
+                        })
+                      );
+                      return;
+                    }
+
+                    const parsedSetpoint = parseFiniteNumber(
+                      event.target.value
+                    );
+                    if (parsedSetpoint === null) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBus(prev, selectedBus.id, {
+                        voltageMagnitudeSetpoint: parsedSetpoint,
+                      })
+                    );
+                  }}
+                />
+              </label>
+              <label className="block">
+                <span>Voltage angle setpoint θ (deg)</span>
+                <input
+                  type="number"
+                  value={selectedBus.voltageAngleSetpointDeg ?? ""}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    if (event.target.value.trim() === "") {
+                      setEditorState((prev) =>
+                        updateBus(prev, selectedBus.id, {
+                          voltageAngleSetpointDeg: undefined,
+                        })
+                      );
+                      return;
+                    }
+
+                    const parsedAngleSetpoint = parseFiniteNumber(
+                      event.target.value
+                    );
+                    if (parsedAngleSetpoint === null) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBus(prev, selectedBus.id, {
+                        voltageAngleSetpointDeg: parsedAngleSetpoint,
+                      })
+                    );
+                  }}
+                />
+              </label>
+              <label className="block">
+                <span>Voltage min |V| (pu)</span>
+                <input
+                  type="number"
+                  value={selectedBus.voltageMagnitudeMin ?? ""}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    if (event.target.value.trim() === "") {
+                      setEditorState((prev) =>
+                        updateBus(prev, selectedBus.id, {
+                          voltageMagnitudeMin: undefined,
+                        })
+                      );
+                      return;
+                    }
+
+                    const parsedVoltageMin = parseFiniteNumber(
+                      event.target.value
+                    );
+                    if (parsedVoltageMin === null) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBus(prev, selectedBus.id, {
+                        voltageMagnitudeMin: parsedVoltageMin,
+                      })
+                    );
+                  }}
+                />
+              </label>
+              <label className="block">
+                <span>Voltage max |V| (pu)</span>
+                <input
+                  type="number"
+                  value={selectedBus.voltageMagnitudeMax ?? ""}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    if (event.target.value.trim() === "") {
+                      setEditorState((prev) =>
+                        updateBus(prev, selectedBus.id, {
+                          voltageMagnitudeMax: undefined,
+                        })
+                      );
+                      return;
+                    }
+
+                    const parsedVoltageMax = parseFiniteNumber(
+                      event.target.value
+                    );
+                    if (parsedVoltageMax === null) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBus(prev, selectedBus.id, {
+                        voltageMagnitudeMax: parsedVoltageMax,
+                      })
+                    );
+                  }}
+                />
+              </label>
               <label className="block">
                 <span>Type</span>
                 <select
@@ -284,6 +497,104 @@ export function LoadFlowWorkspace() {
                     );
                   }}
                 />
+              </label>
+              <label className="block">
+                <span>X (pu)</span>
+                <input
+                  type="number"
+                  value={selectedBranch.x}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    const parsedReactance = parseFiniteNumber(
+                      event.target.value
+                    );
+                    if (parsedReactance === null) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBranch(prev, selectedBranch.id, {
+                        x: parsedReactance,
+                      })
+                    );
+                  }}
+                />
+              </label>
+              <label className="block">
+                <span>B/2 (pu)</span>
+                <input
+                  type="number"
+                  value={selectedBranch.bHalf}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    const parsedBHalf = parseFiniteNumber(event.target.value);
+                    if (parsedBHalf === null) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBranch(prev, selectedBranch.id, {
+                        bHalf: parsedBHalf,
+                      })
+                    );
+                  }}
+                />
+              </label>
+              <label className="block">
+                <span>Thermal limit (MVA)</span>
+                <input
+                  type="number"
+                  value={selectedBranch.thermalLimitMVA ?? ""}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    if (event.target.value.trim() === "") {
+                      setEditorState((prev) =>
+                        updateBranch(prev, selectedBranch.id, {
+                          thermalLimitMVA: undefined,
+                        })
+                      );
+                      return;
+                    }
+
+                    const parsedThermalLimit = parseFiniteNumber(
+                      event.target.value
+                    );
+                    if (parsedThermalLimit === null) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBranch(prev, selectedBranch.id, {
+                        thermalLimitMVA: parsedThermalLimit,
+                      })
+                    );
+                  }}
+                />
+              </label>
+              <label className="block">
+                <span>Status</span>
+                <select
+                  value={selectedBranch.status ?? "IN_SERVICE"}
+                  className="mt-1 w-full rounded border border-gray-600 bg-gray-950 px-2 py-1"
+                  onChange={(event) => {
+                    const nextStatus = event.target.value;
+                    if (!isBranchStatus(nextStatus)) {
+                      return;
+                    }
+
+                    setEditorState((prev) =>
+                      updateBranch(prev, selectedBranch.id, {
+                        status: nextStatus,
+                      })
+                    );
+                  }}
+                >
+                  {BRANCH_STATUS_OPTIONS.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
               </label>
             </div>
           ) : null}

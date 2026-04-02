@@ -26,6 +26,8 @@ export interface LineEdge {
   r: number;
   x: number;
   bHalf: number;
+  thermalLimitMVA?: number;
+  status?: "IN_SERVICE" | "OUT_OF_SERVICE";
 }
 
 export interface LoadFlowEditorState {
@@ -132,6 +134,7 @@ export const addBranch = (
         r: 0.01,
         x: 0.1,
         bHalf: 0,
+        status: "IN_SERVICE",
       },
     },
     branchOrder: [...state.branchOrder, id],
@@ -299,6 +302,8 @@ export const replaceEditorStateFromLoadFlowCase = (
         r: branch.r,
         x: branch.x,
         bHalf: branch.bHalf ?? 0,
+        thermalLimitMVA: branch.thermalLimitMVA,
+        status: branch.status,
       },
     ])
   );
