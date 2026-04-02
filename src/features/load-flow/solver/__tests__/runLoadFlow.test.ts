@@ -126,4 +126,43 @@ describe("runLoadFlow", () => {
       expect(result.diagnostics.iterationsCompleted).toBeGreaterThan(0);
     }
   });
+
+  it("accounts for transformer tap and phase shift in branch modeling", () => {
+    const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
+      (item) => item.id === "two-bus-radial"
+    );
+
+    expect(scenario).toBeDefined();
+
+    const baselineResult = runLoadFlow(scenario!.loadFlowCase);
+    const transformedResult = runLoadFlow({
+      ...scenario!.loadFlowCase,
+      branches: scenario!.loadFlowCase.branches.map((branch) => ({
+        ...branch,
+        tapRatio: 1.08,
+        phaseShiftDeg: 12,
+      })),
+    });
+
+    expect(baselineResult.diagnostics.converged).toBe(true);
+    expect(transformedResult.diagnostics.converged).toBe(true);
+
+    const baselineBus = baselineResult.buses?.find(
+      (bus) => bus.busId === "bus-2"
+    );
+    const transformedBus = transformedResult.buses?.find(
+      (bus) => bus.busId === "bus-2"
+    );
+
+    expect(baselineBus).toBeDefined();
+    expect(transformedBus).toBeDefined();
+    expect(
+      Math.abs(transformedBus!.voltageAngleDeg - baselineBus!.voltageAngleDeg)
+    ).toBeGreaterThan(5);
+    expect(
+      Math.abs(
+        transformedBus!.voltageMagnitudePu - baselineBus!.voltageMagnitudePu
+      )
+    ).toBeGreaterThan(0.01);
+  });
 });

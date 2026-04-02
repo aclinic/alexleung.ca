@@ -55,6 +55,24 @@ export const validateLoadFlowCase = (
         `Branch ${branch.id} has invalid impedance (r and x cannot both be zero).`
       );
     }
+
+    if (
+      branch.tapRatio !== undefined &&
+      (!isFiniteNumber(branch.tapRatio) || branch.tapRatio <= 0)
+    ) {
+      errors.push(
+        `Branch ${branch.id} has invalid tap ratio (must be a finite number greater than zero).`
+      );
+    }
+
+    if (
+      branch.phaseShiftDeg !== undefined &&
+      !isFiniteNumber(branch.phaseShiftDeg)
+    ) {
+      errors.push(
+        `Branch ${branch.id} has invalid phase shift (must be a finite number in degrees).`
+      );
+    }
   }
 
   for (const generator of loadFlowCase.generators) {
