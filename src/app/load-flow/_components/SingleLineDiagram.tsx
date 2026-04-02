@@ -9,12 +9,13 @@ interface SingleLineDiagramProps {
   onBranchSelect: (branchId: string) => void;
 }
 
-const VIEWBOX_WIDTH = 780;
-const VIEWBOX_HEIGHT = 280;
 const BUS_WIDTH = 88;
 const BUS_HEIGHT = 42;
 const BUS_HALF_WIDTH = BUS_WIDTH / 2;
 const BUS_HALF_HEIGHT = BUS_HEIGHT / 2;
+const DIAGRAM_PADDING = 48;
+const MIN_VIEWBOX_WIDTH = 680;
+const MIN_VIEWBOX_HEIGHT = 280;
 
 const getBusCenter = (bus: BusNode) => ({
   x: bus.x,
@@ -40,6 +41,29 @@ export function SingleLineDiagram({
   onBranchSelect,
 }: SingleLineDiagramProps) {
   const busesById = new Map(buses.map((bus) => [bus.id, bus]));
+  const busCentersX = buses.map((bus) => bus.x);
+  const busCentersY = buses.map((bus) => bus.y);
+
+  const minBusCenterX = Math.min(...busCentersX);
+  const maxBusCenterX = Math.max(...busCentersX);
+  const minBusCenterY = Math.min(...busCentersY);
+  const maxBusCenterY = Math.max(...busCentersY);
+
+  const contentMinX = minBusCenterX - BUS_HALF_WIDTH;
+  const contentMaxX = maxBusCenterX + BUS_HALF_WIDTH;
+  const contentMinY = minBusCenterY - BUS_HALF_HEIGHT;
+  const contentMaxY = maxBusCenterY + BUS_HALF_HEIGHT;
+
+  const viewBoxX = contentMinX - DIAGRAM_PADDING;
+  const viewBoxY = contentMinY - DIAGRAM_PADDING;
+  const viewBoxWidth = Math.max(
+    contentMaxX - contentMinX + DIAGRAM_PADDING * 2,
+    MIN_VIEWBOX_WIDTH
+  );
+  const viewBoxHeight = Math.max(
+    contentMaxY - contentMinY + DIAGRAM_PADDING * 2,
+    MIN_VIEWBOX_HEIGHT
+  );
 
   return (
     <div className="mt-3 overflow-x-auto rounded-md border border-slate-700 bg-slate-950/60 p-3">
@@ -49,16 +73,16 @@ export function SingleLineDiagram({
         </p>
       ) : (
         <svg
-          viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
+          viewBox={`${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`}
           role="img"
           aria-label="Single line diagram"
           className="h-[280px] min-w-[680px] w-full"
         >
           <rect
-            x={0}
-            y={0}
-            width={VIEWBOX_WIDTH}
-            height={VIEWBOX_HEIGHT}
+            x={viewBoxX}
+            y={viewBoxY}
+            width={viewBoxWidth}
+            height={viewBoxHeight}
             className="fill-slate-950"
           />
 
