@@ -179,6 +179,36 @@ const AUTO_LAYOUT_X_SPACING = 180;
 const AUTO_LAYOUT_Y_SPACING = 120;
 const AUTO_LAYOUT_START_X = 120;
 const AUTO_LAYOUT_START_Y = 120;
+const AUTO_LAYOUT_MIN_BUS_HORIZONTAL_CLEARANCE = 104;
+const AUTO_LAYOUT_MIN_BUS_VERTICAL_CLEARANCE = 58;
+
+const isOverlappingBusPosition = (
+  x: number,
+  y: number,
+  placed: Array<{ x: number; y: number }>
+) =>
+  placed.some(
+    (position) =>
+      Math.abs(position.x - x) < AUTO_LAYOUT_MIN_BUS_HORIZONTAL_CLEARANCE &&
+      Math.abs(position.y - y) < AUTO_LAYOUT_MIN_BUS_VERTICAL_CLEARANCE
+  );
+
+const resolveNonOverlappingPosition = (
+  x: number,
+  y: number,
+  placed: Array<{ x: number; y: number }>
+) => {
+  if (!isOverlappingBusPosition(x, y, placed)) {
+    return { x, y };
+  }
+
+  let nextY = y;
+  while (isOverlappingBusPosition(x, nextY, placed)) {
+    nextY += AUTO_LAYOUT_Y_SPACING;
+  }
+
+  return { x, y: nextY };
+};
 
 export const autoLayoutBuses = (
   state: LoadFlowEditorState
@@ -250,15 +280,26 @@ export const autoLayoutBuses = (
 
   const positionedBuses: Record<string, BusNode> = { ...state.busesById };
   const orderedLevels = [...busesByLevel.keys()].sort((a, b) => a - b);
+  const placedPositions: Array<{ x: number; y: number }> = [];
+
   for (const level of orderedLevels) {
     const buses = busesByLevel.get(level) ?? [];
     buses.forEach((busId, index) => {
       const bus = positionedBuses[busId];
+      const proposedX = AUTO_LAYOUT_START_X + level * AUTO_LAYOUT_X_SPACING;
+      const proposedY = AUTO_LAYOUT_START_Y + index * AUTO_LAYOUT_Y_SPACING;
+      const { x, y } = resolveNonOverlappingPosition(
+        proposedX,
+        proposedY,
+        placedPositions
+      );
+
       positionedBuses[busId] = {
         ...bus,
-        x: AUTO_LAYOUT_START_X + level * AUTO_LAYOUT_X_SPACING,
-        y: AUTO_LAYOUT_START_Y + index * AUTO_LAYOUT_Y_SPACING,
+        x,
+        y,
       };
+      placedPositions.push({ x, y });
     });
   }
 

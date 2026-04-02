@@ -1,4 +1,4 @@
-import { PointerEvent, useRef } from "react";
+import { PointerEvent, useMemo, useRef, useState, WheelEvent } from "react";
 
 import { BusNode, LineEdge } from "@/features/load-flow/state/loadFlowStore";
 
@@ -19,6 +19,19 @@ const BUS_HALF_HEIGHT = BUS_HEIGHT / 2;
 const DIAGRAM_PADDING = 48;
 const MIN_VIEWBOX_WIDTH = 680;
 const MIN_VIEWBOX_HEIGHT = 280;
+const MIN_ZOOM = 0.6;
+const MAX_ZOOM = 2.5;
+const ZOOM_STEP = 0.2;
+const LINE_HOP_RADIUS = 10;
+
+interface BranchSegment {
+  branchId: string;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  orientation: "HORIZONTAL" | "VERTICAL";
+}
 
 const getBusCenter = (bus: BusNode) => ({
   x: bus.x,
@@ -46,6 +59,7 @@ export function SingleLineDiagram({
 }: SingleLineDiagramProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const draggingBusIdRef = useRef<string | null>(null);
+  const [zoom, setZoom] = useState(1);
 
   const toSvgPoint = (clientX: number, clientY: number) => {
     const svg = svgRef.current;
@@ -117,6 +131,125 @@ export function SingleLineDiagram({
     contentMaxY - contentMinY + DIAGRAM_PADDING * 2,
     MIN_VIEWBOX_HEIGHT
   );
+  const viewBoxCenterX = viewBoxX + viewBoxWidth / 2;
+  const viewBoxCenterY = viewBoxY + viewBoxHeight / 2;
+  const zoomedViewBoxWidth = viewBoxWidth / zoom;
+  const zoomedViewBoxHeight = viewBoxHeight / zoom;
+  const zoomedViewBoxX = viewBoxCenterX - zoomedViewBoxWidth / 2;
+  const zoomedViewBoxY = viewBoxCenterY - zoomedViewBoxHeight / 2;
+
+  const clampZoom = (nextZoom: number) =>
+    Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, nextZoom));
+
+  const handleZoomIn = () => {
+    setZoom((previousZoom) => clampZoom(previousZoom + ZOOM_STEP));
+  };
+
+  const handleZoomOut = () => {
+    setZoom((previousZoom) => clampZoom(previousZoom - ZOOM_STEP));
+  };
+
+  const handleWheel = (event: WheelEvent<SVGSVGElement>) => {
+    if (!event.ctrlKey) {
+      return;
+    }
+
+    event.preventDefault();
+    setZoom((previousZoom) =>
+      clampZoom(previousZoom + (event.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP))
+    );
+  };
+
+  const branchSegmentsById = useMemo(() => {
+    const segmentsById = new Map<string, BranchSegment[]>();
+
+    branches.forEach((branch) => {
+      const fromBus = busesById.get(branch.fromBusId);
+      const toBus = busesById.get(branch.toBusId);
+
+      if (!fromBus || !toBus) {
+        return;
+      }
+
+      const from = getBusCenter(fromBus);
+      const to = getBusCenter(toBus);
+      const elbowX = to.x;
+      const elbowY = from.y;
+
+      segmentsById.set(branch.id, [
+        {
+          branchId: branch.id,
+          x1: from.x,
+          y1: from.y,
+          x2: elbowX,
+          y2: elbowY,
+          orientation: "HORIZONTAL",
+        },
+        {
+          branchId: branch.id,
+          x1: elbowX,
+          y1: elbowY,
+          x2: to.x,
+          y2: to.y,
+          orientation: "VERTICAL",
+        },
+      ]);
+    });
+
+    return segmentsById;
+  }, [branches, busesById]);
+
+  const lineHopPointsByBranchId = useMemo(() => {
+    const hopsByBranchId = new Map<string, Array<{ x: number; y: number }>>();
+
+    branches.forEach((branch, branchIndex) => {
+      const branchSegments = branchSegmentsById.get(branch.id) ?? [];
+      branches.slice(0, branchIndex).forEach((previousBranch) => {
+        const previousSegments =
+          branchSegmentsById.get(previousBranch.id) ?? [];
+
+        for (const currentSegment of branchSegments) {
+          for (const previousSegment of previousSegments) {
+            if (
+              currentSegment.orientation === previousSegment.orientation ||
+              currentSegment.orientation !== "VERTICAL" ||
+              previousSegment.orientation !== "HORIZONTAL"
+            ) {
+              continue;
+            }
+
+            const minHorizontalX = Math.min(
+              previousSegment.x1,
+              previousSegment.x2
+            );
+            const maxHorizontalX = Math.max(
+              previousSegment.x1,
+              previousSegment.x2
+            );
+            const minVerticalY = Math.min(currentSegment.y1, currentSegment.y2);
+            const maxVerticalY = Math.max(currentSegment.y1, currentSegment.y2);
+            const crossingX = currentSegment.x1;
+            const crossingY = previousSegment.y1;
+            const crosses =
+              crossingX > minHorizontalX &&
+              crossingX < maxHorizontalX &&
+              crossingY > minVerticalY &&
+              crossingY < maxVerticalY;
+
+            if (!crosses) {
+              continue;
+            }
+
+            const branchHops = hopsByBranchId.get(branch.id) ?? [];
+            branchHops.push({ x: crossingX, y: crossingY });
+            hopsByBranchId.set(branch.id, branchHops);
+          }
+        }
+      });
+    });
+
+    return hopsByBranchId;
+  }, [branchSegmentsById, branches]);
 
   return (
     <div className="mt-3 overflow-x-auto rounded-md border border-slate-700 bg-slate-950/60 p-3">
@@ -125,98 +258,141 @@ export function SingleLineDiagram({
           Add buses from the palette to render the one-line diagram.
         </p>
       ) : (
-        <svg
-          ref={svgRef}
-          viewBox={`${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`}
-          role="img"
-          aria-label="Single line diagram"
-          className="h-[360px] min-w-[980px] w-full"
-        >
-          <rect
-            x={viewBoxX}
-            y={viewBoxY}
-            width={viewBoxWidth}
-            height={viewBoxHeight}
-            className="fill-slate-950"
-          />
+        <>
+          <div className="mb-2 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleZoomOut}
+              className="rounded border border-slate-600 px-2 py-1 text-xs text-slate-200 hover:border-emerald-300 hover:text-white"
+              aria-label="Zoom out"
+            >
+              −
+            </button>
+            <button
+              type="button"
+              onClick={handleZoomIn}
+              className="rounded border border-slate-600 px-2 py-1 text-xs text-slate-200 hover:border-emerald-300 hover:text-white"
+              aria-label="Zoom in"
+            >
+              +
+            </button>
+            <span className="text-xs text-slate-400">
+              {Math.round(zoom * 100)}% (Ctrl + wheel)
+            </span>
+          </div>
+          <svg
+            ref={svgRef}
+            viewBox={`${zoomedViewBoxX} ${zoomedViewBoxY} ${zoomedViewBoxWidth} ${zoomedViewBoxHeight}`}
+            role="img"
+            aria-label="Single line diagram"
+            className="h-[360px] min-w-[980px] w-full"
+            onWheel={handleWheel}
+          >
+            <rect
+              x={viewBoxX}
+              y={viewBoxY}
+              width={viewBoxWidth}
+              height={viewBoxHeight}
+              className="fill-slate-950"
+            />
 
-          {branches.map((branch) => {
-            const fromBus = busesById.get(branch.fromBusId);
-            const toBus = busesById.get(branch.toBusId);
+            {branches.map((branch) => {
+              const fromBus = busesById.get(branch.fromBusId);
+              const toBus = busesById.get(branch.toBusId);
 
-            if (!fromBus || !toBus) {
-              return null;
-            }
+              if (!fromBus || !toBus) {
+                return null;
+              }
 
-            const from = getBusCenter(fromBus);
-            const to = getBusCenter(toBus);
-            const elbowX = to.x;
-            const elbowY = from.y;
-            const isSelected =
-              selectedElementType === "BRANCH" &&
-              selectedElementId === branch.id;
+              const from = getBusCenter(fromBus);
+              const to = getBusCenter(toBus);
+              const elbowX = to.x;
+              const elbowY = from.y;
+              const isSelected =
+                selectedElementType === "BRANCH" &&
+                selectedElementId === branch.id;
+              const lineHops = lineHopPointsByBranchId.get(branch.id) ?? [];
 
-            return (
-              <g key={branch.id}>
-                <polyline
-                  points={`${from.x},${from.y} ${elbowX},${elbowY} ${to.x},${to.y}`}
-                  fill="none"
-                  className={`${lineClassName(isSelected)} cursor-pointer transition`}
-                  onClick={() => onBranchSelect(branch.id)}
-                />
-                <text
-                  x={elbowX}
-                  y={elbowY - 10}
-                  textAnchor="middle"
-                  className="fill-slate-300 text-[10px]"
+              return (
+                <g key={branch.id}>
+                  <polyline
+                    points={`${from.x},${from.y} ${elbowX},${elbowY} ${to.x},${to.y}`}
+                    fill="none"
+                    className={`${lineClassName(isSelected)} cursor-pointer transition`}
+                    onClick={() => onBranchSelect(branch.id)}
+                  />
+                  <text
+                    x={elbowX}
+                    y={elbowY - 10}
+                    textAnchor="middle"
+                    className="fill-slate-300 text-[10px]"
+                  >
+                    {branch.id}
+                  </text>
+                  {lineHops.map((lineHop, index) => (
+                    <g key={`${branch.id}-hop-${index}`}>
+                      <rect
+                        x={lineHop.x - LINE_HOP_RADIUS}
+                        y={lineHop.y - LINE_HOP_RADIUS}
+                        width={LINE_HOP_RADIUS * 2}
+                        height={LINE_HOP_RADIUS * 2}
+                        className="fill-slate-950"
+                      />
+                      <path
+                        d={`M ${lineHop.x} ${lineHop.y - LINE_HOP_RADIUS} A ${LINE_HOP_RADIUS} ${LINE_HOP_RADIUS} 0 0 1 ${lineHop.x} ${lineHop.y + LINE_HOP_RADIUS}`}
+                        fill="none"
+                        className={`${lineClassName(isSelected)} stroke-[3]`}
+                      />
+                    </g>
+                  ))}
+                </g>
+              );
+            })}
+
+            {buses.map((bus) => {
+              const isSelected =
+                selectedElementType === "BUS" && selectedElementId === bus.id;
+
+              return (
+                <g
+                  key={bus.id}
+                  transform={`translate(${bus.x - BUS_HALF_WIDTH}, ${bus.y - BUS_HALF_HEIGHT})`}
                 >
-                  {branch.id}
-                </text>
-              </g>
-            );
-          })}
-
-          {buses.map((bus) => {
-            const isSelected =
-              selectedElementType === "BUS" && selectedElementId === bus.id;
-
-            return (
-              <g
-                key={bus.id}
-                transform={`translate(${bus.x - BUS_HALF_WIDTH}, ${bus.y - BUS_HALF_HEIGHT})`}
-              >
-                <rect
-                  x={0}
-                  y={0}
-                  rx={6}
-                  width={BUS_WIDTH}
-                  height={BUS_HEIGHT}
-                  className={`${busClassName(isSelected)} cursor-pointer stroke-2 transition`}
-                  onClick={() => onBusSelect(bus.id)}
-                  onPointerDown={(event) => handleBusPointerDown(event, bus.id)}
-                  onPointerMove={handleBusPointerMove}
-                  onPointerUp={handleBusPointerUp}
-                />
-                <text
-                  x={BUS_HALF_WIDTH}
-                  y={17}
-                  textAnchor="middle"
-                  className="fill-white text-[11px] font-medium"
-                >
-                  {bus.name}
-                </text>
-                <text
-                  x={BUS_HALF_WIDTH}
-                  y={32}
-                  textAnchor="middle"
-                  className="fill-slate-300 text-[10px]"
-                >
-                  {bus.type}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
+                  <rect
+                    x={0}
+                    y={0}
+                    rx={6}
+                    width={BUS_WIDTH}
+                    height={BUS_HEIGHT}
+                    className={`${busClassName(isSelected)} cursor-pointer stroke-2 transition`}
+                    onClick={() => onBusSelect(bus.id)}
+                    onPointerDown={(event) =>
+                      handleBusPointerDown(event, bus.id)
+                    }
+                    onPointerMove={handleBusPointerMove}
+                    onPointerUp={handleBusPointerUp}
+                  />
+                  <text
+                    x={BUS_HALF_WIDTH}
+                    y={17}
+                    textAnchor="middle"
+                    className="fill-white text-[11px] font-medium"
+                  >
+                    {bus.name}
+                  </text>
+                  <text
+                    x={BUS_HALF_WIDTH}
+                    y={32}
+                    textAnchor="middle"
+                    className="fill-slate-300 text-[10px]"
+                  >
+                    {bus.type}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+        </>
       )}
     </div>
   );

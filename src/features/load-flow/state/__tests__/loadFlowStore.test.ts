@@ -86,6 +86,25 @@ describe("loadFlowStore", () => {
     expect(laidOut.busesById["bus-3"].x).toBe(480);
   });
 
+  it("keeps auto-layout bus positions non-overlapping", () => {
+    let state = createInitialLoadFlowEditorState();
+    state = addBus(state);
+    state = addBus(state);
+    state = addBus(state);
+    state = addBus(state);
+    state = addBranch(state, "bus-1", "bus-2");
+    state = addBranch(state, "bus-3", "bus-4");
+
+    const laidOut = autoLayoutBuses(state);
+    const positions = laidOut.busOrder.map((busId) => laidOut.busesById[busId]);
+
+    const uniquePositionCount = new Set(
+      positions.map((bus) => `${bus.x}-${bus.y}`)
+    ).size;
+
+    expect(uniquePositionCount).toBe(positions.length);
+  });
+
   it("replaces editor state from a reference case including device data", () => {
     const replaced = replaceEditorStateFromLoadFlowCase({
       baseMVA: 100,
