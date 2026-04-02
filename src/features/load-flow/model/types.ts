@@ -20,6 +20,8 @@ export interface Branch {
   r: number;
   x: number;
   bHalf?: number;
+  tapRatio?: number;
+  phaseShiftDeg?: number;
   thermalLimitMVA?: number;
   status?: "IN_SERVICE" | "OUT_OF_SERVICE";
 }

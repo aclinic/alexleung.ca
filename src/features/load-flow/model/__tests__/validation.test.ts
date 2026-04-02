@@ -111,6 +111,31 @@ describe("validateLoadFlowCase", () => {
     );
   });
 
+  it("flags invalid transformer tap and phase values", () => {
+    const result = validateLoadFlowCase(
+      createCase({
+        branches: [
+          {
+            id: "branch-1",
+            fromBusId: "bus-1",
+            toBusId: "bus-1",
+            r: 0.01,
+            x: 0.03,
+            tapRatio: 0,
+            phaseShiftDeg: Number.NaN,
+          },
+        ],
+      })
+    );
+
+    expect(result.errors).toContain(
+      "Branch branch-1 has invalid tap ratio (must be a finite number greater than zero)."
+    );
+    expect(result.errors).toContain(
+      "Branch branch-1 has invalid phase shift (must be a finite number in degrees)."
+    );
+  });
+
   it("flags duplicate bus identifiers", () => {
     const result = validateLoadFlowCase(
       createCase({

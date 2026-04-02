@@ -8,7 +8,6 @@ import {
   divideComplex,
   multiplyComplex,
   polarToComplex,
-  subtractComplex,
 } from "./complex";
 import { buildInitialization } from "./initialization";
 import {
@@ -40,6 +39,13 @@ const toDegrees = (radians: number): number => (radians * 180) / Math.PI;
 
 const createMatrix = (size: number): number[][] =>
   Array.from({ length: size }, () => Array(size).fill(0));
+
+interface BranchAdmittanceTerms {
+  yFromFrom: Complex;
+  yFromTo: Complex;
+  yToFrom: Complex;
+  yToTo: Complex;
+}
 
 const solveLinearSystem = (a: number[][], b: number[]): number[] => {
   const size = a.length;
@@ -114,6 +120,36 @@ const getBusPartitions = (buses: Bus[]): BusPartitions => {
   };
 };
 
+const getBranchAdmittanceTerms = (
+  r: number,
+  x: number,
+  bHalf = 0,
+  tapRatio = 1,
+  phaseShiftDeg = 0
+): BranchAdmittanceTerms => {
+  const seriesAdmittance = divideComplex(complex(1, 0), complex(r, x));
+  const shuntAdmittance = complex(0, bHalf);
+  const tap = polarToComplex(tapRatio, toRadians(phaseShiftDeg));
+  const tapConjugate = conjugateComplex(tap);
+  const tapMagnitudeSquared = tapRatio * tapRatio;
+
+  return {
+    yFromFrom: divideComplex(
+      addComplex(seriesAdmittance, shuntAdmittance),
+      complex(tapMagnitudeSquared, 0)
+    ),
+    yFromTo: divideComplex(
+      multiplyComplex(complex(-1, 0), seriesAdmittance),
+      tapConjugate
+    ),
+    yToFrom: divideComplex(
+      multiplyComplex(complex(-1, 0), seriesAdmittance),
+      tap
+    ),
+    yToTo: addComplex(seriesAdmittance, shuntAdmittance),
+  };
+};
+
 const buildYBus = (
   loadFlowCase: LoadFlowCase,
   busIndexById: Record<string, number>
@@ -131,28 +167,30 @@ const buildYBus = (
     const fromIndex = busIndexById[branch.fromBusId];
     const toIndex = busIndexById[branch.toBusId];
 
-    const seriesAdmittance = divideComplex(
-      complex(1, 0),
-      complex(branch.r, branch.x)
+    const branchTerms = getBranchAdmittanceTerms(
+      branch.r,
+      branch.x,
+      branch.bHalf ?? 0,
+      branch.tapRatio ?? 1,
+      branch.phaseShiftDeg ?? 0
     );
-    const shuntAdmittance = complex(0, branch.bHalf ?? 0);
 
     yBus[fromIndex][fromIndex] = addComplex(
       yBus[fromIndex][fromIndex],
-      addComplex(seriesAdmittance, shuntAdmittance)
+      branchTerms.yFromFrom
     );
     yBus[toIndex][toIndex] = addComplex(
       yBus[toIndex][toIndex],
-      addComplex(seriesAdmittance, shuntAdmittance)
+      branchTerms.yToTo
     );
 
-    yBus[fromIndex][toIndex] = subtractComplex(
+    yBus[fromIndex][toIndex] = addComplex(
       yBus[fromIndex][toIndex],
-      seriesAdmittance
+      branchTerms.yFromTo
     );
-    yBus[toIndex][fromIndex] = subtractComplex(
+    yBus[toIndex][fromIndex] = addComplex(
       yBus[toIndex][fromIndex],
-      seriesAdmittance
+      branchTerms.yToFrom
     );
   }
 
@@ -368,25 +406,21 @@ const buildBranchFlows = (
 
       const fromVoltage = voltageByBusIndex[fromIndex];
       const toVoltage = voltageByBusIndex[toIndex];
-      const seriesAdmittance = divideComplex(
-        complex(1, 0),
-        complex(branch.r, branch.x)
+      const branchTerms = getBranchAdmittanceTerms(
+        branch.r,
+        branch.x,
+        branch.bHalf ?? 0,
+        branch.tapRatio ?? 1,
+        branch.phaseShiftDeg ?? 0
       );
-      const shuntAdmittance = complex(0, branch.bHalf ?? 0);
 
       const currentFromTo = addComplex(
-        multiplyComplex(
-          subtractComplex(fromVoltage, toVoltage),
-          seriesAdmittance
-        ),
-        multiplyComplex(fromVoltage, shuntAdmittance)
+        multiplyComplex(branchTerms.yFromFrom, fromVoltage),
+        multiplyComplex(branchTerms.yFromTo, toVoltage)
       );
       const currentToFrom = addComplex(
-        multiplyComplex(
-          subtractComplex(toVoltage, fromVoltage),
-          seriesAdmittance
-        ),
-        multiplyComplex(toVoltage, shuntAdmittance)
+        multiplyComplex(branchTerms.yToFrom, fromVoltage),
+        multiplyComplex(branchTerms.yToTo, toVoltage)
       );
 
       const sFromTo = multiplyComplex(

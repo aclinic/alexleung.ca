@@ -1,7 +1,6 @@
 import type { LoadFlowReferenceScenario } from "./referenceScenarios";
 
 // Source data adapted from MATPOWER benchmark cases (case9, case14, case30, case57, case118).
-// Transformer tap ratio and phase shift fields in MATPOWER are not modeled by the current solver.
 
 export const IEEE_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
   {
@@ -240,7 +239,7 @@ export const IEEE_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
     id: "ieee-14-bus",
     name: "IEEE 14-Bus",
     description:
-      "IEEE 14-bus transmission benchmark adapted from MATPOWER case14 (tap/phase data omitted).",
+      "IEEE 14-bus transmission benchmark adapted from MATPOWER case14.",
     loadFlowCase: {
       baseMVA: 100,
       buses: [
@@ -434,6 +433,8 @@ export const IEEE_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
           r: 0,
           x: 0.20912,
           bHalf: 0,
+          tapRatio: 0.978,
+          phaseShiftDeg: 0,
           status: "IN_SERVICE",
         },
         {
@@ -443,6 +444,8 @@ export const IEEE_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
           r: 0,
           x: 0.55618,
           bHalf: 0,
+          tapRatio: 0.969,
+          phaseShiftDeg: 0,
           status: "IN_SERVICE",
         },
         {
@@ -452,6 +455,8 @@ export const IEEE_REFERENCE_SCENARIOS: LoadFlowReferenceScenario[] = [
           r: 0,
           x: 0.25202,
           bHalf: 0,
+          tapRatio: 0.932,
+          phaseShiftDeg: 0,
           status: "IN_SERVICE",
         },
         {
