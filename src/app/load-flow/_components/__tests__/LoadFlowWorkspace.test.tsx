@@ -68,6 +68,23 @@ describe("LoadFlowWorkspace", () => {
     expect(screen.getByLabelText(/Base kV/i)).toHaveValue(0);
   });
 
+  it("preserves branch selection when resetting the active reference case", () => {
+    render(<LoadFlowWorkspace />);
+
+    fireEvent.click(screen.getByRole("button", { name: /line-1-2-1/i }));
+    const xInput = screen.getByLabelText(/X \(pu\)/i);
+    expect(xInput).toHaveValue(0.05917);
+
+    fireEvent.change(xInput, { target: { value: "0.09" } });
+    expect(screen.getByLabelText(/X \(pu\)/i)).toHaveValue(0.09);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Reset active reference case/i })
+    );
+
+    expect(screen.getByLabelText(/X \(pu\)/i)).toHaveValue(0.05917);
+  });
+
   it("shows additional branch fields for editing", () => {
     render(<LoadFlowWorkspace />);
 

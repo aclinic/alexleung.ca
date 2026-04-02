@@ -45,6 +45,7 @@ Completed across the first two slices (PR 1 + PR 2 scope):
   - bus: name, base kV, type, voltage setpoint, angle setpoint, voltage min/max
   - branch: `R (pu)`, `X (pu)`, `B/2 (pu)`, thermal limit (MVA), and status
 - ✅ Added a dedicated “Reset active reference case” action so edited reference scenarios can be restored from canonical source data.
+- ✅ Reset now preserves the currently selected bus/branch when that element exists in the restored reference case.
 
 Next recommended slice:
 

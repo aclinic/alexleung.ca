@@ -72,6 +72,37 @@ export function LoadFlowWorkspace() {
     [serializedCase]
   );
 
+  const resetActiveReferenceCase = () => {
+    if (!selectedReferenceScenario) {
+      return;
+    }
+
+    setEditorState((previousState) => {
+      const resetState = replaceEditorStateFromLoadFlowCase(
+        selectedReferenceScenario.loadFlowCase
+      );
+
+      const selectedElementStillExists =
+        previousState.selectedElementType === "BUS"
+          ? previousState.selectedElementId !== null &&
+            Boolean(resetState.busesById[previousState.selectedElementId])
+          : previousState.selectedElementType === "BRANCH"
+            ? previousState.selectedElementId !== null &&
+              Boolean(resetState.branchesById[previousState.selectedElementId])
+            : false;
+
+      if (!selectedElementStillExists) {
+        return resetState;
+      }
+
+      return selectElement(
+        resetState,
+        previousState.selectedElementType,
+        previousState.selectedElementId
+      );
+    });
+  };
+
   return (
     <section className="rounded-xl border border-gray-700 bg-gray-900/60 p-6 shadow-sm">
       <h2 className="text-heading-sm text-white">Workspace</h2>
@@ -116,13 +147,7 @@ export function LoadFlowWorkspace() {
             <button
               type="button"
               className="rounded-md border border-emerald-400 bg-emerald-900/30 px-3 py-2 text-sm text-emerald-50 hover:bg-emerald-900/50"
-              onClick={() => {
-                setEditorState(
-                  replaceEditorStateFromLoadFlowCase(
-                    selectedReferenceScenario.loadFlowCase
-                  )
-                );
-              }}
+              onClick={resetActiveReferenceCase}
             >
               Reset active reference case
             </button>
