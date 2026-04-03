@@ -33,6 +33,38 @@ interface BranchSegment {
   orientation: "HORIZONTAL" | "VERTICAL";
 }
 
+const getOrthogonalCrossingPoint = (
+  firstSegment: BranchSegment,
+  secondSegment: BranchSegment
+) => {
+  if (firstSegment.orientation === secondSegment.orientation) {
+    return null;
+  }
+
+  const horizontalSegment =
+    firstSegment.orientation === "HORIZONTAL" ? firstSegment : secondSegment;
+  const verticalSegment =
+    firstSegment.orientation === "VERTICAL" ? firstSegment : secondSegment;
+
+  const minHorizontalX = Math.min(horizontalSegment.x1, horizontalSegment.x2);
+  const maxHorizontalX = Math.max(horizontalSegment.x1, horizontalSegment.x2);
+  const minVerticalY = Math.min(verticalSegment.y1, verticalSegment.y2);
+  const maxVerticalY = Math.max(verticalSegment.y1, verticalSegment.y2);
+  const crossingX = verticalSegment.x1;
+  const crossingY = horizontalSegment.y1;
+  const isCrossing =
+    crossingX > minHorizontalX &&
+    crossingX < maxHorizontalX &&
+    crossingY > minVerticalY &&
+    crossingY < maxVerticalY;
+
+  if (!isCrossing) {
+    return null;
+  }
+
+  return { x: crossingX, y: crossingY };
+};
+
 const getBusCenter = (bus: BusNode) => ({
   x: bus.x,
   y: bus.y,
@@ -210,38 +242,16 @@ export function SingleLineDiagram({
 
         for (const currentSegment of branchSegments) {
           for (const previousSegment of previousSegments) {
-            if (
-              currentSegment.orientation === previousSegment.orientation ||
-              currentSegment.orientation !== "VERTICAL" ||
-              previousSegment.orientation !== "HORIZONTAL"
-            ) {
-              continue;
-            }
-
-            const minHorizontalX = Math.min(
-              previousSegment.x1,
-              previousSegment.x2
+            const crossingPoint = getOrthogonalCrossingPoint(
+              currentSegment,
+              previousSegment
             );
-            const maxHorizontalX = Math.max(
-              previousSegment.x1,
-              previousSegment.x2
-            );
-            const minVerticalY = Math.min(currentSegment.y1, currentSegment.y2);
-            const maxVerticalY = Math.max(currentSegment.y1, currentSegment.y2);
-            const crossingX = currentSegment.x1;
-            const crossingY = previousSegment.y1;
-            const crosses =
-              crossingX > minHorizontalX &&
-              crossingX < maxHorizontalX &&
-              crossingY > minVerticalY &&
-              crossingY < maxVerticalY;
-
-            if (!crosses) {
+            if (!crossingPoint) {
               continue;
             }
 
             const branchHops = hopsByBranchId.get(branch.id) ?? [];
-            branchHops.push({ x: crossingX, y: crossingY });
+            branchHops.push(crossingPoint);
             hopsByBranchId.set(branch.id, branchHops);
           }
         }

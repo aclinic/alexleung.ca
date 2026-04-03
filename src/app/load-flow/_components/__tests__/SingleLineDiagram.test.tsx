@@ -31,6 +31,8 @@ const branches: LineEdge[] = [
   },
 ];
 
+const reversedBranchOrder = [branches[1], branches[0]];
+
 describe("SingleLineDiagram", () => {
   const onBusSelect = jest.fn();
   const onBusMove = jest.fn();
@@ -76,6 +78,23 @@ describe("SingleLineDiagram", () => {
       <SingleLineDiagram
         buses={buses}
         branches={branches}
+        selectedElementId={null}
+        selectedElementType={null}
+        onBusSelect={onBusSelect}
+        onBusMove={onBusMove}
+        onBranchSelect={onBranchSelect}
+      />
+    );
+
+    const hopPaths = container.querySelectorAll('path[d*="A 10 10"]');
+    expect(hopPaths.length).toBeGreaterThan(0);
+  });
+
+  it("renders hop markers regardless of branch insertion order", () => {
+    const { container } = render(
+      <SingleLineDiagram
+        buses={buses}
+        branches={reversedBranchOrder}
         selectedElementId={null}
         selectedElementType={null}
         onBusSelect={onBusSelect}
