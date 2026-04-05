@@ -33,6 +33,12 @@ interface BranchSegment {
   orientation: "HORIZONTAL" | "VERTICAL";
 }
 
+interface RoutedBranch {
+  branchId: string;
+  points: Array<{ x: number; y: number }>;
+  segments: BranchSegment[];
+}
+
 const getOrthogonalCrossingPoint = (
   firstSegment: BranchSegment,
   secondSegment: BranchSegment
@@ -69,6 +75,32 @@ const getBusCenter = (bus: BusNode) => ({
   x: bus.x,
   y: bus.y,
 });
+
+const toBranchSegments = (
+  branchId: string,
+  points: Array<{ x: number; y: number }>
+): BranchSegment[] =>
+  points.slice(0, -1).flatMap((fromPoint, index) => {
+    const toPoint = points[index + 1];
+    if (!toPoint) {
+      return [];
+    }
+    if (fromPoint.x === toPoint.x && fromPoint.y === toPoint.y) {
+      return [];
+    }
+
+    const orientation = fromPoint.y === toPoint.y ? "HORIZONTAL" : "VERTICAL";
+    return [
+      {
+        branchId,
+        x1: fromPoint.x,
+        y1: fromPoint.y,
+        x2: toPoint.x,
+        y2: toPoint.y,
+        orientation,
+      },
+    ];
+  });
 
 const lineClassName = (isSelected: boolean) =>
   isSelected
@@ -192,8 +224,8 @@ export function SingleLineDiagram({
     );
   };
 
-  const branchSegmentsById = useMemo(() => {
-    const segmentsById = new Map<string, BranchSegment[]>();
+  const routedBranchesById = useMemo(() => {
+    const routedById = new Map<string, RoutedBranch>();
 
     branches.forEach((branch) => {
       const fromBus = busesById.get(branch.fromBusId);
@@ -208,37 +240,29 @@ export function SingleLineDiagram({
       const elbowX = to.x;
       const elbowY = from.y;
 
-      segmentsById.set(branch.id, [
-        {
-          branchId: branch.id,
-          x1: from.x,
-          y1: from.y,
-          x2: elbowX,
-          y2: elbowY,
-          orientation: "HORIZONTAL",
-        },
-        {
-          branchId: branch.id,
-          x1: elbowX,
-          y1: elbowY,
-          x2: to.x,
-          y2: to.y,
-          orientation: "VERTICAL",
-        },
-      ]);
+      const points = [
+        { x: from.x, y: from.y },
+        { x: elbowX, y: elbowY },
+        { x: to.x, y: to.y },
+      ];
+      routedById.set(branch.id, {
+        branchId: branch.id,
+        points,
+        segments: toBranchSegments(branch.id, points),
+      });
     });
 
-    return segmentsById;
+    return routedById;
   }, [branches, busesById]);
 
   const lineHopPointsByBranchId = useMemo(() => {
     const hopsByBranchId = new Map<string, Array<{ x: number; y: number }>>();
 
     branches.forEach((branch, branchIndex) => {
-      const branchSegments = branchSegmentsById.get(branch.id) ?? [];
+      const branchSegments = routedBranchesById.get(branch.id)?.segments ?? [];
       branches.slice(0, branchIndex).forEach((previousBranch) => {
         const previousSegments =
-          branchSegmentsById.get(previousBranch.id) ?? [];
+          routedBranchesById.get(previousBranch.id)?.segments ?? [];
 
         for (const currentSegment of branchSegments) {
           for (const previousSegment of previousSegments) {
@@ -259,7 +283,7 @@ export function SingleLineDiagram({
     });
 
     return hopsByBranchId;
-  }, [branchSegmentsById, branches]);
+  }, [routedBranchesById, branches]);
 
   return (
     <div className="mt-3 overflow-x-auto rounded-md border border-slate-700 bg-slate-950/60 p-3">
@@ -314,49 +338,60 @@ export function SingleLineDiagram({
                 return null;
               }
 
-              const from = getBusCenter(fromBus);
-              const to = getBusCenter(toBus);
-              const elbowX = to.x;
-              const elbowY = from.y;
+              const routedBranch = routedBranchesById.get(branch.id);
+              if (!routedBranch) {
+                return null;
+              }
+              const elbowPoint = routedBranch.points[1];
+              const fallbackLabelPoint =
+                routedBranch.points[routedBranch.points.length - 1];
               const isSelected =
                 selectedElementType === "BRANCH" &&
                 selectedElementId === branch.id;
-              const lineHops = lineHopPointsByBranchId.get(branch.id) ?? [];
 
               return (
                 <g key={branch.id}>
                   <polyline
-                    points={`${from.x},${from.y} ${elbowX},${elbowY} ${to.x},${to.y}`}
+                    points={routedBranch.points
+                      .map((point) => `${point.x},${point.y}`)
+                      .join(" ")}
                     fill="none"
                     className={`${lineClassName(isSelected)} cursor-pointer transition`}
                     onClick={() => onBranchSelect(branch.id)}
                   />
                   <text
-                    x={elbowX}
-                    y={elbowY - 10}
+                    x={elbowPoint?.x ?? fallbackLabelPoint?.x ?? 0}
+                    y={(elbowPoint?.y ?? fallbackLabelPoint?.y ?? 0) - 10}
                     textAnchor="middle"
                     className="fill-slate-300 text-[10px]"
                   >
                     {branch.id}
                   </text>
-                  {lineHops.map((lineHop, index) => (
-                    <g key={`${branch.id}-hop-${index}`}>
-                      <rect
-                        x={lineHop.x - LINE_HOP_RADIUS}
-                        y={lineHop.y - LINE_HOP_RADIUS}
-                        width={LINE_HOP_RADIUS * 2}
-                        height={LINE_HOP_RADIUS * 2}
-                        className="fill-slate-950"
-                      />
-                      <path
-                        d={`M ${lineHop.x} ${lineHop.y - LINE_HOP_RADIUS} A ${LINE_HOP_RADIUS} ${LINE_HOP_RADIUS} 0 0 1 ${lineHop.x} ${lineHop.y + LINE_HOP_RADIUS}`}
-                        fill="none"
-                        className={`${lineClassName(isSelected)} stroke-[3]`}
-                      />
-                    </g>
-                  ))}
                 </g>
               );
+            })}
+
+            {branches.map((branch) => {
+              const isSelected =
+                selectedElementType === "BRANCH" &&
+                selectedElementId === branch.id;
+              const lineHops = lineHopPointsByBranchId.get(branch.id) ?? [];
+              return lineHops.map((lineHop, index) => (
+                <g key={`${branch.id}-hop-${index}`}>
+                  <rect
+                    x={lineHop.x - LINE_HOP_RADIUS}
+                    y={lineHop.y - LINE_HOP_RADIUS}
+                    width={LINE_HOP_RADIUS * 2}
+                    height={LINE_HOP_RADIUS * 2}
+                    className="fill-slate-950"
+                  />
+                  <path
+                    d={`M ${lineHop.x} ${lineHop.y - LINE_HOP_RADIUS} A ${LINE_HOP_RADIUS} ${LINE_HOP_RADIUS} 0 0 1 ${lineHop.x} ${lineHop.y + LINE_HOP_RADIUS}`}
+                    fill="none"
+                    className={`${lineClassName(isSelected)} stroke-[3]`}
+                  />
+                </g>
+              ));
             })}
 
             {buses.map((bus) => {

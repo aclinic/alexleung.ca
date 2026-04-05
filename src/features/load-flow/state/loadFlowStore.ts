@@ -176,7 +176,7 @@ export const selectElement = (
 });
 
 const AUTO_LAYOUT_X_SPACING = 180;
-const AUTO_LAYOUT_Y_SPACING = 120;
+const AUTO_LAYOUT_Y_SPACING = 140;
 const AUTO_LAYOUT_START_X = 120;
 const AUTO_LAYOUT_START_Y = 120;
 const AUTO_LAYOUT_MIN_BUS_HORIZONTAL_CLEARANCE = 104;
@@ -281,13 +281,45 @@ export const autoLayoutBuses = (
   const positionedBuses: Record<string, BusNode> = { ...state.busesById };
   const orderedLevels = [...busesByLevel.keys()].sort((a, b) => a - b);
   const placedPositions: Array<{ x: number; y: number }> = [];
+  const busRankById = new Map(
+    state.busOrder.map((busId, index) => [busId, index])
+  );
+
+  orderedLevels.forEach((level) => {
+    const buses = busesByLevel.get(level) ?? [];
+    buses.sort((a, b) => {
+      const neighborsA = (adjacency.get(a) ?? []).filter(
+        (neighborId) => (levelByBusId.get(neighborId) ?? 0) < level
+      );
+      const neighborsB = (adjacency.get(b) ?? []).filter(
+        (neighborId) => (levelByBusId.get(neighborId) ?? 0) < level
+      );
+      const avgA =
+        neighborsA.reduce(
+          (sum, neighborId) => sum + (busRankById.get(neighborId) ?? 0),
+          0
+        ) / (neighborsA.length || 1);
+      const avgB =
+        neighborsB.reduce(
+          (sum, neighborId) => sum + (busRankById.get(neighborId) ?? 0),
+          0
+        ) / (neighborsB.length || 1);
+      if (avgA === avgB) {
+        return (busRankById.get(a) ?? 0) - (busRankById.get(b) ?? 0);
+      }
+      return avgA - avgB;
+    });
+    busesByLevel.set(level, buses);
+  });
 
   for (const level of orderedLevels) {
     const buses = busesByLevel.get(level) ?? [];
+    const levelYOffset =
+      AUTO_LAYOUT_START_Y - ((buses.length - 1) * AUTO_LAYOUT_Y_SPACING) / 2;
     buses.forEach((busId, index) => {
       const bus = positionedBuses[busId];
       const proposedX = AUTO_LAYOUT_START_X + level * AUTO_LAYOUT_X_SPACING;
-      const proposedY = AUTO_LAYOUT_START_Y + index * AUTO_LAYOUT_Y_SPACING;
+      const proposedY = levelYOffset + index * AUTO_LAYOUT_Y_SPACING;
       const { x, y } = resolveNonOverlappingPosition(
         proposedX,
         proposedY,
@@ -300,6 +332,7 @@ export const autoLayoutBuses = (
         y,
       };
       placedPositions.push({ x, y });
+      busRankById.set(busId, index);
     });
   }
 
