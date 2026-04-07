@@ -71,6 +71,26 @@ export function LoadFlowWorkspace() {
     () => runLoadFlow(serializedCase),
     [serializedCase]
   );
+  const busSolutionsById = useMemo(
+    () =>
+      new Map(
+        (solveResult.buses ?? []).map((busSolution) => [
+          busSolution.busId,
+          busSolution,
+        ])
+      ),
+    [solveResult.buses]
+  );
+  const branchFlowsById = useMemo(
+    () =>
+      new Map(
+        (solveResult.branchFlows ?? []).map((branchFlow) => [
+          branchFlow.branchId,
+          branchFlow,
+        ])
+      ),
+    [solveResult.branchFlows]
+  );
 
   const resetActiveReferenceCase = () => {
     if (!selectedReferenceScenario) {
@@ -188,6 +208,8 @@ export function LoadFlowWorkspace() {
           onBranchSelect={(branchId) =>
             setEditorState((prev) => selectElement(prev, "BRANCH", branchId))
           }
+          busSolutionsById={busSolutionsById}
+          branchFlowsById={branchFlowsById}
         />
       </div>
 
