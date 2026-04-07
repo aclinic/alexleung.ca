@@ -1,5 +1,9 @@
 import { PointerEvent, useMemo, useRef, useState, WheelEvent } from "react";
 
+import {
+  BranchFlowSolution,
+  BusSolution,
+} from "@/features/load-flow/solver/types";
 import { BusNode, LineEdge } from "@/features/load-flow/state/loadFlowStore";
 
 interface SingleLineDiagramProps {
@@ -10,10 +14,12 @@ interface SingleLineDiagramProps {
   onBusSelect: (busId: string) => void;
   onBusMove: (busId: string, x: number, y: number) => void;
   onBranchSelect: (branchId: string) => void;
+  busSolutionsById?: Map<string, BusSolution>;
+  branchFlowsById?: Map<string, BranchFlowSolution>;
 }
 
 const BUS_WIDTH = 88;
-const BUS_HEIGHT = 42;
+const BUS_HEIGHT = 66;
 const BUS_HALF_WIDTH = BUS_WIDTH / 2;
 const BUS_HALF_HEIGHT = BUS_HEIGHT / 2;
 const DIAGRAM_PADDING = 48;
@@ -120,6 +126,8 @@ export function SingleLineDiagram({
   onBusSelect,
   onBusMove,
   onBranchSelect,
+  busSolutionsById,
+  branchFlowsById,
 }: SingleLineDiagramProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const draggingBusIdRef = useRef<string | null>(null);
@@ -348,6 +356,18 @@ export function SingleLineDiagram({
               const isSelected =
                 selectedElementType === "BRANCH" &&
                 selectedElementId === branch.id;
+              const branchFlow = branchFlowsById?.get(branch.id);
+              const activePowerFromTo = branchFlow?.pFromToMW;
+              const flowDirectionSymbol =
+                activePowerFromTo === undefined
+                  ? null
+                  : activePowerFromTo >= 0
+                    ? "→"
+                    : "←";
+              const flowMagnitudeMW =
+                activePowerFromTo === undefined
+                  ? null
+                  : Math.abs(activePowerFromTo).toFixed(2);
 
               return (
                 <g key={branch.id}>
@@ -367,6 +387,16 @@ export function SingleLineDiagram({
                   >
                     {branch.id}
                   </text>
+                  {flowMagnitudeMW ? (
+                    <text
+                      x={elbowPoint?.x ?? fallbackLabelPoint?.x ?? 0}
+                      y={(elbowPoint?.y ?? fallbackLabelPoint?.y ?? 0) + 4}
+                      textAnchor="middle"
+                      className="fill-emerald-200 text-[10px]"
+                    >
+                      {flowDirectionSymbol} {flowMagnitudeMW} MW
+                    </text>
+                  ) : null}
                 </g>
               );
             })}
@@ -397,6 +427,13 @@ export function SingleLineDiagram({
             {buses.map((bus) => {
               const isSelected =
                 selectedElementType === "BUS" && selectedElementId === bus.id;
+              const busSolution = busSolutionsById?.get(bus.id);
+              const voltageSummary = busSolution
+                ? `${busSolution.voltageMagnitudePu.toFixed(3)} pu`
+                : "— pu";
+              const angleSummary = busSolution
+                ? `${busSolution.voltageAngleDeg.toFixed(2)}°`
+                : "—°";
 
               return (
                 <g
@@ -432,6 +469,22 @@ export function SingleLineDiagram({
                     className="fill-slate-300 text-[10px]"
                   >
                     {bus.type}
+                  </text>
+                  <text
+                    x={BUS_HALF_WIDTH}
+                    y={47}
+                    textAnchor="middle"
+                    className="fill-emerald-100 text-[10px]"
+                  >
+                    V: {voltageSummary}
+                  </text>
+                  <text
+                    x={BUS_HALF_WIDTH}
+                    y={60}
+                    textAnchor="middle"
+                    className="fill-emerald-100 text-[10px]"
+                  >
+                    θ: {angleSummary}
                   </text>
                 </g>
               );
