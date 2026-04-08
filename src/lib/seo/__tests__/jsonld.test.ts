@@ -136,6 +136,12 @@ describe("seo jsonld builders", () => {
       },
       {
         "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-pid-controller",
+        name: "PID Controller",
+        url: "https://alexleung.ca/pid-controller/",
+      },
+      {
+        "@type": "SiteNavigationElement",
         "@id": "https://alexleung.ca/#site-navigation-now",
         name: "Now",
         url: "https://alexleung.ca/now/",
