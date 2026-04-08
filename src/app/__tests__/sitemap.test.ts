@@ -33,4 +33,11 @@ describe("sitemap", () => {
 
     expect(blogPostEntry).toBeDefined();
   });
+
+  it("does not include the event loop page", () => {
+    const entries = sitemap();
+    expect(entries.some((entry) => entry.url.includes("/event-loop/"))).toBe(
+      false
+    );
+  });
 });
