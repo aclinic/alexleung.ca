@@ -178,6 +178,31 @@ src/
 └── lib/         # Blog/content loading + SEO + markdown pipeline
 ```
 
+## Mandelbrot Explorer
+
+The Mandelbrot explorer lives at `/mandelbrot/` and is implemented as a client-side tool page with the precision math isolated under `src/features/mandelbrot/`.
+
+- **Precision library**: `decimal.js` keeps viewport center and scale updates out of normal JavaScript floating-point arithmetic so deep zoom state remains stable.
+- **Viewport model**: the explorer stores `centerX`, `centerY`, `width`, and `height` as arbitrary-precision decimals, and derives pixel-to-complex mapping from those values for click zoom, wheel zoom, box zoom, and panning.
+- **Render pipeline**: the canvas uses an async chunked renderer that paints a quick preview first, then refines to the selected quality level. New interactions cancel stale renders so the UI stays responsive, and pixel iteration uses a fast `number` path until zoom depth actually requires Decimal-based escape calculations.
+- **URL state**: the current center, width, palette, iteration budget, and quality are mirrored into the query string for shareable deep links.
+
+Relevant files:
+
+- `src/app/mandelbrot/page.tsx`
+- `src/app/mandelbrot/_components/MandelbrotExplorer.tsx`
+- `src/app/mandelbrot/_components/MandelbrotCanvas.tsx`
+- `src/features/mandelbrot/*`
+
+Targeted Mandelbrot tests can be run with:
+
+```bash
+yarn test src/features/mandelbrot/__tests__/viewport.test.ts \
+  src/features/mandelbrot/__tests__/mandelbrot.test.ts \
+  src/app/mandelbrot/__tests__/page.test.tsx \
+  src/app/mandelbrot/_components/__tests__/MandelbrotExplorer.test.tsx
+```
+
 ## Documentation Map
 
 - `docs/README.md` — docs directory guide and consolidation notes
