@@ -18,10 +18,11 @@ function setupTempPosts(markdownBySlug: Record<string, string>): string {
 async function loadBlogApiAtCwd(cwd: string, options?: { nodeEnv?: string }) {
   jest.resetModules();
   const cwdSpy = jest.spyOn(process, "cwd").mockReturnValue(cwd);
-  const previousNodeEnv = process.env.NODE_ENV;
+  const env = process.env as Record<string, string | undefined>;
+  const previousNodeEnv = env.NODE_ENV;
 
   if (options?.nodeEnv !== undefined) {
-    process.env.NODE_ENV = options.nodeEnv;
+    env.NODE_ENV = options.nodeEnv;
   }
 
   try {
@@ -30,12 +31,13 @@ async function loadBlogApiAtCwd(cwd: string, options?: { nodeEnv?: string }) {
     return blogApi;
   } finally {
     cwdSpy.mockRestore();
-    process.env.NODE_ENV = previousNodeEnv;
+    env.NODE_ENV = previousNodeEnv;
   }
 }
 
 afterEach(() => {
-  process.env.NODE_ENV = "test";
+  const env = process.env as Record<string, string | undefined>;
+  env.NODE_ENV = "test";
   jest.restoreAllMocks();
   jest.resetModules();
 });
