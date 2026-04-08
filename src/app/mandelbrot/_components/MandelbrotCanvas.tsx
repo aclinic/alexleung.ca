@@ -18,6 +18,7 @@ import {
   mapViewportPoint,
   panViewport,
   selectionIsLargeEnough,
+  viewportsEqual,
   zoomViewportAtPoint,
 } from "@/features/mandelbrot/viewport";
 
@@ -168,11 +169,18 @@ export function MandelbrotCanvas({
 
   useEffect(() => {
     return () => {
-      if (wheelTimerRef.current !== null) {
-        window.clearTimeout(wheelTimerRef.current);
-      }
+      cancelPendingWheelCommit();
     };
   }, []);
+
+  function cancelPendingWheelCommit() {
+    if (wheelTimerRef.current !== null) {
+      window.clearTimeout(wheelTimerRef.current);
+      wheelTimerRef.current = null;
+    }
+
+    latestWheelViewportRef.current = null;
+  }
 
   function finalizeWheelPreview() {
     if (!latestWheelViewportRef.current) {
@@ -183,10 +191,21 @@ export function MandelbrotCanvas({
     latestWheelViewportRef.current = null;
   }
 
+  useEffect(() => {
+    if (
+      latestWheelViewportRef.current &&
+      !viewportsEqual(viewport, latestWheelViewportRef.current)
+    ) {
+      cancelPendingWheelCommit();
+    }
+  }, [viewport]);
+
   function handlePointerDown(event: PointerEvent<HTMLCanvasElement>) {
     if (event.button !== 0) {
       return;
     }
+
+    cancelPendingWheelCommit();
 
     const point = canvasPointFromClientPosition(
       event.currentTarget,
@@ -278,6 +297,7 @@ export function MandelbrotCanvas({
 
     if (dragSession.kind === "pan") {
       if (dragSession.moved) {
+        cancelPendingWheelCommit();
         onCommitViewport(
           panViewport(dragSession.startViewport, canvasSize, {
             x: point.x - dragSession.anchor.x,
@@ -288,6 +308,7 @@ export function MandelbrotCanvas({
       }
 
       onPreviewViewport(null);
+      cancelPendingWheelCommit();
       onCommitViewport(
         zoomViewportAtPoint(viewportRef.current, canvasSize, point, 0.5)
       );
@@ -303,6 +324,7 @@ export function MandelbrotCanvas({
     setSelectionRect(null);
 
     if (selectionIsLargeEnough(nextSelection)) {
+      cancelPendingWheelCommit();
       onCommitViewport(
         boxZoomViewport(
           viewportRef.current,
@@ -314,6 +336,7 @@ export function MandelbrotCanvas({
       return;
     }
 
+    cancelPendingWheelCommit();
     onCommitViewport(
       zoomViewportAtPoint(viewportRef.current, canvasSize, point, 0.5)
     );
@@ -417,21 +440,30 @@ export function MandelbrotCanvas({
         <button
           type="button"
           className="rounded-md border border-white/15 bg-slate-950/80 px-3 py-2 text-sm text-white backdrop-blur-sm transition hover:border-cyan-300 hover:text-cyan-100"
-          onClick={onZoomIn}
+          onClick={() => {
+            cancelPendingWheelCommit();
+            onZoomIn();
+          }}
         >
           Zoom in
         </button>
         <button
           type="button"
           className="rounded-md border border-white/15 bg-slate-950/80 px-3 py-2 text-sm text-white backdrop-blur-sm transition hover:border-cyan-300 hover:text-cyan-100"
-          onClick={onZoomOut}
+          onClick={() => {
+            cancelPendingWheelCommit();
+            onZoomOut();
+          }}
         >
           Zoom out
         </button>
         <button
           type="button"
           className="rounded-md border border-white/15 bg-slate-950/80 px-3 py-2 text-sm text-white backdrop-blur-sm transition hover:border-cyan-300 hover:text-cyan-100"
-          onClick={onReset}
+          onClick={() => {
+            cancelPendingWheelCommit();
+            onReset();
+          }}
         >
           Reset
         </button>

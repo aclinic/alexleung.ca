@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 
 import { MandelbrotExplorer } from "../MandelbrotExplorer";
 
@@ -9,6 +15,10 @@ jest.mock("next/navigation", () => ({
 describe("MandelbrotExplorer", () => {
   beforeEach(() => {
     window.history.replaceState(null, "", "/mandelbrot/");
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it("renders the canvas shell and explorer controls", () => {
@@ -85,5 +95,35 @@ describe("MandelbrotExplorer", () => {
     );
 
     replaceStateSpy.mockRestore();
+  });
+
+  it("cancels a pending wheel commit before reset commits a new viewport", async () => {
+    jest.useFakeTimers();
+
+    render(<MandelbrotExplorer />);
+
+    const widthValue = screen.getByTestId("mandelbrot-width");
+    const initialWidth = widthValue.textContent;
+    const canvas = screen.getByLabelText("Mandelbrot set rendering canvas");
+
+    fireEvent.wheel(canvas, {
+      deltaY: -120,
+      clientX: 24,
+      clientY: 24,
+    });
+
+    expect(widthValue.textContent).not.toBe(initialWidth);
+
+    fireEvent.click(screen.getByRole("button", { name: "Reset view" }));
+
+    await waitFor(() => {
+      expect(widthValue.textContent).toBe(initialWidth);
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(200);
+    });
+
+    expect(widthValue.textContent).toBe(initialWidth);
   });
 });
