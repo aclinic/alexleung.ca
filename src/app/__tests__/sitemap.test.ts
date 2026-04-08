@@ -30,8 +30,12 @@ describe("sitemap", () => {
     const blogPostEntry = entries.find(
       (entry) => entry.url === "https://alexleung.ca/blog/my-post/"
     );
+    const pidControllerEntry = entries.find(
+      (entry) => entry.url === "https://alexleung.ca/pid-controller/"
+    );
 
     expect(blogPostEntry).toBeDefined();
+    expect(pidControllerEntry).toBeUndefined();
   });
 
   it("does not include the event loop page", () => {
