@@ -104,6 +104,7 @@ export function LearningDynamicsLab() {
     createRunSet(surface, DEFAULT_RUN_CONFIGS, surface.defaultStart)
   );
   const [isPlaying, setIsPlaying] = useState(false);
+  const hasActiveRun = hasAnyActiveRun(runs, runConfigs);
 
   const resetRuns = (
     nextSurface = surface,
@@ -140,21 +141,18 @@ export function LearningDynamicsLab() {
   };
 
   const stepAllRuns = useEffectEvent(() => {
-    let shouldStop = false;
-
     setRuns((currentRuns) => {
-      const nextRuns = currentRuns.map((run) =>
+      return currentRuns.map((run) =>
         stepRun(surface, getConfigById(runConfigs, run.id), run)
       );
-
-      shouldStop = !hasAnyActiveRun(nextRuns, runConfigs);
-      return nextRuns;
     });
+  });
 
-    if (shouldStop) {
+  useEffect(() => {
+    if (isPlaying && !hasActiveRun) {
       setIsPlaying(false);
     }
-  });
+  }, [hasActiveRun, isPlaying]);
 
   useEffect(() => {
     if (!isPlaying) {

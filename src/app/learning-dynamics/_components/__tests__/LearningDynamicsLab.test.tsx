@@ -61,6 +61,26 @@ describe("LearningDynamicsLab", () => {
     expect(screen.getByTestId("run-a-step")).toHaveTextContent("0");
   });
 
+  it("stops autoplay once the committed runs are no longer active", () => {
+    render(<LearningDynamicsLab />);
+
+    fireEvent.change(screen.getByLabelText("Start x"), {
+      target: { value: "0" },
+    });
+    fireEvent.change(screen.getByLabelText("Start y"), {
+      target: { value: "0" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Play" }));
+
+    act(() => {
+      jest.advanceTimersByTime(50);
+    });
+
+    expect(screen.getByRole("button", { name: "Play" })).toBeInTheDocument();
+    expect(screen.getByTestId("run-a-step")).toHaveTextContent("0");
+  });
+
   it("single-steps and reflects the updated metrics", () => {
     render(<LearningDynamicsLab />);
 
