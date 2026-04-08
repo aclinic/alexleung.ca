@@ -17,12 +17,15 @@ import {
 } from "@/features/pid-simulator/simulationEngine";
 import {
   PidControllerConfig,
+  SimulationSample,
   SimulatorPresetId,
 } from "@/features/pid-simulator/types";
 import { roundTo } from "@/features/pid-simulator/utils";
 
 const FIXED_DT_SECONDS = 1 / 60;
 const HISTORY_WINDOW_SECONDS = 18;
+const MAX_ELAPSED_SECONDS = 0.25;
+const MAX_CATCH_UP_STEPS_PER_FRAME = 12;
 
 const firstPreset = PID_SIMULATOR_PRESETS[0];
 
@@ -67,6 +70,7 @@ export function PidSimulatorWorkspace() {
       historyWindowSeconds: HISTORY_WINDOW_SECONDS,
     })
   );
+  const metricSamplesRef = useRef<SimulationSample[]>(simulationState.samples);
 
   useEffect(() => {
     controllerRef.current.setConfig(buildControllerConfig(kp, ki, kd));
@@ -74,13 +78,14 @@ export function PidSimulatorWorkspace() {
 
   const resetSimulation = () => {
     controllerRef.current.reset();
-    setSimulationState(
-      createInitialSimulationState(plant, {
-        setpoint,
-        timeStepSeconds: FIXED_DT_SECONDS,
-        historyWindowSeconds: HISTORY_WINDOW_SECONDS,
-      })
-    );
+    const resetState = createInitialSimulationState(plant, {
+      setpoint,
+      timeStepSeconds: FIXED_DT_SECONDS,
+      historyWindowSeconds: HISTORY_WINDOW_SECONDS,
+    });
+
+    metricSamplesRef.current = resetState.samples;
+    setSimulationState(resetState);
   };
 
   useEffect(() => {
@@ -89,21 +94,50 @@ export function PidSimulatorWorkspace() {
     let accumulator = 0;
 
     const tick = (now: number) => {
-      const elapsedSeconds = Math.max((now - lastFrame) / 1000, 0);
+      const elapsedSeconds = Math.min(
+        Math.max((now - lastFrame) / 1000, 0),
+        MAX_ELAPSED_SECONDS
+      );
       lastFrame = now;
 
       if (isRunning) {
         accumulator += elapsedSeconds * simulationSpeed;
 
-        while (accumulator >= FIXED_DT_SECONDS) {
-          setSimulationState((current) =>
-            stepSimulation(current, plant, controllerRef.current, {
-              setpoint,
-              timeStepSeconds: FIXED_DT_SECONDS,
-              historyWindowSeconds: HISTORY_WINDOW_SECONDS,
-            })
-          );
+        let stepsToRun = 0;
+        while (
+          accumulator >= FIXED_DT_SECONDS &&
+          stepsToRun < MAX_CATCH_UP_STEPS_PER_FRAME
+        ) {
           accumulator -= FIXED_DT_SECONDS;
+          stepsToRun += 1;
+        }
+
+        accumulator = Math.min(
+          accumulator,
+          FIXED_DT_SECONDS * MAX_CATCH_UP_STEPS_PER_FRAME
+        );
+
+        if (stepsToRun > 0) {
+          setSimulationState((current) => {
+            let next = current;
+            const nextMetricSamples = [...metricSamplesRef.current];
+
+            for (let index = 0; index < stepsToRun; index += 1) {
+              next = stepSimulation(next, plant, controllerRef.current, {
+                setpoint,
+                timeStepSeconds: FIXED_DT_SECONDS,
+                historyWindowSeconds: HISTORY_WINDOW_SECONDS,
+              });
+
+              const latestSample = next.samples.at(-1);
+              if (latestSample) {
+                nextMetricSamples.push(latestSample);
+              }
+            }
+
+            metricSamplesRef.current = nextMetricSamples;
+            return next;
+          });
         }
       }
 
@@ -118,8 +152,8 @@ export function PidSimulatorWorkspace() {
   }, [isRunning, plant, setpoint, simulationSpeed]);
 
   const metrics = useMemo(
-    () => computeControlBehaviorMetrics(simulationState.samples, setpoint),
-    [setpoint, simulationState.samples]
+    () => computeControlBehaviorMetrics(metricSamplesRef.current, setpoint),
+    [setpoint, simulationState.timeSeconds]
   );
 
   return (
@@ -165,13 +199,14 @@ export function PidSimulatorWorkspace() {
               )
             );
             controllerRef.current.reset();
-            setSimulationState(
-              createInitialSimulationState(plant, {
-                setpoint: preset.setpoint,
-                timeStepSeconds: FIXED_DT_SECONDS,
-                historyWindowSeconds: HISTORY_WINDOW_SECONDS,
-              })
-            );
+
+            const resetState = createInitialSimulationState(plant, {
+              setpoint: preset.setpoint,
+              timeStepSeconds: FIXED_DT_SECONDS,
+              historyWindowSeconds: HISTORY_WINDOW_SECONDS,
+            });
+            metricSamplesRef.current = resetState.samples;
+            setSimulationState(resetState);
           }}
           onKpChange={(value) => {
             setPresetId("well-tuned");
