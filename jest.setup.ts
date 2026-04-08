@@ -24,3 +24,22 @@ if (!window.performance.mark) {
     value: jest.fn(),
   });
 }
+
+Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+  writable: true,
+  value: jest.fn().mockImplementation((contextType: string) => {
+    if (contextType !== "2d") {
+      return null;
+    }
+
+    return {
+      clearRect: jest.fn(),
+      drawImage: jest.fn(),
+      fillRect: jest.fn(),
+      getImageData: jest.fn(),
+      imageSmoothingEnabled: false,
+      putImageData: jest.fn(),
+      setTransform: jest.fn(),
+    };
+  }),
+});
