@@ -29,6 +29,11 @@ const DEFAULT_MAX_TIME_SECONDS = 20;
 const TIME_EPSILON = FIXED_DT_SECONDS / 2;
 
 const firstPreset = PID_SIMULATOR_PRESETS[0];
+const plant = createFirstOrderPlant({
+  gain: 1,
+  timeConstantSeconds: 1.1,
+  initialOutput: 0,
+});
 
 const buildControllerConfig = (
   kp: number,
@@ -43,16 +48,6 @@ const buildControllerConfig = (
 });
 
 export function PidSimulatorWorkspace() {
-  const plant = useMemo(
-    () =>
-      createFirstOrderPlant({
-        gain: 1,
-        timeConstantSeconds: 1.1,
-        initialOutput: 0,
-      }),
-    []
-  );
-
   const [presetId, setPresetId] = useState<SimulatorPresetId>(firstPreset.id);
   const [kp, setKp] = useState(firstPreset.gains.kp);
   const [ki, setKi] = useState(firstPreset.gains.ki);
@@ -212,7 +207,7 @@ export function PidSimulatorWorkspace() {
     return () => {
       window.cancelAnimationFrame(rafId);
     };
-  }, [isRunning, maxTimeSeconds, plant, setpoint, simulationSpeed]);
+  }, [isRunning, maxTimeSeconds, setpoint, simulationSpeed]);
 
   useEffect(() => {
     simulationStateRef.current = simulationState;
