@@ -136,4 +136,38 @@ describe("simulationEngine", () => {
     expect(state.samples).toHaveLength(51);
     expect(state.samples.at(-1)?.timeSeconds).toBeCloseTo(5, 6);
   });
+
+  it("records post-step error values in state samples", () => {
+    const config = {
+      setpoint: 1,
+      timeStepSeconds: 0.1,
+      maxTimeSeconds: 10,
+    };
+    const controller = new PidController({
+      gains: { kp: 2, ki: 0.6, kd: 0.1 },
+      outputMin: -10,
+      outputMax: 10,
+      integralMin: -10,
+      integralMax: 10,
+    });
+
+    const nextState = stepSimulation(
+      createInitialSimulationState(plant, config),
+      plant,
+      controller,
+      config
+    );
+
+    const lastSample = nextState.samples.at(-1);
+
+    expect(lastSample).toBeDefined();
+    expect(lastSample?.error).toBeCloseTo(
+      config.setpoint - nextState.plantState.output,
+      6
+    );
+    expect(nextState.error).toBeCloseTo(
+      config.setpoint - nextState.plantState.output,
+      6
+    );
+  });
 });

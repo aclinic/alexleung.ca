@@ -54,20 +54,21 @@ export const stepSimulation = (
     config.timeStepSeconds
   );
   const nextTimeSeconds = state.timeSeconds + config.timeStepSeconds;
+  const nextError = config.setpoint - nextPlantState.output;
 
   const sample: SimulationSample = {
     timeSeconds: nextTimeSeconds,
     setpoint: config.setpoint,
     processVariable: nextPlantState.output,
     controllerOutput: control.output,
-    error: control.error,
+    error: nextError,
   };
 
   return {
     timeSeconds: nextTimeSeconds,
     plantState: nextPlantState,
     controllerOutput: control.output,
-    error: control.error,
+    error: nextError,
     samples: appendSample(state.samples, sample),
   };
 };

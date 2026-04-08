@@ -36,6 +36,21 @@ describe("PidSimulatorWorkspace", () => {
     expect(screen.getByLabelText("Kd")).toHaveValue("2");
   });
 
+  it("keeps the selected preset label when tuning gains", () => {
+    render(<PidSimulatorWorkspace />);
+
+    fireEvent.change(screen.getByLabelText(/preset response/i), {
+      target: { value: "oscillatory" },
+    });
+    fireEvent.change(screen.getByLabelText(/^Kp$/i), {
+      target: { value: "0.8" },
+    });
+
+    expect(screen.getByLabelText(/preset response/i)).toHaveValue(
+      "oscillatory"
+    );
+  });
+
   it("restarts the run when tuning changes", () => {
     render(<PidSimulatorWorkspace />);
 

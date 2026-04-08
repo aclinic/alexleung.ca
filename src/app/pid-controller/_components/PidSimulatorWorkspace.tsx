@@ -272,19 +272,16 @@ export function PidSimulatorWorkspace() {
           }}
           onKpChange={(value) =>
             applySimulationParameters({
-              nextPresetId: "well-tuned",
               nextKp: value,
             })
           }
           onKiChange={(value) =>
             applySimulationParameters({
-              nextPresetId: "well-tuned",
               nextKi: value,
             })
           }
           onKdChange={(value) =>
             applySimulationParameters({
-              nextPresetId: "well-tuned",
               nextKd: value,
             })
           }
