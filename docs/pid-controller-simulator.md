@@ -8,7 +8,7 @@ This simulator is implemented as a client-only feature for static export compati
 - `src/features/pid-simulator/pidController.ts` implements PID math and state (`integralState`, `previousError`).
 - `src/features/pid-simulator/firstOrderPlant.ts` provides a first-order plant model.
 - `src/features/pid-simulator/simulationEngine.ts` manages deterministic fixed-step simulation and behavior metrics.
-- `src/features/pid-simulator/presets.ts` provides educational tuning presets.
+- `src/features/pid-simulator/presets.ts` provides educational tuning presets matched to the current plant and actuator limits.
 - `src/app/pid-controller/_components/*` contains UI composition, chart rendering, and controls.
 
 ## Mathematical model
@@ -46,7 +46,8 @@ Rendering uses `requestAnimationFrame`, but simulation stepping is deterministic
 
 1. Accumulate elapsed wall-clock time scaled by user speed.
 2. Step the engine with constant `dt` while `accumulator >= dt`.
-3. Store a rolling sample window for charting and metric calculations.
+3. Append samples until a configurable max simulation time is reached, then pause.
+4. Reset the sampled response when gains or setpoint change so the new step response fills the chart again.
 
 This keeps simulation behavior stable across frame rate differences.
 

@@ -45,7 +45,7 @@ export type SimulationSample = {
 export type SimulationRuntimeConfig = {
   setpoint: number;
   timeStepSeconds: number;
-  historyWindowSeconds: number;
+  maxTimeSeconds: number;
 };
 
 export type SimulationState = {

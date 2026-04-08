@@ -4,9 +4,19 @@ type PidChartProps = {
   samples: SimulationSample[];
 };
 
+type LegendItem = {
+  label: string;
+  stroke: string;
+  strokeWidth: number;
+  strokeDasharray?: string;
+  value: number;
+};
+
 const WIDTH = 880;
 const HEIGHT = 320;
 const MARGIN = { top: 20, right: 20, bottom: 30, left: 48 };
+const LEGEND_SWATCH_WIDTH = 28;
+const LEGEND_SWATCH_HEIGHT = 10;
 
 const toPath = (
   samples: SimulationSample[],
@@ -79,6 +89,34 @@ export function PidChart({ samples }: PidChartProps) {
     scaleY
   );
   const errorPath = toPath(samples, (sample) => sample.error, scaleX, scaleY);
+  const latestSample = samples.at(-1) ?? samples[0];
+  const legendItems: readonly LegendItem[] = [
+    {
+      label: "Setpoint",
+      stroke: "#f59e0b",
+      strokeWidth: 2,
+      value: latestSample.setpoint,
+    },
+    {
+      label: "Process variable",
+      stroke: "#22d3ee",
+      strokeWidth: 2,
+      value: latestSample.processVariable,
+    },
+    {
+      label: "Controller output",
+      stroke: "#a78bfa",
+      strokeWidth: 2,
+      value: latestSample.controllerOutput,
+    },
+    {
+      label: "Error",
+      stroke: "#fb7185",
+      strokeWidth: 1.5,
+      strokeDasharray: "5 3",
+      value: latestSample.error,
+    },
+  ] as const;
 
   return (
     <figure className="rounded-lg border border-gray-700 bg-black/40 p-3">
@@ -119,11 +157,38 @@ export function PidChart({ samples }: PidChartProps) {
           fill="none"
         />
       </svg>
-      <div className="text-body-sm mt-3 grid grid-cols-2 gap-2 text-gray-300 md:grid-cols-4">
-        <span>Setpoint</span>
-        <span>Process variable</span>
-        <span>Controller output</span>
-        <span>Error</span>
+      <div className="mt-3 grid gap-2 text-gray-300 sm:grid-cols-2 xl:grid-cols-4">
+        {legendItems.map((item) => (
+          <div
+            key={item.label}
+            className="flex items-center justify-between gap-3 rounded-md border border-gray-800 bg-gray-950/60 px-3 py-2"
+          >
+            <div className="flex min-w-0 items-center gap-2">
+              <svg
+                width={LEGEND_SWATCH_WIDTH}
+                height={LEGEND_SWATCH_HEIGHT}
+                viewBox={`0 0 ${LEGEND_SWATCH_WIDTH} ${LEGEND_SWATCH_HEIGHT}`}
+                aria-hidden="true"
+                className="shrink-0"
+              >
+                <line
+                  x1={1}
+                  y1={LEGEND_SWATCH_HEIGHT / 2}
+                  x2={LEGEND_SWATCH_WIDTH - 1}
+                  y2={LEGEND_SWATCH_HEIGHT / 2}
+                  stroke={item.stroke}
+                  strokeWidth={item.strokeWidth}
+                  strokeDasharray={item.strokeDasharray}
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span className="text-body-sm truncate">{item.label}</span>
+            </div>
+            <span className="text-body-sm shrink-0 font-mono text-gray-100">
+              {item.value.toFixed(2)}
+            </span>
+          </div>
+        ))}
       </div>
     </figure>
   );

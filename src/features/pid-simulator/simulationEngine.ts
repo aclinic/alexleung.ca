@@ -10,14 +10,8 @@ import { PidController } from "./pidController";
 
 const appendSample = (
   samples: SimulationSample[],
-  sample: SimulationSample,
-  historyWindowSeconds: number
-): SimulationSample[] => {
-  const minTime = sample.timeSeconds - historyWindowSeconds;
-  const next = [...samples, sample];
-
-  return next.filter((item) => item.timeSeconds >= minTime);
-};
+  sample: SimulationSample
+): SimulationSample[] => [...samples, sample];
 
 export const createInitialSimulationState = (
   plant: PlantModel,
@@ -74,7 +68,7 @@ export const stepSimulation = (
     plantState: nextPlantState,
     controllerOutput: control.output,
     error: control.error,
-    samples: appendSample(state.samples, sample, config.historyWindowSeconds),
+    samples: appendSample(state.samples, sample),
   };
 };
 

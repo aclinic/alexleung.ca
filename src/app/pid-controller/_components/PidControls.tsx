@@ -8,15 +8,18 @@ type PidControlsProps = {
   kd: number;
   setpoint: number;
   simulationSpeed: number;
+  maxTimeSeconds: number;
   activePresetId: string;
   presets: readonly SimulatorPreset[];
   isRunning: boolean;
+  hasReachedMaxTime: boolean;
   onPresetChange: (presetId: string) => void;
   onKpChange: (value: number) => void;
   onKiChange: (value: number) => void;
   onKdChange: (value: number) => void;
   onSetpointChange: (value: number) => void;
   onSimulationSpeedChange: (value: number) => void;
+  onMaxTimeChange: (value: number) => void;
   onToggleRunning: () => void;
   onReset: () => void;
 };
@@ -76,15 +79,18 @@ export function PidControls({
   kd,
   setpoint,
   simulationSpeed,
+  maxTimeSeconds,
   activePresetId,
   presets,
   isRunning,
+  hasReachedMaxTime,
   onPresetChange,
   onKpChange,
   onKiChange,
   onKdChange,
   onSetpointChange,
   onSimulationSpeedChange,
+  onMaxTimeChange,
   onToggleRunning,
   onReset,
 }: PidControlsProps) {
@@ -156,6 +162,18 @@ export function PidControls({
         step={0.25}
         onChange={onSimulationSpeedChange}
       />
+      <SliderRow
+        id="pid-max-time"
+        label="Max time (s)"
+        value={maxTimeSeconds}
+        min={5}
+        max={60}
+        step={1}
+        onChange={onMaxTimeChange}
+      />
+      <p className="text-body-sm text-gray-400">
+        The run stops automatically at the selected max time.
+      </p>
 
       <div className="flex flex-wrap gap-2">
         <button
@@ -163,7 +181,7 @@ export function PidControls({
           className="rounded-md border border-emerald-500 px-3 py-2 text-sm text-emerald-100 hover:bg-emerald-900/50"
           onClick={onToggleRunning}
         >
-          {isRunning ? "Pause" : "Play"}
+          {isRunning ? "Pause" : hasReachedMaxTime ? "Replay" : "Play"}
         </button>
         <button
           type="button"

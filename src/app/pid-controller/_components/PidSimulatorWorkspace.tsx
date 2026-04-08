@@ -23,9 +23,10 @@ import {
 import { roundTo } from "@/features/pid-simulator/utils";
 
 const FIXED_DT_SECONDS = 1 / 60;
-const HISTORY_WINDOW_SECONDS = 18;
 const MAX_ELAPSED_SECONDS = 0.25;
 const MAX_CATCH_UP_STEPS_PER_FRAME = 12;
+const DEFAULT_MAX_TIME_SECONDS = 20;
+const TIME_EPSILON = FIXED_DT_SECONDS / 2;
 
 const firstPreset = PID_SIMULATOR_PRESETS[0];
 
@@ -58,6 +59,9 @@ export function PidSimulatorWorkspace() {
   const [kd, setKd] = useState(firstPreset.gains.kd);
   const [setpoint, setSetpoint] = useState(firstPreset.setpoint);
   const [simulationSpeed, setSimulationSpeed] = useState(1);
+  const [maxTimeSeconds, setMaxTimeSeconds] = useState(
+    DEFAULT_MAX_TIME_SECONDS
+  );
   const [isRunning, setIsRunning] = useState(true);
 
   const controllerRef = useRef(
@@ -67,26 +71,70 @@ export function PidSimulatorWorkspace() {
     createInitialSimulationState(plant, {
       setpoint,
       timeStepSeconds: FIXED_DT_SECONDS,
-      historyWindowSeconds: HISTORY_WINDOW_SECONDS,
+      maxTimeSeconds,
     })
   );
+  const simulationStateRef = useRef(simulationState);
   const metricSamplesRef = useRef<SimulationSample[]>(simulationState.samples);
 
   useEffect(() => {
     controllerRef.current.setConfig(buildControllerConfig(kp, ki, kd));
   }, [kp, ki, kd]);
 
-  const resetSimulation = () => {
+  const initializeSimulation = (
+    nextSetpoint: number,
+    nextMaxTimeSeconds: number,
+    nextIsRunning = isRunning
+  ) => {
     controllerRef.current.reset();
     const resetState = createInitialSimulationState(plant, {
-      setpoint,
+      setpoint: nextSetpoint,
       timeStepSeconds: FIXED_DT_SECONDS,
-      historyWindowSeconds: HISTORY_WINDOW_SECONDS,
+      maxTimeSeconds: nextMaxTimeSeconds,
     });
 
+    simulationStateRef.current = resetState;
     metricSamplesRef.current = resetState.samples;
     setSimulationState(resetState);
+    setIsRunning(nextIsRunning);
   };
+
+  const applySimulationParameters = ({
+    nextPresetId = presetId,
+    nextKp = kp,
+    nextKi = ki,
+    nextKd = kd,
+    nextSetpoint = setpoint,
+    nextMaxTimeSeconds = maxTimeSeconds,
+    nextIsRunning = true,
+  }: {
+    nextPresetId?: SimulatorPresetId;
+    nextKp?: number;
+    nextKi?: number;
+    nextKd?: number;
+    nextSetpoint?: number;
+    nextMaxTimeSeconds?: number;
+    nextIsRunning?: boolean;
+  }) => {
+    setPresetId(nextPresetId);
+    setKp(nextKp);
+    setKi(nextKi);
+    setKd(nextKd);
+    setSetpoint(nextSetpoint);
+    setMaxTimeSeconds(nextMaxTimeSeconds);
+    controllerRef.current.setConfig(
+      buildControllerConfig(nextKp, nextKi, nextKd)
+    );
+    initializeSimulation(nextSetpoint, nextMaxTimeSeconds, nextIsRunning);
+  };
+
+  const resetSimulation = (nextIsRunning = isRunning) => {
+    controllerRef.current.setConfig(buildControllerConfig(kp, ki, kd));
+    initializeSimulation(setpoint, maxTimeSeconds, nextIsRunning);
+  };
+
+  const hasReachedMaxTime =
+    simulationState.timeSeconds >= maxTimeSeconds - TIME_EPSILON;
 
   useEffect(() => {
     let rafId: number;
@@ -118,26 +166,41 @@ export function PidSimulatorWorkspace() {
         );
 
         if (stepsToRun > 0) {
-          setSimulationState((current) => {
-            let next = current;
-            const nextMetricSamples = [...metricSamplesRef.current];
+          let next = simulationStateRef.current;
+          const nextMetricSamples = [...metricSamplesRef.current];
+          let shouldPause = false;
 
-            for (let index = 0; index < stepsToRun; index += 1) {
-              next = stepSimulation(next, plant, controllerRef.current, {
-                setpoint,
-                timeStepSeconds: FIXED_DT_SECONDS,
-                historyWindowSeconds: HISTORY_WINDOW_SECONDS,
-              });
-
-              const latestSample = next.samples.at(-1);
-              if (latestSample) {
-                nextMetricSamples.push(latestSample);
-              }
+          for (let index = 0; index < stepsToRun; index += 1) {
+            if (next.timeSeconds >= maxTimeSeconds - TIME_EPSILON) {
+              shouldPause = true;
+              break;
             }
 
-            metricSamplesRef.current = nextMetricSamples;
-            return next;
-          });
+            next = stepSimulation(next, plant, controllerRef.current, {
+              setpoint,
+              timeStepSeconds: FIXED_DT_SECONDS,
+              maxTimeSeconds,
+            });
+
+            const latestSample = next.samples.at(-1);
+            if (latestSample) {
+              nextMetricSamples.push(latestSample);
+            }
+
+            if (next.timeSeconds >= maxTimeSeconds - TIME_EPSILON) {
+              shouldPause = true;
+              break;
+            }
+          }
+
+          simulationStateRef.current = next;
+          metricSamplesRef.current = nextMetricSamples;
+          setSimulationState(next);
+
+          if (shouldPause) {
+            setIsRunning(false);
+            accumulator = 0;
+          }
         }
       }
 
@@ -149,7 +212,11 @@ export function PidSimulatorWorkspace() {
     return () => {
       window.cancelAnimationFrame(rafId);
     };
-  }, [isRunning, plant, setpoint, simulationSpeed]);
+  }, [isRunning, maxTimeSeconds, plant, setpoint, simulationSpeed]);
+
+  useEffect(() => {
+    simulationStateRef.current = simulationState;
+  }, [simulationState]);
 
   const metrics = useMemo(
     () => computeControlBehaviorMetrics(metricSamplesRef.current, setpoint),
@@ -165,6 +232,14 @@ export function PidSimulatorWorkspace() {
           of {FIXED_DT_SECONDS.toFixed(4)}s. The PID control law is u(t) =
           Kp·e(t) + Ki·∫e(t)dt + Kd·de(t)/dt.
         </p>
+        <p className="text-body-sm mt-2 text-gray-400">
+          Timeline: {roundTo(simulationState.timeSeconds, 2)}s /{" "}
+          {maxTimeSeconds.toFixed(0)}s
+        </p>
+        <p className="text-body-sm mt-2 text-gray-400">
+          Changing gains or setpoint restarts the run so the full step response
+          stays in view.
+        </p>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]">
@@ -176,53 +251,62 @@ export function PidSimulatorWorkspace() {
           kd={kd}
           setpoint={setpoint}
           simulationSpeed={simulationSpeed}
+          maxTimeSeconds={maxTimeSeconds}
           activePresetId={presetId}
           presets={PID_SIMULATOR_PRESETS}
           isRunning={isRunning}
+          hasReachedMaxTime={hasReachedMaxTime}
           onPresetChange={(nextPresetId) => {
             const preset = getPresetById(nextPresetId);
             if (!preset) {
               return;
             }
 
-            setPresetId(preset.id);
-            setKp(preset.gains.kp);
-            setKi(preset.gains.ki);
-            setKd(preset.gains.kd);
-            setSetpoint(preset.setpoint);
-
-            controllerRef.current.setConfig(
-              buildControllerConfig(
-                preset.gains.kp,
-                preset.gains.ki,
-                preset.gains.kd
-              )
-            );
-            controllerRef.current.reset();
-
-            const resetState = createInitialSimulationState(plant, {
-              setpoint: preset.setpoint,
-              timeStepSeconds: FIXED_DT_SECONDS,
-              historyWindowSeconds: HISTORY_WINDOW_SECONDS,
+            applySimulationParameters({
+              nextPresetId: preset.id,
+              nextKp: preset.gains.kp,
+              nextKi: preset.gains.ki,
+              nextKd: preset.gains.kd,
+              nextSetpoint: preset.setpoint,
             });
-            metricSamplesRef.current = resetState.samples;
-            setSimulationState(resetState);
           }}
-          onKpChange={(value) => {
-            setPresetId("well-tuned");
-            setKp(value);
-          }}
-          onKiChange={(value) => {
-            setPresetId("well-tuned");
-            setKi(value);
-          }}
-          onKdChange={(value) => {
-            setPresetId("well-tuned");
-            setKd(value);
-          }}
-          onSetpointChange={setSetpoint}
+          onKpChange={(value) =>
+            applySimulationParameters({
+              nextPresetId: "well-tuned",
+              nextKp: value,
+            })
+          }
+          onKiChange={(value) =>
+            applySimulationParameters({
+              nextPresetId: "well-tuned",
+              nextKi: value,
+            })
+          }
+          onKdChange={(value) =>
+            applySimulationParameters({
+              nextPresetId: "well-tuned",
+              nextKd: value,
+            })
+          }
+          onSetpointChange={(value) =>
+            applySimulationParameters({
+              nextSetpoint: value,
+            })
+          }
           onSimulationSpeedChange={setSimulationSpeed}
-          onToggleRunning={() => setIsRunning((current) => !current)}
+          onMaxTimeChange={(value) =>
+            applySimulationParameters({
+              nextMaxTimeSeconds: value,
+            })
+          }
+          onToggleRunning={() => {
+            if (hasReachedMaxTime) {
+              resetSimulation(true);
+              return;
+            }
+
+            setIsRunning((current) => !current);
+          }}
           onReset={resetSimulation}
         />
       </div>

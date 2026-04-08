@@ -41,11 +41,6 @@ export default function PidControllerPage() {
 
       <PageShell title="PID Controller" titleId="pid-controller">
         <ResponsiveContainer element="section" className="space-y-6">
-          <p className="text-body text-gray-300">
-            A portfolio-friendly control systems sandbox: tune proportional,
-            integral, and derivative gains and watch how the response changes in
-            real time.
-          </p>
           <PidSimulatorWorkspace />
         </ResponsiveContainer>
       </PageShell>

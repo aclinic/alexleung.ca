@@ -17,7 +17,7 @@ describe("simulationEngine", () => {
     const config = {
       setpoint: 1,
       timeStepSeconds: 0.1,
-      historyWindowSeconds: 10,
+      maxTimeSeconds: 10,
     };
 
     const run = () => {
@@ -42,7 +42,7 @@ describe("simulationEngine", () => {
     const config = {
       setpoint: 1,
       timeStepSeconds: 0.1,
-      historyWindowSeconds: 10,
+      maxTimeSeconds: 10,
     };
     const controller = new PidController({
       gains: { kp: 2, ki: 0.6, kd: 0.1 },
@@ -111,5 +111,29 @@ describe("simulationEngine", () => {
     expect(metrics.overshootPercent).toBeCloseTo(10, 6);
     expect(metrics.settlingTimeSeconds).toBe(3);
     expect(metrics.steadyStateError).toBeCloseTo(0, 6);
+  });
+
+  it("retains the full response history up to the configured max time", () => {
+    const config = {
+      setpoint: 1,
+      timeStepSeconds: 0.1,
+      maxTimeSeconds: 12,
+    };
+    const controller = new PidController({
+      gains: { kp: 2, ki: 0.6, kd: 0.1 },
+      outputMin: -10,
+      outputMax: 10,
+      integralMin: -10,
+      integralMax: 10,
+    });
+
+    let state = createInitialSimulationState(plant, config);
+    for (let index = 0; index < 50; index += 1) {
+      state = stepSimulation(state, plant, controller, config);
+    }
+
+    expect(state.samples[0]?.timeSeconds).toBe(0);
+    expect(state.samples).toHaveLength(51);
+    expect(state.samples.at(-1)?.timeSeconds).toBeCloseTo(5, 6);
   });
 });
