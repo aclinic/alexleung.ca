@@ -77,4 +77,24 @@ describe("mandelbrot viewport math", () => {
     expect(zoomed.width.toExponential()).toBe("5e-81");
     expect(magnificationFromViewport(zoomed).toExponential()).toBe("7e+80");
   });
+
+  it("rejects zero or negative viewport widths", () => {
+    expect(() =>
+      createViewport({
+        centerX: "0",
+        centerY: "0",
+        width: "0",
+        size,
+      })
+    ).toThrow(/Viewport width must be finite and greater than zero/);
+
+    expect(() =>
+      createViewport({
+        centerX: "0",
+        centerY: "0",
+        width: "-1",
+        size,
+      })
+    ).toThrow(/Viewport width must be finite and greater than zero/);
+  });
 });

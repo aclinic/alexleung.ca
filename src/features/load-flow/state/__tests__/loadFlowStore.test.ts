@@ -127,6 +127,8 @@ describe("loadFlowStore", () => {
           r: 0.01,
           x: 0.05,
           bHalf: 0.01,
+          tapRatio: 1.02,
+          phaseShiftDeg: 7.5,
         },
       ],
       generators: [
@@ -151,6 +153,12 @@ describe("loadFlowStore", () => {
       expect.objectContaining({
         voltageMagnitudeSetpoint: 1.04,
         voltageAngleSetpointDeg: 2.5,
+      })
+    );
+    expect(snapshot.branches[0]).toEqual(
+      expect.objectContaining({
+        tapRatio: 1.02,
+        phaseShiftDeg: 7.5,
       })
     );
     expect(snapshot.generators).toHaveLength(1);

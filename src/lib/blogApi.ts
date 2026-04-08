@@ -7,6 +7,7 @@ import { z } from "zod";
 const postsDirectory = join(process.cwd(), "content/posts");
 const postBySlugCache = new Map<string, Post | null>();
 const postSlugPattern = /^[a-z0-9-]+$/i;
+const usePersistentCache = process.env.NODE_ENV !== "development";
 
 let allPostsCache: Post[] | null = null;
 
@@ -182,6 +183,10 @@ function parsePostBySlug(slug: string): Post | null {
 function getCachedPostBySlug(slug: string): Post | null {
   const realSlug = slug.replace(/\.md$/, "");
 
+  if (!usePersistentCache) {
+    return parsePostBySlug(realSlug);
+  }
+
   if (postBySlugCache.has(realSlug)) {
     return postBySlugCache.get(realSlug) ?? null;
   }
@@ -194,6 +199,20 @@ function getCachedPostBySlug(slug: string): Post | null {
 }
 
 function getCachedAllPosts(): Post[] {
+  if (!usePersistentCache) {
+    const posts = getPostSlugs()
+      .map((slug) => parsePostBySlug(slug))
+      .filter((post): post is Post => post !== null)
+      .sort(
+        (post1, post2) =>
+          new Date(post2.date).getTime() - new Date(post1.date).getTime()
+      );
+
+    assertUniqueSeriesOrder(posts);
+
+    return posts;
+  }
+
   if (allPostsCache) {
     return allPostsCache;
   }

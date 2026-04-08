@@ -26,6 +26,8 @@ export interface LineEdge {
   r: number;
   x: number;
   bHalf: number;
+  tapRatio?: number;
+  phaseShiftDeg?: number;
   thermalLimitMVA?: number;
   status?: "IN_SERVICE" | "OUT_OF_SERVICE";
 }
@@ -376,6 +378,8 @@ export const replaceEditorStateFromLoadFlowCase = (
         r: branch.r,
         x: branch.x,
         bHalf: branch.bHalf ?? 0,
+        tapRatio: branch.tapRatio,
+        phaseShiftDeg: branch.phaseShiftDeg,
         thermalLimitMVA: branch.thermalLimitMVA,
         status: branch.status,
       },
