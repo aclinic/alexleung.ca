@@ -203,6 +203,14 @@ yarn test src/features/mandelbrot/__tests__/viewport.test.ts \
   src/app/mandelbrot/_components/__tests__/MandelbrotExplorer.test.tsx
 ```
 
+## Learning Dynamics Lab
+
+- Route: `src/app/learning-dynamics/page.tsx`
+- Client workspace: `src/app/learning-dynamics/_components/`
+- Pure math and simulation logic: `src/features/optimizer-lab/`
+
+The optimizer visualizer keeps the numerical pieces independent from React. Each loss surface exposes a pure `evaluate` and `gradient` function, each optimizer is modeled as a pure step function, and the client workspace only coordinates controls, playback, and SVG rendering. To verify the feature locally, run `yarn test`, `yarn lint`, `yarn typecheck`, and `yarn build`, plus the existing Playwright smoke and visual suites.
+
 ## Documentation Map
 
 - `docs/README.md` — docs directory guide and consolidation notes
