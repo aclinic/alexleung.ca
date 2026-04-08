@@ -15,10 +15,7 @@ function setupTempPosts(markdownBySlug: Record<string, string>): string {
   return tempDir;
 }
 
-async function loadBlogApiAtCwd(
-  cwd: string,
-  options?: { nodeEnv?: string }
-) {
+async function loadBlogApiAtCwd(cwd: string, options?: { nodeEnv?: string }) {
   jest.resetModules();
   const cwdSpy = jest.spyOn(process, "cwd").mockReturnValue(cwd);
   const previousNodeEnv = process.env.NODE_ENV;
