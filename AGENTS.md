@@ -138,9 +138,9 @@ yarn deploy           # Build and deploy to GitHub Pages
 ### Windows / WSL Worktrees (Agent Guidance)
 
 - If a WSL worktree was created by Windows git, the worktree `.git` file may point at a Windows-style `//wsl.localhost/...` gitdir that WSL git cannot resolve automatically.
-- When WSL-only tooling such as `node`, `yarn`, or `gh` must operate on that worktree, run from WSL with explicit environment variables: `GIT_DIR=/home/aclinic/alexleung.ca/.git/worktrees/<worktree-name>` and `GIT_WORK_TREE=/home/aclinic/<worktree-path>`.
-- The worktree name is usually visible in the worktree `.git` file. Validate the setup with `git status --short --branch` before running other WSL git commands.
-- When pushing a rebased PR branch from one of these worktrees, prefer WSL `git` / WSL `gh` with the explicit `GIT_DIR` and `GIT_WORK_TREE` values above, because Windows-side SSH auth may be unavailable even when WSL GitHub auth works.
+- When WSL-only tooling such as `node`, `yarn`, or `gh` must operate on that worktree, run from WSL with explicit environment variables that point at your own checkout metadata: `GIT_DIR=<path-to-main-repo>/.git/worktrees/<worktree-name>` and `GIT_WORK_TREE=<path-to-this-worktree>`.
+- The worktree name is usually visible in the worktree `.git` file. Use the WSL path to the primary checkout that owns the shared `.git/worktrees/` directory for `<path-to-main-repo>`, and use `pwd` for `<path-to-this-worktree>`. Validate the setup with `git status --short --branch` before running other WSL git commands.
+- When pushing a rebased PR branch from one of these worktrees, prefer WSL `git` / WSL `gh` with those explicit `GIT_DIR` / `GIT_WORK_TREE` values, because Windows-side SSH auth may be unavailable even when WSL GitHub auth works.
 - When updating an existing remote PR branch after a rebase, prefer `git push --force-with-lease` over plain `--force`.
 
 ### Typography and Prose Guardrails (Agent Guidance)
