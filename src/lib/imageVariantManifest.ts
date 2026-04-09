@@ -78,13 +78,6 @@ export function getImageVariant(
   return variants[variantName];
 }
 
-export function getImageVariantPath(
-  sourcePath: string | undefined,
-  variantName: string
-): string | undefined {
-  return getImageVariant(sourcePath, variantName)?.path;
-}
-
 export function getImageVariantSourceSet(
   sourcePath: string | undefined,
   orderedVariantNames: string[],
