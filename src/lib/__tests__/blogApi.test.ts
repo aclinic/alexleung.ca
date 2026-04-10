@@ -15,15 +15,32 @@ function setupTempPosts(markdownBySlug: Record<string, string>): string {
   return tempDir;
 }
 
-async function loadBlogApiAtCwd(cwd: string) {
+async function loadBlogApiAtCwd(cwd: string, options?: { nodeEnv?: string }) {
   jest.resetModules();
   const cwdSpy = jest.spyOn(process, "cwd").mockReturnValue(cwd);
-  const blogApi = await import("@/lib/blogApi");
+  const env = process.env as Record<string, string | undefined>;
+  const previousNodeEnv = env.NODE_ENV;
 
-  cwdSpy.mockRestore();
+  if (options?.nodeEnv !== undefined) {
+    env.NODE_ENV = options.nodeEnv;
+  }
 
-  return blogApi;
+  try {
+    const blogApi = await import("@/lib/blogApi");
+
+    return blogApi;
+  } finally {
+    cwdSpy.mockRestore();
+    env.NODE_ENV = previousNodeEnv;
+  }
 }
+
+afterEach(() => {
+  const env = process.env as Record<string, string | undefined>;
+  env.NODE_ENV = "test";
+  jest.restoreAllMocks();
+  jest.resetModules();
+});
 
 describe("blogApi front matter validation", () => {
   test("parses required front matter and applies defaults", async () => {
@@ -184,8 +201,26 @@ Body`,
     getPostBySlug("second", ["slug"]);
 
     expect(readFileSpy).toHaveBeenCalledTimes(2);
+  });
 
-    readFileSpy.mockRestore();
+  test("reloads post content on each call during development", async () => {
+    const tempDir = setupTempPosts({
+      draft: `---\ntitle: "Original"\ndate: "2026-02-17"\n---\nBody`,
+    });
+    const postPath = path.join(tempDir, "content", "posts", "draft.md");
+    const { getPostBySlug } = await loadBlogApiAtCwd(tempDir, {
+      nodeEnv: "development",
+    });
+
+    expect(getPostBySlug("draft")?.title).toBe("Original");
+
+    fs.writeFileSync(
+      postPath,
+      `---\ntitle: "Updated"\ndate: "2026-02-17"\n---\nBody`,
+      "utf8"
+    );
+
+    expect(getPostBySlug("draft")?.title).toBe("Updated");
   });
 
   test("returns null when slug resolves to a directory", async () => {

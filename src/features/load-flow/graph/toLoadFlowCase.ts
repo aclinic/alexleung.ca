@@ -25,6 +25,8 @@ export const toLoadFlowCase = (state: LoadFlowEditorState): LoadFlowCase => {
       r: branch.r,
       x: branch.x,
       bHalf: branch.bHalf,
+      tapRatio: branch.tapRatio,
+      phaseShiftDeg: branch.phaseShiftDeg,
       thermalLimitMVA: branch.thermalLimitMVA,
       status: branch.status,
     };

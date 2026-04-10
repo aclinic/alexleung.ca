@@ -76,6 +76,9 @@ export function createViewport({
   size,
 }: ViewportInput): PreciseViewport {
   const preciseWidth = precise(width);
+  if (!preciseWidth.isFinite() || preciseWidth.lte(0)) {
+    throw new Error("Viewport width must be finite and greater than zero.");
+  }
   configurePrecisionForWidth(preciseWidth);
 
   return {
