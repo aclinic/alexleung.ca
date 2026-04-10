@@ -102,6 +102,7 @@ yarn deploy           # Build and deploy to GitHub Pages
 
 - Jest with React Testing Library
 - Playwright E2E coverage runs in Docker via `docker compose` by default, with host-mode wrappers available for environments where Docker is unavailable: `yarn test:e2e:host`, `yarn test:e2e:visual:host`, and `yarn test:e2e:visual:update:host`
+- Temporary Windows/WSL exception: until the Windows Docker/Playwright harness issue is fixed, agents running from a Windows host against this WSL checkout may treat Playwright smoke/visual coverage as environment-blocked and skip those suites automatically, but they must say that explicitly in the handoff and must not claim those suites passed.
 - Jest tests live in `__tests__/` subdirectories alongside source files
 - Playwright tests live under `playwright/tests/` with shared setup in `playwright.config.ts` and `playwright/fixtures/`
 - `yarn test:e2e` covers smoke flows across desktop/mobile Chrome and Safari/WebKit
@@ -114,6 +115,7 @@ yarn deploy           # Build and deploy to GitHub Pages
 - Do not claim the repo is clean or that changes are verified unless you have run the relevant checks in this workspace and seen them pass.
 - During normal iteration, run `yarn lint`, `yarn typecheck`, `yarn test`, and `yarn build` for any repository change unless the user explicitly asked for a narrower verification scope.
 - For Playwright verification, use the Docker commands when Docker is available. If `docker` is missing or the daemon is unavailable, run the corresponding host-mode wrappers instead of skipping E2E coverage, and state which path you used.
+- Temporary Windows/WSL exception: if the agent is running from Windows against this WSL repo and the known Docker/Playwright harness issue applies, the agent may skip `yarn test:e2e`, `yarn test:e2e:visual`, and the host-mode Playwright wrappers without retrying alternate Playwright paths. Treat those suites as environment-blocked, still run the non-Playwright gate, and state the skip explicitly.
 - If typography classes, prose sizing, or breakpoint-sensitive copy/layout are changed, also verify the affected UI at both mobile and `md`+ breakpoints via local browser inspection or relevant Playwright coverage.
 - If a failure is only formatting, fix it and rerun the failing command rather than reporting partial success.
 - Prefer file-scoped fixes over repo-wide autofix commands. In a dirty worktree, do not run repo-wide mutating commands such as `yarn lint:fix` unless the user explicitly wants that broader scope.
@@ -132,6 +134,14 @@ yarn deploy           # Build and deploy to GitHub Pages
 - Before implementing changes, summarize the unresolved feedback items you plan to address so interpretation is explicit.
 - If GitHub access is unavailable in the current environment, report the limitation clearly and stop instead of guessing about PR feedback state.
 - Do not assume local git history or commit messages include complete reviewer feedback.
+
+### Windows / WSL Worktrees (Agent Guidance)
+
+- If a WSL worktree was created by Windows git, the worktree `.git` file may point at a Windows-style `//wsl.localhost/...` gitdir that WSL git cannot resolve automatically.
+- When WSL-only tooling such as `node`, `yarn`, or `gh` must operate on that worktree, run from WSL with explicit environment variables that point at your own checkout metadata: `GIT_DIR=<path-to-main-repo>/.git/worktrees/<worktree-name>` and `GIT_WORK_TREE=<path-to-this-worktree>`.
+- The worktree name is usually visible in the worktree `.git` file. Use the WSL path to the primary checkout that owns the shared `.git/worktrees/` directory for `<path-to-main-repo>`, and use `pwd` for `<path-to-this-worktree>`. Validate the setup with `git status --short --branch` before running other WSL git commands.
+- When pushing a rebased PR branch from one of these worktrees, prefer WSL `git` / WSL `gh` with those explicit `GIT_DIR` / `GIT_WORK_TREE` values, because Windows-side SSH auth may be unavailable even when WSL GitHub auth works.
+- When updating an existing remote PR branch after a rebase, prefer `git push --force-with-lease` over plain `--force`.
 
 ### Typography and Prose Guardrails (Agent Guidance)
 
