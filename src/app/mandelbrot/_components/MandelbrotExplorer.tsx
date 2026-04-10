@@ -64,13 +64,11 @@ const metaValueClass = "break-all text-sm text-cyan-100";
 const toolbarButtonClass =
   "rounded-md border border-white/15 px-3 py-2 text-sm text-white transition hover:border-cyan-300 hover:text-cyan-100 disabled:cursor-not-allowed disabled:opacity-40";
 
-function createInitialHistory(): ViewportHistory {
-  return createViewportHistory(createDefaultViewport(DEFAULT_CANVAS_SIZE));
-}
-
 export function MandelbrotExplorer() {
   const pathname = usePathname();
-  const [history, setHistory] = useState(() => createInitialHistory());
+  const [history, setHistory] = useState<ViewportHistory>(() =>
+    createViewportHistory(createDefaultViewport(DEFAULT_CANVAS_SIZE))
+  );
   const [previewViewport, setPreviewViewport] =
     useState<PreciseViewport | null>(null);
   const [canvasSize, setCanvasSize] = useState(DEFAULT_CANVAS_SIZE);

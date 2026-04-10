@@ -8,11 +8,6 @@ import {
 
 import { PidController } from "./pidController";
 
-const appendSample = (
-  samples: SimulationSample[],
-  sample: SimulationSample
-): SimulationSample[] => [...samples, sample];
-
 export const createInitialSimulationState = (
   plant: PlantModel,
   config: SimulationRuntimeConfig
@@ -69,7 +64,7 @@ export const stepSimulation = (
     plantState: nextPlantState,
     controllerOutput: control.output,
     error: nextError,
-    samples: appendSample(state.samples, sample),
+    samples: [...state.samples, sample],
   };
 };
 

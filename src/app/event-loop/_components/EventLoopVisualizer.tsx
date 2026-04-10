@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { CallStackPanel } from "@/features/event-loop/components/CallStackPanel";
 import { QueueColumn } from "@/features/event-loop/components/QueueColumn";
@@ -47,31 +47,16 @@ export function EventLoopVisualizer() {
     };
   }, [isPlaying, speedMs, state.completed]);
 
-  const nextHint = useMemo(() => {
-    const activeFrame = state.callStack.at(-1);
-    if (activeFrame) {
-      return `Executing ${activeFrame.label} on the ${activeFrame.source} queue.`;
-    }
-
-    if (state.microtaskQueue.length > 0) {
-      return "Call stack is empty, so the runtime will run the next microtask.";
-    }
-
-    if (state.taskQueue.length > 0) {
-      return "No microtasks remain, so the runtime will run the next task.";
-    }
-
-    if (state.timers.length > 0) {
-      return "No runnable work yet; clock advances until a timer is due.";
-    }
-
-    return "All queues are empty. Execution is complete.";
-  }, [
-    state.callStack,
-    state.microtaskQueue.length,
-    state.taskQueue.length,
-    state.timers.length,
-  ]);
+  const activeFrame = state.callStack.at(-1);
+  const nextHint = activeFrame
+    ? `Executing ${activeFrame.label} on the ${activeFrame.source} queue.`
+    : state.microtaskQueue.length > 0
+      ? "Call stack is empty, so the runtime will run the next microtask."
+      : state.taskQueue.length > 0
+        ? "No microtasks remain, so the runtime will run the next task."
+        : state.timers.length > 0
+          ? "No runnable work yet; clock advances until a timer is due."
+          : "All queues are empty. Execution is complete.";
 
   return (
     <section className="mt-6 rounded-xl border border-gray-700 bg-gray-950/70 p-6 shadow-sm">
