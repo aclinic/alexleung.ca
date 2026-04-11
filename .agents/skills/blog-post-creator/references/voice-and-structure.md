@@ -7,6 +7,8 @@
 - Keep tone warm but restrained; avoid hype, slogans, and performative phrasing.
 - Do not signal significance with lines like "this matters because"; make the stakes legible through concrete detail and consequence instead.
 - Explain trade-offs and constraints instead of presenting absolute claims.
+- Prefer direct mechanism over framing language; if a sentence can name the actual behavior, constraint, or operation, do that instead of abstract setup.
+- Avoid polished contrast templates or thesis-scaffolding phrases when a plain statement will carry the point more honestly.
 
 ## Cadence Guardrails
 
@@ -37,5 +39,7 @@
 
 - Tie each section to one clear claim.
 - Back claims with concrete mechanisms, examples, or constraints.
+- Prefer specific examples over summary labels when introducing a section or transition.
+- Cut duplicated meaning: if the second half of a sentence only restates the first more elegantly, simplify it.
 - Keep transitions explicit between sections.
 - Keep ending aligned with the thesis introduced at the start.
