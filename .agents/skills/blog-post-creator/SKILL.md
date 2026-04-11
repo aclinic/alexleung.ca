@@ -30,6 +30,11 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 9. Do not imply hands-on practice the user did not claim. If the input is about reading, reflection, or conceptual learning, keep claims at the level of understanding, interpretation, or future curiosity unless the user explicitly said they build, tune, deploy, or regularly use the systems being discussed.
 10. Avoid formulaic heading scaffolds as a dominant pattern. Do not default multiple sections in a post to `What`, `How`, `Why`, `When`, `Where`, `The Goal`, `The Implementation`, or similar organizational labels when a more specific idea-title is available.
 11. Avoid explicitly telling the reader that a topic is meaningful, important, or significant unless the user explicitly wants that rhetorical style. Otherwise, show that through specificity, stakes, consequences, and judgment instead of declaring it.
+12. Prefer literal, concrete phrasing over abstract framing. If a sentence can name the actual mechanism, system, UI behavior, or claim directly, do that instead of using broad setup language such as `interesting middle ground`, `felt accessible`, or similarly interpretive summaries.
+13. Avoid rhetorical contrast templates such as `it is one thing ... it is another ...` unless the user explicitly wants a more essayistic register. Prefer direct statements with the concrete example embedded.
+14. Avoid draft-scaffolding transitions such as `the third thread is simpler`, `another point is`, or similar meta-organizing phrases when the section can just begin with the actual idea.
+15. When contrasting two things, make sure they are genuinely distinct. Do not restate the same concept twice with different wording just to make a sentence feel polished.
+16. Keep claims tightly bounded to what the user actually said. Avoid time-scale claims like `over time` or broader experiential conclusions unless the user explicitly established them.
 
 ## Workflow
 
@@ -62,6 +67,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Keep paragraphs mostly multi-sentence.
 - Prefer mechanism, constraints, and implications over slogans.
 - Prefer plain analytical phrasing over polished summary language; if a sentence sounds like a slogan, flatten it.
+- If a sentence sounds smooth but vague, replace it with the exact thing the user means: the specific constraint, symptom, operation, comparison, or example.
 - Use lists only when scanning value is clearly better than prose.
 - In reflective/artistic mode, do not flatten every rhetorical sentence. Preserve some texture when it is doing real tonal work, but trim lines that sound ornamental without adding meaning.
 
@@ -87,7 +93,9 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Run an assumption audit: check that agency/ownership wording matches the user's input and that title/heading tone matches the user's preference for directness.
 - Run a practice audit: remove any implication that the author builds, tunes, deploys, or routinely uses systems unless the user explicitly stated that.
 - Run a vagueness audit: replace underspecified abstractions like "shift", "this", "that", "result", or "it" when the referent would be unclear in isolation.
+- Run a concreteness audit: replace broad framing lines with the underlying claim whenever possible, especially around technical mechanisms, implementation constraints, and UI behavior.
 - Run a transition audit: make sure each section clearly connects to the one before it; add a bridging sentence when the relationship is not obvious.
+- Run a duplication audit: cut sentences where the second clause only restates the first more elegantly instead of adding meaning.
 - For reflective/artistic posts, run an anchoring audit: make sure abstract lines are grounded by at least one concrete image, scene, tool, or tension so the piece does not drift into generic musing.
 - Confirm output completeness: if this is a new-post draft, include both `Cover Prompt (Primary)` and `Cover Prompt (Backup)` blocks unless explicitly waived.
 
@@ -126,6 +134,8 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Avoid significance-signposting such as "this is important because", "this matters because", or "what makes this meaningful is"; replace it with the concrete observation, stake, or consequence itself.
 - Avoid "this changes how I use X" unless the user explicitly said they use or build with `X`.
 - Avoid polished summary phrases like "clear statistical story" or "substantial result" when plainer analytical language would do.
+- Avoid abstract transition or framing phrases like `interesting middle ground`, `made it feel more accessible`, `the third thread`, or similar language when the concrete fact can be stated directly.
+- Avoid synthetic contrast lines where the two halves are too similar in meaning, for example `trace the model` followed by `inspect the code directly`, unless both ideas are materially distinct in context.
 - Avoid endings that merely restate the thesis in more elevated language.
 - In reflective/artistic mode, avoid abstract language stacking for more than a sentence or two without returning to something observable or personal.
 

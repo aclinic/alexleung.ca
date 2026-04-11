@@ -9,12 +9,10 @@ tags:
   - "Reflection"
 ---
 
-Over cocktails recently, a few colleagues and I kept circling the same idea: AI is making everyone a builder. Software engineering skill still gives you leverage, but you no longer need a formal engineering background to prototype, automate, and ship something useful.
+Over cocktails recently, a few colleagues and I kept circling the same idea: with AI tools, more people can build rough internal tools, automations, and prototypes without waiting for a dedicated engineer. Software engineering skill still gives you leverage, but it no longer fully determines who gets to test an idea.
 
-Part of what feels different is how much cheaper the first draft has become. A rough internal tool, a workflow automation, or a small product idea no longer has to wait for someone with enough spare time to write everything from scratch. More people can test an idea while it is still cheap to change. That seems like a real change in who gets to participate.
+What feels different is the cost of the first pass. A small workflow tool or prototype can now be sketched, tried, and discarded much earlier. That lowers the cost of experimentation in a very practical way. More people can get to a usable first version while the idea is still cheap to change.
 
-We agreed that automating ourselves out of work is generally a good thing. If repetitive tasks can be delegated to tools, we should delegate them and move our effort toward harder problems, better judgment, and more original thinking. That does not mean implementation stops mattering. It means the bottleneck moves. The harder part becomes choosing the right problem, setting useful constraints, and deciding whether the output is actually any good.
+That does not make implementation unimportant. It changes where the constraint shows up. The harder part moves toward choosing the right problem, setting useful boundaries, and deciding whether the result is actually good enough to keep. The work is still real, but more of it shifts from typing everything by hand to directing and reviewing.
 
-That changes the center of gravity of work from execution to direction, from "how do I write this function?" to "what should we build, and why?" It can feel uncomfortable, especially in professions that used to treat execution skill as the main gate. I still think it is a net positive. Building is less restricted, capability is more widely distributed, and human taste, curiosity, and clarity matter more once the cost of producing something drops.
-
-What stayed with me from that conversation was not the idea that everyone is suddenly an engineer. I already believed that more people were gaining access to the building layer of software. What felt useful was hearing that intuition echoed so clearly. That still seems good for experimentation, good for agency, and likely good for the range of ideas that get tested in the first place.
+That is why the change still seems positive to me. I do not take it to mean that everyone is suddenly a software engineer. I take it to mean that the building layer is less gated than it used to be, which should lead to more experimentation and a wider range of ideas being tested.

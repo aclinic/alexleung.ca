@@ -11,7 +11,7 @@ tags:
 
 ---
 
-Working through Chapter 6, _Deep Feedforward Networks_, sharpened how I reason about neural networks. It did not expand my practical toolkit so much as refine my conceptual boundaries. After completing coursework like the DeepLearning.AI specialization, I was comfortable training multilayer perceptrons and reasoning about gradients. What this chapter clarified is that architecture is not just a tuning dimension—it is a structural assumption about the function class we are willing to search.
+Working through Chapter 6, _Deep Feedforward Networks_, sharpened how I reason about neural networks. It did not expand my practical toolkit so much as clarify what I mean when I talk about architecture. After completing coursework like the DeepLearning.AI specialization, I was comfortable training multilayer perceptrons and reasoning about gradients. What this chapter made sharper is that architecture is not just a tuning dimension. It is a structural assumption about the function class we are willing to search.
 
 ## Existence Does Not Imply Learnability
 
@@ -41,6 +41,6 @@ Empirically, ReLU often performs better. Chapter 6 provides a structural explana
 
 Smoothness alone does not determine learnability. Geometry, sparsity, and gating behavior shape gradient flow and effective model complexity. That realization made me more cautious about mapping classical smooth optimization intuitions directly onto deep networks.
 
-## A Shift in Emphasis
+## What changed in my mental model
 
-Finishing Chapter 6 did not make me more confident in tuning models; it made me more precise in how I reason about them. I think less in terms of "can this network approximate the function?" and more in terms of parameter efficiency, structural priors, and the separation between representation and optimization. Neural networks feel less like universal approximators in the abstract and more like structured hypothesis classes with specific geometric and algebraic constraints.
+Finishing Chapter 6 did not make me more confident in tuning models; it made me more precise in how I reason about them. I think less in terms of "can this network approximate the function?" and more in terms of parameter efficiency, structural priors, and the separation between representation and optimization. Neural networks feel less like universal approximators and more like structured hypothesis classes with specific geometric and algebraic constraints.
