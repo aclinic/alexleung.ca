@@ -153,7 +153,7 @@ export default async function Post({ params }: Props) {
         <ResponsiveContainer
           element="article"
           variant="prose"
-          className="mb-12 lg:pl-24 xl:pl-28"
+          className="mb-12"
         >
           <Surface className="mx-auto" padding="sm">
             <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-gray-300">

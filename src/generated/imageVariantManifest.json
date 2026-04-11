@@ -320,6 +320,35 @@
         }
       }
     },
+    "/assets/blog/small-interactive-tools-with-a-coding-agent/cover.png": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/small-interactive-tools-with-a-coding-agent/cover-card.webp",
+          "width": 768,
+          "height": 512
+        },
+        "card-md": {
+          "path": "/assets/blog/small-interactive-tools-with-a-coding-agent/cover-card-md.webp",
+          "width": 640,
+          "height": 427
+        },
+        "card-sm": {
+          "path": "/assets/blog/small-interactive-tools-with-a-coding-agent/cover-card-sm.webp",
+          "width": 480,
+          "height": 320
+        },
+        "hero": {
+          "path": "/assets/blog/small-interactive-tools-with-a-coding-agent/cover-hero.webp",
+          "width": 1280,
+          "height": 854
+        },
+        "hero-sm": {
+          "path": "/assets/blog/small-interactive-tools-with-a-coding-agent/cover-hero-sm.webp",
+          "width": 640,
+          "height": 427
+        }
+      }
+    },
     "/assets/blog/structural-reasoning-about-deep-networks/cover.webp": {
       "variants": {
         "card": {
