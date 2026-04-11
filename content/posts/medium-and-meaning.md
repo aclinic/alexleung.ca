@@ -9,12 +9,12 @@ tags:
   - "Reflection"
 ---
 
-Lately, I have been using Codex a lot to improve this site, often from my phone: fixing a layout bug, tweaking copy, adjusting spacing by a few pixels. There is something satisfying about shipping tiny upgrades while standing in line, on a train, or in between errands. It makes the whole project feel less like a formal build and more like an ongoing conversation with myself.
+Lately, I have been using Codex a lot to improve this site, often from my phone: fixing a layout bug, tightening a sentence, adjusting spacing by a few pixels. I like that these changes no longer require a full work session at a desk. The project stays close enough that I can keep tending it in small idle moments.
 
-That has changed how I think about the boundary between making and living with a project. The site no longer feels like something I only work on when I sit down for a dedicated session. It feels more permeable than that, as if the medium has become light enough to stay close to me throughout the day.
+That has changed my relationship to the site in a specific way. The work is less batch-oriented now. Instead of waiting until I have an uninterrupted hour, I can make one precise improvement and move on. The project feels less like something I only "go work on" and more like something I can keep in motion.
 
-At the same time, I have been trying to express myself more through content creation with Sora. I am still learning how to use these tools well, and most of what I make feels exploratory rather than polished. That difference matters to me. With Codex, the intention is usually narrow and practical. With Sora, I am often trying to figure out what I even want to say.
+Sora feels different. With Codex, I usually know what I want before I start: fix this bug, rewrite this line, clean up this layout. With Sora, I am often still discovering the idea while I am using the tool. Most of what I make there still feels exploratory rather than finished.
 
-I keep circling around the same tension: the cultural shorthand of “AI slop,” the suspicion that using these tools somehow disqualifies the work, and the counterpoint that they may simply be new creative mediums. I do not think that question is settled yet. But I also do not think authorship disappears just because the interface changes. The intention is still mine. The judgment, the taste, and the direction still sit with me.
+That difference is part of why the authorship question does not feel especially confusing to me. In both cases, the intention and judgment are still mine. I decide what to ask for, what to keep, and what to throw away. The interface changes the texture of the work, but not the need for taste.
 
-Maybe the medium matters somewhat. It shapes texture, pace, and what kinds of mistakes are easy to make. But I am less interested in defending the tools in the abstract than in asking whether something real is being worked out through them. For me, that is the more useful question.
+I am less interested in defending these tools in the abstract than in whether they help me work something out more clearly. For this site, Codex has made iteration lighter. With Sora, the answer still feels less settled, which is part of why I am still drawn to it.

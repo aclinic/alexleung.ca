@@ -10,23 +10,19 @@ tags:
   - "Blogging"
 ---
 
-I recently finished implementing the blog section of this personal website. Rather than reaching for a complex CMS, I decided to build it directly into my existing Next.js application using standard tools.
+I recently added a blog to this site. Rather than reaching for a CMS, I decided to build it directly into the existing Next.js application using standard tools.
 
-## Low-Maintenance Publishing
+## Requirements
 
-I wanted a place to share technical thoughts without adding maintenance overhead. The requirements were simple:
+I wanted a place to share technical thoughts without adding another system to maintain. The requirements were simple:
 
 1.  **Write in Markdown**: I want to write posts in VS Code.
 2.  **Zero Runtime Cost**: The blog should be statically generated.
 3.  **Fast**: It should feel instant.
 
-## Static by Default
+## Markdown files and static routes
 
-### 1. Filesystem as the Database
-
-I created a simple utility, `blogApi.ts`, that reads directly from the file system. It uses `gray-matter` to parse the frontmatter and a `remark`/`rehype` pipeline—specifically `rehype-pretty-code`—to process the content.
-
-### 2. Static Routing
+I created a simple utility, `blogApi.ts`, that reads directly from the file system. It uses `gray-matter` to parse frontmatter and a `remark`/`rehype` pipeline, including `rehype-pretty-code`, to process the content.
 
 Next.js makes it straightforward to turn a folder of markdown files into routes. I used `generateStaticParams` to tell Next.js which paths to build at compile time:
 
@@ -39,15 +35,15 @@ export async function generateStaticParams() {
 }
 ```
 
-This ensures that `alexleung.ca/blog/boring-blog-architecture` is just a simple HTML file on the server, not a dynamic Node.js request.
+This ensures that `alexleung.ca/blog/boring-blog-architecture` is just a static HTML file at deploy time, not a dynamic request.
 
-### 3. Details That Mattered
+## The details that made it usable
 
-To make it feel professional, I spent time on the details:
+I also spent time on a few details that made the whole thing feel finished:
 
 - **Typography**: I used `@tailwindcss/typography` but customized it to remove the default backticks from inline code for a cleaner look.
 - **Metadata**: Each post automatically generates its own SEO tags and JSON-LD structured data.
 - **Syntax Highlighting**: I chose `rehype-pretty-code` (powered by Shiki). It uses the same TextMate grammars as VS Code, meaning the highlighting is extremely accurate. Because it generates inline styles, there's no brittle CSS to import from `node_modules`.
 - **Sitemap**: A dynamic script crawls my posts directory to keep `sitemap.xml` up to date automatically.
 
-This "boring" architecture lets me focus on writing, with a rendering path that is predictable and fast.
+The result is simple on purpose. I can write in Markdown, keep everything in the repo, and ship a blog with a rendering path that is easy to understand.
