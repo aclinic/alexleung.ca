@@ -13,6 +13,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Keep tone warm but understated: confident, relationship-aware, and forward-looking.
 - Keep prose professional with emotional intelligence.
 - Avoid theatrics, hype language, and performative emphasis.
+- Do not assert significance with phrases like "this is important because", "this matters because", or similar authorial signposting; let significance emerge from the concrete facts, trade-offs, and consequences.
 - When the piece is intentionally reflective or artistic, allow a more lyrical register, but keep it anchored in concrete observation, personal judgment, or a clearly stated tension.
 
 ## Hard Constraints
@@ -28,6 +29,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 8. When drafting a new post from notes, include cover prompts by default; only skip prompts if the user explicitly asks for post-only output.
 9. Do not imply hands-on practice the user did not claim. If the input is about reading, reflection, or conceptual learning, keep claims at the level of understanding, interpretation, or future curiosity unless the user explicitly said they build, tune, deploy, or regularly use the systems being discussed.
 10. Avoid formulaic heading scaffolds as a dominant pattern. Do not default multiple sections in a post to `What`, `How`, `Why`, `When`, `Where`, `The Goal`, `The Implementation`, or similar organizational labels when a more specific idea-title is available.
+11. Avoid explicitly telling the reader that a topic is meaningful, important, or significant. Show that through specificity, stakes, consequences, and judgment instead of declaring it.
 
 ## Workflow
 
@@ -78,6 +80,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 6. Run final checks.
 - Ensure the argument is cohesive from opening to close.
 - Remove hype language and repeated one-sentence paragraph cadence.
+- Remove authorial "this matters/this is important" assertions unless the user explicitly wants that rhetorical style.
 - Verify section headings are specific and reflect actual content.
 - Run a heading-shape audit: if several headings in the same draft begin with `What`, `How`, `Why`, `When`, `Where`, or generic labels like `The Goal`, rewrite them unless that repetition is clearly intentional.
 - Keep claims bounded and testable; mark assumptions when needed.
@@ -120,6 +123,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 ## Voice Anti-Patterns
 
 - Avoid vague evaluative phrasing like "this was a big shift" when the object of the shift can be named directly.
+- Avoid significance-signposting such as "this is important because", "this matters because", or "what makes this meaningful is"; replace it with the concrete observation, stake, or consequence itself.
 - Avoid "this changes how I use X" unless the user explicitly said they use or build with `X`.
 - Avoid polished summary phrases like "clear statistical story" or "substantial result" when plainer analytical language would do.
 - Avoid endings that merely restate the thesis in more elevated language.

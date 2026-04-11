@@ -5,6 +5,7 @@
 - Use analytical, practical, and measured language.
 - Use first person singular when presenting experience and judgment.
 - Keep tone warm but restrained; avoid hype, slogans, and performative phrasing.
+- Do not signal significance with lines like "this matters because"; make the stakes legible through concrete detail and consequence instead.
 - Explain trade-offs and constraints instead of presenting absolute claims.
 
 ## Cadence Guardrails
@@ -17,7 +18,7 @@
 ## Common Post Shapes
 
 1. Technical implementation post
-- Opening: define the problem and why it mattered.
+- Opening: define the problem and the relevant context or consequence.
 - Middle sections: explain approach, what changed, and why design choices were made.
 - Trade-offs: call out cost, complexity, or limitations.
 - Close: summarize durable takeaway or operating principle.
