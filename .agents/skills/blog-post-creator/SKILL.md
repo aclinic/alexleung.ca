@@ -29,7 +29,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 8. When drafting a new post from notes, include cover prompts by default; only skip prompts if the user explicitly asks for post-only output.
 9. Do not imply hands-on practice the user did not claim. If the input is about reading, reflection, or conceptual learning, keep claims at the level of understanding, interpretation, or future curiosity unless the user explicitly said they build, tune, deploy, or regularly use the systems being discussed.
 10. Avoid formulaic heading scaffolds as a dominant pattern. Do not default multiple sections in a post to `What`, `How`, `Why`, `When`, `Where`, `The Goal`, `The Implementation`, or similar organizational labels when a more specific idea-title is available.
-11. Avoid explicitly telling the reader that a topic is meaningful, important, or significant. Show that through specificity, stakes, consequences, and judgment instead of declaring it.
+11. Avoid explicitly telling the reader that a topic is meaningful, important, or significant unless the user explicitly wants that rhetorical style. Otherwise, show that through specificity, stakes, consequences, and judgment instead of declaring it.
 
 ## Workflow
 
