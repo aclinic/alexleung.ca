@@ -13,35 +13,31 @@ tags:
 
 Over the past two years, my day-to-day work has shifted from direct implementation toward orchestration and verification. In early 2024, I used AI mostly for autocomplete-level tasks such as snippets, error explanations, and small refactors. By 2026, I still write code when needed, but far more of my time goes to defining tasks clearly, checking outputs, and fixing edge cases the agents miss.
 
-This post summarizes what changed, what improved, and what remains unreliable in that transition.
-
 ![Timeline diagram comparing software development workflow in 2024 versus 2026](/assets/blog/from-coder-to-orchestrator/swe-workflow-evolution.webp)
 
-## 2024: Useful, but limited
+## 2024
 
 I started experimenting with **Cline** for straightforward tasks such as boilerplate, test scaffolding, and repetitive refactors. I avoided giving it larger tasks for two reasons. First, it was easy to get code that looked fine but was wrong in non-obvious ways. Second, anything non-trivial took too much prompt back-and-forth.
 
-## 2025: Better plans, same failure modes
+## 2025
 
 I switched to **Claude Code** and stopped asking for immediate implementation. Instead, I asked for a plan first and reviewed it.
 
 That improved outcomes, but two problems stayed persistent. Plans were often overbuilt for the actual problem, and the agent would report "done" before handling edge cases. The bottleneck moved from writing code to verification.
 
-## Late 2025 onward: what actually helped
+## What made the workflow more reliable
 
-Three changes made this workflow dependable enough for daily use.
+Three changes made the workflow dependable enough for daily use.
 
-### Better model reasoning
+### Stronger model reasoning
 
 For my use cases, newer models (especially **Opus 4.5**) were noticeably better at keeping constraints in context across longer tasks.
 
-### Better repo context (`CLAUDE.md`)
+### Better repo context
 
-A lot of bad output came from missing context, not missing capability.
+A lot of bad output came from missing context, not missing capability. I now keep project expectations in `CLAUDE.md` so every new session starts with the same baseline: architecture preferences, testing requirements, and coding conventions.
 
-I now keep project expectations in `CLAUDE.md` so every new session starts with the same baseline: architecture preferences, testing requirements, and coding conventions.
-
-### Better execution pattern (Ralph Loop)
+### A repeatable execution loop
 
 The biggest improvement was switching from one-pass execution to a repeatable loop:
 
@@ -69,9 +65,9 @@ This workflow is productive, but it has clear costs:
 - **Personal skill drift:** I type less code directly than I used to.
 - **Attention overhead:** Running multiple agents sounds parallel, but review and coordination still funnel through one person. Human attention is limited, and I still don't have a great system for managing that bottleneck consistently.
 
-## The Job Shifts Upward
+## Where the work moved
 
-The useful part of my work has shifted upward: clearer requirements, tighter constraints, and stronger review discipline.
+The useful part of my work has moved toward clearer requirements, tighter constraints, and stronger review discipline.
 
 Implementation still matters, but the highest leverage is in deciding what should be built and verifying whether the output is actually correct.
 
