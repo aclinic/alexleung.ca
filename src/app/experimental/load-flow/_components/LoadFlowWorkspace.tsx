@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { SingleLineDiagram } from "@/app/load-flow/_components/SingleLineDiagram";
+import { SingleLineDiagram } from "@/app/experimental/load-flow/_components/SingleLineDiagram";
 import { toLoadFlowCase } from "@/features/load-flow/graph/toLoadFlowCase";
 import { BusType } from "@/features/load-flow/model/types";
 import {

@@ -2,9 +2,9 @@
 
 import { useEffect, useEffectEvent, useState } from "react";
 
-import { LearningDynamicsPlot } from "@/app/learning-dynamics/_components/LearningDynamicsPlot";
-import { MetricsPanel } from "@/app/learning-dynamics/_components/MetricsPanel";
-import { RunSettingsCard } from "@/app/learning-dynamics/_components/RunSettingsCard";
+import { LearningDynamicsPlot } from "@/app/experimental/learning-dynamics/_components/LearningDynamicsPlot";
+import { MetricsPanel } from "@/app/experimental/learning-dynamics/_components/MetricsPanel";
+import { RunSettingsCard } from "@/app/experimental/learning-dynamics/_components/RunSettingsCard";
 import {
   createRunSet,
   hasAnyActiveRun,

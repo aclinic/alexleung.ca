@@ -5,7 +5,7 @@
 - Runtime model and scheduler live under `src/features/event-loop/model/`.
 - Shared type contracts live in `src/features/event-loop/types.ts`.
 - UI components for stack/queues/timeline/controls live in `src/features/event-loop/components/`.
-- The page integration and client composition live in `src/app/event-loop/`.
+- The page integration and client composition live in `src/app/experimental/event-loop/`.
 
 This split keeps scheduling logic deterministic and testable outside React.
 

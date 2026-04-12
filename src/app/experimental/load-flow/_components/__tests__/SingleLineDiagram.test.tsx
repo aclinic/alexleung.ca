@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import { SingleLineDiagram } from "@/app/load-flow/_components/SingleLineDiagram";
+import { SingleLineDiagram } from "@/app/experimental/load-flow/_components/SingleLineDiagram";
 import { BusNode, LineEdge } from "@/features/load-flow/state/loadFlowStore";
 
 const buses: BusNode[] = [

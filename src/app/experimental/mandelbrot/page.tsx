@@ -13,7 +13,7 @@ import { MandelbrotExplorer } from "./_components/MandelbrotExplorer";
 const title = "Mandelbrot Explorer | Alex Leung";
 const description =
   "An in-browser Mandelbrot set explorer with arbitrary-precision viewport math, progressive rendering, and shareable deep-zoom state.";
-const path = "/mandelbrot/";
+const path = "/experimental/mandelbrot/";
 
 export const metadata: Metadata = buildPageMetadata({
   title,

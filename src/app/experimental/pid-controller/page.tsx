@@ -14,7 +14,7 @@ import { PidSimulatorWorkspace } from "./_components/PidSimulatorWorkspace";
 const title = "PID Controller Simulator | Alex Leung";
 const description =
   "Interactive fixed-step PID simulation that demonstrates rise time, overshoot, oscillation, and settling behavior.";
-const path = "/pid-controller/";
+const path = "/experimental/pid-controller/";
 
 export const metadata: Metadata = buildPageMetadata({
   title,
@@ -28,7 +28,7 @@ export default function PidControllerPage() {
       <JsonLdBreadcrumbs
         items={[
           { name: "Home", item: "/" },
-          { name: "PID Controller", item: "/pid-controller/" },
+          { name: "PID Controller", item: "/experimental/pid-controller/" },
         ]}
       />
       <JsonLd<WebPage>
