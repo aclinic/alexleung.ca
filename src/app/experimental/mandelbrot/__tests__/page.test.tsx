@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import MandelbrotPage from "../page";
 
 jest.mock("next/navigation", () => ({
-  usePathname: jest.fn(() => "/mandelbrot/"),
+  usePathname: jest.fn(() => "/experimental/mandelbrot/"),
 }));
 
 describe("MandelbrotPage", () => {

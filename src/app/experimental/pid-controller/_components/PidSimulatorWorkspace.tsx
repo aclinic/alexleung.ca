@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { PidChart } from "@/app/pid-controller/_components/PidChart";
-import { PidControls } from "@/app/pid-controller/_components/PidControls";
+import { PidChart } from "@/app/experimental/pid-controller/_components/PidChart";
+import { PidControls } from "@/app/experimental/pid-controller/_components/PidControls";
 import { createFirstOrderPlant } from "@/features/pid-simulator/firstOrderPlant";
 import { PidController } from "@/features/pid-simulator/pidController";
 import {

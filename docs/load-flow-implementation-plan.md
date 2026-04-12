@@ -26,7 +26,7 @@ Completed across the first two slices (PR 1 + PR 2 scope):
 - ✅ Added `/load-flow` route shell and initial workspace layout.
 - ✅ Added initial domain model contracts under `src/features/load-flow/model/` (`types.ts`, `defaults.ts`, `validation.ts`).
 - ✅ Added validator unit tests covering baseline pre-solve checks.
-- ✅ Follow-up review hardening: added duplicate bus-ID validation and route coverage tests for the `/load-flow/` shell.
+- ✅ Follow-up review hardening: added duplicate bus-ID validation and route coverage tests for the `/experimental/load-flow/` shell.
 - ✅ PR #191 review follow-up: reject non-finite `baseMVA` values and non-finite branch impedance inputs.
 - ✅ Implemented a first-pass canvas editor foundation with palette actions for bus/line creation.
 - ✅ Added normalized editor store helpers under `src/features/load-flow/state/loadFlowStore.ts`.

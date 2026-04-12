@@ -31,7 +31,8 @@ describe("sitemap", () => {
       (entry) => entry.url === "https://alexleung.ca/blog/my-post/"
     );
     const pidControllerEntry = entries.find(
-      (entry) => entry.url === "https://alexleung.ca/pid-controller/"
+      (entry) =>
+        entry.url === "https://alexleung.ca/experimental/pid-controller/"
     );
 
     expect(blogPostEntry).toBeDefined();
@@ -40,8 +41,8 @@ describe("sitemap", () => {
 
   it("does not include the event loop page", () => {
     const entries = sitemap();
-    expect(entries.some((entry) => entry.url.includes("/event-loop/"))).toBe(
-      false
-    );
+    expect(
+      entries.some((entry) => entry.url.includes("/experimental/event-loop/"))
+    ).toBe(false);
   });
 });

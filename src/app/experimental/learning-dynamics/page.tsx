@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 import type { WebPage } from "schema-dts";
 
-import { LearningDynamicsLab } from "@/app/learning-dynamics/_components/LearningDynamicsLab";
+import { LearningDynamicsLab } from "@/app/experimental/learning-dynamics/_components/LearningDynamicsLab";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
@@ -13,7 +13,7 @@ import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 const title = "Learning Dynamics Lab | Alex Leung";
 const description =
   "A client-side optimizer visualizer for comparing SGD, Momentum, RMSProp, and Adam on 2D loss surfaces.";
-const path = "/learning-dynamics/";
+const path = "/experimental/learning-dynamics/";
 
 export const metadata: Metadata = buildPageMetadata({
   title,

@@ -9,12 +9,12 @@ import {
 import { MandelbrotExplorer } from "../MandelbrotExplorer";
 
 jest.mock("next/navigation", () => ({
-  usePathname: jest.fn(() => "/mandelbrot/"),
+  usePathname: jest.fn(() => "/experimental/mandelbrot/"),
 }));
 
 describe("MandelbrotExplorer", () => {
   beforeEach(() => {
-    window.history.replaceState(null, "", "/mandelbrot/");
+    window.history.replaceState(null, "", "/experimental/mandelbrot/");
   });
 
   afterEach(() => {

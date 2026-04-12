@@ -14,7 +14,7 @@ import { EventLoopVisualizer } from "./_components/EventLoopVisualizer";
 const title = "Event Loop Visualizer | Alex Leung";
 const description =
   "Interactive event loop visualizer for call stack, microtasks, tasks, timers, and execution order.";
-const path = "/event-loop/";
+const path = "/experimental/event-loop/";
 
 export const metadata: Metadata = buildPageMetadata({
   title,

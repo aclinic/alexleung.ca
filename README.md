@@ -180,7 +180,7 @@ src/
 
 ## Mandelbrot Explorer
 
-The Mandelbrot explorer lives at `/mandelbrot/` and is implemented as a client-side tool page with the precision math isolated under `src/features/mandelbrot/`.
+The Mandelbrot explorer lives at `/experimental/mandelbrot/` and is implemented as a client-side tool page with the precision math isolated under `src/features/mandelbrot/`.
 
 - **Precision library**: `decimal.js` keeps viewport center and scale updates out of normal JavaScript floating-point arithmetic so deep zoom state remains stable.
 - **Viewport model**: the explorer stores `centerX`, `centerY`, `width`, and `height` as arbitrary-precision decimals, and derives pixel-to-complex mapping from those values for click zoom, wheel zoom, box zoom, and panning.
@@ -189,9 +189,9 @@ The Mandelbrot explorer lives at `/mandelbrot/` and is implemented as a client-s
 
 Relevant files:
 
-- `src/app/mandelbrot/page.tsx`
-- `src/app/mandelbrot/_components/MandelbrotExplorer.tsx`
-- `src/app/mandelbrot/_components/MandelbrotCanvas.tsx`
+- `src/app/experimental/mandelbrot/page.tsx`
+- `src/app/experimental/mandelbrot/_components/MandelbrotExplorer.tsx`
+- `src/app/experimental/mandelbrot/_components/MandelbrotCanvas.tsx`
 - `src/features/mandelbrot/*`
 
 Targeted Mandelbrot tests can be run with:
@@ -199,14 +199,14 @@ Targeted Mandelbrot tests can be run with:
 ```bash
 yarn test src/features/mandelbrot/__tests__/viewport.test.ts \
   src/features/mandelbrot/__tests__/mandelbrot.test.ts \
-  src/app/mandelbrot/__tests__/page.test.tsx \
-  src/app/mandelbrot/_components/__tests__/MandelbrotExplorer.test.tsx
+  src/app/experimental/mandelbrot/__tests__/page.test.tsx \
+  src/app/experimental/mandelbrot/_components/__tests__/MandelbrotExplorer.test.tsx
 ```
 
 ## Learning Dynamics Lab
 
-- Route: `src/app/learning-dynamics/page.tsx`
-- Client workspace: `src/app/learning-dynamics/_components/`
+- Route: `src/app/experimental/learning-dynamics/page.tsx`
+- Client workspace: `src/app/experimental/learning-dynamics/_components/`
 - Pure math and simulation logic: `src/features/optimizer-lab/`
 
 The optimizer visualizer keeps the numerical pieces independent from React. Each loss surface exposes a pure `evaluate` and `gradient` function, each optimizer is modeled as a pure step function, and the client workspace only coordinates controls, playback, and SVG rendering. To verify the feature locally, run `yarn test`, `yarn lint`, `yarn typecheck`, and `yarn build`, plus the existing Playwright smoke and visual suites.

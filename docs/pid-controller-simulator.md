@@ -9,7 +9,7 @@ This simulator is implemented as a client-only feature for static export compati
 - `src/features/pid-simulator/firstOrderPlant.ts` provides a first-order plant model.
 - `src/features/pid-simulator/simulationEngine.ts` manages deterministic fixed-step simulation and behavior metrics.
 - `src/features/pid-simulator/presets.ts` provides educational tuning presets matched to the current plant and actuator limits.
-- `src/app/pid-controller/_components/*` contains UI composition, chart rendering, and controls.
+- `src/app/experimental/pid-controller/_components/*` contains UI composition, chart rendering, and controls.
 
 ## Mathematical model
 
