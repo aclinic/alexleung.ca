@@ -28,7 +28,8 @@ describe("MandelbrotExplorer", () => {
       screen.getByLabelText("Mandelbrot set rendering canvas")
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Undo" })).toBeInTheDocument();
-    expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(180);
+    expect(screen.getByLabelText(/Render backend/i)).toHaveValue("webgpu");
+    expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(2000);
   });
 
   it("updates the viewport metadata when zoom controls are used", () => {
@@ -80,11 +81,15 @@ describe("MandelbrotExplorer", () => {
     fireEvent.change(screen.getByLabelText(/Max iterations/i), {
       target: { value: "320" },
     });
+    fireEvent.change(screen.getByLabelText(/Render backend/i), {
+      target: { value: "cpu" },
+    });
     fireEvent.change(screen.getByLabelText(/Render quality/i), {
       target: { value: "1" },
     });
 
     expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(320);
+    expect(screen.getByLabelText(/Render backend/i)).toHaveValue("cpu");
     expect(screen.getByLabelText(/Render quality/i)).toHaveValue("1");
 
     await waitFor(() => {
@@ -92,6 +97,9 @@ describe("MandelbrotExplorer", () => {
     });
     expect(replaceStateSpy.mock.calls.at(-1)?.[2]?.toString()).toContain(
       "iter=320"
+    );
+    expect(replaceStateSpy.mock.calls.at(-1)?.[2]?.toString()).toContain(
+      "backend=cpu"
     );
 
     replaceStateSpy.mockRestore();

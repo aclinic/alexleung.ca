@@ -91,7 +91,8 @@ export function MandelbrotCanvas({
   onZoomOut,
   onReset,
 }: MandelbrotCanvasProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cpuCanvasRef = useRef<HTMLCanvasElement>(null);
+  const gpuCanvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef(viewport);
   const dragSessionRef = useRef<DragSession | null>(null);
@@ -107,7 +108,8 @@ export function MandelbrotCanvas({
   canvasSizeRef.current = canvasSize;
 
   const renderState = useMandelbrotRender({
-    canvasRef,
+    cpuCanvasRef,
+    gpuCanvasRef,
     viewport,
     settings,
     size: canvasSize,
@@ -347,7 +349,7 @@ export function MandelbrotCanvas({
   }
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = cpuCanvasRef.current;
 
     if (!canvas) {
       return;
@@ -404,8 +406,14 @@ export function MandelbrotCanvas({
       className="relative min-h-[24rem] overflow-hidden rounded-xl border border-cyan-500/20 bg-slate-950 shadow-[0_24px_80px_rgba(8,145,178,0.18)]"
     >
       <canvas
-        ref={canvasRef}
-        className={`block h-full w-full touch-none ${
+        ref={gpuCanvasRef}
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        aria-hidden="true"
+      />
+
+      <canvas
+        ref={cpuCanvasRef}
+        className={`relative z-10 block h-full w-full touch-none ${
           dragMode === "box-zoom"
             ? "cursor-crosshair"
             : "cursor-grab active:cursor-grabbing"
@@ -478,6 +486,7 @@ export function MandelbrotCanvas({
               : "Rendering"}
         </p>
         <p>{renderState.message}</p>
+        <p>Backend: {renderState.backend === "webgpu" ? "WebGPU" : "CPU"}</p>
       </div>
     </div>
   );

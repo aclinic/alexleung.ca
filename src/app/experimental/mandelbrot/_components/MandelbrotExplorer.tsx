@@ -26,6 +26,7 @@ import {
   MandelbrotSettings,
   PixelSize,
   PreciseViewport,
+  RenderBackendPreference,
 } from "@/features/mandelbrot/types";
 import {
   parseSettingsFromQuery,
@@ -47,10 +48,11 @@ const DEFAULT_CANVAS_SIZE: PixelSize = {
 };
 
 const DEFAULT_SETTINGS: MandelbrotSettings = {
-  maxIterations: 180,
+  maxIterations: 2000,
   paletteId: "oceanic",
   coloringMode: "smooth",
-  resolutionScale: 0.5,
+  resolutionScale: 1,
+  renderBackendPreference: "webgpu",
 };
 
 const QUALITY_OPTIONS = [
@@ -58,6 +60,14 @@ const QUALITY_OPTIONS = [
   { value: 0.75, label: "75%" },
   { value: 1, label: "100%" },
 ] as const;
+
+const BACKEND_OPTIONS: ReadonlyArray<{
+  value: RenderBackendPreference;
+  label: string;
+}> = [
+  { value: "webgpu", label: "WebGPU" },
+  { value: "cpu", label: "CPU" },
+];
 
 const sectionTitleClass = "text-heading-sm text-white";
 const metaValueClass = "break-all text-sm text-cyan-100";
@@ -285,6 +295,26 @@ export function MandelbrotExplorer() {
               <h2 className={sectionTitleClass}>Render settings</h2>
               <div className="mt-3 grid gap-3">
                 <label className="text-sm text-gray-200">
+                  <span>Render backend</span>
+                  <select
+                    value={settings.renderBackendPreference}
+                    onChange={(event) =>
+                      setSettings((currentSettings) => ({
+                        ...currentSettings,
+                        renderBackendPreference: event.target
+                          .value as RenderBackendPreference,
+                      }))
+                    }
+                    className="mt-1 w-full rounded-md border border-white/15 bg-slate-950 px-3 py-2 text-white"
+                  >
+                    {BACKEND_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="text-sm text-gray-200">
                   <span>Max iterations</span>
                   <input
                     type="number"
@@ -467,8 +497,8 @@ export function MandelbrotExplorer() {
                 frames whenever the view changes.
               </li>
               <li>
-                The URL mirrors the current center, width, palette, quality, and
-                iteration budget for shareable deep links.
+                The URL mirrors the current center, width, backend, palette,
+                quality, and iteration budget for shareable deep links.
               </li>
             </ul>
           </Surface>

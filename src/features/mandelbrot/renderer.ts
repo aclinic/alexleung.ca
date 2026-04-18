@@ -1,10 +1,18 @@
 import {
+  detectWebGpuAvailability,
+  renderMandelbrotWithWebGpu,
+} from "@/features/mandelbrot/gpu";
+import {
   iterateMandelbrot,
   iterateMandelbrotNumber,
   shouldUseNumberIteration,
 } from "@/features/mandelbrot/mandelbrot";
 import { colorEscapeResult } from "@/features/mandelbrot/palettes";
-import { RenderRequest } from "@/features/mandelbrot/types";
+import {
+  RenderBackend,
+  RenderBackendPreference,
+  RenderRequest,
+} from "@/features/mandelbrot/types";
 import {
   configurePrecisionForWidth,
   mapPixelCenterToComplex,
@@ -13,6 +21,12 @@ import {
 
 const DECIMAL_ROWS_PER_CHUNK = 6;
 const NUMBER_ROWS_PER_CHUNK = 20;
+
+export type RenderExecutionResult = {
+  completed: boolean;
+  backend: RenderBackend;
+  gpuFallbackReason?: string;
+};
 
 function nextFrame(): Promise<void> {
   return new Promise((resolve) => {
@@ -97,6 +111,61 @@ export async function renderMandelbrot({
   }
 
   return true;
+}
+
+export async function renderMandelbrotWithStrategy(
+  request: RenderRequest,
+  backendPreference: RenderBackendPreference = "webgpu"
+): Promise<RenderExecutionResult> {
+  if (backendPreference === "webgpu") {
+    const gpuAvailability = await detectWebGpuAvailability();
+
+    if (gpuAvailability.isAvailable) {
+      const gpuRenderResult = await renderMandelbrotWithWebGpu(request);
+
+      if (gpuRenderResult.rendered) {
+        return {
+          completed: gpuRenderResult.completed,
+          backend: "webgpu",
+          gpuFallbackReason: gpuRenderResult.fallbackReason,
+        };
+      }
+
+      if (request.signal?.aborted) {
+        return {
+          completed: false,
+          backend: "cpu",
+          gpuFallbackReason: gpuRenderResult.fallbackReason,
+        };
+      }
+
+      const completedWithCpu = await renderMandelbrot(request);
+
+      return {
+        completed: completedWithCpu,
+        backend: "cpu",
+        gpuFallbackReason:
+          gpuRenderResult.fallbackReason ??
+          "WebGPU rendering failed, so the CPU renderer took over.",
+      };
+    }
+
+    const completedWithCpu = await renderMandelbrot(request);
+
+    return {
+      completed: completedWithCpu,
+      backend: "cpu",
+      gpuFallbackReason: gpuAvailability.reason,
+    };
+  }
+
+  const completedWithCpu = await renderMandelbrot(request);
+
+  return {
+    completed: completedWithCpu,
+    backend: "cpu",
+    gpuFallbackReason: undefined,
+  };
 }
 
 function renderDecimalPixel(
