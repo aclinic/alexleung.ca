@@ -6,29 +6,59 @@ import {
   waitFor,
 } from "@testing-library/react";
 
+import { detectWebGpuAvailability } from "@/features/mandelbrot/gpu";
+
 import { MandelbrotExplorer } from "../MandelbrotExplorer";
 
 jest.mock("next/navigation", () => ({
   usePathname: jest.fn(() => "/experimental/mandelbrot/"),
 }));
 
+jest.mock("@/features/mandelbrot/gpu", () => ({
+  ...jest.requireActual("@/features/mandelbrot/gpu"),
+  detectWebGpuAvailability: jest.fn(),
+}));
+
+const mockedDetectWebGpuAvailability = jest.mocked(detectWebGpuAvailability);
+
 describe("MandelbrotExplorer", () => {
   beforeEach(() => {
     window.history.replaceState(null, "", "/experimental/mandelbrot/");
+    mockedDetectWebGpuAvailability.mockReset();
+    mockedDetectWebGpuAvailability.mockResolvedValue({
+      isAvailable: false,
+    });
   });
 
   afterEach(() => {
     jest.useRealTimers();
   });
 
-  it("renders the canvas shell and explorer controls", () => {
+  it("renders the canvas shell and explorer controls", async () => {
     render(<MandelbrotExplorer />);
 
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(180);
+    });
     expect(
       screen.getByLabelText("Mandelbrot set rendering canvas")
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Undo" })).toBeInTheDocument();
-    expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(180);
+    expect(screen.getByLabelText(/Render backend/i)).toHaveValue("auto");
+  });
+
+  it("uses the higher quality defaults when WebGPU is available", async () => {
+    mockedDetectWebGpuAvailability.mockResolvedValue({
+      isAvailable: true,
+    });
+
+    render(<MandelbrotExplorer />);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(2000);
+    });
+    expect(screen.getByLabelText(/Render backend/i)).toHaveValue("auto");
+    expect(screen.getByLabelText(/Render quality/i)).toHaveValue("1");
   });
 
   it("updates the viewport metadata when zoom controls are used", () => {
@@ -77,21 +107,31 @@ describe("MandelbrotExplorer", () => {
 
     render(<MandelbrotExplorer />);
 
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(180);
+    });
+
     fireEvent.change(screen.getByLabelText(/Max iterations/i), {
       target: { value: "320" },
+    });
+    fireEvent.change(screen.getByLabelText(/Render backend/i), {
+      target: { value: "cpu" },
     });
     fireEvent.change(screen.getByLabelText(/Render quality/i), {
       target: { value: "1" },
     });
 
     expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(320);
+    expect(screen.getByLabelText(/Render backend/i)).toHaveValue("cpu");
     expect(screen.getByLabelText(/Render quality/i)).toHaveValue("1");
 
     await waitFor(() => {
-      expect(replaceStateSpy).toHaveBeenCalled();
+      expect(replaceStateSpy.mock.calls.at(-1)?.[2]?.toString()).toContain(
+        "iter=320"
+      );
     });
     expect(replaceStateSpy.mock.calls.at(-1)?.[2]?.toString()).toContain(
-      "iter=320"
+      "backend=cpu"
     );
 
     replaceStateSpy.mockRestore();

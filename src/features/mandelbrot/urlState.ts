@@ -4,6 +4,7 @@ import {
   PaletteId,
   PixelSize,
   PreciseViewport,
+  RenderBackendPreference,
 } from "@/features/mandelbrot/types";
 import { createViewport } from "@/features/mandelbrot/viewport";
 
@@ -17,6 +18,11 @@ const VALID_PALETTES: ReadonlySet<PaletteId> = new Set([
 const VALID_COLORING_MODES: ReadonlySet<ColoringMode> = new Set([
   "smooth",
   "bands",
+]);
+const VALID_RENDER_BACKENDS: ReadonlySet<RenderBackendPreference> = new Set([
+  "auto",
+  "webgpu",
+  "cpu",
 ]);
 
 export function parseViewportFromQuery(
@@ -55,6 +61,7 @@ export function parseSettingsFromQuery(
   const resolutionScale = Number.parseFloat(String(searchParams.quality ?? ""));
   const paletteId = searchParams.palette;
   const coloringMode = searchParams.mode;
+  const renderBackendPreference = searchParams.backend;
 
   return {
     maxIterations:
@@ -75,6 +82,13 @@ export function parseSettingsFromQuery(
       Number.isFinite(resolutionScale) && resolutionScale >= 0.25
         ? Math.min(resolutionScale, 1)
         : fallback.resolutionScale,
+    renderBackendPreference:
+      typeof renderBackendPreference === "string" &&
+      VALID_RENDER_BACKENDS.has(
+        renderBackendPreference as RenderBackendPreference
+      )
+        ? (renderBackendPreference as RenderBackendPreference)
+        : fallback.renderBackendPreference,
   };
 }
 
@@ -91,6 +105,7 @@ export function serializeExplorerState(
   searchParams.set("palette", settings.paletteId);
   searchParams.set("mode", settings.coloringMode);
   searchParams.set("quality", settings.resolutionScale.toFixed(2));
+  searchParams.set("backend", settings.renderBackendPreference);
 
   return searchParams.toString();
 }

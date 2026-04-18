@@ -34,12 +34,15 @@ export type SelectionRect = {
 export type PaletteId = "oceanic" | "ember" | "glacier";
 export type ColoringMode = "smooth" | "bands";
 export type DragMode = "pan" | "box-zoom";
+export type RenderBackend = "cpu" | "webgpu";
+export type RenderBackendPreference = "auto" | "cpu" | "webgpu";
 
 export type MandelbrotSettings = {
   maxIterations: number;
   paletteId: PaletteId;
   coloringMode: ColoringMode;
   resolutionScale: number;
+  renderBackendPreference: RenderBackendPreference;
 };
 
 export type EscapeResult = {
@@ -58,6 +61,7 @@ export type RenderRequest = {
   viewport: PreciseViewport;
   size: PixelSize;
   settings: MandelbrotSettings;
+  gpuTargetCanvas?: HTMLCanvasElement | null;
   signal?: AbortSignal;
   onChunk: (chunk: RenderChunk) => void;
   onProgress?: (progress: number) => void;
