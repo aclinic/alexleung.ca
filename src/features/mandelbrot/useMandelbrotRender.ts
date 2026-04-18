@@ -2,7 +2,10 @@
 
 import { RefObject, useEffect, useState } from "react";
 
-import { renderMandelbrotWithStrategy } from "@/features/mandelbrot/renderer";
+import {
+  renderMandelbrotWithStrategy,
+  shouldAttemptWebGpu,
+} from "@/features/mandelbrot/renderer";
 import {
   MandelbrotSettings,
   PixelSize,
@@ -139,7 +142,13 @@ export function useMandelbrotRender({
         const buffer = document.createElement("canvas");
         const bufferSize = renderSizeForScale(size, scale);
         const bufferContext = buffer.getContext("2d");
-        const preferGpu = settings.renderBackendPreference === "webgpu";
+        const shouldUseGpu = shouldAttemptWebGpu(
+          {
+            viewport,
+            size: bufferSize,
+          },
+          settings.renderBackendPreference
+        );
 
         if (!bufferContext) {
           throw new Error("Unable to create an offscreen render buffer.");
@@ -148,7 +157,7 @@ export function useMandelbrotRender({
         buffer.width = bufferSize.width;
         buffer.height = bufferSize.height;
 
-        if (!preferGpu) {
+        if (!shouldUseGpu) {
           bufferContext.drawImage(
             renderingCanvas,
             0,
@@ -160,7 +169,7 @@ export function useMandelbrotRender({
           renderingContext.clearRect(0, 0, size.width, size.height);
         }
 
-        activeBackend = preferGpu ? "webgpu" : "cpu";
+        activeBackend = shouldUseGpu ? "webgpu" : "cpu";
 
         setRenderState({
           phase,

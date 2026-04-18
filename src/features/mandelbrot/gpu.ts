@@ -216,6 +216,9 @@ const WORKGROUP_SIZE = 8;
 const GPU_ROWS_PER_CHUNK = 24;
 const GPU_SHADER_STAGE_FRAGMENT = 0x0002;
 const DEFAULT_WEBGPU_CANVAS_FORMAT = "bgra8unorm";
+const FLOAT32_SIGNIFICAND_BITS = 23;
+const FLOAT32_MIN_SUBNORMAL = 2 ** -149;
+const AUTO_WEBGPU_ULP_CUSHION = 0.25;
 
 const PALETTE_IDS: Readonly<Record<PaletteId, number>> = {
   oceanic: 0,
@@ -227,6 +230,61 @@ const COLORING_MODE_IDS: Readonly<Record<ColoringMode, number>> = {
   smooth: 0,
   bands: 1,
 };
+
+function estimateFloat32Ulp(value: number): number {
+  const magnitude = Math.abs(value);
+
+  if (!Number.isFinite(magnitude)) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  if (magnitude === 0) {
+    return FLOAT32_MIN_SUBNORMAL;
+  }
+
+  return 2 ** (Math.floor(Math.log2(magnitude)) - FLOAT32_SIGNIFICAND_BITS);
+}
+
+export function canRenderViewportWithWebGpu(
+  viewport: RenderRequest["viewport"],
+  size: RenderRequest["size"]
+): boolean {
+  const safeWidth = Math.max(1, Math.round(size.width));
+  const safeHeight = Math.max(1, Math.round(size.height));
+  const left = viewport.centerX.sub(viewport.width.div(2)).toNumber();
+  const right = viewport.centerX.add(viewport.width.div(2)).toNumber();
+  const top = viewport.centerY.add(viewport.height.div(2)).toNumber();
+  const bottom = viewport.centerY.sub(viewport.height.div(2)).toNumber();
+  const stepX = viewport.width.div(safeWidth).abs().toNumber();
+  const stepY = viewport.height.div(safeHeight).abs().toNumber();
+
+  if (
+    !Number.isFinite(left) ||
+    !Number.isFinite(right) ||
+    !Number.isFinite(top) ||
+    !Number.isFinite(bottom) ||
+    !Number.isFinite(stepX) ||
+    !Number.isFinite(stepY) ||
+    stepX <= 0 ||
+    stepY <= 0
+  ) {
+    return false;
+  }
+
+  // Clamp the coordinate scale to at least 1 so auto mode does not stay on
+  // WebGPU too aggressively when the view is numerically close to the origin.
+  const coordinateMagnitude = Math.max(
+    1,
+    Math.abs(left),
+    Math.abs(right),
+    Math.abs(top),
+    Math.abs(bottom)
+  );
+  const float32Ulp = estimateFloat32Ulp(coordinateMagnitude);
+  const smallestPixelStep = Math.min(stepX, stepY);
+
+  return smallestPixelStep >= float32Ulp * AUTO_WEBGPU_ULP_CUSHION;
+}
 
 const SHADER_CODE = /* wgsl */ `
 @group(0) @binding(0) var<storage, read> settings: array<u32>;

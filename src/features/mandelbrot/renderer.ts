@@ -1,4 +1,5 @@
 import {
+  canRenderViewportWithWebGpu,
   detectWebGpuAvailability,
   renderMandelbrotWithWebGpu,
 } from "@/features/mandelbrot/gpu";
@@ -27,6 +28,24 @@ export type RenderExecutionResult = {
   backend: RenderBackend;
   gpuFallbackReason?: string;
 };
+
+export function shouldAttemptWebGpu(
+  request: Pick<RenderRequest, "viewport" | "size">,
+  backendPreference: RenderBackendPreference = "auto"
+): boolean {
+  if (backendPreference === "cpu") {
+    return false;
+  }
+
+  if (backendPreference === "webgpu") {
+    return true;
+  }
+
+  return (
+    shouldUseNumberIteration(request.viewport.width) &&
+    canRenderViewportWithWebGpu(request.viewport, request.size)
+  );
+}
 
 function nextFrame(): Promise<void> {
   return new Promise((resolve) => {
@@ -115,9 +134,9 @@ export async function renderMandelbrot({
 
 export async function renderMandelbrotWithStrategy(
   request: RenderRequest,
-  backendPreference: RenderBackendPreference = "webgpu"
+  backendPreference: RenderBackendPreference = "auto"
 ): Promise<RenderExecutionResult> {
-  if (backendPreference === "webgpu") {
+  if (shouldAttemptWebGpu(request, backendPreference)) {
     const gpuAvailability = await detectWebGpuAvailability();
 
     if (gpuAvailability.isAvailable) {

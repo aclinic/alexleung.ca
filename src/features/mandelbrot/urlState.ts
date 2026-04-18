@@ -20,6 +20,7 @@ const VALID_COLORING_MODES: ReadonlySet<ColoringMode> = new Set([
   "bands",
 ]);
 const VALID_RENDER_BACKENDS: ReadonlySet<RenderBackendPreference> = new Set([
+  "auto",
   "webgpu",
   "cpu",
 ]);

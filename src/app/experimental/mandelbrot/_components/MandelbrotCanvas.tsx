@@ -405,36 +405,38 @@ export function MandelbrotCanvas({
       ref={containerRef}
       className="relative min-h-[24rem] overflow-hidden rounded-xl border border-cyan-500/20 bg-slate-950 shadow-[0_24px_80px_rgba(8,145,178,0.18)]"
     >
-      <canvas
-        ref={gpuCanvasRef}
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 z-0">
+        <canvas
+          ref={gpuCanvasRef}
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          aria-hidden="true"
+        />
 
-      <canvas
-        ref={cpuCanvasRef}
-        className={`relative z-10 block h-full w-full touch-none ${
-          dragMode === "box-zoom"
-            ? "cursor-crosshair"
-            : "cursor-grab active:cursor-grabbing"
-        }`}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerLeave}
-        aria-label="Mandelbrot set rendering canvas"
-      />
+        <canvas
+          ref={cpuCanvasRef}
+          className={`absolute inset-0 block h-full w-full touch-none ${
+            dragMode === "box-zoom"
+              ? "cursor-crosshair"
+              : "cursor-grab active:cursor-grabbing"
+          }`}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerLeave}
+          aria-label="Mandelbrot set rendering canvas"
+        />
+      </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_55%)]" />
 
       {selectionRect ? (
         <div
-          className="pointer-events-none absolute border border-cyan-200 bg-cyan-300/15 shadow-[0_0_0_1px_rgba(103,232,249,0.4)]"
+          className="pointer-events-none absolute z-20 border border-cyan-200 bg-cyan-300/15 shadow-[0_0_0_1px_rgba(103,232,249,0.4)]"
           style={selectionStyles}
         />
       ) : null}
 
-      <div className="pointer-events-none absolute left-4 top-4 rounded-md border border-white/10 bg-slate-950/80 px-3 py-2 text-xs text-gray-200 backdrop-blur-sm">
+      <div className="pointer-events-none absolute left-4 top-4 z-30 rounded-md border border-white/10 bg-slate-950/80 px-3 py-2 text-xs text-gray-200 backdrop-blur-sm">
         <p className="font-semibold text-cyan-100">Plot controls</p>
         <p>Wheel to zoom at cursor.</p>
         <p>
@@ -444,7 +446,7 @@ export function MandelbrotCanvas({
         </p>
       </div>
 
-      <div className="absolute right-4 top-4 flex gap-2">
+      <div className="absolute right-4 top-4 z-30 flex gap-2">
         <button
           type="button"
           className="rounded-md border border-white/15 bg-slate-950/80 px-3 py-2 text-sm text-white backdrop-blur-sm transition hover:border-cyan-300 hover:text-cyan-100"
@@ -477,7 +479,7 @@ export function MandelbrotCanvas({
         </button>
       </div>
 
-      <div className="pointer-events-none absolute bottom-4 left-4 rounded-md border border-white/10 bg-slate-950/80 px-3 py-2 text-xs text-gray-200 backdrop-blur-sm">
+      <div className="pointer-events-none absolute bottom-4 left-4 z-30 rounded-md border border-white/10 bg-slate-950/80 px-3 py-2 text-xs text-gray-200 backdrop-blur-sm">
         <p className="font-semibold text-cyan-100">
           {renderState.phase === "ready"
             ? "Render ready"

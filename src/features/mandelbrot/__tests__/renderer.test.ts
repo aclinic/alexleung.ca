@@ -4,10 +4,14 @@ import {
   detectWebGpuAvailability,
   renderMandelbrotWithWebGpu,
 } from "@/features/mandelbrot/gpu";
-import { renderMandelbrotWithStrategy } from "@/features/mandelbrot/renderer";
+import {
+  renderMandelbrotWithStrategy,
+  shouldAttemptWebGpu,
+} from "@/features/mandelbrot/renderer";
 import { RenderRequest } from "@/features/mandelbrot/types";
 
 jest.mock("@/features/mandelbrot/gpu", () => ({
+  ...jest.requireActual("@/features/mandelbrot/gpu"),
   detectWebGpuAvailability: jest.fn(),
   renderMandelbrotWithWebGpu: jest.fn(),
 }));
@@ -34,7 +38,7 @@ function createRenderRequest(): RenderRequest {
       paletteId: "oceanic",
       coloringMode: "smooth",
       resolutionScale: 1,
-      renderBackendPreference: "webgpu",
+      renderBackendPreference: "auto",
     },
     onChunk: jest.fn(),
     onProgress: jest.fn(),
@@ -47,7 +51,7 @@ describe("renderMandelbrotWithStrategy", () => {
     mockedRenderMandelbrotWithWebGpu.mockReset();
   });
 
-  it("uses the WebGPU backend when GPU rendering completes", async () => {
+  it("uses the WebGPU backend in auto mode when the viewport stays within the float32 cutoff", async () => {
     mockedDetectWebGpuAvailability.mockResolvedValue({
       isAvailable: true,
     });
@@ -66,7 +70,7 @@ describe("renderMandelbrotWithStrategy", () => {
     });
   });
 
-  it("falls back to the CPU renderer when WebGPU is unavailable", async () => {
+  it("falls back to the CPU renderer in auto mode when WebGPU is unavailable", async () => {
     mockedDetectWebGpuAvailability.mockResolvedValue({
       isAvailable: false,
       reason: "No compatible WebGPU adapter was found.",
@@ -83,7 +87,7 @@ describe("renderMandelbrotWithStrategy", () => {
     expect(request.onChunk).toHaveBeenCalled();
   });
 
-  it("falls back to the CPU renderer when WebGPU setup fails mid-render", async () => {
+  it("falls back to the CPU renderer when auto mode hits a WebGPU failure mid-render", async () => {
     mockedDetectWebGpuAvailability.mockResolvedValue({
       isAvailable: true,
     });
@@ -127,6 +131,23 @@ describe("renderMandelbrotWithStrategy", () => {
     expect(request.onChunk).not.toHaveBeenCalled();
   });
 
+  it("uses the CPU renderer directly in auto mode once the float32 cutoff is exceeded", async () => {
+    const request = createRenderRequest();
+
+    request.viewport.width = new Decimal("1e-7");
+    request.viewport.height = new Decimal("6.666666666666667e-8");
+
+    expect(shouldAttemptWebGpu(request, "auto")).toBe(false);
+
+    const result = await renderMandelbrotWithStrategy(request, "auto");
+
+    expect(result.backend).toBe("cpu");
+    expect(result.completed).toBe(true);
+    expect(mockedDetectWebGpuAvailability).not.toHaveBeenCalled();
+    expect(mockedRenderMandelbrotWithWebGpu).not.toHaveBeenCalled();
+    expect(request.onChunk).toHaveBeenCalled();
+  });
+
   it("uses the CPU renderer directly when CPU is explicitly selected", async () => {
     const request = createRenderRequest();
     request.settings.renderBackendPreference = "cpu";
@@ -137,5 +158,30 @@ describe("renderMandelbrotWithStrategy", () => {
     expect(result.completed).toBe(true);
     expect(mockedDetectWebGpuAvailability).not.toHaveBeenCalled();
     expect(mockedRenderMandelbrotWithWebGpu).not.toHaveBeenCalled();
+  });
+
+  it("still attempts WebGPU when WebGPU is explicitly selected beyond the auto cutoff", async () => {
+    mockedDetectWebGpuAvailability.mockResolvedValue({
+      isAvailable: true,
+    });
+    mockedRenderMandelbrotWithWebGpu.mockResolvedValue({
+      completed: true,
+      rendered: true,
+    });
+
+    const request = createRenderRequest();
+
+    request.viewport.width = new Decimal("1e-7");
+    request.viewport.height = new Decimal("6.666666666666667e-8");
+    request.settings.renderBackendPreference = "webgpu";
+
+    expect(shouldAttemptWebGpu(request, "webgpu")).toBe(true);
+
+    const result = await renderMandelbrotWithStrategy(request, "webgpu");
+
+    expect(result.backend).toBe("webgpu");
+    expect(result.completed).toBe(true);
+    expect(mockedDetectWebGpuAvailability).toHaveBeenCalled();
+    expect(mockedRenderMandelbrotWithWebGpu).toHaveBeenCalledWith(request);
   });
 });

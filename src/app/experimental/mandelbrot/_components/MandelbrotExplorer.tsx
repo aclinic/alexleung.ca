@@ -10,6 +10,7 @@ import {
   formatMagnification,
   formatPreciseDecimal,
 } from "@/features/mandelbrot/format";
+import { detectWebGpuAvailability } from "@/features/mandelbrot/gpu";
 import {
   createViewportHistory,
   pushViewport,
@@ -47,12 +48,20 @@ const DEFAULT_CANVAS_SIZE: PixelSize = {
   height: 600,
 };
 
-const DEFAULT_SETTINGS: MandelbrotSettings = {
+const DEFAULT_GPU_SETTINGS: MandelbrotSettings = {
   maxIterations: 2000,
   paletteId: "oceanic",
   coloringMode: "smooth",
   resolutionScale: 1,
-  renderBackendPreference: "webgpu",
+  renderBackendPreference: "auto",
+};
+
+const DEFAULT_CPU_SETTINGS: MandelbrotSettings = {
+  maxIterations: 180,
+  paletteId: "oceanic",
+  coloringMode: "smooth",
+  resolutionScale: 0.5,
+  renderBackendPreference: "auto",
 };
 
 const QUALITY_OPTIONS = [
@@ -65,6 +74,7 @@ const BACKEND_OPTIONS: ReadonlyArray<{
   value: RenderBackendPreference;
   label: string;
 }> = [
+  { value: "auto", label: "Auto" },
   { value: "webgpu", label: "WebGPU" },
   { value: "cpu", label: "CPU" },
 ];
@@ -84,27 +94,54 @@ export function MandelbrotExplorer() {
   const [canvasSize, setCanvasSize] = useState(DEFAULT_CANVAS_SIZE);
   const [dragMode, setDragMode] = useState<DragMode>("pan");
   const [hoverPoint, setHoverPoint] = useState<ComplexPoint | null>(null);
-  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
+  const [settings, setSettings] = useState(DEFAULT_CPU_SETTINGS);
+  const [hasInitializedSettings, setHasInitializedSettings] = useState(false);
 
   const activeViewport = previewViewport ?? history.present;
   const defaultViewport = createDefaultViewport(canvasSize);
   const magnification = magnificationFromViewport(activeViewport);
 
   useEffect(() => {
-    const currentSearchParams = Object.fromEntries(
-      new URLSearchParams(window.location.search).entries()
-    );
-    const parsedViewport = parseViewportFromQuery(
-      currentSearchParams,
-      DEFAULT_CANVAS_SIZE
-    );
+    let isMounted = true;
 
-    setSettings(parseSettingsFromQuery(currentSearchParams, DEFAULT_SETTINGS));
+    async function initializeExplorerState() {
+      const currentSearchParams = Object.fromEntries(
+        new URLSearchParams(window.location.search).entries()
+      );
+      const parsedViewport = parseViewportFromQuery(
+        currentSearchParams,
+        DEFAULT_CANVAS_SIZE
+      );
+      let defaultSettings = DEFAULT_CPU_SETTINGS;
 
-    if (parsedViewport) {
-      setHistory(createViewportHistory(parsedViewport));
-      setPreviewViewport(null);
+      try {
+        const gpuAvailability = await detectWebGpuAvailability();
+
+        defaultSettings = gpuAvailability.isAvailable
+          ? DEFAULT_GPU_SETTINGS
+          : DEFAULT_CPU_SETTINGS;
+      } catch {
+        defaultSettings = DEFAULT_CPU_SETTINGS;
+      }
+
+      if (!isMounted) {
+        return;
+      }
+
+      setSettings(parseSettingsFromQuery(currentSearchParams, defaultSettings));
+      setHasInitializedSettings(true);
+
+      if (parsedViewport) {
+        setHistory(createViewportHistory(parsedViewport));
+        setPreviewViewport(null);
+      }
     }
+
+    void initializeExplorerState();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -126,11 +163,15 @@ export function MandelbrotExplorer() {
   }, [canvasSize.height, canvasSize.width]);
 
   useEffect(() => {
+    if (!hasInitializedSettings) {
+      return;
+    }
+
     const nextQuery = serializeExplorerState(activeViewport, settings);
     const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
 
     window.history.replaceState(null, "", nextUrl);
-  }, [activeViewport, pathname, settings]);
+  }, [activeViewport, hasInitializedSettings, pathname, settings]);
 
   function commitViewport(nextViewport: PreciseViewport) {
     setPreviewViewport(null);

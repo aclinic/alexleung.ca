@@ -35,7 +35,7 @@ export type PaletteId = "oceanic" | "ember" | "glacier";
 export type ColoringMode = "smooth" | "bands";
 export type DragMode = "pan" | "box-zoom";
 export type RenderBackend = "cpu" | "webgpu";
-export type RenderBackendPreference = "cpu" | "webgpu";
+export type RenderBackendPreference = "auto" | "cpu" | "webgpu";
 
 export type MandelbrotSettings = {
   maxIterations: number;
