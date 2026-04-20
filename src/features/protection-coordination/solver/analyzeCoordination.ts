@@ -86,66 +86,68 @@ function buildPlotSeries(
   );
   const inverseEndCurrentAmps = Math.min(
     chartDomain.currentMaxAmps,
-    device.pickupCurrentAmps * family.recommendedCurrentMultiplierRange.max,
-    device.instantaneousPickupAmps ?? chartDomain.currentMaxAmps
+    device.pickupCurrentAmps * family.recommendedCurrentMultiplierRange.max
   );
-  const inversePoints =
+  const plotAssumptions = {
+    minimumCoordinationMarginSeconds: 0.3,
+    instantaneousTripTimeSeconds,
+    currentMultiplierDomainMin: family.recommendedCurrentMultiplierRange.min,
+    currentMultiplierDomainMax: family.recommendedCurrentMultiplierRange.max,
+  };
+  const sampleCurrents =
     inverseStartCurrentAmps < inverseEndCurrentAmps
       ? createLogSpace(inverseStartCurrentAmps, inverseEndCurrentAmps, 72)
-          .map((currentAmps) =>
-            evaluateDeviceTimePoint(device, currentAmps, {
-              minimumCoordinationMarginSeconds: 0.3,
-              instantaneousTripTimeSeconds,
-              currentMultiplierDomainMin:
-                family.recommendedCurrentMultiplierRange.min,
-              currentMultiplierDomainMax:
-                family.recommendedCurrentMultiplierRange.max,
-            })
-          )
+      : [];
+  const instantaneousPickupAmps = device.instantaneousPickupAmps;
+  const shouldInsertThreshold =
+    instantaneousPickupAmps !== null &&
+    instantaneousPickupAmps >= inverseStartCurrentAmps &&
+    instantaneousPickupAmps <= inverseEndCurrentAmps;
+  const sampledPoints = sampleCurrents
+    .filter(
+      (currentAmps) =>
+        !shouldInsertThreshold || currentAmps !== instantaneousPickupAmps
+    )
+    .map((currentAmps) =>
+      evaluateDeviceTimePoint(device, currentAmps, plotAssumptions)
+    )
+    .filter((point): point is NonNullable<typeof point> => point !== null)
+    .map((point) => ({
+      currentAmps: point.currentAmps,
+      timeSeconds: point.timeSeconds,
+    }));
+
+  const points = shouldInsertThreshold
+    ? [
+        ...sampledPoints.filter(
+          (point) => point.currentAmps < instantaneousPickupAmps
+        ),
+        ...[
+          evaluateDeviceTimePoint(device, instantaneousPickupAmps, {
+            ...plotAssumptions,
+            instantaneousTripTimeSeconds: Number.POSITIVE_INFINITY,
+          }),
+          evaluateDeviceTimePoint(
+            device,
+            instantaneousPickupAmps,
+            plotAssumptions
+          ),
+        ]
           .filter((point): point is NonNullable<typeof point> => point !== null)
+          .filter(
+            (point, index, thresholdPoints) =>
+              index === 0 ||
+              point.timeSeconds !== thresholdPoints[index - 1].timeSeconds
+          )
           .map((point) => ({
             currentAmps: point.currentAmps,
             timeSeconds: point.timeSeconds,
-          }))
-      : [];
-
-  if (
-    device.instantaneousPickupAmps === null ||
-    device.instantaneousPickupAmps > chartDomain.currentMaxAmps
-  ) {
-    return {
-      deviceId: device.id,
-      label: device.label,
-      color: device.color,
-      familyLabel: family.shortLabel,
-      points: inversePoints,
-    };
-  }
-
-  const instantaneousPickupAmps = device.instantaneousPickupAmps;
-  const inverseAtThreshold =
-    evaluateDeviceTimePoint(device, instantaneousPickupAmps, {
-      minimumCoordinationMarginSeconds: 0.3,
-      instantaneousTripTimeSeconds: Number.POSITIVE_INFINITY,
-      currentMultiplierDomainMin: family.recommendedCurrentMultiplierRange.min,
-      currentMultiplierDomainMax: family.recommendedCurrentMultiplierRange.max,
-    })?.timeSeconds ?? instantaneousTripTimeSeconds;
-  const points = [...inversePoints];
-
-  if (inverseAtThreshold > instantaneousTripTimeSeconds) {
-    points.push({
-      currentAmps: instantaneousPickupAmps,
-      timeSeconds: inverseAtThreshold,
-    });
-    points.push({
-      currentAmps: instantaneousPickupAmps,
-      timeSeconds: instantaneousTripTimeSeconds,
-    });
-    points.push({
-      currentAmps: chartDomain.currentMaxAmps,
-      timeSeconds: instantaneousTripTimeSeconds,
-    });
-  }
+          })),
+        ...sampledPoints.filter(
+          (point) => point.currentAmps > instantaneousPickupAmps
+        ),
+      ]
+    : sampledPoints;
 
   return {
     deviceId: device.id,
