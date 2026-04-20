@@ -7,6 +7,7 @@ import { WebPage } from "schema-dts";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { buildExperimentBreadcrumbItems } from "@/constants/experiments";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 import { LoadFlowWorkspace } from "./_components/LoadFlowWorkspace";
@@ -26,10 +27,7 @@ export default function LoadFlowPage() {
   return (
     <>
       <JsonLdBreadcrumbs
-        items={[
-          { name: "Home", item: "/" },
-          { name: "Load Flow", item: "/experimental/load-flow/" },
-        ]}
+        items={buildExperimentBreadcrumbItems("Load Flow", path)}
       />
       <JsonLd<WebPage>
         item={buildWebPageSchema({

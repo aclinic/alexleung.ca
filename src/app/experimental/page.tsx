@@ -3,14 +3,14 @@ import { JsonLd } from "react-schemaorg";
 import { Metadata } from "next";
 import Link from "next/link";
 
-import { WebPage } from "schema-dts";
+import { CollectionPage } from "schema-dts";
 
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Surface } from "@/components/Surface";
 import { EXPERIMENTS, EXPERIMENTS_HUB } from "@/constants/experiments";
-import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
+import { buildCollectionPageSchema, buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
   title: EXPERIMENTS_HUB.title,
@@ -27,8 +27,8 @@ export default function ExperimentsPage() {
           { name: EXPERIMENTS_HUB.pageTitle, item: EXPERIMENTS_HUB.path },
         ]}
       />
-      <JsonLd<WebPage>
-        item={buildWebPageSchema({
+      <JsonLd<CollectionPage>
+        item={buildCollectionPageSchema({
           path: EXPERIMENTS_HUB.path,
           title: EXPERIMENTS_HUB.title,
           description: EXPERIMENTS_HUB.description,

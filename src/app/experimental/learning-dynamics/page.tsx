@@ -8,6 +8,7 @@ import { LearningDynamicsLab } from "@/app/experimental/learning-dynamics/_compo
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { buildExperimentBreadcrumbItems } from "@/constants/experiments";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 const title = "Learning Dynamics Lab | Alex Leung";
@@ -25,10 +26,7 @@ export default function LearningDynamicsPage() {
   return (
     <>
       <JsonLdBreadcrumbs
-        items={[
-          { name: "Home", item: "/" },
-          { name: "Learning Dynamics Lab", item: path },
-        ]}
+        items={buildExperimentBreadcrumbItems("Learning Dynamics Lab", path)}
       />
       <JsonLd<WebPage>
         item={buildWebPageSchema({

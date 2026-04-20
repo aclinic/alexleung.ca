@@ -49,6 +49,12 @@ jest.mock("@/lib/blogApi", () => ({
   }),
 }));
 
+function getJsonLdEntries(container: HTMLElement) {
+  return [
+    ...container.querySelectorAll('script[type="application/ld+json"]'),
+  ].map((script) => JSON.parse(script.textContent || "{}"));
+}
+
 describe("TagArchivePage", () => {
   it("renders only posts for the requested tag", async () => {
     const view = await TagArchivePage({
@@ -73,5 +79,21 @@ describe("TagArchivePage", () => {
       { tag: "developer-workflow" },
       { tag: "deep-learning" },
     ]);
+  });
+
+  it("emits a tag-specific item list identifier", async () => {
+    const view = await TagArchivePage({
+      params: Promise.resolve({ tag: "ai" }),
+    });
+
+    const { container } = render(view);
+    const schemas = getJsonLdEntries(container);
+    const itemListSchema = schemas.find(
+      (schema) => schema["@type"] === "ItemList"
+    );
+
+    expect(itemListSchema["@id"]).toBe(
+      "https://alexleung.ca/blog/tags/ai/#itemlist"
+    );
   });
 });

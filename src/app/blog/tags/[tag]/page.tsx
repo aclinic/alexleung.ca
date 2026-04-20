@@ -99,7 +99,8 @@ export default async function TagArchivePage({ params }: Props) {
       />
       <JsonLd<ItemList>
         item={buildBlogItemListSchema(
-          posts.map((post) => ({ slug: post.slug, title: post.title }))
+          posts.map((post) => ({ slug: post.slug, title: post.title })),
+          path
         )}
       />
 

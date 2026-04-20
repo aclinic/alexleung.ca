@@ -6,6 +6,7 @@ import { WebPage } from "schema-dts";
 
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
+import { buildExperimentBreadcrumbItems } from "@/constants/experiments";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 import { MandelbrotExplorer } from "./_components/MandelbrotExplorer";
@@ -25,10 +26,7 @@ export default function MandelbrotPage() {
   return (
     <>
       <JsonLdBreadcrumbs
-        items={[
-          { name: "Home", item: "/" },
-          { name: "Mandelbrot Explorer", item: path },
-        ]}
+        items={buildExperimentBreadcrumbItems("Mandelbrot Explorer", path)}
       />
       <JsonLd<WebPage>
         item={buildWebPageSchema({

@@ -3,6 +3,7 @@ import {
   buildBlogCollectionPageSchema,
   buildBlogItemListSchema,
   buildBlogPostingSchema,
+  buildCollectionPageSchema,
   buildContactPageSchema,
   buildHomePageSchema,
   buildPersonSchema,
@@ -53,6 +54,11 @@ describe("seo jsonld builders", () => {
   });
 
   it("builds blog collection and item list schemas", () => {
+    const experiments = buildCollectionPageSchema({
+      path: "/experimental",
+      title: "Experiments | Alex Leung",
+      description: "Experiments index description",
+    });
     const collection = buildBlogCollectionPageSchema({
       path: "/blog",
       title: "Blog | Alex Leung",
@@ -62,8 +68,18 @@ describe("seo jsonld builders", () => {
       { slug: "post-1", title: "Post 1" },
       { slug: "post-2", title: "Post 2" },
     ]);
+    const tagItemList = buildBlogItemListSchema(
+      [{ slug: "post-1", title: "Post 1" }],
+      "/blog/tags/ai/"
+    );
 
+    expect(experiments["@type"]).toBe("CollectionPage");
+    expect(experiments["@id"]).toBe("https://alexleung.ca/experimental/");
     expect(collection.mainEntity).toBeDefined();
+    expect(itemList["@id"]).toBe("https://alexleung.ca/blog/#itemlist");
+    expect(tagItemList["@id"]).toBe(
+      "https://alexleung.ca/blog/tags/ai/#itemlist"
+    );
 
     const itemListElement = expectSchemaArray<{
       name?: string;

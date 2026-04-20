@@ -149,6 +149,24 @@ describe("Header", () => {
       expect(homeLinks[0]).not.toHaveAttribute("aria-current");
       expect(homeLinks[1]).not.toHaveAttribute("aria-current");
     });
+
+    it("should keep section navigation active on experiment child routes", () => {
+      (usePathname as jest.Mock).mockReturnValue("/experimental/mandelbrot/");
+      render(<Header />);
+
+      const experimentsLink = screen.getByText("Experiments");
+      expect(experimentsLink).toHaveClass("nav-link--active");
+      expect(experimentsLink).toHaveAttribute("aria-current", "page");
+    });
+
+    it("should keep blog navigation active on tag archive routes", () => {
+      (usePathname as jest.Mock).mockReturnValue("/blog/tags/ai/");
+      render(<Header />);
+
+      const blogLink = screen.getByText("Blog");
+      expect(blogLink).toHaveClass("nav-link--active");
+      expect(blogLink).toHaveAttribute("aria-current", "page");
+    });
   });
 
   describe("Accessibility", () => {

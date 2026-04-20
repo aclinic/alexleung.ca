@@ -7,6 +7,7 @@ import { WebPage } from "schema-dts";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { buildExperimentBreadcrumbItems } from "@/constants/experiments";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 import { PidSimulatorWorkspace } from "./_components/PidSimulatorWorkspace";
@@ -26,10 +27,7 @@ export default function PidControllerPage() {
   return (
     <>
       <JsonLdBreadcrumbs
-        items={[
-          { name: "Home", item: "/" },
-          { name: "PID Controller", item: "/experimental/pid-controller/" },
-        ]}
+        items={buildExperimentBreadcrumbItems("PID Controller", path)}
       />
       <JsonLd<WebPage>
         item={buildWebPageSchema({

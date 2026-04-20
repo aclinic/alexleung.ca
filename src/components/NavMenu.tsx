@@ -37,7 +37,7 @@ function NavItem({
 }
 
 type DesktopNavProps = {
-  isActive: (href: string) => boolean;
+  isActive: (canonicalPath: string) => boolean;
 };
 
 export function DesktopNav({ isActive }: DesktopNavProps) {
@@ -45,7 +45,7 @@ export function DesktopNav({ isActive }: DesktopNavProps) {
     <ul className="hidden gap-8 md:flex">
       {NAV_LINKS.map((link) => (
         <li key={link.href}>
-          <NavItem {...link} active={isActive(link.href)} />
+          <NavItem {...link} active={isActive(link.canonicalPath)} />
         </li>
       ))}
     </ul>
@@ -54,7 +54,7 @@ export function DesktopNav({ isActive }: DesktopNavProps) {
 
 type MobileNavDrawerProps = {
   isOpen: boolean;
-  isActive: (href: string) => boolean;
+  isActive: (canonicalPath: string) => boolean;
   onClose: () => void;
 };
 
@@ -99,7 +99,7 @@ export function MobileNavDrawer({
             >
               <NavItem
                 {...link}
-                active={isActive(link.href)}
+                active={isActive(link.canonicalPath)}
                 mobile
                 onClick={onClose}
                 tabIndex={isOpen ? 0 : -1}

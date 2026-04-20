@@ -18,6 +18,17 @@ export const EXPERIMENTS_HUB = {
   lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
 } as const;
 
+export function buildExperimentBreadcrumbItems(
+  pageTitle: string,
+  path: string
+) {
+  return [
+    { name: "Home", item: "/" },
+    { name: EXPERIMENTS_HUB.pageTitle, item: EXPERIMENTS_HUB.path },
+    { name: pageTitle, item: path },
+  ];
+}
+
 export const EXPERIMENTS: readonly ExperimentEntry[] = [
   {
     id: "event-loop",
