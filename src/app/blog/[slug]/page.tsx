@@ -28,6 +28,7 @@ import {
   buildPageMetadata,
   toCanonical,
 } from "@/lib/seo";
+import { getTagPath } from "@/lib/tags";
 
 export const dynamicParams = false;
 
@@ -179,7 +180,9 @@ export default async function Post({ params }: Props) {
               <section aria-label="Post tags" className="mt-8 pt-2">
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <Tag key={`${post.slug}-${tag}`}>{tag}</Tag>
+                    <Tag key={`${post.slug}-${tag}`} href={getTagPath(tag)}>
+                      {tag}
+                    </Tag>
                   ))}
                 </div>
               </section>

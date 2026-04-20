@@ -7,6 +7,7 @@ import { WebPage } from "schema-dts";
 import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 import { PageShell } from "@/components/PageShell";
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
+import { buildExperimentBreadcrumbItems } from "@/constants/experiments";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 import { EventLoopVisualizer } from "./_components/EventLoopVisualizer";
@@ -26,10 +27,7 @@ export default function EventLoopPage() {
   return (
     <>
       <JsonLdBreadcrumbs
-        items={[
-          { name: "Home", item: "/" },
-          { name: "Event Loop Visualizer", item: path },
-        ]}
+        items={buildExperimentBreadcrumbItems("Event Loop Visualizer", path)}
       />
       <JsonLd<WebPage>
         item={buildWebPageSchema({

@@ -72,14 +72,18 @@ export default function Header() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
+  const normalizedPathname =
+    pathname === "/" ? "/" : pathname.replace(/\/$/, "");
 
-  const isActive = (href: string) => {
-    // Exact match for home page
-    if (href === "/") return pathname === "/";
-    // Hash links are active when on home page
-    if (href.startsWith("/#")) return pathname === "/";
-    // For other pages, check exact match (with or without trailing slash)
-    return pathname === href || pathname === href.replace(/\/$/, "");
+  const isActive = (canonicalPath: string) => {
+    if (canonicalPath === "/") {
+      return normalizedPathname === "/";
+    }
+
+    return (
+      normalizedPathname === canonicalPath ||
+      normalizedPathname.startsWith(`${canonicalPath}/`)
+    );
   };
 
   return (

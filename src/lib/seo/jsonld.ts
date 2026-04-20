@@ -179,6 +179,16 @@ export function buildWebPageSchema(input: {
   };
 }
 
+export function buildCollectionPageSchema(input: {
+  description: string;
+  path: string;
+  title: string;
+}): WithContext<CollectionPage> {
+  return {
+    ...buildBasePageSchema({ ...input, pageType: "CollectionPage" }),
+  };
+}
+
 export function buildHomePageSchema(input: {
   description: string;
   path: string;
@@ -207,7 +217,7 @@ export function buildBlogCollectionPageSchema(input: {
   title: string;
 }): WithContext<CollectionPage> {
   return {
-    ...buildBasePageSchema({ ...input, pageType: "CollectionPage" }),
+    ...buildCollectionPageSchema(input),
     mainEntity: {
       "@type": "Blog",
       "@id": toAbsoluteUrl("/blog/#blog"),
@@ -221,12 +231,13 @@ export function buildBlogCollectionPageSchema(input: {
 }
 
 export function buildBlogItemListSchema(
-  posts: Array<{ slug: string; title: string }>
+  posts: Array<{ slug: string; title: string }>,
+  path = "/blog"
 ): WithContext<ItemList> {
   return {
     "@context": "https://schema.org" as const,
     "@type": "ItemList",
-    "@id": toAbsoluteUrl("/blog/#itemlist"),
+    "@id": `${toCanonical(path)}#itemlist`,
     itemListElement: posts.map((post, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -448,6 +459,10 @@ export function buildWebsiteSchema(input: {
       {
         "@type": "ContactPage",
         "@id": toCanonical("/contact"),
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": toCanonical("/experimental"),
       },
       {
         "@type": "WebPage",

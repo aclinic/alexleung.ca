@@ -24,6 +24,7 @@ describe("Header", () => {
     expect(screen.getAllByText("Home")).toHaveLength(1);
     expect(screen.getAllByText("About")).toHaveLength(1);
     expect(screen.getAllByText("Now")).toHaveLength(1);
+    expect(screen.getAllByText("Experiments")).toHaveLength(1);
     expect(screen.getAllByText("Contact")).toHaveLength(1);
   });
 
@@ -147,6 +148,24 @@ describe("Header", () => {
       const homeLinks = screen.getAllByText("Home");
       expect(homeLinks[0]).not.toHaveAttribute("aria-current");
       expect(homeLinks[1]).not.toHaveAttribute("aria-current");
+    });
+
+    it("should keep section navigation active on experiment child routes", () => {
+      (usePathname as jest.Mock).mockReturnValue("/experimental/mandelbrot/");
+      render(<Header />);
+
+      const experimentsLink = screen.getByText("Experiments");
+      expect(experimentsLink).toHaveClass("nav-link--active");
+      expect(experimentsLink).toHaveAttribute("aria-current", "page");
+    });
+
+    it("should keep blog navigation active on tag archive routes", () => {
+      (usePathname as jest.Mock).mockReturnValue("/blog/tags/ai/");
+      render(<Header />);
+
+      const blogLink = screen.getByText("Blog");
+      expect(blogLink).toHaveClass("nav-link--active");
+      expect(blogLink).toHaveAttribute("aria-current", "page");
     });
   });
 
