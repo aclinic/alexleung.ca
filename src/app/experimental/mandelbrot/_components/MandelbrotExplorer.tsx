@@ -167,11 +167,16 @@ export function MandelbrotExplorer() {
       return;
     }
 
-    const nextQuery = serializeExplorerState(activeViewport, settings);
+    const nextQuery = serializeExplorerState(history.present, settings);
     const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+
+    if (currentUrl === nextUrl) {
+      return;
+    }
 
     window.history.replaceState(null, "", nextUrl);
-  }, [activeViewport, hasInitializedSettings, pathname, settings]);
+  }, [hasInitializedSettings, history.present, pathname, settings]);
 
   function commitViewport(nextViewport: PreciseViewport) {
     setPreviewViewport(null);

@@ -137,6 +137,41 @@ describe("MandelbrotExplorer", () => {
     replaceStateSpy.mockRestore();
   });
 
+  it("does not mirror preview wheel state to the URL before the commit lands", async () => {
+    jest.useFakeTimers();
+
+    const replaceStateSpy = jest.spyOn(window.history, "replaceState");
+
+    render(<MandelbrotExplorer />);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Render backend/i)).toHaveValue("auto");
+    });
+    await waitFor(() => {
+      expect(window.location.search).toContain("backend=auto");
+    });
+
+    replaceStateSpy.mockClear();
+
+    fireEvent.wheel(screen.getByLabelText("Mandelbrot set rendering canvas"), {
+      deltaY: -120,
+      clientX: 24,
+      clientY: 24,
+    });
+
+    expect(replaceStateSpy).not.toHaveBeenCalled();
+
+    act(() => {
+      jest.advanceTimersByTime(200);
+    });
+
+    await waitFor(() => {
+      expect(replaceStateSpy).toHaveBeenCalledTimes(1);
+    });
+
+    replaceStateSpy.mockRestore();
+  });
+
   it("cancels a pending wheel commit before reset commits a new viewport", async () => {
     jest.useFakeTimers();
 
