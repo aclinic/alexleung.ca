@@ -100,10 +100,14 @@ describe("seo jsonld builders", () => {
       "@id"?: string;
     }>(website.hasPart);
 
-    expect(hasPart).toHaveLength(4);
+    expect(hasPart).toHaveLength(5);
     expect(hasPart[0]).toEqual({
       "@type": "WebPage",
       "@id": "https://alexleung.ca/about/",
+    });
+    expect(hasPart[3]).toEqual({
+      "@type": "CollectionPage",
+      "@id": "https://alexleung.ca/experimental/",
     });
   });
 
@@ -145,6 +149,12 @@ describe("seo jsonld builders", () => {
         "@id": "https://alexleung.ca/#site-navigation-blog",
         name: "Blog",
         url: "https://alexleung.ca/blog/",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://alexleung.ca/#site-navigation-experiments",
+        name: "Experiments",
+        url: "https://alexleung.ca/experimental/",
       },
       {
         "@type": "SiteNavigationElement",

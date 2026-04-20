@@ -24,6 +24,7 @@ describe("Header", () => {
     expect(screen.getAllByText("Home")).toHaveLength(1);
     expect(screen.getAllByText("About")).toHaveLength(1);
     expect(screen.getAllByText("Now")).toHaveLength(1);
+    expect(screen.getAllByText("Experiments")).toHaveLength(1);
     expect(screen.getAllByText("Contact")).toHaveLength(1);
   });
 

@@ -4,6 +4,12 @@ export const NAV_LINKS = [
   { id: "now", href: "/now/", canonicalPath: "/now", label: "Now" },
   { id: "blog", href: "/blog/", canonicalPath: "/blog", label: "Blog" },
   {
+    id: "experiments",
+    href: "/experimental/",
+    canonicalPath: "/experimental",
+    label: "Experiments",
+  },
+  {
     id: "contact",
     href: "/contact/",
     canonicalPath: "/contact",

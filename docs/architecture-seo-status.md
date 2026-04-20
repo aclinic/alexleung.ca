@@ -9,6 +9,7 @@ The site is in a healthy state for a static, content-first portfolio:
 - Next.js static export architecture is stable and well-suited to GitHub Pages.
 - Markdown rendering and front matter validation enforce stronger content safety and consistency.
 - SEO fundamentals (canonical handling, metadata helpers, JSON-LD, sitemap, robots) are implemented.
+- Discoverability now extends beyond the core pages through experimental hub routing and crawlable tag archives.
 - Remaining work is primarily editorial operations and internal-link quality.
 
 ## Architecture Status
@@ -43,6 +44,8 @@ The site is in a healthy state for a static, content-first portfolio:
 - Route-level metadata generation.
 - Structured data coverage for person/site/pages/blog surfaces.
 - `sitemap` and `robots` routes for crawler discoverability.
+- Crawlable `/experimental/` hub plus sitemap coverage for experimental tools.
+- Crawlable blog tag archives, with tag links that now contribute to internal linking.
 
 ### Next Opportunities
 
@@ -52,6 +55,8 @@ The site is in a healthy state for a static, content-first portfolio:
    - Add contextual links between semantically related posts/pages.
 3. **Lightweight SEO operations**
    - Periodically review indexing, CTR/impression trends, and broken links.
+4. **Page-specific social preview images**
+   - Create dedicated OG/Twitter images for experimental pages and other high-value landing pages that still fall back to text-only share cards.
 
 ## Maintenance Rules
 

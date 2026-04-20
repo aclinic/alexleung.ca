@@ -450,6 +450,10 @@ export function buildWebsiteSchema(input: {
         "@id": toCanonical("/contact"),
       },
       {
+        "@type": "CollectionPage",
+        "@id": toCanonical("/experimental"),
+      },
+      {
         "@type": "WebPage",
         "@id": toCanonical("/now"),
       },

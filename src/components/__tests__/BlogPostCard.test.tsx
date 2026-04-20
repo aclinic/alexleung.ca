@@ -37,7 +37,10 @@ describe("BlogPostCard", () => {
     );
     expect(screen.getByText("A short summary")).toBeInTheDocument();
     expect(screen.getByText("January 1, 2026")).toBeInTheDocument();
-    expect(screen.getByText("ai")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "ai" })).toHaveAttribute(
+      "href",
+      "/blog/tags/ai/"
+    );
   });
 
   it("formats inline code spans in excerpt text", () => {
