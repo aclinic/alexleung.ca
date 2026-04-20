@@ -135,6 +135,12 @@ yarn deploy           # Build and deploy to GitHub Pages
 - If GitHub access is unavailable in the current environment, report the limitation clearly and stop instead of guessing about PR feedback state.
 - Do not assume local git history or commit messages include complete reviewer feedback.
 
+### PR Creation Defaults (Agent Guidance)
+
+- When creating a pull request, default to a regular ready-for-review PR rather than a draft PR unless the user explicitly asks for draft status or the work is intentionally incomplete/blocking on follow-up.
+- Do not add PR labels/tags by default. If a tool or workflow offers labels such as `codex`, leave them off unless the user explicitly requests specific labels or the repository requires them.
+- For any request path that creates commits or pull requests (including the yeet skill), keep wording tool-agnostic: do not mention Codex or any other AI agent/model by name.
+
 ### Windows / WSL Worktrees (Agent Guidance)
 
 - If a WSL worktree was created by Windows git, the worktree `.git` file may point at a Windows-style `//wsl.localhost/...` gitdir that WSL git cannot resolve automatically.
@@ -173,5 +179,4 @@ yarn deploy           # Build and deploy to GitHub Pages
 
 ### Planning and Skill Authoring Guardrails (Agent Guidance)
 
-- For any request path that creates commits or pull requests (including the yeet skill), keep wording tool-agnostic: do not mention Codex or any other AI agent/model by name.
 - For planning or implementation documents, provide estimates as scope/effort (for example S/M/L or low/medium/high complexity) instead of timeline-based durations or dates.
