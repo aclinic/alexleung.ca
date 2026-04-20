@@ -170,3 +170,8 @@ yarn deploy           # Build and deploy to GitHub Pages
 - Before changing labels or short copy in response to a brief user instruction like `do it`, state the chosen interpretation in a short update before editing if there were multiple plausible options in the immediately preceding discussion.
 - Do not add emphasis styling such as bold inline links unless the existing page already uses that pattern or the user asked for stronger emphasis.
 - Treat `meta keywords` as low-value by default. Only add them if the repo has a concrete downstream use for them.
+
+### Planning and Skill Authoring Guardrails (Agent Guidance)
+
+- For any request path that creates commits or pull requests (including the yeet skill), keep wording tool-agnostic: do not mention Codex or any other AI agent/model by name.
+- For planning or implementation documents, provide estimates as scope/effort (for example S/M/L or low/medium/high complexity) instead of timeline-based durations or dates.
