@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { usePathname } from "next/navigation";
-
 import { ResponsiveContainer } from "@/components/ResponsiveContainer";
 import { Surface } from "@/components/Surface";
 import {
@@ -32,7 +30,6 @@ import {
 import {
   parseSettingsFromQuery,
   parseViewportFromQuery,
-  serializeExplorerState,
 } from "@/features/mandelbrot/urlState";
 import {
   createDefaultViewport,
@@ -85,7 +82,6 @@ const toolbarButtonClass =
   "rounded-md border border-white/15 px-3 py-2 text-sm text-white transition hover:border-cyan-300 hover:text-cyan-100 disabled:cursor-not-allowed disabled:opacity-40";
 
 export function MandelbrotExplorer() {
-  const pathname = usePathname();
   const [history, setHistory] = useState<ViewportHistory>(() =>
     createViewportHistory(createDefaultViewport(DEFAULT_CANVAS_SIZE))
   );
@@ -95,7 +91,6 @@ export function MandelbrotExplorer() {
   const [dragMode, setDragMode] = useState<DragMode>("pan");
   const [hoverPoint, setHoverPoint] = useState<ComplexPoint | null>(null);
   const [settings, setSettings] = useState(DEFAULT_CPU_SETTINGS);
-  const [hasInitializedSettings, setHasInitializedSettings] = useState(false);
 
   const activeViewport = previewViewport ?? history.present;
   const defaultViewport = createDefaultViewport(canvasSize);
@@ -129,7 +124,6 @@ export function MandelbrotExplorer() {
       }
 
       setSettings(parseSettingsFromQuery(currentSearchParams, defaultSettings));
-      setHasInitializedSettings(true);
 
       if (parsedViewport) {
         setHistory(createViewportHistory(parsedViewport));
@@ -161,17 +155,6 @@ export function MandelbrotExplorer() {
       currentPreview ? resizeViewport(currentPreview, canvasSize) : null
     );
   }, [canvasSize.height, canvasSize.width]);
-
-  useEffect(() => {
-    if (!hasInitializedSettings) {
-      return;
-    }
-
-    const nextQuery = serializeExplorerState(activeViewport, settings);
-    const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
-
-    window.history.replaceState(null, "", nextUrl);
-  }, [activeViewport, hasInitializedSettings, pathname, settings]);
 
   function commitViewport(nextViewport: PreciseViewport) {
     setPreviewViewport(null);

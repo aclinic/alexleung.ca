@@ -102,9 +102,7 @@ describe("MandelbrotExplorer", () => {
     });
   });
 
-  it("updates render settings controls and mirrors state to the URL", async () => {
-    const replaceStateSpy = jest.spyOn(window.history, "replaceState");
-
+  it("updates render settings controls without mutating the URL", async () => {
     render(<MandelbrotExplorer />);
 
     await waitFor(() => {
@@ -124,17 +122,7 @@ describe("MandelbrotExplorer", () => {
     expect(screen.getByLabelText(/Max iterations/i)).toHaveValue(320);
     expect(screen.getByLabelText(/Render backend/i)).toHaveValue("cpu");
     expect(screen.getByLabelText(/Render quality/i)).toHaveValue("1");
-
-    await waitFor(() => {
-      expect(replaceStateSpy.mock.calls.at(-1)?.[2]?.toString()).toContain(
-        "iter=320"
-      );
-    });
-    expect(replaceStateSpy.mock.calls.at(-1)?.[2]?.toString()).toContain(
-      "backend=cpu"
-    );
-
-    replaceStateSpy.mockRestore();
+    expect(window.location.search).toBe("");
   });
 
   it("cancels a pending wheel commit before reset commits a new viewport", async () => {
