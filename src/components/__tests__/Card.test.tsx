@@ -13,7 +13,8 @@ describe("Card", () => {
   it("should merge custom className with base styles", () => {
     const { container } = render(<Card className="custom-class">Content</Card>);
 
-    const card = container.firstChild as HTMLElement;
+    const card = container.firstElementChild;
+    expect(card).not.toBeNull();
     expect(card).toHaveClass("p-6", "custom-class");
   });
 });

@@ -11,13 +11,11 @@ describe("LearningDynamicsLab", () => {
     originalRequestAnimationFrame = window.requestAnimationFrame;
     originalCancelAnimationFrame = window.cancelAnimationFrame;
 
-    window.requestAnimationFrame = ((callback: FrameRequestCallback) =>
-      window.setTimeout(
-        () => callback(Date.now()),
-        16
-      )) as typeof window.requestAnimationFrame;
-    window.cancelAnimationFrame = ((handle: number) =>
-      window.clearTimeout(handle)) as typeof window.cancelAnimationFrame;
+    window.requestAnimationFrame = (callback) =>
+      window.setTimeout(() => callback(Date.now()), 16);
+    window.cancelAnimationFrame = (handle) => {
+      window.clearTimeout(handle);
+    };
   });
 
   afterEach(() => {

@@ -93,6 +93,10 @@ function getConfigById(configs: RunConfig[], runId: RunId): RunConfig {
   return config;
 }
 
+function isSurfaceId(value: string): value is SurfaceId {
+  return SURFACES.some((surface) => surface.id === value);
+}
+
 export function LearningDynamicsLab() {
   const [surfaceId, setSurfaceId] = useState<SurfaceId>(DEFAULT_SURFACE_ID);
   const surface = getSurfaceById(surfaceId);
@@ -205,9 +209,15 @@ export function LearningDynamicsLab() {
                 <select
                   value={surfaceId}
                   className="rounded-md border border-white/12 bg-slate-950/80 px-3 py-2 text-sm text-white outline-none transition-colors focus:border-cyan-300"
-                  onChange={(event) =>
-                    handleSurfaceChange(event.target.value as SurfaceId)
-                  }
+                  onChange={(event) => {
+                    const nextSurfaceId = event.target.value;
+
+                    if (!isSurfaceId(nextSurfaceId)) {
+                      return;
+                    }
+
+                    handleSurfaceChange(nextSurfaceId);
+                  }}
                 >
                   {SURFACES.map((candidateSurface) => (
                     <option

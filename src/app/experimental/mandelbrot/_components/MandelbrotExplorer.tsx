@@ -61,11 +61,14 @@ const DEFAULT_CPU_SETTINGS: MandelbrotSettings = {
   renderBackendPreference: "auto",
 };
 
-const QUALITY_OPTIONS = [
+const QUALITY_OPTIONS: ReadonlyArray<{
+  value: number;
+  label: string;
+}> = [
   { value: 0.5, label: "50%" },
   { value: 0.75, label: "75%" },
   { value: 1, label: "100%" },
-] as const;
+];
 
 const BACKEND_OPTIONS: ReadonlyArray<{
   value: RenderBackendPreference;
@@ -75,11 +78,32 @@ const BACKEND_OPTIONS: ReadonlyArray<{
   { value: "webgpu", label: "WebGPU" },
   { value: "cpu", label: "CPU" },
 ];
+const COLORING_MODE_OPTIONS: ReadonlyArray<{
+  value: ColoringMode;
+  label: string;
+}> = [
+  { value: "smooth", label: "Smooth escape" },
+  { value: "bands", label: "Banding" },
+];
 
 const sectionTitleClass = "text-heading-sm text-white";
 const metaValueClass = "break-all text-sm text-cyan-100";
 const toolbarButtonClass =
   "rounded-md border border-white/15 px-3 py-2 text-sm text-white transition hover:border-cyan-300 hover:text-cyan-100 disabled:cursor-not-allowed disabled:opacity-40";
+
+function isRenderBackendPreference(
+  value: string
+): value is RenderBackendPreference {
+  return BACKEND_OPTIONS.some((option) => option.value === value);
+}
+
+function isPaletteId(value: string): value is MandelbrotSettings["paletteId"] {
+  return PALETTE_OPTIONS.some((option) => option.id === value);
+}
+
+function isColoringMode(value: string): value is ColoringMode {
+  return COLORING_MODE_OPTIONS.some((option) => option.value === value);
+}
 
 export function MandelbrotExplorer() {
   const [history, setHistory] = useState<ViewportHistory>(() =>
@@ -322,13 +346,18 @@ export function MandelbrotExplorer() {
                   <span>Render backend</span>
                   <select
                     value={settings.renderBackendPreference}
-                    onChange={(event) =>
+                    onChange={(event) => {
+                      const renderBackendPreference = event.target.value;
+
+                      if (!isRenderBackendPreference(renderBackendPreference)) {
+                        return;
+                      }
+
                       setSettings((currentSettings) => ({
                         ...currentSettings,
-                        renderBackendPreference: event.target
-                          .value as RenderBackendPreference,
-                      }))
-                    }
+                        renderBackendPreference,
+                      }));
+                    }}
                     className="mt-1 w-full rounded-md border border-white/15 bg-slate-950 px-3 py-2 text-white"
                   >
                     {BACKEND_OPTIONS.map((option) => (
@@ -356,13 +385,18 @@ export function MandelbrotExplorer() {
                   <span>Color palette</span>
                   <select
                     value={settings.paletteId}
-                    onChange={(event) =>
+                    onChange={(event) => {
+                      const paletteId = event.target.value;
+
+                      if (!isPaletteId(paletteId)) {
+                        return;
+                      }
+
                       setSettings((currentSettings) => ({
                         ...currentSettings,
-                        paletteId: event.target
-                          .value as MandelbrotSettings["paletteId"],
-                      }))
-                    }
+                        paletteId,
+                      }));
+                    }}
                     className="mt-1 w-full rounded-md border border-white/15 bg-slate-950 px-3 py-2 text-white"
                   >
                     {PALETTE_OPTIONS.map((option) => (
@@ -376,16 +410,25 @@ export function MandelbrotExplorer() {
                   <span>Coloring mode</span>
                   <select
                     value={settings.coloringMode}
-                    onChange={(event) =>
+                    onChange={(event) => {
+                      const coloringMode = event.target.value;
+
+                      if (!isColoringMode(coloringMode)) {
+                        return;
+                      }
+
                       setSettings((currentSettings) => ({
                         ...currentSettings,
-                        coloringMode: event.target.value as ColoringMode,
-                      }))
-                    }
+                        coloringMode,
+                      }));
+                    }}
                     className="mt-1 w-full rounded-md border border-white/15 bg-slate-950 px-3 py-2 text-white"
                   >
-                    <option value="smooth">Smooth escape</option>
-                    <option value="bands">Banding</option>
+                    {COLORING_MODE_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
                   </select>
                 </label>
                 <label className="text-sm text-gray-200">

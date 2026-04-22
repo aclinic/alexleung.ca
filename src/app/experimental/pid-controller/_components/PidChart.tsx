@@ -90,7 +90,7 @@ export function PidChart({ samples }: PidChartProps) {
   );
   const errorPath = toPath(samples, (sample) => sample.error, scaleX, scaleY);
   const latestSample = samples.at(-1) ?? samples[0];
-  const legendItems: readonly LegendItem[] = [
+  const legendItems: ReadonlyArray<LegendItem> = [
     {
       label: "Setpoint",
       stroke: "#f59e0b",
@@ -116,7 +116,7 @@ export function PidChart({ samples }: PidChartProps) {
       strokeDasharray: "5 3",
       value: latestSample.error,
     },
-  ] as const;
+  ];
 
   return (
     <figure className="rounded-lg border border-gray-700 bg-black/40 p-3">

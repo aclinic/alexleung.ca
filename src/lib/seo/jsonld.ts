@@ -1,8 +1,11 @@
 import type {
+  AdministrativeArea,
   Article,
   BlogPosting,
+  City,
   CollectionPage,
   ContactPage,
+  Country,
   ItemList,
   Occupation,
   Person,
@@ -22,6 +25,15 @@ const WEBSITE_ID = "/#website";
 const SITE_NAVIGATION_ID = "/#site-navigation";
 const ABOUT_PATH = "/about";
 const SITE_ROOT = toAbsoluteUrl("/").replace(/\/$/, "");
+const SCHEMA_CONTEXT: "https://schema.org" = "https://schema.org";
+const PERSON_TYPE: "Person" = "Person";
+const ADMINISTRATIVE_AREA_TYPE: "AdministrativeArea" = "AdministrativeArea";
+const COUNTRY_TYPE: "Country" = "Country";
+const CITY_TYPE: "City" = "City";
+const WEBSITE_TYPE: "WebSite" = "WebSite";
+const WEBPAGE_TYPE: "WebPage" = "WebPage";
+const SITE_NAVIGATION_ELEMENT_TYPE: "SiteNavigationElement" =
+  "SiteNavigationElement";
 const SOCIAL_PROFILES = [
   "https://www.linkedin.com/in/aclyx",
   "https://github.com/aclyx",
@@ -30,8 +42,45 @@ const SOCIAL_PROFILES = [
   "https://www.instagram.com/rootpanda",
   "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
 ];
-const PERSON_REFERENCE = {
-  "@type": "Person" as const,
+type PersonReference = {
+  "@type": "Person";
+  "@id": string;
+  name: string;
+  url: string;
+  image: string;
+  sameAs: string[];
+};
+
+type BasePageSchema<TPageType extends string> = {
+  "@context": "https://schema.org";
+  "@type": TPageType;
+  "@id": string;
+  url: string;
+  name: string;
+  description: string;
+  inLanguage: string;
+  isPartOf: Pick<WebSite, "@type" | "@id">;
+};
+
+type BasePostSchema = {
+  canonicalPostUrl: string;
+  schema: {
+    url: string;
+    headline: string;
+    description?: string;
+    keywords?: string;
+    image?: string[];
+    datePublished: string;
+    dateModified: string;
+    author: PersonReference;
+    publisher: PersonReference;
+    inLanguage: string;
+    mainEntityOfPage: Pick<WebPage, "@type" | "@id">;
+  };
+};
+
+const PERSON_REFERENCE: PersonReference = {
+  "@type": PERSON_TYPE,
   "@id": toAbsoluteUrl(PERSON_ID),
   name: "Alex Leung",
   url: toCanonical(ABOUT_PATH),
@@ -39,39 +88,39 @@ const PERSON_REFERENCE = {
   sameAs: SOCIAL_PROFILES,
 };
 
-const GEO_SERVICE_AREAS = [
+const GEO_SERVICE_AREAS: ReadonlyArray<AdministrativeArea | Country | City> = [
   {
-    "@type": "AdministrativeArea" as const,
+    "@type": ADMINISTRATIVE_AREA_TYPE,
     name: "Ontario",
     sameAs: "https://en.wikipedia.org/wiki/Ontario",
   },
   {
-    "@type": "Country" as const,
+    "@type": COUNTRY_TYPE,
     name: "Canada",
     sameAs: "https://en.wikipedia.org/wiki/Canada",
   },
   {
-    "@type": "Country" as const,
+    "@type": COUNTRY_TYPE,
     name: "United States",
     sameAs: "https://en.wikipedia.org/wiki/United_States",
   },
   {
-    "@type": "AdministrativeArea" as const,
+    "@type": ADMINISTRATIVE_AREA_TYPE,
     name: "California",
     sameAs: "https://en.wikipedia.org/wiki/California",
   },
   {
-    "@type": "City" as const,
+    "@type": CITY_TYPE,
     name: "Waterloo",
     sameAs: "https://en.wikipedia.org/wiki/Waterloo,_Ontario",
   },
   {
-    "@type": "City" as const,
+    "@type": CITY_TYPE,
     name: "Toronto",
     sameAs: "https://en.wikipedia.org/wiki/Toronto",
   },
   {
-    "@type": "City" as const,
+    "@type": CITY_TYPE,
     name: "San Francisco",
     sameAs: "https://en.wikipedia.org/wiki/San_Francisco",
   },
@@ -97,9 +146,9 @@ function buildBasePageSchema<TPageType extends string>({
   pageType: TPageType;
   path: string;
   title: string;
-}) {
+}): BasePageSchema<TPageType> {
   return {
-    "@context": "https://schema.org" as const,
+    "@context": SCHEMA_CONTEXT,
     "@type": pageType,
     "@id": toCanonical(path),
     url: toCanonical(path),
@@ -107,13 +156,13 @@ function buildBasePageSchema<TPageType extends string>({
     description,
     inLanguage: "en-CA",
     isPartOf: {
-      "@type": "WebSite" as const,
+      "@type": WEBSITE_TYPE,
       "@id": toAbsoluteUrl(WEBSITE_ID),
     },
   };
 }
 
-function buildBasePostSchema(input: PostSchemaInput) {
+function buildBasePostSchema(input: PostSchemaInput): BasePostSchema {
   const canonicalPostUrl = toCanonical(`/blog/${input.slug}`);
 
   return {
@@ -130,7 +179,7 @@ function buildBasePostSchema(input: PostSchemaInput) {
       publisher: PERSON_REFERENCE,
       inLanguage: "en-CA",
       mainEntityOfPage: {
-        "@type": "WebPage" as const,
+        "@type": WEBPAGE_TYPE,
         "@id": canonicalPostUrl,
       },
     },
@@ -235,7 +284,7 @@ export function buildBlogItemListSchema(
   path = "/blog"
 ): WithContext<ItemList> {
   return {
-    "@context": "https://schema.org" as const,
+    "@context": SCHEMA_CONTEXT,
     "@type": "ItemList",
     "@id": `${toCanonical(path)}#itemlist`,
     itemListElement: posts.map((post, index) => ({
@@ -254,7 +303,7 @@ export function buildBlogPostingSchema(
   const { canonicalPostUrl, schema } = buildBasePostSchema(input);
 
   return {
-    "@context": "https://schema.org" as const,
+    "@context": SCHEMA_CONTEXT,
     "@type": "BlogPosting",
     "@id": `${canonicalPostUrl}#blogposting`,
     ...schema,
@@ -272,7 +321,7 @@ export function buildArticleSchema(
   const { canonicalPostUrl, schema } = buildBasePostSchema(input);
 
   return {
-    "@context": "https://schema.org" as const,
+    "@context": SCHEMA_CONTEXT,
     "@type": "Article",
     "@id": `${canonicalPostUrl}#article`,
     ...schema,
@@ -294,7 +343,7 @@ export function buildPersonSchema(input: {
   };
 
   return {
-    "@context": "https://schema.org" as const,
+    "@context": SCHEMA_CONTEXT,
     "@type": "Person",
     "@id": toAbsoluteUrl(PERSON_ID),
     name: "Alex Leung",
@@ -419,7 +468,7 @@ export function buildProfessionalServiceSchema(input: {
   description: string;
 }): WithContext<Service> {
   return {
-    "@context": "https://schema.org" as const,
+    "@context": SCHEMA_CONTEXT,
     "@type": "Service",
     "@id": toAbsoluteUrl("/#service"),
     name: "Software Engineering, AI Systems, and Product Engineering",
@@ -435,7 +484,7 @@ export function buildWebsiteSchema(input: {
   description: string;
 }): WithContext<WebSite> {
   return {
-    "@context": "https://schema.org" as const,
+    "@context": SCHEMA_CONTEXT,
     "@type": "WebSite",
     "@id": toAbsoluteUrl(WEBSITE_ID),
     url: SITE_ROOT,
@@ -475,17 +524,17 @@ export function buildWebsiteSchema(input: {
 
 export function buildSiteNavigationSchema(): WithContext<SiteNavigationElement> {
   return {
-    "@context": "https://schema.org" as const,
-    "@type": "SiteNavigationElement",
+    "@context": SCHEMA_CONTEXT,
+    "@type": SITE_NAVIGATION_ELEMENT_TYPE,
     "@id": toAbsoluteUrl(SITE_NAVIGATION_ID),
     name: "Main navigation",
     url: SITE_ROOT,
     isPartOf: {
-      "@type": "WebSite",
+      "@type": WEBSITE_TYPE,
       "@id": toAbsoluteUrl(WEBSITE_ID),
     },
     hasPart: NAV_LINKS.map((item) => ({
-      "@type": "SiteNavigationElement" as const,
+      "@type": SITE_NAVIGATION_ELEMENT_TYPE,
       "@id": toAbsoluteUrl(`/#site-navigation-${item.id}`),
       name: item.label,
       url: toCanonical(item.canonicalPath),

@@ -2,6 +2,8 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 
+type NodeEnv = "development" | "production" | "test";
+
 function setupTempPosts(markdownBySlug: Record<string, string>): string {
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "blog-api-test-"));
   const postsDir = path.join(tempDir, "content", "posts");
@@ -15,15 +17,13 @@ function setupTempPosts(markdownBySlug: Record<string, string>): string {
   return tempDir;
 }
 
-async function loadBlogApiAtCwd(cwd: string, options?: { nodeEnv?: string }) {
+async function loadBlogApiAtCwd(cwd: string, options?: { nodeEnv?: NodeEnv }) {
   jest.resetModules();
   const cwdSpy = jest.spyOn(process, "cwd").mockReturnValue(cwd);
-  const env = process.env as Record<string, string | undefined>;
-  const previousNodeEnv = env.NODE_ENV;
-
-  if (options?.nodeEnv !== undefined) {
-    env.NODE_ENV = options.nodeEnv;
-  }
+  const envSpy = jest.replaceProperty(process, "env", {
+    ...process.env,
+    NODE_ENV: options?.nodeEnv ?? process.env.NODE_ENV ?? "test",
+  });
 
   try {
     const blogApi = await import("@/lib/blogApi");
@@ -31,13 +31,11 @@ async function loadBlogApiAtCwd(cwd: string, options?: { nodeEnv?: string }) {
     return blogApi;
   } finally {
     cwdSpy.mockRestore();
-    env.NODE_ENV = previousNodeEnv;
+    envSpy.restore();
   }
 }
 
 afterEach(() => {
-  const env = process.env as Record<string, string | undefined>;
-  env.NODE_ENV = "test";
   jest.restoreAllMocks();
   jest.resetModules();
 });
@@ -161,10 +159,12 @@ describe("blogApi front matter validation", () => {
     });
 
     const { getAllPosts } = await loadBlogApiAtCwd(tempDir);
+    const invokeGetAllPostsWithRuntimeFields = (fields: readonly string[]) =>
+      Reflect.apply(getAllPosts, undefined, [fields]);
 
-    expect(() => getAllPosts(["slug", "notAField" as never])).toThrow(
-      /Unsupported post field requested: notAField/
-    );
+    expect(() =>
+      invokeGetAllPostsWithRuntimeFields(["slug", "notAField"])
+    ).toThrow(/Unsupported post field requested: notAField/);
   });
 
   test("throws when seriesOrder duplicates within the same series", async () => {

@@ -480,18 +480,36 @@ fn fragmentMain(input: VertexOutput) -> @location(0) vec4<f32> {
 
 let rendererStatePromise: Promise<WebGpuRendererState> | null = null;
 
+type WebGpuNavigator = Navigator & {
+  gpu?: WebGpu;
+};
+
+function hasNavigatorGpu(value: Navigator): value is WebGpuNavigator {
+  return "gpu" in value;
+}
+
+function isWebGpuCanvasContext(value: unknown): value is WebGpuCanvasContext {
+  return (
+    value !== null &&
+    typeof value === "object" &&
+    "configure" in value &&
+    "getCurrentTexture" in value
+  );
+}
+
 function getNavigatorGpu(): WebGpu | null {
-  if (typeof navigator === "undefined" || !("gpu" in navigator)) {
+  if (typeof navigator === "undefined" || !hasNavigatorGpu(navigator)) {
     return null;
   }
 
-  return (navigator as Navigator & { gpu?: WebGpu }).gpu ?? null;
+  return navigator.gpu ?? null;
 }
 
 function getCanvasWebGpuContext(
   canvas: HTMLCanvasElement
 ): WebGpuCanvasContext | null {
-  return (canvas.getContext("webgpu") as WebGpuCanvasContext | null) ?? null;
+  const context = canvas.getContext("webgpu");
+  return isWebGpuCanvasContext(context) ? context : null;
 }
 
 function nextFrame(): Promise<void> {

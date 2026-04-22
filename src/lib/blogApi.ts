@@ -11,7 +11,10 @@ const usePersistentCache = process.env.NODE_ENV !== "development";
 
 let allPostsCache: Post[] | null = null;
 
-const POST_FIELDS = [
+const defineLiteralArray = <const T extends readonly string[]>(values: T) =>
+  values;
+
+const POST_FIELDS = defineLiteralArray([
   "slug",
   "title",
   "date",
@@ -24,7 +27,8 @@ const POST_FIELDS = [
   "readingTimeMinutes",
   "draft",
   "content",
-] as const;
+]);
+const POST_FIELD_SET: ReadonlySet<string> = new Set(POST_FIELDS);
 
 type PostField = (typeof POST_FIELDS)[number];
 
@@ -68,36 +72,40 @@ function assertValidDate(date: string, slug: string, key: "date" | "updated") {
   }
 }
 
-function resolvePostQuery<T extends PostField>(
-  fieldsOrOptions?: readonly T[] | PostQueryOptions,
+function isFieldList(
+  value: readonly string[] | PostQueryOptions | undefined
+): value is readonly string[] {
+  return Array.isArray(value);
+}
+
+function resolvePostQuery(
+  fieldsOrOptions?: readonly string[] | PostQueryOptions,
   maybeOptions?: PostQueryOptions
 ): {
-  fields: readonly T[] | undefined;
+  fields: readonly PostField[] | undefined;
   options: PostQueryOptions | undefined;
 } {
-  if (!Array.isArray(fieldsOrOptions)) {
+  if (!isFieldList(fieldsOrOptions)) {
     return {
       fields: undefined,
-      options: fieldsOrOptions as PostQueryOptions | undefined,
+      options: fieldsOrOptions,
     };
   }
 
-  const invalidField = fieldsOrOptions.find(
-    (field) => !POST_FIELDS.includes(field as PostField)
-  );
+  const invalidField = fieldsOrOptions.find((field) => !isPostField(field));
 
   if (invalidField) {
     throw new Error(`Unsupported post field requested: ${invalidField}`);
   }
 
   return {
-    fields: fieldsOrOptions,
+    fields: fieldsOrOptions.filter(isPostField),
     options: maybeOptions,
   };
 }
 
 function parseFrontMatter(
-  data: Record<string, unknown>,
+  data: unknown,
   slug: string
 ): z.infer<typeof PostFrontMatterSchema> {
   const parsed = PostFrontMatterSchema.safeParse(data);
@@ -151,10 +159,7 @@ function parsePostBySlug(slug: string): Post | null {
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
-  const frontMatter = parseFrontMatter(
-    data as Record<string, unknown>,
-    realSlug
-  );
+  const frontMatter = parseFrontMatter(data, realSlug);
 
   assertValidDate(frontMatter.date, realSlug, "date");
 
@@ -283,18 +288,12 @@ function getRelatedScore(target: Post, candidate: Post): number {
   return tagScore + seriesScore + recencyScore;
 }
 
-function pickPostFields<T extends PostField>(
-  post: Post,
-  fields: readonly T[]
-): Pick<Post, T> {
-  return fields.reduce(
-    (acc, field) => {
-      acc[field] = post[field] as Pick<Post, T>[T];
+function isPostField(field: string): field is PostField {
+  return POST_FIELD_SET.has(field);
+}
 
-      return acc;
-    },
-    {} as Pick<Post, T>
-  );
+function pickPostFields<T extends PostField>(post: Post, fields: readonly T[]) {
+  return Object.fromEntries(fields.map((field) => [field, post[field]]));
 }
 
 function getPostSlugs() {
@@ -310,9 +309,9 @@ export function getPostBySlug<T extends PostField>(
   fields: readonly T[],
   options?: PostQueryOptions
 ): Pick<Post, T> | null;
-export function getPostBySlug<T extends PostField>(
+export function getPostBySlug(
   slug: string,
-  fieldsOrOptions?: readonly T[] | PostQueryOptions,
+  fieldsOrOptions?: readonly string[] | PostQueryOptions,
   maybeOptions?: PostQueryOptions
 ) {
   const post = getCachedPostBySlug(slug);
@@ -336,8 +335,8 @@ export function getAllPosts<T extends PostField>(
   fields: readonly T[],
   options?: PostQueryOptions
 ): Array<Pick<Post, T>>;
-export function getAllPosts<T extends PostField>(
-  fieldsOrOptions?: readonly T[] | PostQueryOptions,
+export function getAllPosts(
+  fieldsOrOptions?: readonly string[] | PostQueryOptions,
   maybeOptions?: PostQueryOptions
 ) {
   const { fields, options } = resolvePostQuery(fieldsOrOptions, maybeOptions);

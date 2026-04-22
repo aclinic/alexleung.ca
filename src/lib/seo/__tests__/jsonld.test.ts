@@ -16,12 +16,12 @@ import {
 
 function expectSchemaArray<T>(value: unknown): readonly T[] {
   expect(Array.isArray(value)).toBe(true);
-  return value as readonly T[];
-}
 
-function expectSchemaObject<T>(value: T): Exclude<T, string> {
-  expect(typeof value).toBe("object");
-  return value as Exclude<T, string>;
+  if (!Array.isArray(value)) {
+    throw new Error("Expected schema array");
+  }
+
+  return value;
 }
 
 describe("seo jsonld builders", () => {
@@ -182,11 +182,13 @@ describe("seo jsonld builders", () => {
   });
 
   it("builds person schema with richer identity metadata", () => {
-    const person = expectSchemaObject(
-      buildPersonSchema({
-        description: "Person description",
-      })
-    );
+    const person = buildPersonSchema({
+      description: "Person description",
+    });
+    expect(typeof person).toBe("object");
+    if (typeof person !== "object" || person === null) {
+      throw new Error("Expected person schema object");
+    }
 
     expect(person.givenName).toBe("Alex");
     expect(person.familyName).toBe("Leung");
@@ -228,11 +230,13 @@ describe("seo jsonld builders", () => {
   });
 
   it("builds professional service schema with service areas", () => {
-    const service = expectSchemaObject(
-      buildProfessionalServiceSchema({
-        description: "Personal website of Alex Leung",
-      })
-    );
+    const service = buildProfessionalServiceSchema({
+      description: "Personal website of Alex Leung",
+    });
+    expect(typeof service).toBe("object");
+    if (typeof service !== "object" || service === null) {
+      throw new Error("Expected service schema object");
+    }
 
     expect(service["@type"]).toBe("Service");
     expect(service.name).toBe(

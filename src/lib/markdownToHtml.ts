@@ -1,4 +1,4 @@
-import type { Root } from "hast";
+import type { Element, Root, RootContent } from "hast";
 import type { Schema } from "hast-util-sanitize";
 import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -77,17 +77,17 @@ const sanitizeSchema: Schema = {
   ],
 };
 
-type HastNode = {
-  type: string;
-  tagName?: string;
-  properties?: Record<string, unknown>;
-  children?: HastNode[];
-};
+function visitElements(
+  nodes: readonly RootContent[],
+  visitor: (node: Element) => void
+) {
+  for (const node of nodes) {
+    if (node.type !== "element") {
+      continue;
+    }
 
-function visitNodes(node: HastNode, visitor: (node: HastNode) => void) {
-  visitor(node);
-  for (const child of node.children ?? []) {
-    visitNodes(child, visitor);
+    visitor(node);
+    visitElements(node.children, visitor);
   }
 }
 
@@ -95,8 +95,8 @@ function rehypeResponsiveImages() {
   const inlineContentVariantProfile = getInlineContentVariantProfile();
 
   return (tree: Root) => {
-    visitNodes(tree as unknown as HastNode, (node) => {
-      if (node.type !== "element" || node.tagName !== "img") {
+    visitElements(tree.children, (node) => {
+      if (node.tagName !== "img") {
         return;
       }
 

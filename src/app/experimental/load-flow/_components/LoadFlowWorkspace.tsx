@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 import { SingleLineDiagram } from "@/app/experimental/load-flow/_components/SingleLineDiagram";
 import { toLoadFlowCase } from "@/features/load-flow/graph/toLoadFlowCase";
-import { BusType } from "@/features/load-flow/model/types";
+import { Branch, BusType } from "@/features/load-flow/model/types";
 import {
   getReferenceScenarioById,
   LOAD_FLOW_REFERENCE_SCENARIOS,
@@ -22,7 +22,11 @@ import {
 } from "@/features/load-flow/state/loadFlowStore";
 
 const BUS_TYPE_OPTIONS: BusType[] = ["SLACK", "PV", "PQ"];
-const BRANCH_STATUS_OPTIONS = ["IN_SERVICE", "OUT_OF_SERVICE"] as const;
+type BranchStatus = NonNullable<Branch["status"]>;
+const BRANCH_STATUS_OPTIONS: readonly BranchStatus[] = [
+  "IN_SERVICE",
+  "OUT_OF_SERVICE",
+];
 
 const parseFiniteNumber = (value: string): number | null => {
   const parsed = Number.parseFloat(value);
@@ -32,9 +36,7 @@ const parseFiniteNumber = (value: string): number | null => {
 const isBusType = (value: string): value is BusType =>
   BUS_TYPE_OPTIONS.some((type) => type === value);
 
-const isBranchStatus = (
-  value: string
-): value is (typeof BRANCH_STATUS_OPTIONS)[number] =>
+const isBranchStatus = (value: string): value is BranchStatus =>
   BRANCH_STATUS_OPTIONS.some((status) => status === value);
 
 export function LoadFlowWorkspace() {

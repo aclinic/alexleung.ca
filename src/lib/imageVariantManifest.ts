@@ -19,7 +19,7 @@ type ImageVariantManifest = {
   sources: Record<string, SourceInfo>;
 };
 
-const manifest = imageVariantManifest as ImageVariantManifest;
+const manifest: ImageVariantManifest = imageVariantManifest;
 
 function ensureStringArray(
   value: unknown,

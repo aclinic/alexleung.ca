@@ -1,4 +1,5 @@
 import { DEFAULT_LOAD_FLOW_CASE } from "@/features/load-flow/model/defaults";
+import { Bus } from "@/features/load-flow/model/types";
 
 import { LOAD_FLOW_REFERENCE_SCENARIOS } from "../referenceScenarios";
 import { runLoadFlow } from "../runLoadFlow";
@@ -82,17 +83,15 @@ describe("runLoadFlow", () => {
   });
 
   it("reports island diagnostics for disconnected networks", () => {
+    const islandedBus: Bus = {
+      id: "bus-2",
+      name: "Islanded bus",
+      baseKV: 13.8,
+      type: "PQ",
+    };
     const islandedCase = {
       ...DEFAULT_LOAD_FLOW_CASE,
-      buses: [
-        ...DEFAULT_LOAD_FLOW_CASE.buses,
-        {
-          id: "bus-2",
-          name: "Islanded bus",
-          baseKV: 13.8,
-          type: "PQ" as const,
-        },
-      ],
+      buses: [...DEFAULT_LOAD_FLOW_CASE.buses, islandedBus],
     };
 
     const result = runLoadFlow(islandedCase);

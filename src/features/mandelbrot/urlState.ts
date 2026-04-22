@@ -10,20 +10,34 @@ import { createViewport } from "@/features/mandelbrot/viewport";
 
 type QueryRecord = Record<string, string | string[] | undefined>;
 
-const VALID_PALETTES: ReadonlySet<PaletteId> = new Set([
-  "oceanic",
-  "ember",
-  "glacier",
-]);
-const VALID_COLORING_MODES: ReadonlySet<ColoringMode> = new Set([
-  "smooth",
-  "bands",
-]);
-const VALID_RENDER_BACKENDS: ReadonlySet<RenderBackendPreference> = new Set([
-  "auto",
-  "webgpu",
-  "cpu",
-]);
+const VALID_PALETTES: Readonly<Record<PaletteId, true>> = {
+  oceanic: true,
+  ember: true,
+  glacier: true,
+};
+const VALID_COLORING_MODES: Readonly<Record<ColoringMode, true>> = {
+  smooth: true,
+  bands: true,
+};
+const VALID_RENDER_BACKENDS: Readonly<Record<RenderBackendPreference, true>> = {
+  auto: true,
+  webgpu: true,
+  cpu: true,
+};
+
+function isPaletteId(value: string): value is PaletteId {
+  return Object.hasOwn(VALID_PALETTES, value);
+}
+
+function isColoringMode(value: string): value is ColoringMode {
+  return Object.hasOwn(VALID_COLORING_MODES, value);
+}
+
+function isRenderBackendPreference(
+  value: string
+): value is RenderBackendPreference {
+  return Object.hasOwn(VALID_RENDER_BACKENDS, value);
+}
 
 export function parseViewportFromQuery(
   searchParams: QueryRecord,
@@ -69,14 +83,12 @@ export function parseSettingsFromQuery(
         ? Math.min(maxIterations, 4000)
         : fallback.maxIterations,
     paletteId:
-      typeof paletteId === "string" &&
-      VALID_PALETTES.has(paletteId as PaletteId)
-        ? (paletteId as PaletteId)
+      typeof paletteId === "string" && isPaletteId(paletteId)
+        ? paletteId
         : fallback.paletteId,
     coloringMode:
-      typeof coloringMode === "string" &&
-      VALID_COLORING_MODES.has(coloringMode as ColoringMode)
-        ? (coloringMode as ColoringMode)
+      typeof coloringMode === "string" && isColoringMode(coloringMode)
+        ? coloringMode
         : fallback.coloringMode,
     resolutionScale:
       Number.isFinite(resolutionScale) && resolutionScale >= 0.25
@@ -84,10 +96,8 @@ export function parseSettingsFromQuery(
         : fallback.resolutionScale,
     renderBackendPreference:
       typeof renderBackendPreference === "string" &&
-      VALID_RENDER_BACKENDS.has(
-        renderBackendPreference as RenderBackendPreference
-      )
-        ? (renderBackendPreference as RenderBackendPreference)
+      isRenderBackendPreference(renderBackendPreference)
+        ? renderBackendPreference
         : fallback.renderBackendPreference,
   };
 }

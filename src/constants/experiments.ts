@@ -9,14 +9,19 @@ export type ExperimentEntry = {
 
 const EXPERIMENT_LAST_MODIFIED_ISO = "2026-04-20";
 
-export const EXPERIMENTS_HUB = {
+type ExperimentsHub = Pick<
+  ExperimentEntry,
+  "description" | "lastModified" | "pageTitle" | "path" | "title"
+>;
+
+export const EXPERIMENTS_HUB: ExperimentsHub = {
   description:
     "Interactive browser-based tools for exploring systems, control, numerical methods, and runtime behavior.",
   path: "/experimental/",
   title: "Experiments | Alex Leung",
   pageTitle: "Experiments",
   lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
-} as const;
+};
 
 export function buildExperimentBreadcrumbItems(
   pageTitle: string,
@@ -75,4 +80,4 @@ export const EXPERIMENTS: readonly ExperimentEntry[] = [
     path: "/experimental/pid-controller/",
     lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
   },
-] as const;
+];
