@@ -35,6 +35,26 @@ export default [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       ...prettierConfig.rules,
+      "@typescript-eslint/consistent-type-assertions": [
+        "error",
+        { assertionStyle: "never" },
+      ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "TSAsExpression[typeAnnotation.type='TSTypeReference'][typeAnnotation.typeName.name='const']",
+          message:
+            "Do not use const assertions. Prefer explicit readonly types, `satisfies`, or typed helpers.",
+        },
+        {
+          selector:
+            "TSTypeAssertion[typeAnnotation.type='TSTypeReference'][typeAnnotation.typeName.name='const']",
+          message:
+            "Do not use const assertions. Prefer explicit readonly types, `satisfies`, or typed helpers.",
+        },
+      ],
+      "@typescript-eslint/prefer-as-const": "off",
       "prettier/prettier": "error",
     },
   },

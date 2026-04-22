@@ -16,11 +16,13 @@ jest.mock(
   { virtual: true }
 );
 
+const mockFeed = jest.mocked(Feed);
+
 describe("buildRssFeedXml", () => {
   beforeEach(() => {
     mockAddItem.mockClear();
     mockRss2.mockClear();
-    (Feed as unknown as jest.Mock).mockClear();
+    mockFeed.mockClear();
   });
 
   it("configures feed metadata and adds canonical post items", () => {

@@ -1,17 +1,23 @@
 import { getImageVariant, type VariantInfo } from "@/lib/imageVariantManifest";
 
+type StaticImageProfile = {
+  source: string;
+  orderedVariants: readonly string[];
+  fallbackVariant: string;
+};
+
 const staticImageProfiles = {
   aboutPortrait: {
     source: "/assets/about_portrait.webp",
-    orderedVariants: ["sm", "md", "lg"] as const,
+    orderedVariants: ["sm", "md", "lg"],
     fallbackVariant: "md",
   },
   background: {
     source: "/assets/background.webp",
-    orderedVariants: ["mobile", "tablet", "desktop"] as const,
+    orderedVariants: ["mobile", "tablet", "desktop"],
     fallbackVariant: "tablet",
   },
-} as const;
+} satisfies Record<string, StaticImageProfile>;
 
 export type StaticImageProfileName = keyof typeof staticImageProfiles;
 

@@ -1,4 +1,11 @@
-export const NAV_LINKS = [
+type NavLink = {
+  id: string;
+  href: string;
+  canonicalPath: string;
+  label: string;
+};
+
+export const NAV_LINKS: readonly NavLink[] = [
   { id: "home", href: "/", canonicalPath: "/", label: "Home" },
   { id: "about", href: "/about/", canonicalPath: "/about", label: "About" },
   { id: "now", href: "/now/", canonicalPath: "/now", label: "Now" },
@@ -15,4 +22,4 @@ export const NAV_LINKS = [
     canonicalPath: "/contact",
     label: "Contact",
   },
-] as const;
+];

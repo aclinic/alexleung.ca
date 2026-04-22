@@ -43,7 +43,10 @@ jest.mock("@/lib/blogApi", () => ({
 
     return posts.map((post) =>
       Object.fromEntries(
-        fields.map((field) => [field, post[field as keyof typeof post]])
+        fields.map((field) => {
+          const valuesByField: Record<string, unknown> = post;
+          return [field, valuesByField[field]];
+        })
       )
     );
   }),

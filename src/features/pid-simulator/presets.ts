@@ -32,7 +32,7 @@ export const PID_SIMULATOR_PRESETS: readonly SimulatorPreset[] = [
     gains: { kp: 0.6, ki: 1, kd: 2 },
     setpoint: PID_SIMULATOR_DEFAULT_SETPOINT,
   },
-] as const;
+];
 
 export const getPresetById = (presetId: string): SimulatorPreset | undefined =>
   PID_SIMULATOR_PRESETS.find((preset) => preset.id === presetId);

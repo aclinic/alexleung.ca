@@ -2,12 +2,19 @@
 
 import { OptimizerId, RunConfig } from "@/features/optimizer-lab/types";
 
-const OPTIMIZER_LABELS: Record<OptimizerId, string> = {
-  sgd: "SGD",
-  momentum: "Momentum",
-  rmsprop: "RMSProp",
-  adam: "Adam",
-};
+const OPTIMIZER_OPTIONS: ReadonlyArray<{
+  id: OptimizerId;
+  label: string;
+}> = [
+  { id: "sgd", label: "SGD" },
+  { id: "momentum", label: "Momentum" },
+  { id: "rmsprop", label: "RMSProp" },
+  { id: "adam", label: "Adam" },
+];
+
+function isOptimizerId(value: string): value is OptimizerId {
+  return OPTIMIZER_OPTIONS.some((option) => option.id === value);
+}
 
 type RunSettingsCardProps = {
   config: RunConfig;
@@ -80,15 +87,19 @@ export function RunSettingsCard({ config, onChange }: RunSettingsCardProps) {
           <select
             value={config.optimizerId}
             className="rounded-md border border-white/12 bg-slate-950/80 px-3 py-2 text-sm text-white outline-none transition-colors focus:border-cyan-300"
-            onChange={(event) =>
-              onChange({
-                optimizerId: event.target.value as OptimizerId,
-              })
-            }
+            onChange={(event) => {
+              const optimizerId = event.target.value;
+
+              if (!isOptimizerId(optimizerId)) {
+                return;
+              }
+
+              onChange({ optimizerId });
+            }}
           >
-            {Object.entries(OPTIMIZER_LABELS).map(([optimizerId, label]) => (
-              <option key={optimizerId} value={optimizerId}>
-                {label}
+            {OPTIMIZER_OPTIONS.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
               </option>
             ))}
           </select>

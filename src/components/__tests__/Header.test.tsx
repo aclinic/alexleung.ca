@@ -9,9 +9,11 @@ jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
 }));
 
+const mockUsePathname = jest.mocked(usePathname);
+
 describe("Header", () => {
   beforeEach(() => {
-    (usePathname as jest.Mock).mockReturnValue("/");
+    mockUsePathname.mockReturnValue("/");
   });
 
   afterEach(() => {
@@ -89,7 +91,7 @@ describe("Header", () => {
 
     it("should close menu when pathname changes", async () => {
       let pathname = "/";
-      (usePathname as jest.Mock).mockImplementation(() => pathname);
+      mockUsePathname.mockImplementation(() => pathname);
 
       const { rerender } = render(<Header />);
       const button = screen.getByRole("button", { name: "Open menu" });
@@ -108,7 +110,7 @@ describe("Header", () => {
 
   describe("Active Link Detection", () => {
     it("should mark current page link as active", () => {
-      (usePathname as jest.Mock).mockReturnValue("/about/");
+      mockUsePathname.mockReturnValue("/about/");
       render(<Header />);
 
       const aboutLink = screen.getByText("About");
@@ -119,7 +121,7 @@ describe("Header", () => {
     });
 
     it("should handle trailing slashes in pathname matching", () => {
-      (usePathname as jest.Mock).mockReturnValue("/about");
+      mockUsePathname.mockReturnValue("/about");
       render(<Header />);
 
       const aboutLink = screen.getByText("About");
@@ -127,7 +129,7 @@ describe("Header", () => {
     });
 
     it("should mark home link active only on exact home path", () => {
-      (usePathname as jest.Mock).mockReturnValue("/");
+      mockUsePathname.mockReturnValue("/");
       render(<Header />);
 
       const homeLink = screen.getByText("Home");
@@ -135,7 +137,7 @@ describe("Header", () => {
     });
 
     it("should set aria-current on active links across desktop and mobile nav", () => {
-      (usePathname as jest.Mock).mockReturnValue("/about/");
+      mockUsePathname.mockReturnValue("/about/");
       render(<Header />);
 
       const button = screen.getByRole("button", { name: "Open menu" });
@@ -151,7 +153,7 @@ describe("Header", () => {
     });
 
     it("should keep section navigation active on experiment child routes", () => {
-      (usePathname as jest.Mock).mockReturnValue("/experimental/mandelbrot/");
+      mockUsePathname.mockReturnValue("/experimental/mandelbrot/");
       render(<Header />);
 
       const experimentsLink = screen.getByText("Experiments");
@@ -160,7 +162,7 @@ describe("Header", () => {
     });
 
     it("should keep blog navigation active on tag archive routes", () => {
-      (usePathname as jest.Mock).mockReturnValue("/blog/tags/ai/");
+      mockUsePathname.mockReturnValue("/blog/tags/ai/");
       render(<Header />);
 
       const blogLink = screen.getByText("Blog");

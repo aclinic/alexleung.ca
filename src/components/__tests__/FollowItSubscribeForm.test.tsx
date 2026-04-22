@@ -53,10 +53,10 @@ describe("FollowItSubscribeForm", () => {
     fireEvent.change(emailInput, {
       target: { value: "alex@example.com" },
     });
-    const form = container.querySelector("form");
+    const form = container.querySelector<HTMLFormElement>("form");
 
     expect(form).not.toBeNull();
-    fireEvent.submit(form as HTMLFormElement);
+    fireEvent.submit(form!);
 
     expect(
       screen.getByRole("button", { name: /subscribing\.\.\./i })
