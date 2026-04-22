@@ -20,7 +20,9 @@ export function Journey() {
         <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-x-16 md:pt-8">
           <div className="text-body mb-8 space-y-6 text-left">
             <IconTextRow icon="👋" title="Overview">
-              <p>Hi, I&apos;m Alex, a software engineer based in Waterloo.</p>
+              <p>
+                Hi, I&apos;m Alex, a software engineer based in San Francisco.
+              </p>
               <p>
                 My background spans embedded systems, distributed systems, and
                 full-stack product engineering, with work across home

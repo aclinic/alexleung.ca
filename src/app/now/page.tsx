@@ -16,7 +16,7 @@ import { SectionBlock } from "@/components/SectionBlock";
 import { getAllPosts } from "@/lib/blogApi";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
-export const NOW_PAGE_LAST_UPDATED_ISO = "2026-04-10";
+export const NOW_PAGE_LAST_UPDATED_ISO = "2026-04-21";
 
 const nowPageLastUpdatedDate = new Date(
   `${NOW_PAGE_LAST_UPDATED_ISO}T00:00:00Z`
@@ -74,12 +74,12 @@ export default function NowPage() {
             <div className="text-body space-y-8 text-left leading-relaxed">
               <IconTextRow icon="🚀" title="Top of Mind" headingLevel="h2">
                 <p>
-                  I&apos;m planning for an upcoming move to San Francisco to
-                  start a new role at the end of April.
+                  I&apos;m now based in San Francisco and getting ready to start
+                  a new role at the end of April.
                 </p>
                 <p>
                   There&apos;s a lot of logistics to sort through right now, so
-                  most of my attention has gone into getting ready for that
+                  most of my attention has gone into getting settled after the
                   transition.
                 </p>
               </IconTextRow>
@@ -111,7 +111,7 @@ export default function NowPage() {
               <IconTextRow icon="🎯" title="Current Goals" headingLevel="h2">
                 <ul className="list-outside list-disc space-y-1 pl-6">
                   <li>Finish and understand the Deep Learning book</li>
-                  <li>Get settled ahead of the move to San Francisco</li>
+                  <li>Get settled in San Francisco</li>
                   <li>Leveling up my tennis game</li>
                   <li>Get to A2 proficiency in Chinese</li>
                 </ul>

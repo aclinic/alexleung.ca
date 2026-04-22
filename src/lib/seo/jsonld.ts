@@ -287,7 +287,7 @@ export function buildPersonSchema(input: {
     name: "Software Engineer",
     occupationLocation: {
       "@type": "City",
-      name: "Waterloo, Ontario, Canada",
+      name: "San Francisco, California, United States",
     },
     skills:
       "Software engineering, systems design, AI systems, distributed systems, product engineering, and writing in public",
@@ -338,9 +338,9 @@ export function buildPersonSchema(input: {
     sameAs: SOCIAL_PROFILES,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Waterloo",
-      addressRegion: "Ontario",
-      addressCountry: "Canada",
+      addressLocality: "San Francisco",
+      addressRegion: "California",
+      addressCountry: "United States",
     },
     alumniOf: [
       {

@@ -200,7 +200,17 @@ describe("seo jsonld builders", () => {
     expect(person.hasOccupation).toMatchObject({
       "@type": "Occupation",
       name: "Software Engineer",
+      occupationLocation: {
+        "@type": "City",
+        name: "San Francisco, California, United States",
+      },
       skills: expect.stringContaining("writing in public"),
+    });
+    expect(person.address).toMatchObject({
+      "@type": "PostalAddress",
+      addressLocality: "San Francisco",
+      addressRegion: "California",
+      addressCountry: "United States",
     });
     expect(person.disambiguatingDescription).toBe(
       "Software engineer and writer sharing notes on systems, AI, and learning in public."
