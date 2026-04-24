@@ -38,16 +38,11 @@ export default function LearningDynamicsPage() {
 
       <PageShell title="Learning Dynamics Lab" titleId="learning-dynamics">
         <ResponsiveContainer element="section" className="space-y-6">
-          <div className="max-w-3xl space-y-3">
-            <p className="text-body text-slate-300">
+          <div className="mx-auto max-w-4xl" data-testid="experiment-intro">
+            <p className="text-body text-slate-300 md:text-center">
               This lab compares how a few standard optimizers move across the
               same 2D loss surface. It runs entirely in the browser: change the
               surface, move the start point, and watch the trajectories update.
-            </p>
-            <p className="text-body-sm text-slate-400">
-              The math layer is deterministic, and the UI keeps playback,
-              controls, and rendering separate. That keeps the experiment easier
-              to revise.
             </p>
           </div>
 

@@ -231,17 +231,12 @@ export function MandelbrotExplorer() {
       variant="wide"
       className="space-y-6 px-5 py-8"
     >
-      <div className="max-w-3xl space-y-3">
-        <p className="text-body text-gray-300">
+      <div className="mx-auto max-w-4xl" data-testid="experiment-intro">
+        <p className="text-body text-gray-300 md:text-center">
           This explorer keeps viewport coordinates in arbitrary-precision
           decimals, then renders the escape-time field asynchronously so we can
           zoom past ordinary floating-point precision without losing the exact
           center or scale state.
-        </p>
-        <p className="text-body text-gray-400">
-          Use the wheel for cursor-centered zoom, drag in pan mode to navigate,
-          or switch to box zoom for rectangular reframing. Undo, redo, reset,
-          and the current view state all stay shareable through the URL.
         </p>
       </div>
 

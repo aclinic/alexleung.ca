@@ -41,22 +41,12 @@ export default function ExperimentsPage() {
         className="pb-12"
       >
         <ResponsiveContainer variant="wide" className="space-y-8">
-          <div className="max-w-3xl space-y-3">
-            <p className="text-body text-gray-300">
+          <div className="mx-auto max-w-4xl" data-testid="experiment-intro">
+            <p className="text-body text-gray-300 md:text-center">
               These are small browser tools I built to make a few systems ideas
               easier to poke at. They are static, client-side pages with
               controls, visuals, and enough state to learn from the model
               directly.
-            </p>
-            <p className="text-body-sm text-gray-400">
-              I wrote more about the pattern in{" "}
-              <Link
-                href="/blog/small-interactive-tools-with-a-coding-agent/"
-                className="text-accent-link transition-colors hover:text-accent-link-hover"
-              >
-                Relearning Through Small Interactive Tools
-              </Link>
-              , but each experiment is usable on its own here.
             </p>
           </div>
 
