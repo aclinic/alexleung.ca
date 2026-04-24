@@ -43,7 +43,7 @@ I also spent time on a few details that made the whole thing feel finished:
 
 - **Typography**: I used `@tailwindcss/typography` but customized it to remove the default backticks from inline code for a cleaner look.
 - **Metadata**: Each post automatically generates its own SEO tags and JSON-LD structured data.
-- **Syntax Highlighting**: I chose `rehype-pretty-code` (powered by Shiki). It uses the same TextMate grammars as VS Code, meaning the highlighting is extremely accurate. Because it generates inline styles, there's no brittle CSS to import from `node_modules`.
+- **Syntax Highlighting**: I chose `rehype-pretty-code` (powered by Shiki). It uses the same TextMate grammars as VS Code, so the highlighting is close to what I am used to in the editor. Because it generates inline styles, there's no brittle CSS to import from `node_modules`.
 - **Sitemap**: A dynamic script crawls my posts directory to keep `sitemap.xml` up to date automatically.
 
 The result is simple on purpose. I can write in Markdown, keep everything in the repo, and ship a blog with a rendering path that is easy to understand.

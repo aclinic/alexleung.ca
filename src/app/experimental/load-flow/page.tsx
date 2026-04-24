@@ -14,7 +14,7 @@ import { LoadFlowWorkspace } from "./_components/LoadFlowWorkspace";
 
 const title = "Load Flow | Alex Leung";
 const description =
-  "A browser-based AC load flow workspace for building one-line models and solving bus voltages and power flows.";
+  "A browser AC load flow workspace for editing one-line models and solving bus voltages and branch flows.";
 const path = "/experimental/load-flow/";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -40,10 +40,10 @@ export default function LoadFlowPage() {
       <PageShell title="Load Flow" titleId="load-flow">
         <ResponsiveContainer element="section" className="space-y-6">
           <p className="text-body text-gray-300">
-            This workspace now includes a Newton-Raphson AC load flow engine
-            with reference scenarios, bus-voltage results, and branch-flow
-            outputs. You can start from a standard benchmark case or build and
-            tune a custom one-line model directly in the browser.
+            This workspace uses a Newton-Raphson AC load flow engine with
+            reference scenarios, bus-voltage results, and branch-flow outputs.
+            You can start from a standard benchmark case or build and tune a
+            custom one-line model directly in the browser.
           </p>
           <LoadFlowWorkspace />
         </ResponsiveContainer>

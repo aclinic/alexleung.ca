@@ -14,7 +14,7 @@ import { EventLoopVisualizer } from "./_components/EventLoopVisualizer";
 
 const title = "Event Loop Visualizer | Alex Leung";
 const description =
-  "Interactive event loop visualizer for call stack, microtasks, tasks, timers, and execution order.";
+  "A small event loop visualizer for call stack, microtasks, tasks, timers, and execution order.";
 const path = "/experimental/event-loop/";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -40,10 +40,10 @@ export default function EventLoopPage() {
       <PageShell title="Event Loop Visualizer" titleId="event-loop-visualizer">
         <ResponsiveContainer element="section" className="space-y-4">
           <p className="text-body text-gray-300">
-            This interactive model teaches the JavaScript runtime at an
-            educational level: stack-first execution, then microtasks, then
-            tasks. Use the examples to see why <code>Promise.then</code>
-            callbacks run before <code>setTimeout(..., 0)</code> callbacks.
+            This model shows a simplified JavaScript runtime: stack-first
+            execution, then microtasks, then tasks. Use the examples to see why{" "}
+            <code>Promise.then</code> callbacks run before{" "}
+            <code>setTimeout(..., 0)</code> callbacks.
           </p>
           <p className="text-body-sm text-gray-400">
             Simplifications are intentional. We represent time as discrete

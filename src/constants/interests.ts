@@ -1,8 +1,8 @@
 export const interests = [
-  "AI systems and software for AI products",
-  "Agentic systems, tooling, and evaluation",
+  "AI tools for software products",
+  "Evaluation and review workflows for AI-assisted work",
   "Distributed systems, backend architecture, and reliability",
-  "Full-stack and product engineering",
-  "Cloud infrastructure and developer tooling",
+  "Full-stack product engineering",
+  "Cloud infrastructure and developer tools",
   "Embedded and hardware-adjacent systems",
 ];

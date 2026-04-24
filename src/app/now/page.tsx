@@ -31,7 +31,7 @@ export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
 
 const title = "Now | Alex Leung";
 const description =
-  "A living snapshot of Alex Leung's current focus across systems, AI, reading, and experiments.";
+  "Current notes from Alex Leung on what he is reading, working through, and paying attention to.";
 const path = "/now";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -74,8 +74,8 @@ export default function NowPage() {
             <div className="text-body space-y-8 text-left leading-relaxed">
               <IconTextRow icon="🚀" title="Top of Mind" headingLevel="h2">
                 <p>
-                  I&apos;m now based in San Francisco and getting ready to start
-                  a new role at the end of April.
+                  I&apos;m now based in San Francisco and getting settled after
+                  a recent move.
                 </p>
                 <p>
                   There&apos;s a lot of logistics to sort through right now, so
@@ -104,15 +104,15 @@ export default function NowPage() {
                   <ExternalLink href="https://www.domainlanguage.com/ddd/">
                     <em>Domain Driven Design</em>
                   </ExternalLink>{" "}
-                  is on hold for a while I tackle Deep Learning.
+                  is on hold while I work through Deep Learning.
                 </p>
               </IconTextRow>
 
               <IconTextRow icon="🎯" title="Current Goals" headingLevel="h2">
                 <ul className="list-outside list-disc space-y-1 pl-6">
-                  <li>Finish and understand the Deep Learning book</li>
+                  <li>Finish the Deep Learning book and write notes as I go</li>
                   <li>Get settled in San Francisco</li>
-                  <li>Leveling up my tennis game</li>
+                  <li>Keep improving at tennis</li>
                   <li>Get to A2 proficiency in Chinese</li>
                 </ul>
               </IconTextRow>

@@ -43,20 +43,20 @@ export default function ExperimentsPage() {
         <ResponsiveContainer variant="wide" className="space-y-8">
           <div className="max-w-3xl space-y-3">
             <p className="text-body text-gray-300">
-              These are small interactive tools I built to make systems ideas
-              more inspectable in the browser. They are all static, client-side
-              pages with enough controls and visual feedback to support actual
-              exploration instead of just a screenshot.
+              These are small browser tools I built to make a few systems ideas
+              easier to poke at. They are static, client-side pages with
+              controls, visuals, and enough state to learn from the model
+              directly.
             </p>
             <p className="text-body-sm text-gray-400">
-              The broader motivation is in{" "}
+              I wrote more about the pattern in{" "}
               <Link
                 href="/blog/small-interactive-tools-with-a-coding-agent/"
                 className="text-accent-link transition-colors hover:text-accent-link-hover"
               >
                 Relearning Through Small Interactive Tools
               </Link>
-              , but each experiment stands on its own here.
+              , but each experiment is usable on its own here.
             </p>
           </div>
 

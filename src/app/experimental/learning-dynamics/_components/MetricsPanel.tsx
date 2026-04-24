@@ -43,7 +43,7 @@ export function MetricsPanel({ runs }: MetricsPanelProps) {
         <div>
           <h2 className="text-heading text-white">Run metrics</h2>
           <p className="mt-1 text-sm text-slate-400">
-            Compare how each optimizer is moving right now.
+            Compare how each optimizer is moving in the current run.
           </p>
         </div>
       </div>

@@ -19,7 +19,7 @@ import {
 
 const title = "Blog | Alex Leung";
 const description =
-  "Writing on systems, AI, software engineering, and learning in public.";
+  "Notes on software systems, AI tools, learning, and small experiments.";
 const path = "/blog";
 
 export function generateMetadata(): Metadata {

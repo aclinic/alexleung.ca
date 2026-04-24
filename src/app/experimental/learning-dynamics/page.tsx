@@ -13,7 +13,7 @@ import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 const title = "Learning Dynamics Lab | Alex Leung";
 const description =
-  "A client-side optimizer visualizer for comparing SGD, Momentum, RMSProp, and Adam on 2D loss surfaces.";
+  "A client-side optimizer visualizer for comparing SGD, Momentum, RMSProp, and Adam on simple 2D loss surfaces.";
 const path = "/experimental/learning-dynamics/";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -41,14 +41,13 @@ export default function LearningDynamicsPage() {
           <div className="max-w-3xl space-y-3">
             <p className="text-body text-slate-300">
               This lab compares how a few standard optimizers move across the
-              same 2D loss surface. It is fully client-side and built for quick
-              experimentation: change the surface, nudge the start point, and
-              see the trajectories update immediately.
+              same 2D loss surface. It runs entirely in the browser: change the
+              surface, move the start point, and watch the trajectories update.
             </p>
             <p className="text-body-sm text-slate-400">
-              The math layer is implemented as deterministic pure functions, and
-              the UI keeps playback, controls, and rendering separate so the
-              feature stays easy to extend.
+              The math layer is deterministic, and the UI keeps playback,
+              controls, and rendering separate. That keeps the experiment easier
+              to revise.
             </p>
           </div>
 

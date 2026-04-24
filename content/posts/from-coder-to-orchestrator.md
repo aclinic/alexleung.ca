@@ -1,8 +1,8 @@
 ---
-title: "From Writing Code to Orchestrating Agents"
+title: "How My AI Coding Workflow Changed"
 date: "2026-02-03"
 updated: "2026-02-14"
-excerpt: "How my AI workflow changed from quick snippets to a practical plan/implement/verify loop."
+excerpt: "How my AI workflow moved from quick snippets to clearer briefs, review checkpoints, and verification."
 coverImage: "/assets/blog/from-coder-to-orchestrator/cover.webp"
 tags:
   - "AI"
@@ -11,7 +11,7 @@ tags:
 
 ---
 
-Over the past two years, my day-to-day work has shifted from direct implementation toward orchestration and verification. In early 2024, I used AI mostly for autocomplete-level tasks such as snippets, error explanations, and small refactors. By 2026, I still write code when needed, but far more of my time goes to defining tasks clearly, checking outputs, and fixing edge cases the agents miss.
+Over the past two years, my day-to-day coding workflow has moved from quick AI help toward clearer task definition and verification. In early 2024, I used AI mostly for autocomplete-level tasks such as snippets, error explanations, and small refactors. By 2026, I still write code when needed, but far more of my time goes to defining tasks clearly, checking outputs, and fixing edge cases the tools miss.
 
 ![Timeline diagram comparing software development workflow in 2024 versus 2026](/assets/blog/from-coder-to-orchestrator/swe-workflow-evolution.webp)
 
@@ -31,7 +31,7 @@ Three changes made the workflow dependable enough for daily use.
 
 ### Stronger model reasoning
 
-For my use cases, newer models (especially **Opus 4.5**) were noticeably better at keeping constraints in context across longer tasks.
+For my use cases, newer models have been noticeably better at keeping constraints in context across longer tasks.
 
 ### Better repo context
 
@@ -50,7 +50,7 @@ The biggest improvement was switching from one-pass execution to a repeatable lo
 
 ## Current workflow
 
-I usually run a planner and an implementer in parallel. In practice, that means I write a short feature brief with constraints and non-goals, turn that into checkpoints, let the implementer run the loop per checkpoint, and then review design and risk rather than just syntax.
+I often split the work into planning and implementation passes. In practice, that means I write a short feature brief with constraints and non-goals, turn that into checkpoints, let the implementation run through the loop per checkpoint, and then review design and risk rather than just syntax.
 
 Example brief:
 
@@ -69,7 +69,7 @@ This workflow is productive, but it has clear costs:
 
 The useful part of my work has moved toward clearer requirements, tighter constraints, and stronger review discipline.
 
-Implementation still matters, but the highest leverage is in deciding what should be built and verifying whether the output is actually correct.
+Implementation still matters, but I now spend more attention on deciding what to build, writing clearer constraints, and checking whether the result is right.
 
 ![Software engineering effort evolution from 2024 to 2026](/assets/blog/from-coder-to-orchestrator/swe-effort-evolution.webp)
 
