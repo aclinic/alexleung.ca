@@ -11,8 +11,11 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 
 - Write analytical, structured, and practical prose.
 - Keep tone warm but understated: confident, relationship-aware, and forward-looking.
-- Keep prose professional with emotional intelligence.
+- Keep prose professional with emotional intelligence, but not sterile.
+- Write in first person when the post draws on the author's own experience, judgment, or learning.
+- Show experience through concrete observations, trade-offs, project details, and limitations rather than self-promotional claims.
 - Avoid theatrics, hype language, and performative emphasis.
+- Avoid recruiter-optimized framing, inflated positioning, and polished slogans; keep the authorial stance humble, grounded, and specific.
 - Do not assert significance with phrases like "this is important because", "this matters because", or similar authorial signposting; let significance emerge from the concrete facts, trade-offs, and consequences.
 - When the piece is intentionally reflective or artistic, allow a more lyrical register, but keep it anchored in concrete observation, personal judgment, or a clearly stated tension.
 
@@ -35,6 +38,8 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 14. Avoid draft-scaffolding transitions such as `the third thread is simpler`, `another point is`, or similar meta-organizing phrases when the section can just begin with the actual idea.
 15. When contrasting two things, make sure they are genuinely distinct. Do not restate the same concept twice with different wording just to make a sentence feel polished.
 16. Keep claims tightly bounded to what the user actually said. Avoid time-scale claims like `over time` or broader experiential conclusions unless the user explicitly established them.
+17. Do not turn learning notes, project writeups, or personal reflections into portfolio positioning. If a professional detail belongs, state it plainly as context.
+18. Keep titles and excerpts specific, modest, and representative of the post rather than optimized for authority or reach.
 
 ## Workflow
 
@@ -92,6 +97,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Keep claims bounded and testable; mark assumptions when needed.
 - Run an assumption audit: check that agency/ownership wording matches the user's input and that title/heading tone matches the user's preference for directness.
 - Run a practice audit: remove any implication that the author builds, tunes, deploys, or routinely uses systems unless the user explicitly stated that.
+- Run a voice audit: make sure the piece feels humble, grounded, clearly experienced through evidence, and free of recruiter-style positioning.
 - Run a vagueness audit: replace underspecified abstractions like "shift", "this", "that", "result", or "it" when the referent would be unclear in isolation.
 - Run a concreteness audit: replace broad framing lines with the underlying claim whenever possible, especially around technical mechanisms, implementation constraints, and UI behavior.
 - Run a transition audit: make sure each section clearly connects to the one before it; add a bridging sentence when the relationship is not obvious.
@@ -120,6 +126,7 @@ Use this skill to produce publish-ready markdown posts that match the patterns u
 - Ensure polished or slogan-like phrasing has been flattened into plain analytical prose.
 - For reflective/artistic pieces, ensure the abstraction is earned by concrete setup and not sustained for too long without grounding.
 - Ensure no inferred facts were introduced around who did what.
+- Ensure title, excerpt, and intro copy do not overstate the piece or frame the author as a brand.
 
 ## Quick Rewrite Patterns
 
