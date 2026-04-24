@@ -162,12 +162,16 @@ yarn deploy           # Build and deploy to GitHub Pages
 
 ### Copy Editing Guardrails (Agent Guidance)
 
+- Target site voice: first-person where appropriate; humble, grounded, and clearly experienced; warm but understated; professional without becoming sterile. Confidence should come from evidence, specific work, and concrete observations rather than self-description or positioning claims.
 - Tone should be thoughtful, understated, concrete, and mildly warm. Prefer clear first-person language and specific descriptions over polished positioning copy.
 - Prefer revising existing copy over rewriting from scratch unless the current structure is actively causing clarity or tone problems.
 - Prefer site-representative language over recruiter-optimized phrasing in top-level labels such as homepage headlines, page titles, section names, metadata descriptions, `public/manifest.json`, `public/llms.txt`, RSS/feed text, and JSON-LD descriptions.
+- Treat visible pages and machine-facing summaries as one editorial system: navigation labels, CTA labels, blog titles/excerpts/intros, metadata, RSS/feed text, manifest text, `llms.txt`, and JSON-LD/schema text should feel consistent without becoming copy-pasted.
 - Preserve warmth and voice before adding positioning language. Avoid recruiter-buzzy or self-promotional filler such as `thought leader`, `world-class`, `high-impact`, `passionate`, `results-driven`, or similar phrasing. Avoid inflated claims or interpretive self-assessments when a simpler factual description will do.
 - Do not force SEO phrases into headings when they fit better in supporting copy or metadata descriptions.
 - Avoid repeating the same positioning claim across hero, section intros, metadata, manifest text, RSS text, `llms.txt`, and JSON-LD. Keep them directionally consistent without making them all identical.
+- For metadata and machine-facing summaries, prefer durable wording over quickly stale current-state details unless the surface is intentionally time-stamped, such as the body of the Now page.
+- Use credentials, project history, and domain experience as factual context when relevant, but avoid turning them into a pitch.
 - Prefer direct, literal phrasing over abstract framing when editing prose. If the concrete mechanism, limitation, UI behavior, or comparison can be named directly, name it.
 - Avoid draft-scaffolding phrases such as `the third thread`, `interesting middle ground`, or similar meta-organizing language when the actual point can be stated plainly.
 - Avoid rhetorical contrast templates like `it is one thing ... it is another ...` unless the user explicitly wants a more essayistic style.

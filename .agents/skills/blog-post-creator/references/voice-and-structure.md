@@ -5,6 +5,8 @@
 - Use analytical, practical, and measured language.
 - Use first person singular when presenting experience and judgment.
 - Keep tone warm but restrained; avoid hype, slogans, and performative phrasing.
+- Keep the voice humble, grounded, and clearly experienced through concrete evidence rather than self-description.
+- Avoid recruiter-optimized or self-promotional framing; prefer factual context over authority claims.
 - Do not signal significance with lines like "this matters because"; make the stakes legible through concrete detail and consequence instead.
 - Explain trade-offs and constraints instead of presenting absolute claims.
 - Prefer direct mechanism over framing language; if a sentence can name the actual behavior, constraint, or operation, do that instead of abstract setup.
