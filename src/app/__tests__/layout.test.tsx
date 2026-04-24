@@ -100,7 +100,10 @@ describe("RootLayout", () => {
       expect(schema.alumniOf.length).toBe(2);
       expect(schema.worksFor).toBeUndefined();
       expect(schema.knowsAbout).toEqual(
-        expect.arrayContaining(["AI Systems", "Distributed Systems"])
+        expect.arrayContaining([
+          "AI and Machine Learning Systems",
+          "Distributed Systems",
+        ])
       );
     });
 

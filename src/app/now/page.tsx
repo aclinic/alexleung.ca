@@ -31,7 +31,7 @@ export const NOW_PAGE_LAST_UPDATED_DISPLAY = new Intl.DateTimeFormat("en-US", {
 
 const title = "Now | Alex Leung";
 const description =
-  "What Alex Leung is focused on right now: settling into San Francisco, reading, tennis, and small software experiments.";
+  "Current notes from Alex Leung on what he is reading, working through, and paying attention to.";
 const path = "/now";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -74,8 +74,8 @@ export default function NowPage() {
             <div className="text-body space-y-8 text-left leading-relaxed">
               <IconTextRow icon="🚀" title="Top of Mind" headingLevel="h2">
                 <p>
-                  I&apos;m now based in San Francisco and getting ready to start
-                  a new role at the end of April.
+                  I&apos;m now based in San Francisco and getting settled after
+                  a recent move.
                 </p>
                 <p>
                   There&apos;s a lot of logistics to sort through right now, so

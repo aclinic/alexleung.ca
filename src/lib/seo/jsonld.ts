@@ -360,10 +360,8 @@ export function buildPersonSchema(input: {
     ],
     knowsAbout: [
       "Software Engineering",
-      "AI Systems",
-      "AI Tools",
-      "AI-Assisted Software Development",
-      "Machine Learning Systems",
+      "AI and Machine Learning Systems",
+      "AI-Assisted Software Development and Tools",
       "Evaluation",
       "Distributed Systems",
       "Backend Architecture",
