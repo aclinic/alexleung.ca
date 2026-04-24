@@ -17,4 +17,14 @@ describe("SocialLinks", () => {
       expect(link).toHaveAttribute("aria-label");
     });
   });
+
+  it("keeps the fixed rail hidden until there is enough desktop gutter", () => {
+    const { container } = render(<SocialLinks />);
+
+    expect(container.querySelector("aside")).toHaveClass(
+      "hidden",
+      "min-[1680px]:block"
+    );
+    expect(container.querySelector("aside")).not.toHaveClass("lg:block");
+  });
 });
