@@ -1,7 +1,7 @@
 ---
 title: "Making Responsive Images Just Work"
 date: "2026-03-04"
-excerpt: "Instead of manually managing `-sm`/`-md`/`-lg` assets, I moved to a manifest-driven workflow that reduced duplication and made performance outcomes more consistent."
+excerpt: "I replaced scattered responsive-image conventions with a manifest-driven workflow that made authoring simpler and failures easier to see."
 coverImage: "/assets/blog/making-responsive-images-just-work/cover.webp"
 tags:
   - "Web Performance"
@@ -31,7 +31,7 @@ The workflow is now simple: add the source image, reference it in frontmatter or
 
 ## Stricter failure modes
 
-Once maintainability improved, reliability and performance improved with it. I also removed silent fallback for required profiles (`cover.card`, `cover.hero`, `inlineContent`). If a required variant is missing, it now fails fast instead of shipping a hidden regression.
+Once maintainability improved, performance work became easier to verify. I also removed silent fallback for required profiles (`cover.card`, `cover.hero`, `inlineContent`). If a required variant is missing, it now fails fast instead of shipping a hidden regression.
 
 ## What I actually fixed
 

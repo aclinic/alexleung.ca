@@ -59,7 +59,7 @@ test("unknown routes render the exported not found page", async ({ page }) => {
   await expect(
     page.getByRole("heading", { level: 2, name: "Page Not Found" })
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "Return Home" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Back home" })).toHaveAttribute(
     "href",
     "/"
   );

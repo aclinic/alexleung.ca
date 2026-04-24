@@ -2,7 +2,7 @@
   "id": "https://alexleung.ca/",
   "short_name": "Alex Leung",
   "name": "Alex Leung - Software engineer and writer",
-  "description": "Personal site of Alex Leung, a software engineer and writer sharing notes on systems, AI, and learning in public.",
+  "description": "Personal site of Alex Leung, a San Francisco-based software engineer writing notes on software systems, AI tools, and small experiments from his own projects.",
   "lang": "en",
   "icons": [
     {
@@ -79,7 +79,7 @@
     {
       "name": "About",
       "short_name": "About",
-      "description": "Learn about Alex Leung's background in software engineering, systems, and product work",
+      "description": "Alex Leung's background across embedded systems, distributed systems, and product work",
       "url": "/about/",
       "icons": [
         {
@@ -91,7 +91,7 @@
     {
       "name": "What I'm Doing Now",
       "short_name": "Now",
-      "description": "Current focus across systems, AI, experiments, and reading",
+      "description": "What Alex is focused on now: settling into San Francisco, reading, tennis, and small experiments",
       "url": "/now/",
       "icons": [
         {
@@ -103,7 +103,7 @@
     {
       "name": "Contact",
       "short_name": "Contact",
-      "description": "Reach out about engineering, writing, or collaboration",
+      "description": "Ways to reach Alex or follow new writing",
       "url": "/contact/",
       "icons": [
         {

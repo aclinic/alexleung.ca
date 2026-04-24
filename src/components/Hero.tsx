@@ -21,16 +21,16 @@ export function Hero() {
             Software engineer and writer.
           </h2>
           <p className="mt-3 text-sm italic text-gray-200 md:text-gray-300">
-            I build software and write about systems, AI, and learning in
-            public.
+            I build software, write notes, and make small tools for
+            understanding systems and AI.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
             <CTAButton href="/blog/">
-              Read My Writing <HiOutlineArrowRight className="text-lg" />
+              Read writing <HiOutlineArrowRight className="text-lg" />
             </CTAButton>
             <CTAButton href="/about/" variant="secondary">
-              <HiOutlineUser className="text-lg" /> About Me
+              <HiOutlineUser className="text-lg" /> About
             </CTAButton>
           </div>
 
@@ -46,14 +46,13 @@ export function Hero() {
                 What you&apos;ll find here
               </h2>
               <p className="text-body mt-4 text-gray-200">
-                You&apos;ll find essays, notes, and personal reflections on
-                software engineering, system design, AI, product work, and
-                learning.
+                I keep essays, notes, and small project writeups here: software
+                engineering, system design, AI, product work, and learning.
               </p>
               <p className="text-body mt-3 text-gray-200">
-                I care about the practical edge of those topics: how products
-                get built, how systems hold up, and how new AI capabilities fit
-                into real software.
+                I tend to write from the practical edge of those topics: what I
+                tried, what held up, where the tools helped, and where the rough
+                edges stayed visible.
               </p>
             </section>
           </div>

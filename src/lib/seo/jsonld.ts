@@ -1,16 +1,12 @@
 import type {
-  AdministrativeArea,
   Article,
   BlogPosting,
-  City,
   CollectionPage,
   ContactPage,
-  Country,
   ItemList,
   Occupation,
   Person,
   ProfilePage,
-  Service,
   SiteNavigationElement,
   WebPage,
   WebSite,
@@ -27,9 +23,6 @@ const ABOUT_PATH = "/about";
 const SITE_ROOT = toAbsoluteUrl("/").replace(/\/$/, "");
 const SCHEMA_CONTEXT: "https://schema.org" = "https://schema.org";
 const PERSON_TYPE: "Person" = "Person";
-const ADMINISTRATIVE_AREA_TYPE: "AdministrativeArea" = "AdministrativeArea";
-const COUNTRY_TYPE: "Country" = "Country";
-const CITY_TYPE: "City" = "City";
 const WEBSITE_TYPE: "WebSite" = "WebSite";
 const WEBPAGE_TYPE: "WebPage" = "WebPage";
 const SITE_NAVIGATION_ELEMENT_TYPE: "SiteNavigationElement" =
@@ -87,44 +80,6 @@ const PERSON_REFERENCE: PersonReference = {
   image: toAbsoluteUrl("/assets/about_portrait.webp"),
   sameAs: SOCIAL_PROFILES,
 };
-
-const GEO_SERVICE_AREAS: ReadonlyArray<AdministrativeArea | Country | City> = [
-  {
-    "@type": ADMINISTRATIVE_AREA_TYPE,
-    name: "Ontario",
-    sameAs: "https://en.wikipedia.org/wiki/Ontario",
-  },
-  {
-    "@type": COUNTRY_TYPE,
-    name: "Canada",
-    sameAs: "https://en.wikipedia.org/wiki/Canada",
-  },
-  {
-    "@type": COUNTRY_TYPE,
-    name: "United States",
-    sameAs: "https://en.wikipedia.org/wiki/United_States",
-  },
-  {
-    "@type": ADMINISTRATIVE_AREA_TYPE,
-    name: "California",
-    sameAs: "https://en.wikipedia.org/wiki/California",
-  },
-  {
-    "@type": CITY_TYPE,
-    name: "Waterloo",
-    sameAs: "https://en.wikipedia.org/wiki/Waterloo,_Ontario",
-  },
-  {
-    "@type": CITY_TYPE,
-    name: "Toronto",
-    sameAs: "https://en.wikipedia.org/wiki/Toronto",
-  },
-  {
-    "@type": CITY_TYPE,
-    name: "San Francisco",
-    sameAs: "https://en.wikipedia.org/wiki/San_Francisco",
-  },
-];
 
 type PostSchemaInput = {
   coverImage?: string;
@@ -339,7 +294,7 @@ export function buildPersonSchema(input: {
       name: "San Francisco, California, United States",
     },
     skills:
-      "Software engineering, systems design, AI systems, distributed systems, product engineering, and writing in public",
+      "Software engineering, systems design, AI tools, distributed systems, product engineering, and technical writing",
   };
 
   return {
@@ -382,7 +337,7 @@ export function buildPersonSchema(input: {
     hasOccupation: currentOccupation,
     description: input.description,
     disambiguatingDescription:
-      "Software engineer and writer sharing notes on systems, AI, and learning in public.",
+      "San Francisco-based software engineer writing notes on software systems, AI tools, and small experiments.",
     knowsLanguage: ["en-CA"],
     sameAs: SOCIAL_PROFILES,
     address: {
@@ -406,15 +361,14 @@ export function buildPersonSchema(input: {
     knowsAbout: [
       "Software Engineering",
       "AI Systems",
-      "Applied AI",
-      "AI Products",
+      "AI Tools",
+      "AI-Assisted Software Development",
       "Machine Learning Systems",
-      "Agentic Systems",
       "Evaluation",
       "Distributed Systems",
       "Backend Architecture",
       "Full-Stack Product Engineering",
-      "Technical Leadership",
+      "Engineering Review",
       "Systems Design",
       "Embedded Systems",
       "Electrical Engineering",
@@ -461,22 +415,6 @@ export function buildPersonSchema(input: {
       name: "Professional Engineers Ontario",
       url: "https://www.peo.on.ca",
     },
-  };
-}
-
-export function buildProfessionalServiceSchema(input: {
-  description: string;
-}): WithContext<Service> {
-  return {
-    "@context": SCHEMA_CONTEXT,
-    "@type": "Service",
-    "@id": toAbsoluteUrl("/#service"),
-    name: "Software Engineering, AI Systems, and Product Engineering",
-    description: input.description,
-    provider: {
-      "@id": toAbsoluteUrl(PERSON_ID),
-    },
-    areaServed: GEO_SERVICE_AREAS,
   };
 }
 

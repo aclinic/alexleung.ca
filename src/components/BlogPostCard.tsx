@@ -64,7 +64,7 @@ export function BlogPostCard({
           </p>
         ) : null}
         <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent-link transition-colors group-hover:text-accent-link-hover">
-          Read article
+          Read post
           <span aria-hidden="true">→</span>
         </span>
       </Link>

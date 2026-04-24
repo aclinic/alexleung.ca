@@ -14,7 +14,7 @@ import { PidSimulatorWorkspace } from "./_components/PidSimulatorWorkspace";
 
 const title = "PID Controller Simulator | Alex Leung";
 const description =
-  "Interactive fixed-step PID simulation that demonstrates rise time, overshoot, oscillation, and settling behavior.";
+  "Fixed-step PID simulation for trying gains and seeing rise time, overshoot, oscillation, and settling behavior.";
 const path = "/experimental/pid-controller/";
 
 export const metadata: Metadata = buildPageMetadata({

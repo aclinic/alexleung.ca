@@ -1,7 +1,7 @@
 ---
 title: "iPad Air M3 11-Inch: First Impressions"
 date: "2026-03-05"
-excerpt: "For study-heavy workflows, a lightweight iPad Air setup with a keyboard, stand, and Pencil Pro can be a practical laptop replacement."
+excerpt: "For one study-heavy workflow, a lightweight iPad Air setup covered more than I expected."
 coverImage: "/assets/blog/ipad-air-m3-11-inch-first-impressions/cover.webp"
 tags:
   - "Tech"
@@ -27,4 +27,4 @@ The Apple Pencil Pro also worked better than expected for her. Compared with an 
 
 For her current workflow, the iPad Air covers the core tasks: reading, annotating, writing, joining calls, and light remote workflows. The key trade-off is that it is not trying to be a local development machine, and that boundary is what makes it practical day to day. By being explicit about scope, we avoided overbuying and ended up with a tool she uses every day.
 
-Right now, she sees it as a decent laptop replacement for the work she actually does. That still feels like the right test to me: not whether an iPad can replace every laptop, but whether it covers most of your day without adding friction.
+Right now, she sees it as a good fit for the work she actually does. That still feels like the right test to me: not whether an iPad can replace every laptop, but whether it covers most of your day without adding friction.

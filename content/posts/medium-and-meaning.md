@@ -1,7 +1,7 @@
 ---
 title: "Medium and Meaning"
 date: "2026-02-22"
-excerpt: "A few reflections on building and creating with Codex and Sora."
+excerpt: "A few reflections on using AI tools for small site edits and exploratory visuals."
 coverImage: "/assets/blog/medium-and-meaning/cover.webp"
 tags:
   - "AI"

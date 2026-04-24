@@ -235,8 +235,8 @@ export function MandelbrotExplorer() {
         <p className="text-body text-gray-300">
           This explorer keeps viewport coordinates in arbitrary-precision
           decimals, then renders the escape-time field asynchronously so we can
-          zoom far beyond normal floating-point comfort without losing the exact
-          center and scale state.
+          zoom past ordinary floating-point precision without losing the exact
+          center or scale state.
         </p>
         <p className="text-body text-gray-400">
           Use the wheel for cursor-centered zoom, drag in pan mode to navigate,
@@ -557,7 +557,7 @@ export function MandelbrotExplorer() {
             <ul className="mt-4 space-y-3 text-sm text-gray-300">
               <li>
                 Viewport math uses <code>decimal.js</code> so center and scale
-                updates never rely on standard floating-point arithmetic.
+                updates do not rely on standard floating-point arithmetic.
               </li>
               <li>
                 Rendering runs asynchronously in row chunks and cancels stale

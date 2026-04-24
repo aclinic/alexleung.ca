@@ -16,7 +16,7 @@ type ExperimentsHub = Pick<
 
 export const EXPERIMENTS_HUB: ExperimentsHub = {
   description:
-    "Interactive browser-based tools for exploring systems, control, numerical methods, and runtime behavior.",
+    "Small browser tools for exploring systems, control loops, numerical methods, and runtime behavior.",
   path: "/experimental/",
   title: "Experiments | Alex Leung",
   pageTitle: "Experiments",
@@ -40,7 +40,7 @@ export const EXPERIMENTS: readonly ExperimentEntry[] = [
     pageTitle: "Event Loop Visualizer",
     title: "Event Loop Visualizer | Alex Leung",
     description:
-      "Interactive event loop visualizer for call stack, microtasks, tasks, timers, and execution order.",
+      "A small event loop visualizer for call stack, microtasks, tasks, timers, and execution order.",
     path: "/experimental/event-loop/",
     lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
   },
@@ -49,7 +49,7 @@ export const EXPERIMENTS: readonly ExperimentEntry[] = [
     pageTitle: "Learning Dynamics Lab",
     title: "Learning Dynamics Lab | Alex Leung",
     description:
-      "A client-side optimizer visualizer for comparing SGD, Momentum, RMSProp, and Adam on 2D loss surfaces.",
+      "A client-side optimizer visualizer for comparing SGD, Momentum, RMSProp, and Adam on simple 2D loss surfaces.",
     path: "/experimental/learning-dynamics/",
     lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
   },
@@ -58,7 +58,7 @@ export const EXPERIMENTS: readonly ExperimentEntry[] = [
     pageTitle: "Load Flow",
     title: "Load Flow | Alex Leung",
     description:
-      "A browser-based AC load flow workspace for building one-line models and solving bus voltages and power flows.",
+      "A browser AC load flow workspace for editing one-line models and solving bus voltages and branch flows.",
     path: "/experimental/load-flow/",
     lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
   },
@@ -67,7 +67,7 @@ export const EXPERIMENTS: readonly ExperimentEntry[] = [
     pageTitle: "Mandelbrot Explorer",
     title: "Mandelbrot Explorer | Alex Leung",
     description:
-      "An in-browser Mandelbrot set explorer with arbitrary-precision viewport math, progressive rendering, and shareable deep-zoom state.",
+      "An in-browser Mandelbrot explorer with arbitrary-precision viewport math, progressive rendering, and shareable zoom state.",
     path: "/experimental/mandelbrot/",
     lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
   },
@@ -76,7 +76,7 @@ export const EXPERIMENTS: readonly ExperimentEntry[] = [
     pageTitle: "PID Controller Simulator",
     title: "PID Controller Simulator | Alex Leung",
     description:
-      "Interactive fixed-step PID simulation that demonstrates rise time, overshoot, oscillation, and settling behavior.",
+      "Fixed-step PID simulation for trying gains and seeing rise time, overshoot, oscillation, and settling behavior.",
     path: "/experimental/pid-controller/",
     lastModified: EXPERIMENT_LAST_MODIFIED_ISO,
   },

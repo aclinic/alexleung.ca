@@ -13,7 +13,7 @@ export default function NotFound() {
           href="/"
           className="inline-block rounded-lg bg-accent-primary px-6 py-3 text-white transition-colors hover:bg-accent-primary-hover"
         >
-          Return Home
+          Back home
         </Link>
       </div>
     </div>

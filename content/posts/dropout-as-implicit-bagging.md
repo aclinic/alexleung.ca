@@ -1,7 +1,7 @@
 ---
 title: "Dropout as Implicit Bagging"
 date: "2026-03-07"
-excerpt: "Chapter 7 clarified that dropout works so well because it approximates bagging over many thinned networks with shared parameters."
+excerpt: "Chapter 7 gave me a better model for dropout: a cheap approximation to averaging many thinned networks with shared parameters."
 coverImage: "/assets/blog/dropout-as-implicit-bagging/cover.webp"
 tags:
   - "Deep Learning"
@@ -14,7 +14,7 @@ I worked through Chapter 7 of _Deep Learning_ last week, and the most useful cha
 
 ## Bagging is the useful mental model
 
-Bagging is powerful because it reduces variance by averaging predictions from many models trained on perturbed data. The trade-off is straightforward: training and serving many separate models is expensive. Chapter 7 helped me see why dropout works so well: each minibatch update samples a different thinned network via a dropout mask, and all of those subnetworks share parameters. During inference, scaling activations gives an efficient approximation to averaging over that family.
+Bagging is powerful because it reduces variance by averaging predictions from many models trained on perturbed data. The trade-off is straightforward: training and serving many separate models is expensive. Chapter 7 helped me see why dropout can help: each minibatch update samples a different thinned network via a dropout mask, and all of those subnetworks share parameters. During inference, scaling activations gives an efficient approximation to averaging over that family.
 
 That makes dropout easier to explain. It is not just random noise for regularization. It is a cheap way to get some of the benefits of averaging over many related models without training each one separately.
 
@@ -26,4 +26,4 @@ That pressure reduces fragile co-adaptation. Features that only work in one narr
 
 ## What changed for me
 
-I now think about dropout less as "noise" and more as shared-parameter ensemble training. That framing gives me a cleaner explanation for why it can regularize effectively without feeling mysterious. More broadly, it was a good reminder that some of the most useful ideas in deep learning are simple at the rule level but still have a precise statistical story behind them.
+I now think about dropout less as "noise" and more as shared-parameter ensemble training. That framing gives me a cleaner explanation for why it can regularize effectively without feeling mysterious. More broadly, it was a good reminder that some of the most useful ideas in deep learning are simple at the rule level but grounded in a more specific training setup than the shortcut explanation suggests.

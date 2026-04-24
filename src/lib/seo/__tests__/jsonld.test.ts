@@ -7,7 +7,6 @@ import {
   buildContactPageSchema,
   buildHomePageSchema,
   buildPersonSchema,
-  buildProfessionalServiceSchema,
   buildProfilePageSchema,
   buildSiteNavigationSchema,
   buildWebPageSchema,
@@ -206,7 +205,7 @@ describe("seo jsonld builders", () => {
         "@type": "City",
         name: "San Francisco, California, United States",
       },
-      skills: expect.stringContaining("writing in public"),
+      skills: expect.stringContaining("technical writing"),
     });
     expect(person.address).toMatchObject({
       "@type": "PostalAddress",
@@ -215,15 +214,15 @@ describe("seo jsonld builders", () => {
       addressCountry: "United States",
     });
     expect(person.disambiguatingDescription).toBe(
-      "Software engineer and writer sharing notes on systems, AI, and learning in public."
+      "San Francisco-based software engineer writing notes on software systems, AI tools, and small experiments."
     );
     expect(person.knowsAbout).toEqual(
       expect.arrayContaining([
-        "Applied AI",
-        "Agentic Systems",
+        "AI Tools",
+        "AI-Assisted Software Development",
         "Machine Learning Systems",
         "Full-Stack Product Engineering",
-        "Technical Leadership",
+        "Engineering Review",
       ])
     );
     expect(person.alternateName).toEqual(
@@ -237,32 +236,6 @@ describe("seo jsonld builders", () => {
       ])
     );
     expect(person.worksFor).toBeUndefined();
-  });
-
-  it("builds professional service schema with service areas", () => {
-    const service = buildProfessionalServiceSchema({
-      description: "Personal website of Alex Leung",
-    });
-    expect(typeof service).toBe("object");
-    if (typeof service !== "object" || service === null) {
-      throw new Error("Expected service schema object");
-    }
-
-    expect(service["@type"]).toBe("Service");
-    expect(service.name).toBe(
-      "Software Engineering, AI Systems, and Product Engineering"
-    );
-    expect(service.areaServed).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ name: "Ontario" }),
-        expect.objectContaining({ name: "California" }),
-        expect.objectContaining({ name: "Waterloo" }),
-        expect.objectContaining({ name: "Toronto" }),
-        expect.objectContaining({ name: "Canada" }),
-        expect.objectContaining({ name: "United States" }),
-        expect.objectContaining({ name: "San Francisco" }),
-      ])
-    );
   });
 
   it("builds blog posting schema with normalized urls and keywords", () => {
