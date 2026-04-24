@@ -39,17 +39,14 @@ export default function EventLoopPage() {
 
       <PageShell title="Event Loop Visualizer" titleId="event-loop-visualizer">
         <ResponsiveContainer element="section" className="space-y-4">
-          <p className="text-body text-gray-300">
-            This model shows a simplified JavaScript runtime: stack-first
-            execution, then microtasks, then tasks. Use the examples to see why{" "}
-            <code>Promise.then</code> callbacks run before{" "}
-            <code>setTimeout(..., 0)</code> callbacks.
-          </p>
-          <p className="text-body-sm text-gray-400">
-            Simplifications are intentional. We represent time as discrete
-            ticks, model a single task queue, and treat <code>await</code>
-            continuation as an immediately settled microtask.
-          </p>
+          <div className="mx-auto max-w-4xl" data-testid="experiment-intro">
+            <p className="text-body text-gray-300 md:text-center">
+              This model shows a simplified JavaScript runtime: stack-first
+              execution, then microtasks, then tasks. Use the examples to see
+              why <code>Promise.then</code> callbacks run before{" "}
+              <code>setTimeout(..., 0)</code> callbacks.
+            </p>
+          </div>
           <EventLoopVisualizer />
         </ResponsiveContainer>
       </PageShell>
