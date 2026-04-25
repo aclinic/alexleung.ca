@@ -2,23 +2,18 @@ import type { Metadata } from "next";
 
 import { toAbsoluteUrl, toCanonical } from "@/lib/seo/url";
 
-import type { SeoImage, SeoInput } from "./types";
+import type { SeoInput } from "./types";
 
 const SITE_NAME = "Alex Leung";
 const DEFAULT_LOCALE = "en_CA";
 
-function normalizeImages(images: SeoImage[] | undefined): SeoImage[] {
-  return (
-    images?.map((image) => ({
-      ...image,
-      url: toAbsoluteUrl(image.url),
-    })) ?? []
-  );
-}
-
 export function buildPageMetadata(input: SeoInput): Metadata {
   const canonicalUrl = toCanonical(input.path);
-  const normalizedImages = normalizeImages(input.images);
+  const normalizedImages =
+    input.images?.map((image) => ({
+      ...image,
+      url: toAbsoluteUrl(image.url),
+    })) ?? [];
   const hasImages = normalizedImages.length > 0;
   const twitterCard =
     input.twitterCard || (hasImages ? "summary_large_image" : "summary");

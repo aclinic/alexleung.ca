@@ -204,21 +204,7 @@ function getCachedPostBySlug(slug: string): Post | null {
 }
 
 function getCachedAllPosts(): Post[] {
-  if (!usePersistentCache) {
-    const posts = getPostSlugs()
-      .map((slug) => parsePostBySlug(slug))
-      .filter((post): post is Post => post !== null)
-      .sort(
-        (post1, post2) =>
-          new Date(post2.date).getTime() - new Date(post1.date).getTime()
-      );
-
-    assertUniqueSeriesOrder(posts);
-
-    return posts;
-  }
-
-  if (allPostsCache) {
+  if (usePersistentCache && allPostsCache) {
     return allPostsCache;
   }
 
@@ -232,9 +218,11 @@ function getCachedAllPosts(): Post[] {
 
   assertUniqueSeriesOrder(posts);
 
-  allPostsCache = posts;
+  if (usePersistentCache) {
+    allPostsCache = posts;
+  }
 
-  return allPostsCache;
+  return posts;
 }
 
 function assertUniqueSeriesOrder(posts: readonly Post[]) {
