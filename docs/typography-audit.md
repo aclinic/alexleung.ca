@@ -3,11 +3,14 @@
 Date: 2026-03-04  
 Scope: `src/app/**` and `src/components/**` (excluding tests)
 
+Status: **audit history with current guardrails**. The original high-priority `ProseContent` issue has been addressed by an explicit `size` prop; keep this file as background for typography decisions and update it only when the typography system changes materially.
+
 ## Summary
 
-- Typography is mostly readable and consistent at a high level, but there is one systemic pitfall: `ProseContent` forces larger copy at `md` and up.
-- The design token utilities in `globals.css` are underused in favor of ad hoc Tailwind text sizes, which increases drift risk.
-- Agent documentation did not previously include typography-specific guardrails.
+- Typography is mostly readable and consistent at a high level.
+- `ProseContent` now defaults to base prose sizing and only applies larger desktop prose through `size="lg"`.
+- The design token utilities in `globals.css` are increasingly used, but ad hoc Tailwind text sizes still appear in feature surfaces and should be introduced deliberately.
+- Agent documentation now includes typography-specific guardrails.
 
 ## Method
 
@@ -16,6 +19,8 @@ Scope: `src/app/**` and `src/components/**` (excluding tests)
 3. Spot-check route-level components for breakpoint behavior.
 
 ## Baseline Metrics
+
+These metrics are from the original March 4, 2026 audit and are retained as historical context.
 
 - Files with typography classes: **17**
 - Unique typography tokens: **35**
@@ -37,38 +42,40 @@ Most frequent typography tokens:
 
 ### High
 
-1. Hidden prose upscaling in shared component
+1. Hidden prose upscaling in shared component (**resolved**)
    - File: `src/components/ProseContent.tsx`
-   - `ProseContent` includes `md:prose-lg` by default, which increases typography size at medium breakpoints regardless of local intent.
-   - This caused the now-page footer note to appear larger than expected when only `text-sm` was provided at call site.
-   - Example call site: `src/app/now/page.tsx`.
+   - `ProseContent` now exposes `size: "sm" | "base" | "lg"` and defaults to `"base"`.
+   - Use `size="lg"` when blog-style prose should scale to `md:prose-lg`.
+   - Use `size="sm"` for small notes/footers so both `prose-sm` and `md:prose-sm` apply.
 
 ### Medium
 
 1. Heavy reliance on ad hoc text classes for regular content
-   - Most `text-*` usage is ad hoc (`67/79`) rather than semantic token classes.
+   - The original audit found most `text-*` usage was ad hoc (`67/79`) rather than semantic token classes.
    - This makes typography harder to reason about and easier to regress during incremental edits.
 
 2. Shared typography tokens are partially unused
-   - `text-body-sm` and `text-body-lg` are defined in `src/app/globals.css` but not currently used by app/components source files.
-   - Signals either dead utilities or missing adoption guidance.
+   - Prefer existing semantic utilities before adding new one-off sizes:
+     `text-body-sm`, `text-body`, `text-body-lg`, `text-heading-sm`, `text-heading`, and the `text-hero-*` utilities.
 
 ### Low
 
-1. No route-level typography verification checklist in docs
-   - Without a documented breakpoint check, regressions like prose-size jumps are easy to miss in review.
+1. Route-level typography verification remains easy to skip
+   - Typography class changes should still be checked at mobile and `md+` breakpoints through local browser inspection or relevant Playwright coverage.
 
 ## Recommended Actions
 
-1. Treat `ProseContent` as opt-in for large desktop prose, not implicit.
-   - Add a `size` prop (`\"base\" | \"sm\" | \"lg\"`) or require explicit override when small text is intended.
+1. Keep `ProseContent` sizing explicit at call sites:
+   - default/base prose: omit `size`
+   - small notes: `size="sm"`
+   - article/body prose that should scale larger at desktop: `size="lg"`
 2. Standardize body-copy usage on semantic token classes first (`text-body`, `text-body-sm`, `text-body-lg`).
-3. Add a lightweight typography checklist to agent docs:
+3. Preserve the lightweight typography checklist in agent docs:
    - no `text-md` (invalid in Tailwind defaults)
    - be explicit with prose breakpoint behavior
    - verify mobile and `md+` before finalizing text-class changes
 
 ## Immediate Follow-up
 
-- Keep the now-page footer note small at all breakpoints by using `prose-sm md:prose-sm` on that `ProseContent` instance.
-- Consider a follow-up PR to introduce a typed `ProseContent` size API so local intent is encoded in props instead of class overrides.
+- Completed: the now-page footer note uses `ProseContent size="sm"`.
+- Completed: `ProseContent` has a typed size API so local intent is encoded in props instead of class overrides.

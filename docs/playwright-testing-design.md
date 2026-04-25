@@ -108,6 +108,7 @@ Files:
 
 - `playwright/tests/visual/home-and-about.visual.spec.ts`
 - `playwright/tests/visual/blog.visual.spec.ts`
+- `playwright/tests/visual/experimental.visual.spec.ts`
 
 Current visual baselines are Linux snapshots generated in Docker and focus on top-of-page layout:
 
@@ -115,6 +116,7 @@ Current visual baselines are Linux snapshots generated in Docker and focus on to
 - about top fold
 - blog index top fold
 - blog post top fold
+- experiments hub top fold
 
 Current visual projects:
 

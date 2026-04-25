@@ -1,8 +1,8 @@
-# Load Flow Tool (`/load-flow`) – Concrete Implementation Plan
+# Load Flow Tool (`/experimental/load-flow/`) – Implementation Status
 
 ## Goals
 
-Build a fully client-side AC power flow analysis tool at `/load-flow` that supports interactive one-line diagram modeling and robust load-flow solving for:
+Build a fully client-side AC power flow analysis tool at `/experimental/load-flow/` that supports interactive one-line diagram modeling and robust load-flow solving for:
 
 - Bus voltages (`|V|`) and voltage angles (`θ`)
 - Active and reactive power (`P`, `Q`) injections and branch flows
@@ -17,13 +17,15 @@ Build a fully client-side AC power flow analysis tool at `/load-flow` that suppo
 
 This plan is intentionally modular so the solver can be extracted into a separate library later with minimal refactoring.
 
+Status: **active feature note plus remaining-work plan**. The route, editor shell, single-line diagram, reference scenarios, Newton-Raphson solver path, IEEE case loading, and basic results table are implemented. Treat the remaining PR plan as a backlog, not as a full description of the current baseline.
+
 ---
 
-## Progress Update (April 1, 2026)
+## Implementation Status (April 2026)
 
-Completed across the first two slices (PR 1 + PR 2 scope):
+Implemented baseline:
 
-- ✅ Added `/load-flow` route shell and initial workspace layout.
+- ✅ Added `/experimental/load-flow/` route shell and workspace layout.
 - ✅ Added initial domain model contracts under `src/features/load-flow/model/` (`types.ts`, `defaults.ts`, `validation.ts`).
 - ✅ Added validator unit tests covering baseline pre-solve checks.
 - ✅ Follow-up review hardening: added duplicate bus-ID validation and route coverage tests for the `/experimental/load-flow/` shell.
@@ -32,7 +34,11 @@ Completed across the first two slices (PR 1 + PR 2 scope):
 - ✅ Added normalized editor store helpers under `src/features/load-flow/state/loadFlowStore.ts`.
 - ✅ Added serialization path from editor graph state to `LoadFlowCase` shape (`toLoadFlowCase`).
 - ✅ Added store unit tests for deterministic bus defaults and bus/line serialization behavior.
-- ✅ Added an interactive SVG single-line diagram panel in `/load-flow` with clickable buses/branches and selected-element highlighting.
+- ✅ Added an interactive SVG single-line diagram panel in `/experimental/load-flow/` with clickable buses/branches, selected-element highlighting, bus dragging, auto-layout, and result overlays.
+- ✅ Added `src/features/load-flow/solver/` with algorithm selection, flat-start initialization, Newton-Raphson solving, diagnostics, and branch-flow outputs.
+- ✅ Added built-in 2-bus and 3-bus scenarios plus IEEE 9/14/30/57/118-bus reference scenarios.
+- ✅ Defaulted reference scenario selection to `IEEE 14-Bus` on initial load.
+- ✅ Added solve result rendering for bus voltage angle/magnitude and net P/Q injections.
 
 ## Feedback Follow-ups (April 2, 2026)
 
@@ -49,33 +55,34 @@ Completed across the first two slices (PR 1 + PR 2 scope):
 
 Next recommended slice:
 
-- Build PR 3 solver skeleton: add `graphToCase.ts`, Ybus assembly, and first Newton-Raphson solve loop with deterministic mini-case tests.
+- Move from solver skeleton work to remaining user-facing gaps: generator/load/shunt editing, solver settings controls, branch-flow result tables, validation/diagnostics polish, and import/export.
 
 ---
 
-## Assessment Snapshot (April 1, 2026)
+## Assessment Snapshot (April 2026)
 
 ### 1) UI layer vs core engine separation
 
-Current status: **partially good, but not complete**.
+Current status: **mostly good for the current feature size**.
 
-- Good: the editor state is already in a pure store module (`state/loadFlowStore.ts`), and domain DTOs are in `model/types.ts`.
-- Gap: graph serialization was previously colocated in the UI/editor state module, which couples editor concerns to solve-case DTO concerns.
-- Remediation in this slice: move serialization to `graph/toLoadFlowCase.ts` and keep `state/` focused on editor interactions only.
+- Good: editor state is in `state/loadFlowStore.ts`, domain DTOs are in `model/types.ts`, and graph serialization lives in `graph/toLoadFlowCase.ts`.
+- Remaining gap: generator/load/shunt editing exists in the data model but not as first-class editor UI.
 
 ### 2) Engine implementation plan quality
 
-Current status: **high-level plan existed; algorithm and initialization decisions were under-specified**.
+Current status: **solver facade and first Newton-Raphson path exist**.
 
 - Newton-Raphson remains the primary path for correctness and mixed bus-type robustness.
-- Add explicit strategy for optional algorithm fallback and deterministic initialization policy.
-- Add typed solver options and diagnostics interfaces now so solver internals can evolve without breaking UI contracts.
+- Algorithm selection is intentionally narrow: `NEWTON_RAPHSON` is the only implemented algorithm.
+- Initialization is intentionally narrow: `FLAT_START` is the only implemented mode.
+- Typed solver options and diagnostics are present, but the UI does not yet expose solver settings.
 
 ### 3) Planned directory structure
 
-Current status: **planned in prose, not represented in code yet**.
+Current status: **represented in code, with a flatter solver layout than the original sketch**.
 
-- Remediation in this slice: introduce `graph/` and `solver/` scaffolding directories with typed entrypoints for algorithm selection, initialization, and execution facade.
+- `model/`, `graph/`, `solver/`, and `state/` exist under `src/features/load-flow/`.
+- The original `solver/core` and `solver/io` subdirectories were not introduced; solver modules currently live directly under `solver/`.
 
 ## Non-Goals (Initial Scope)
 
@@ -88,30 +95,52 @@ Current status: **planned in prose, not represented in code yet**.
 
 ## Architecture Overview
 
-### High-level module split
+### Current module split
 
-Proposed directory structure:
+Current directory structure:
 
 ```text
 src/
   app/
-    load-flow/
-      page.tsx
-      _components/
-        LoadFlowWorkspace.tsx
-        CanvasPanel.tsx
-        PalettePanel.tsx
-        PropertiesPanel.tsx
-        SolvePanel.tsx
-        ResultsPanel.tsx
+    experimental/
+      load-flow/
+        page.tsx
+        _components/
+          LoadFlowWorkspace.tsx
+          SingleLineDiagram.tsx
+          __tests__/
   features/
     load-flow/
-      model/
-        types.ts
-        validation.ts
-        defaults.ts
       graph/
         toLoadFlowCase.ts
+      model/
+        defaults.ts
+        types.ts
+        validation.ts
+        __tests__/
+      solver/
+        algorithmSelection.ts
+        complex.ts
+        ieeeReferenceScenarios.ts
+        initialization.ts
+        newtonRaphsonSolver.ts
+        referenceScenarios.ts
+        runLoadFlow.ts
+        types.ts
+        __tests__/
+      state/
+        loadFlowStore.ts
+        __tests__/
+```
+
+Earlier sketches included a deeper `solver/core` and `solver/io` split. The current flatter layout is acceptable while the engine is still small.
+
+Possible future structure if solver size grows:
+
+```text
+src/
+  features/
+    load-flow/
       solver/
         core/
           newtonRaphson.ts
@@ -123,29 +152,20 @@ src/
         io/
           resultTypes.ts
           runLoadFlow.ts
-      state/
-        loadFlowStore.ts
-      workers/
-        loadFlow.worker.ts
-      ui/
-        nodeRenderers.tsx
-        edgeRenderers.tsx
-      __tests__/
-        ...
 ```
 
 ### Solver extraction readiness
 
-From day one, keep the solver side-effect free and UI-agnostic:
+Keep the solver side-effect free and UI-agnostic:
 
 - No React imports in solver modules
 - Pass plain serializable DTOs into solver entrypoints
 - Return structured result objects + diagnostics
-- Keep solver in `src/features/load-flow/solver/core/*`
+- Keep editor concerns in `state/` and graph-to-case adaptation in `graph/`
 
 Future extraction path:
 
-1. Move `solver/core` + `model/types` subset to `packages/load-flow-engine`
+1. Move solver modules + `model/types` subset to `packages/load-flow-engine`
 2. Keep existing `runLoadFlow` wrapper as adapter layer
 3. Preserve API contract (`LoadFlowCase -> LoadFlowResult`)
 
@@ -246,7 +266,9 @@ Follow-up expansion criteria:
 - Singular Jacobian handling with user-readable error
 - Deterministic convergence report (iteration log + max mismatch per iteration)
 
-### Outputs
+### Target outputs
+
+Current implementation returns bus solutions, branch-flow solutions, and solver diagnostics. Constraint summaries remain planned.
 
 - Bus solved voltage magnitude/angle
 - Net bus `P/Q` injections
@@ -256,19 +278,20 @@ Follow-up expansion criteria:
 
 ---
 
-## UI/UX Plan for `/load-flow`
+## UI/UX Plan for `/experimental/load-flow/`
 
-### Canvas interactions
+### Current interactions
 
-- Drag from palette to create nodes/devices
-- Connect buses with line edges
-- Attach generators/loads/shunts to buses
+- Add buses from the palette
+- Connect the first two buses with a line element
+- Drag buses directly in the single-line diagram
 - Select element to edit properties in right panel
 
-### Required user controls
+### Remaining user controls
 
 - Bus type selector (`Slack/PV/PQ`)
-- Global base MVA
+- Global base MVA editor
+- Generator/load/shunt editing
 - Solver settings (tolerance, max iterations, damping)
 - Solve / Reset / Export actions
 
@@ -278,16 +301,17 @@ The workspace should include a dedicated **single-line diagram** visualization
 rather than a plain topology list. The baseline implementation now renders:
 
 - Bus nodes (name + type label) using their editor coordinates
-- Branch segments between bus centers
+- Orthogonal branch polylines between bus centers
 - Selection highlighting for the currently selected bus/branch
 - Click interactions on both buses and branches that sync with the properties panel
+- Drag-to-reposition buses directly in the diagram
+- Basic result overlays through solved bus/branch data
 
 Planned follow-up upgrades:
 
-- Drag-to-reposition buses directly in the diagram (persisting `x`,`y`)
 - Device glyph overlays for generators/loads/shunts at each bus
 - Zoom/pan controls for larger multi-bus systems
-- Optional result overlays (voltage magnitude heatmap and branch flow labels)
+- Richer result overlays (voltage magnitude heatmap and branch flow labels)
 
 ### Validation UX
 
@@ -337,15 +361,15 @@ Pre-solve checks with blocking errors:
 
 ---
 
-## Concrete Implementation Plan (Stacked or Independent PR-Friendly)
+## Remaining Implementation Slices
 
-Below are bite-sized slices designed for clean review. They can be run as stacked PRs or independent PRs against `main`.
+The original PR plan is retained as a status-aware backlog. Completed slices should not be treated as future work.
 
 ### MVP Track
 
 #### PR 1 — Route shell + domain model contracts _(Completed March 31, 2026)_
 
-- ✅ Add `/load-flow` route with placeholder workspace layout
+- ✅ Add `/experimental/load-flow/` route with placeholder workspace layout
 - ✅ Introduce `model/types.ts`, defaults, and validation scaffolding
 - ✅ Add documentation for sign conventions and bus types
 
@@ -359,27 +383,29 @@ Below are bite-sized slices designed for clean review. They can be run as stacke
 
 **Acceptance:** users can create/edit buses and lines; state serializes correctly.
 
-#### PR 3 — Core solver skeleton
+#### PR 3 — Core solver skeleton _(Implemented baseline)_
 
-- Add case conversion (`graphToCase.ts`)
-- Add `Ybus` builder + mismatch + Newton-Raphson loop (no PV limit switching yet)
-- Add initial solver unit tests on small deterministic cases
+- ✅ Add case conversion (`graph/toLoadFlowCase.ts`)
+- ✅ Add `Ybus` assembly, mismatch calculation, Jacobian construction, and Newton-Raphson loop
+- ✅ Add initial solver unit tests on small deterministic cases
+- Remaining: split solver internals only if module size or review pressure justifies it.
 
 **Acceptance:** valid small systems converge and return voltages/angles.
 
-#### PR 4 — Full bus behavior + P/Q results
+#### PR 4 — Full bus behavior + P/Q results _(Partially implemented)_
 
-- Add Slack/PV/PQ equation handling end-to-end
-- Add PV `Q` limits and PV→PQ switching
-- Add result tables for bus/branch `P/Q`
+- ✅ Add Slack/PV/PQ equation handling end-to-end
+- ✅ Add bus P/Q injection outputs
+- ✅ Add branch-flow output data from the solver
+- Remaining: expose branch-flow results in the UI and finish PV `Q` limit switching behavior.
 
 **Acceptance:** solver handles mixed bus types with accurate `P/Q` outputs.
 
-#### PR 5 — Shunt devices (reactor, inductor, capacitor)
+#### PR 5 — Shunt devices (reactor, inductor, capacitor) _(Partially implemented)_
 
-- Add shunt device UI + model representation
-- Stamp shunts into case and solver
-- Add targeted unit tests for reactive behavior/sign conventions
+- ✅ Add model representation
+- ✅ Stamp shunts into the solver
+- Remaining: add shunt device UI and targeted tests for reactive behavior/sign conventions
 
 **Acceptance:** capacitor and reactor/inductor effects appear correctly in `Q` balances and voltages.
 

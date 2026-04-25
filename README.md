@@ -46,8 +46,11 @@ Personal website and writing hub for Alex Leung. Built with Next.js 16, React 19
 - `yarn lint:fix` — auto-fix lint/format issues
 - `yarn test` — run Jest tests
 - `yarn test:e2e` — run Playwright smoke tests in Docker against the exported site
+- `yarn test:e2e:host` — run Playwright smoke tests directly on the host when Docker is unavailable
 - `yarn test:e2e:visual` — run Playwright visual regression tests in Docker
+- `yarn test:e2e:visual:host` — run Playwright visual regression tests directly on the host when Docker is unavailable
 - `yarn test:e2e:visual:update` — regenerate Playwright visual snapshots in Docker
+- `yarn test:e2e:visual:update:host` — regenerate Playwright visual snapshots directly on the host when Docker is unavailable
 - `yarn typecheck` — run TypeScript check (`tsc --noEmit`)
 - `yarn test:watch` — run tests in watch mode
 - `yarn test:coverage` — run tests with coverage
@@ -60,69 +63,19 @@ Google Analytics is gated behind `NEXT_PUBLIC_ENABLE_ANALYTICS=true`, so analyti
 
 ## End-to-End Testing
 
-Playwright runs in the official Playwright Docker image by default via `docker compose`, and the suite targets the static export rather than `yarn dev`. That keeps browser/system dependencies pinned and matches the GitHub Pages deployment model without the Next.js dev indicator. When Docker is unavailable, use the host-mode wrappers instead of the Docker commands so the same suites can still run in cloud agent environments.
+Playwright targets the static export rather than `yarn dev`. Use Docker commands by default, and use the host-mode wrappers when Docker is unavailable.
 
-The smoke suite currently runs across desktop Chrome, desktop Safari/WebKit, Android Chrome, and Mobile Safari. The visual suite runs on desktop Chromium plus a single mobile Chromium lane so mobile layout regressions are covered without exploding the snapshot matrix.
+```bash
+yarn test:e2e
+yarn test:e2e:visual
+PLAYWRIGHT_BASE_URL=https://alexleung.ca yarn test:e2e
+```
 
-1. Run smoke tests against a locally built export:
-
-   ```bash
-   yarn test:e2e
-   ```
-
-   If Docker is unavailable:
-
-   ```bash
-   yarn test:e2e:host
-   ```
-
-2. Run visual regression tests or intentionally refresh their snapshots:
-
-   ```bash
-   yarn test:e2e:visual
-   yarn test:e2e:visual:update
-   ```
-
-   If Docker is unavailable:
-
-   ```bash
-   yarn test:e2e:visual:host
-   yarn test:e2e:visual:update:host
-   ```
-
-3. To retarget the same smoke suite at a deployed site, provide `PLAYWRIGHT_BASE_URL`:
-
-   ```bash
-   PLAYWRIGHT_BASE_URL=https://alexleung.ca yarn test:e2e
-   ```
+See [`docs/playwright-testing-design.md`](./docs/playwright-testing-design.md) for the current browser matrix, host-mode wrappers, visual snapshot workflow, and CI behavior.
 
 ## Codespaces: Lighthouse Setup
 
-In GitHub Codespaces, `yarn perf:lighthouse` may fail by default because:
-
-- no Chrome binary is preinstalled in the container
-- required shared libraries for headless Chrome are missing
-
-Use this one-time setup:
-
-```bash
-sudo apt-get install -y --no-install-recommends \
-  libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libxkbcommon0 \
-  libatspi2.0-0t64 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 \
-  libgbm1 libasound2t64
-
-yarn dlx @puppeteer/browsers install chrome@stable --path ./.cache/puppeteer-browsers
-export CHROME_PATH="$(ls -1d .cache/puppeteer-browsers/chrome/linux-*/chrome-linux64/chrome | tail -n1)"
-```
-
-Then run:
-
-```bash
-yarn build
-yarn perf:lighthouse
-```
-
-If you want `CHROME_PATH` to persist across terminals in Codespaces, add the export line to `~/.bashrc`.
+Codespaces may need extra Chrome runtime setup before `yarn perf:lighthouse` can run. See [`docs/codespaces.md`](./docs/codespaces.md) for the current one-time setup and troubleshooting notes.
 
 ## Image Variant Automation
 
@@ -213,11 +166,16 @@ The optimizer visualizer keeps the numerical pieces independent from React. Each
 
 ## Documentation Map
 
-- `docs/README.md` — docs directory guide and consolidation notes
-- `docs/architecture-seo-status.md` — canonical architecture + SEO status snapshot
-- `docs/codespaces.md` — detailed Codespaces troubleshooting for Lighthouse prerequisites
-- `docs/playwright-testing-design.md` — current Playwright E2E and visual testing setup
-- `docs/typography-audit.md` — typography findings and implementation guardrails
+- [`docs/README.md`](./docs/README.md) — docs directory guide and document inventory
+- [`docs/architecture-seo-status.md`](./docs/architecture-seo-status.md) — architecture and SEO status snapshot
+- [`docs/blog-notification-report.md`](./docs/blog-notification-report.md) — RSS and follow.it notification runbook
+- [`docs/codespaces.md`](./docs/codespaces.md) — Codespaces Lighthouse troubleshooting
+- [`docs/playwright-testing-design.md`](./docs/playwright-testing-design.md) — Playwright smoke, visual, host-mode, and CI workflow
+- [`docs/typography-audit.md`](./docs/typography-audit.md) — typography audit history and current prose guardrails
+- [`docs/event-loop-visualizer.md`](./docs/event-loop-visualizer.md) — event loop visualizer model notes
+- [`docs/pid-controller-simulator.md`](./docs/pid-controller-simulator.md) — PID simulator architecture notes
+- [`docs/load-flow-implementation-plan.md`](./docs/load-flow-implementation-plan.md) — load-flow implementation status and remaining slices
+- [`docs/industrial-ee-browser-utilities-plan.md`](./docs/industrial-ee-browser-utilities-plan.md) — parked planning reference for possible future engineering utilities
 
 ## Licensing
 
