@@ -1,6 +1,6 @@
 import { PlantModel, PlantState } from "@/features/pid-simulator/types";
 
-export type FirstOrderPlantConfig = {
+type FirstOrderPlantConfig = {
   gain: number;
   timeConstantSeconds: number;
   initialOutput: number;

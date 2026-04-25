@@ -19,7 +19,7 @@ const staticImageProfiles = {
   },
 } satisfies Record<string, StaticImageProfile>;
 
-export type StaticImageProfileName = keyof typeof staticImageProfiles;
+type StaticImageProfileName = keyof typeof staticImageProfiles;
 
 function getRequiredVariant(
   sourcePath: string,

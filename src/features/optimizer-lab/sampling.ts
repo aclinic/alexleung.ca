@@ -67,10 +67,7 @@ export function normalizePoint(
   };
 }
 
-export function denormalizePoint(
-  surface: SurfaceDefinition,
-  point: Vector2
-): Vector2 {
+function denormalizePoint(surface: SurfaceDefinition, point: Vector2): Vector2 {
   const xRange = surface.domain.xMax - surface.domain.xMin;
   const yRange = surface.domain.yMax - surface.domain.yMin;
 

@@ -56,10 +56,7 @@ export function cloneViewport(viewport: PreciseViewport): PreciseViewport {
   };
 }
 
-export function viewportHeightForSize(
-  width: Decimal.Value,
-  size: PixelSize
-): Decimal {
+function viewportHeightForSize(width: Decimal.Value, size: PixelSize): Decimal {
   const preciseWidth = precise(width);
   configurePrecisionForWidth(preciseWidth);
 

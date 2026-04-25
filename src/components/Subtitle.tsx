@@ -1,4 +1,4 @@
-export type SubtitleProps = {
+type SubtitleProps = {
   title: string;
   id?: string;
 };

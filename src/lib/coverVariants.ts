@@ -4,7 +4,7 @@ import {
   getLargestImageVariant,
 } from "@/lib/imageVariantManifest";
 
-export type CoverVariant = "card" | "hero";
+type CoverVariant = "card" | "hero";
 
 export function getCoverVariantSourceSet(
   src: string | undefined,

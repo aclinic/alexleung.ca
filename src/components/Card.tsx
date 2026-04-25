@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { Surface } from "@/components/Surface";
 
-export interface CardProps {
+interface CardProps {
   children: ReactNode;
   className?: string;
 }

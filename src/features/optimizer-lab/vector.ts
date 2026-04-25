@@ -33,7 +33,3 @@ export function magnitude(vector: Vector2): number {
 export function maxAbsComponent(vector: Vector2): number {
   return Math.max(Math.abs(vector.x), Math.abs(vector.y));
 }
-
-export function clamp(value: number, min: number, max: number): number {
-  return Math.min(Math.max(value, min), max);
-}

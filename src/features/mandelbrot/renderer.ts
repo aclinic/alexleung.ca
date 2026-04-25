@@ -23,7 +23,7 @@ import {
 const DECIMAL_ROWS_PER_CHUNK = 6;
 const NUMBER_ROWS_PER_CHUNK = 20;
 
-export type RenderExecutionResult = {
+type RenderExecutionResult = {
   completed: boolean;
   backend: RenderBackend;
   gpuFallbackReason?: string;
@@ -58,7 +58,7 @@ function nextFrame(): Promise<void> {
   });
 }
 
-export async function renderMandelbrot({
+async function renderMandelbrot({
   viewport,
   size,
   settings,

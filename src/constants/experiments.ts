@@ -1,4 +1,4 @@
-export type ExperimentEntry = {
+type ExperimentEntry = {
   description: string;
   id: string;
   lastModified: string;

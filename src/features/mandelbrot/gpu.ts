@@ -186,12 +186,12 @@ type WebGpuRenderPassDescriptor = {
   }>;
 };
 
-export type WebGpuAvailability = {
+type WebGpuAvailability = {
   isAvailable: boolean;
   reason?: string;
 };
 
-export type WebGpuRenderResult = {
+type WebGpuRenderResult = {
   completed: boolean;
   rendered: boolean;
   fallbackReason?: string;

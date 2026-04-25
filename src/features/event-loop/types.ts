@@ -1,11 +1,6 @@
 export type QueueKind = "sync" | "microtask" | "task";
 
-export type TimelineEventType =
-  | "run"
-  | "schedule"
-  | "complete"
-  | "idle"
-  | "tick";
+type TimelineEventType = "run" | "schedule" | "complete" | "idle" | "tick";
 
 export type Operation =
   | {
