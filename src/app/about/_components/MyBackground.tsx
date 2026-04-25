@@ -34,7 +34,7 @@ export function Journey() {
                 <ExternalLink href="https://arvr.google.com/">
                   Google
                 </ExternalLink>
-                , and product engineering at{" "}
+                , and consumer finance at{" "}
                 <ExternalLink href="https://cash.app/">Cash App</ExternalLink>.
               </p>
             </IconTextRow>
