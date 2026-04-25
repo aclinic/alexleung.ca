@@ -28,6 +28,7 @@
     "test:coverage": "jest --coverage",
     "perf:lighthouse": "lhci autorun --config=.lighthouserc.json",
     "lint": "eslint . && prettier --check '{src,docs,playwright,scripts,.github}/**/*.{js,jsx,ts,tsx,css,md,json,yml,mjs}' '*.{js,mjs,ts,json,md,yml}'",
+    "lint:unused": "knip --reporter compact",
     "lint:fix": "eslint --fix . && prettier --write '{src,docs,playwright,scripts,.github}/**/*.{js,jsx,ts,tsx,css,md,json,yml,mjs}' '*.{js,mjs,ts,json,md,yml}'",
     "predeploy": "yarn build:prod",
     "deploy": "gh-pages -d out"
@@ -70,6 +71,7 @@
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "katex": "^0.16.45",
+    "knip": "^6.7.0",
     "postcss": "^8.5.10",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
