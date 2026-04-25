@@ -1,5 +1,7 @@
 # Industrial Electrical Engineering Browser Utilities – Implementation Plan
 
+Status: **parked planning reference**. This document captures a possible future product direction, not an active implementation plan for the current site. Revisit and revalidate the research, safety, and legal assumptions before using it to drive work.
+
 ## Purpose and Scope
 
 Create four browser-hosted industrial electrical engineering utilities with a shared architecture, validation model, and testing strategy:
