@@ -66,8 +66,16 @@ const PostFrontMatterSchema = z
   })
   .strict();
 
+const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
+
 function assertValidDate(date: string, slug: string, key: "date" | "updated") {
-  if (Number.isNaN(Date.parse(date))) {
+  const parsedDate = new Date(`${date}T00:00:00.000Z`);
+
+  if (
+    !isoDatePattern.test(date) ||
+    Number.isNaN(parsedDate.getTime()) ||
+    parsedDate.toISOString().slice(0, 10) !== date
+  ) {
     throw new Error(`Invalid ${key} in post "${slug}": ${date}`);
   }
 }

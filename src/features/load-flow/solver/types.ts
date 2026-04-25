@@ -69,7 +69,7 @@ export const DEFAULT_SOLVE_OPTIONS: SolveOptions = {
   tolerance: 1e-6,
   maxIterations: 30,
   damping: 1,
-  enforceReactiveLimits: true,
+  enforceReactiveLimits: false,
   algorithm: "NEWTON_RAPHSON",
   initialization: "FLAT_START",
 };

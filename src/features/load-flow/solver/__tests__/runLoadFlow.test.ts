@@ -38,6 +38,22 @@ describe("runLoadFlow", () => {
     expect(result.branchFlows).toHaveLength(1);
   });
 
+  it("fails closed when unsupported reactive limit enforcement is requested", () => {
+    const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
+      (item) => item.id === "three-bus-with-pv"
+    );
+
+    expect(scenario).toBeDefined();
+
+    const result = runLoadFlow(scenario!.loadFlowCase, {
+      enforceReactiveLimits: true,
+    });
+
+    expect(result.diagnostics.converged).toBe(false);
+    expect(result.diagnostics.message).toMatch(/not implemented/i);
+    expect(result.buses).toBeUndefined();
+  });
+
   it("solves the three-bus PV + PQ reference scenario", () => {
     const scenario = LOAD_FLOW_REFERENCE_SCENARIOS.find(
       (item) => item.id === "three-bus-with-pv"

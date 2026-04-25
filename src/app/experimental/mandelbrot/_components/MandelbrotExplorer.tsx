@@ -559,8 +559,8 @@ export function MandelbrotExplorer() {
                 frames whenever the view changes.
               </li>
               <li>
-                The URL mirrors the current center, width, backend, palette,
-                quality, and iteration budget for shareable deep links.
+                Query parameters can seed the initial center, width, backend,
+                palette, quality, and iteration budget.
               </li>
             </ul>
           </Surface>
