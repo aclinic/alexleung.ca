@@ -1,2 +1,4 @@
-name: dependency-framework-upgrade-planner
-entry: SKILL.md
+interface:
+  display_name: "Dependency Upgrade Planner"
+  short_description: "Plan dependency and framework upgrades"
+  default_prompt: "Use $dependency-framework-upgrade-planner to audit this repository's dependencies and framework APIs, then produce a sequenced upgrade plan with required code changes."

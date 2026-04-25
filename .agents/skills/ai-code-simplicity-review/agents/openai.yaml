@@ -1,4 +1,4 @@
 interface:
   display_name: "AI Code Simplicity Review"
-  short_description: "Refactor verbose AI-style code into simpler idiomatic implementations"
-  default_prompt: "Use $ai-code-simplicity-review to identify overly verbose AI-style patterns and apply minimal, behavior-preserving simplifications with validation steps."
+  short_description: "Simplify verbose code without changing behavior"
+  default_prompt: "Use $ai-code-simplicity-review to simplify overly verbose code, remove redundant abstractions, and validate that behavior is preserved."

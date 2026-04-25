@@ -1,37 +1,38 @@
 ---
 name: ai-code-simplicity-review
-description: Review repositories for overly verbose or unnecessary AI-generated coding patterns and refactor toward simpler, idiomatic, lower-LOC implementations. Use when asked to identify and remove redundant abstractions, unnecessary defensive code, obvious comments, duplicated helpers, or general code bloat.
+description: Targeted simplification of overly verbose or AI-inflated code. Use when asked to reduce redundant helpers, pass-through abstractions, obvious comments, impossible defensive branches, or general code bloat while preserving behavior. Do not use as a broad repo audit, security audit, dependency upgrade plan, or dead-code sweep.
 ---
 
 # AI Code Simplicity Review
 
-## Overview
-
-Audit code for complexity inflation patterns common in AI-assisted output, then apply minimal refactors that preserve behavior while improving clarity and maintainability.
+Use this skill for focused refactors that make code shorter, clearer, and more idiomatic without changing behavior. For broad repository health reviews, use `repo-maintainability-audit`; for unused files, symbols, or dependencies, use `unused-code-auditor`.
 
 ## Workflow
 
-1. **Map likely hotspots first**
-   - Prioritize recently changed files, utility-heavy modules, and files with long helper chains.
-   - Skim tests to infer expected behavior before changing logic.
+1. Map the behavior before simplifying.
+   - Read the caller, tests, and nearby conventions for each candidate.
+   - Identify public APIs or user-visible behavior that must not change.
 
-2. **Detect verbosity smells**
-   - Redundant abstraction: wrapper functions that only rename arguments, one-off interfaces/types, pass-through components.
-   - Unnecessary defensive code: repeated null/undefined guards for guaranteed values, catch-and-rethrow without added context, fallback branches that cannot execute.
-   - Obvious comments: comments that restate code literally (`// increment i`).
-   - Repeated helpers: near-duplicate functions differing only by tiny parameter changes.
+2. Look for complexity inflation.
+   - Pass-through wrappers that only rename arguments.
+   - One-off interfaces, types, helpers, or components with no reuse value.
+   - Null/undefined guards, fallbacks, or catch/rethrow blocks for impossible states.
+   - Comments that narrate obvious syntax instead of explaining intent.
+   - Near-duplicate helpers that differ only by tiny parameter changes.
+   - Overly granular files created for trivial logic.
 
-3. **Refactor conservatively**
+3. Refactor conservatively.
    - Inline pass-through helpers used once.
-   - Collapse duplicated logic into one parameterized helper only if it improves readability.
-   - Delete comments that explain obvious syntax; keep comments that capture intent, invariants, or non-obvious constraints.
+   - Delete dead branches and impossible fallbacks when proof is local and clear.
+   - Consolidate duplicate logic only when the result is easier to read.
+   - Keep comments that capture intent, invariants, or non-obvious constraints.
    - Replace verbose branching with idiomatic language constructs.
 
-4. **Validate behavior**
-   - Run linting, type checks, and the smallest relevant test subset first; then broaden if needed.
+4. Validate behavior.
+   - Run the smallest relevant checks first, then broaden according to repo guidance.
    - If behavior is uncertain, add or update tests before simplifying.
 
-5. **Report impact**
+5. Report impact.
    - Summarize what was removed, why it was unnecessary, and how correctness was validated.
    - Call out net LOC reduction when practical.
 
@@ -39,7 +40,7 @@ Audit code for complexity inflation patterns common in AI-assisted output, then 
 
 - Prefer directness over indirection.
 - Prefer existing project idioms over personal style.
-- Prefer fewer moving parts over “future-proof” scaffolding.
+- Prefer fewer moving parts over "future-proof" scaffolding.
 - Stop simplifying when readability starts to drop.
 - Never change public behavior unless explicitly requested.
 
@@ -51,7 +52,3 @@ A refactor is complete when:
 - Duplicate helpers and dead branches are removed.
 - Remaining comments justify their existence.
 - Tests/checks still pass.
-
-## Reference
-
-Use `references/review-checklist.md` as a quick execution checklist during audits.

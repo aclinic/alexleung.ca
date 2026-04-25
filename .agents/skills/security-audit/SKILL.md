@@ -1,6 +1,6 @@
 ---
 name: security-audit
-description: Perform repository security audits for web and application codebases. Use when asked to find or review injection vulnerabilities, unsafe deserialization, authentication/authorization flaws, sensitive data exposure, and insecure dependencies, and to produce a report with vulnerability description, risk severity, and suggested fix with patch.
+description: Perform focused repository security audits for web and application codebases. Use when asked to find injection vulnerabilities, unsafe deserialization, authentication/authorization flaws, sensitive data exposure, insecure dependencies, or patch-ready vulnerability fixes. Do not use for general maintainability or dependency modernization planning.
 ---
 
 # Security Audit
@@ -22,7 +22,7 @@ Run a focused code-and-dependency security review and return actionable findings
 
 3. **Validate findings**
    - Confirm exploitability and preconditions.
-   - Remove false positives; clearly mark uncertain issues as “needs verification”.
+   - Remove false positives; clearly mark uncertain issues as "needs verification".
 
 4. **Fix or propose patch**
    - Prefer minimal, targeted code patches.
@@ -45,7 +45,7 @@ Use this structure:
 ```markdown
 ## Finding N: <short title>
 - Vulnerability description: ...
-- Risk severity: <Critical|High|Medium|Low> — <justification>
+- Risk severity: <Critical|High|Medium|Low> - <justification>
 - Suggested fix and patch:
 
 ```diff

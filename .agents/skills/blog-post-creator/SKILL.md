@@ -1,163 +1,79 @@
 ---
 name: blog-post-creator
-description: Create or revise markdown blog posts for alexleung.ca in Alex Leung's established style, and generate cover-image prompts for image models. Use when asked to draft a new post, expand rough notes into publish-ready prose, rewrite an existing post to match house voice, produce frontmatter/outline/body for files in content/posts/*.md, or create a stylized cover prompt that can be paired with a reference photo of Alex.
+description: Create or revise markdown blog posts for alexleung.ca in Alex Leung's established style, including frontmatter and optional cover-image prompts. Use when asked to draft a post, revise existing blog prose, expand notes into publish-ready prose, rewrite content to match house voice, or generate cover prompts for content/posts/*.md. Do not use for generic copy editing outside the blog.
 ---
 
 # Blog Post Creator
 
-Use this skill to produce publish-ready markdown posts that match the patterns used in `content/posts/`.
+Use this skill to produce publish-ready markdown posts that match `content/posts/` and the site's understated, concrete voice.
 
-## Target Voice
+Load references only when needed:
 
-- Write analytical, structured, and practical prose.
-- Keep tone warm but understated: confident, relationship-aware, and forward-looking.
-- Keep prose professional with emotional intelligence, but not sterile.
-- Write in first person when the post draws on the author's own experience, judgment, or learning.
-- Show experience through concrete observations, trade-offs, project details, and limitations rather than self-promotional claims.
-- Avoid theatrics, hype language, and performative emphasis.
-- Avoid recruiter-optimized framing, inflated positioning, and polished slogans; keep the authorial stance humble, grounded, and specific.
-- Do not assert significance with phrases like "this is important because", "this matters because", or similar authorial signposting; let significance emerge from the concrete facts, trade-offs, and consequences.
-- When the piece is intentionally reflective or artistic, allow a more lyrical register, but keep it anchored in concrete observation, personal judgment, or a clearly stated tension.
+- [voice-and-structure](references/voice-and-structure.md): detailed voice, cadence, and post-shape guidance.
+- [post-template](references/post-template.md): frontmatter and file skeleton.
+- [cover-prompt-template](references/cover-prompt-template.md): primary and backup cover prompt format.
+
+## Core Voice
+
+- Write in first person when the post draws on Alex's own experience, judgment, or learning.
+- Keep tone warm, direct, and measured; avoid hype, slogans, and recruiter-style positioning.
+- Show experience through concrete observations, trade-offs, mechanisms, and limits.
+- Prefer literal phrasing over abstract framing when the concrete system, UI behavior, or comparison can be named.
+- Let significance emerge from facts and consequences instead of declaring that something "matters" or is "important".
 
 ## Hard Constraints
 
-1. Do not use repeated one-sentence paragraphs as the dominant cadence.
-   Exception: in intentionally reflective/artistic pieces, a few short paragraphs are acceptable if they create rhythm and the overall piece still carries a coherent argument or emotional throughline.
-2. Default to cohesive paragraphs that carry one clear claim with supporting detail.
-3. Prefer specific trade-offs, mechanisms, and implications over slogans.
-4. Keep writing concise: remove filler, throat-clearing, and redundant qualifiers.
-5. Preserve user-provided facts exactly for agency and ownership (for example, who bought something, who decided, who uses it); do not infer missing relationship details.
-6. Default to concise titles; prefer short, plain phrasing unless the user asks for a longer or more stylized title.
-7. Use section headings that are specific and neutral; avoid cute, rhetorical, or parenthetical framing.
-8. When drafting a new post from notes, include cover prompts by default; only skip prompts if the user explicitly asks for post-only output.
-9. Do not imply hands-on practice the user did not claim. If the input is about reading, reflection, or conceptual learning, keep claims at the level of understanding, interpretation, or future curiosity unless the user explicitly said they build, tune, deploy, or regularly use the systems being discussed.
-10. Avoid formulaic heading scaffolds as a dominant pattern. Do not default multiple sections in a post to `What`, `How`, `Why`, `When`, `Where`, `The Goal`, `The Implementation`, or similar organizational labels when a more specific idea-title is available.
-11. Avoid explicitly telling the reader that a topic is meaningful, important, or significant unless the user explicitly wants that rhetorical style. Otherwise, show that through specificity, stakes, consequences, and judgment instead of declaring it.
-12. Prefer literal, concrete phrasing over abstract framing. If a sentence can name the actual mechanism, system, UI behavior, or claim directly, do that instead of using broad setup language such as `interesting middle ground`, `felt accessible`, or similarly interpretive summaries.
-13. Avoid rhetorical contrast templates such as `it is one thing ... it is another ...` unless the user explicitly wants a more essayistic register. Prefer direct statements with the concrete example embedded.
-14. Avoid draft-scaffolding transitions such as `the third thread is simpler`, `another point is`, or similar meta-organizing phrases when the section can just begin with the actual idea.
-15. When contrasting two things, make sure they are genuinely distinct. Do not restate the same concept twice with different wording just to make a sentence feel polished.
-16. Keep claims tightly bounded to what the user actually said. Avoid time-scale claims like `over time` or broader experiential conclusions unless the user explicitly established them.
-17. Do not turn learning notes, project writeups, or personal reflections into portfolio positioning. If a professional detail belongs, state it plainly as context.
-18. Keep titles and excerpts specific, modest, and representative of the post rather than optimized for authority or reach.
+1. Preserve user-provided facts exactly; do not invent anecdotes, metrics, timeline claims, ownership, or hands-on practice.
+2. Keep claims tightly bounded to what the user actually said.
+3. Avoid repeated one-sentence paragraphs as the dominant cadence.
+4. Prefer concise titles and specific excerpts over authority-oriented positioning.
+5. Use section headings that name the idea of the section, not generic scaffolds like `What`, `How`, `Why`, `The Goal`, or `The Implementation`.
+6. Do not turn learning notes, project writeups, or personal reflections into portfolio pitches.
+7. For new-post drafts, include cover prompts by default unless the user asks for post-only output.
 
 ## Workflow
 
-1. Capture constraints and facts.
-- Define topic, thesis, audience, and depth target (reflection vs technical deep dive).
-- Collect concrete examples, decisions, and trade-offs from user input.
-- Avoid inventing anecdotes, metrics, or timeline claims.
-- Lock key facts before drafting: actor/ownership details, product/version details, and scope boundaries.
-- Identify whether the post should read as an essay, a learning note, or a compact reflection before choosing headings or structure.
+1. Capture facts and intent.
+   - Identify topic, thesis, audience, and depth target: learning note, technical explainer, reflection, or compact reflective piece.
+   - Lock facts around actors, versions, decisions, ownership, and scope boundaries.
+   - Mark assumptions instead of filling gaps with invented detail.
 
-2. Select a post shape.
-- Open with context and a clear point of view in the first paragraph.
-- Use 2-4 `##` sections that progress by reasoning.
-- Keep section headings plain and descriptive (for example, "Scope Before Specs"), not rhetorical.
-- Prefer headings that name the actual idea of the section, not just its question type or document role.
-- End with a concrete synthesis or forward-looking close.
-- For learning/review posts, default the close to what changed in the author's understanding; only end on operational practice if the user explicitly described a change in what they do.
-  Exception: short reflective/artistic posts may be written without headings if the piece is intentionally compact and the movement is still clear from paragraph to paragraph.
+2. Choose the shape.
+   - Open with context and a clear point of view in the first paragraph.
+   - Use 2-4 `##` sections when structure helps; short reflective pieces may omit headings.
+   - Make each section advance one concrete claim with supporting detail.
+   - End with synthesis, a changed understanding, or a specific forward point.
 
-### Post Calibration
-
-- `Learning note`: emphasize changed understanding, bounded claims, and a modest close.
-- `Technical explainer`: emphasize mechanism, precision, and explicit trade-offs.
-- `Reflection`: emphasize tension, judgment, and implications without drifting into slogans.
-- `Reflective/artistic short form`: allow more atmosphere, compression, and rhetorical movement, but anchor the piece in a concrete scene, tension, or observation within the first paragraph and keep the close earned rather than vague.
-- When a draft sits between categories, bias toward the less grand version; prefer a narrower, more grounded post over a more ambitious one.
-
-3. Draft in house voice.
-- Write in first person singular.
-- Keep paragraphs mostly multi-sentence.
-- Prefer mechanism, constraints, and implications over slogans.
-- Prefer plain analytical phrasing over polished summary language; if a sentence sounds like a slogan, flatten it.
-- If a sentence sounds smooth but vague, replace it with the exact thing the user means: the specific constraint, symptom, operation, comparison, or example.
-- Use lists only when scanning value is clearly better than prose.
-- In reflective/artistic mode, do not flatten every rhetorical sentence. Preserve some texture when it is doing real tonal work, but trim lines that sound ornamental without adding meaning.
+3. Draft or revise in house voice.
+   - Prefer cohesive multi-sentence paragraphs.
+   - Replace broad framing with the exact constraint, mechanism, symptom, or comparison.
+   - Use lists only when they improve scanning.
+   - Keep technical trade-offs and limitations explicit.
 
 4. Apply repo format.
-- Follow frontmatter and skeleton in [post-template](references/post-template.md).
-- Keep filenames slug-safe (`lowercase-hyphenated`) under `content/posts/`.
-- Write excerpt text as a specific takeaway, not a generic summary.
+   - Use [post-template](references/post-template.md) for new files under `content/posts/`.
+   - Keep filenames slug-safe: lowercase words joined by hyphens.
+   - Use 2-4 tags and prefer existing site tag language when possible.
+   - Include `updated` only when materially revising an existing post.
 
-5. Generate cover-image prompt.
-- Follow [cover-prompt-template](references/cover-prompt-template.md).
-- Default visual direction to Ghibli-style unless user asks for another style.
-- Explicitly include instruction to use the provided Alex reference image for facial consistency.
-- Tie composition to the post thesis and keep scene clear at thumbnail size.
-- Provide both a primary prompt and a backup prompt in the same response as the draft unless the user opts out.
-
-6. Run final checks.
-- Ensure the argument is cohesive from opening to close.
-- Remove hype language and repeated one-sentence paragraph cadence.
-- Remove authorial "this matters/this is important" assertions unless the user explicitly wants that rhetorical style.
-- Verify section headings are specific and reflect actual content.
-- Run a heading-shape audit: if several headings in the same draft begin with `What`, `How`, `Why`, `When`, `Where`, or generic labels like `The Goal`, rewrite them unless that repetition is clearly intentional.
-- Keep claims bounded and testable; mark assumptions when needed.
-- Run an assumption audit: check that agency/ownership wording matches the user's input and that title/heading tone matches the user's preference for directness.
-- Run a practice audit: remove any implication that the author builds, tunes, deploys, or routinely uses systems unless the user explicitly stated that.
-- Run a voice audit: make sure the piece feels humble, grounded, clearly experienced through evidence, and free of recruiter-style positioning.
-- Run a vagueness audit: replace underspecified abstractions like "shift", "this", "that", "result", or "it" when the referent would be unclear in isolation.
-- Run a concreteness audit: replace broad framing lines with the underlying claim whenever possible, especially around technical mechanisms, implementation constraints, and UI behavior.
-- Run a transition audit: make sure each section clearly connects to the one before it; add a bridging sentence when the relationship is not obvious.
-- Run a duplication audit: cut sentences where the second clause only restates the first more elegantly instead of adding meaning.
-- For reflective/artistic posts, run an anchoring audit: make sure abstract lines are grounded by at least one concrete image, scene, tool, or tension so the piece does not drift into generic musing.
-- Confirm output completeness: if this is a new-post draft, include both `Cover Prompt (Primary)` and `Cover Prompt (Backup)` blocks unless explicitly waived.
-
-## Style References
-
-- Use [voice-and-structure](references/voice-and-structure.md) for style defaults inferred from existing posts.
-- Use [post-template](references/post-template.md) for frontmatter and drafting scaffolds.
-- Use [cover-prompt-template](references/cover-prompt-template.md) to generate model-ready cover prompts.
-
-## Self-Review Checklist
-
-- Ensure the piece reads as a cohesive argument, not a thread.
-- Ensure paragraphs are mostly multi-sentence and logically connected.
-- Ensure claims are backed by context, not assertion alone.
-- Ensure trade-offs and limitations are explicit.
-- Ensure the close fits the post type: for learning notes, usually land on changed understanding before changed practice.
-- Ensure title length and phrasing are intentionally concise by default.
-- Ensure heading language is functional, not performative.
-- Ensure heading variety is healthy across the piece; avoid making all sections sound like reusable template labels.
-- Ensure transitions are explicit when moving between conceptually different sections.
-- Ensure no underspecified abstractions remain where the noun can be stated directly.
-- Ensure polished or slogan-like phrasing has been flattened into plain analytical prose.
-- For reflective/artistic pieces, ensure the abstraction is earned by concrete setup and not sustained for too long without grounding.
-- Ensure no inferred facts were introduced around who did what.
-- Ensure title, excerpt, and intro copy do not overstate the piece or frame the author as a brand.
-
-## Quick Rewrite Patterns
-
-- Convert hook-only opening lines into a thesis plus context paragraph.
-- Combine adjacent short paragraphs that express one idea.
-- Replace broad praise or critique with specific criteria.
-- Turn hot-take phrasing into observation plus evidence plus implication.
-
-## Voice Anti-Patterns
-
-- Avoid vague evaluative phrasing like "this was a big shift" when the object of the shift can be named directly.
-- Avoid significance-signposting such as "this is important because", "this matters because", or "what makes this meaningful is"; replace it with the concrete observation, stake, or consequence itself.
-- Avoid "this changes how I use X" unless the user explicitly said they use or build with `X`.
-- Avoid polished summary phrases like "clear statistical story" or "substantial result" when plainer analytical language would do.
-- Avoid abstract transition or framing phrases like `interesting middle ground`, `made it feel more accessible`, `the third thread`, or similar language when the concrete fact can be stated directly.
-- Avoid synthetic contrast lines where the two halves are too similar in meaning, for example `trace the model` followed by `inspect the code directly`, unless both ideas are materially distinct in context.
-- Avoid endings that merely restate the thesis in more elevated language.
-- In reflective/artistic mode, avoid abstract language stacking for more than a sentence or two without returning to something observable or personal.
+5. Generate cover prompts when appropriate.
+   - Use [cover-prompt-template](references/cover-prompt-template.md).
+   - Default visual direction to Ghibli-style unless the user asks for another style.
+   - Include an instruction to use Alex's reference image for facial likeness.
+   - Keep the scene readable at thumbnail size and avoid text overlays.
 
 ## Output Modes
 
-- Default mode selection: for new-post creation requests, use `Draft + cover prompt` unless the user explicitly requests another mode.
-- Full draft: Return complete markdown with frontmatter and final prose.
-- Revision pass: Return edited markdown that preserves existing facts and improves flow.
-- Outline-first: Return frontmatter plus a sectioned outline before writing the full draft.
-- Draft + cover prompt: Return post markdown plus one primary image prompt and one backup prompt.
+- **Draft + cover prompt**: default for new-post creation.
+- **Full draft**: complete markdown with frontmatter and final prose.
+- **Revision pass**: edited markdown that preserves the user's facts.
+- **Outline-first**: frontmatter plus sectioned outline before drafting, when requested.
 
-## Ending Test
+## Final Checks
 
-Before finalizing, ask:
-- Does the ending add a new synthesis, implication, or forward point?
-- Or does it only restate the thesis in cleaner language?
-
-If it only restates, revise the close so it advances the piece by at least one step.
+- Argument is cohesive from opening to close.
+- Paragraph cadence is varied and mostly multi-sentence.
+- Titles, excerpts, headings, and intro copy are specific and modest.
+- No inferred facts, inflated claims, or unsupported practice claims were introduced.
+- No slogan-like phrasing, draft scaffolding, or repeated synonym pairs remain.
+- Cover prompt output includes both `Cover Prompt (Primary)` and `Cover Prompt (Backup)` unless waived.
