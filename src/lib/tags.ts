@@ -7,15 +7,11 @@ export type TagEntry = {
   slug: string;
 };
 
-function normalizeTagSlugPart(value: string): string {
-  return value
+export function toTagSlug(tag: string): string {
+  return tag
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
-}
-
-export function toTagSlug(tag: string): string {
-  return normalizeTagSlugPart(tag);
 }
 
 export function getTagPath(tag: string): string {

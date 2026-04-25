@@ -70,12 +70,7 @@ export function getImageVariant(
   sourcePath: string | undefined,
   variantName: string
 ): VariantInfo | undefined {
-  const variants = getSourceVariants(sourcePath);
-  if (!variants) {
-    return undefined;
-  }
-
-  return variants[variantName];
+  return getSourceVariants(sourcePath)?.[variantName];
 }
 
 export function getImageVariantSourceSet(

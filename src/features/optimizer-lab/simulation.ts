@@ -92,6 +92,7 @@ export function createRunSnapshot(
 ): RunSnapshot {
   const loss = surface.evaluate(startPoint);
   const gradient = surface.gradient(startPoint);
+  const gradientMagnitude = magnitude(gradient);
 
   return {
     id: config.id,
@@ -102,7 +103,7 @@ export function createRunSnapshot(
     step: 0,
     position: startPoint,
     gradient,
-    gradientMagnitude: magnitude(gradient),
+    gradientMagnitude,
     loss,
     initialLoss: loss,
     status: classifyRunStatus({
@@ -110,7 +111,7 @@ export function createRunSnapshot(
       position: startPoint,
       loss,
       initialLoss: loss,
-      gradientMagnitude: magnitude(gradient),
+      gradientMagnitude,
       recentLosses: [loss],
     }),
     memory: createOptimizerMemory(),
