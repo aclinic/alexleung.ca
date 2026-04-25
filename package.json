@@ -69,7 +69,7 @@
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "katex": "^0.16.39",
-    "postcss": "^8.5.8",
+    "postcss": "^8.5.10",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "rehype-katex": "^7.0.1",
