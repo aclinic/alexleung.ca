@@ -1,6 +1,6 @@
 ---
 name: pr-parallel-review
-description: Review a pull request or current branch against main by spawning one sub-agent per review dimension, waiting for all of them, and summarizing the result for each dimension. Use when the user wants a parallel branch-vs-main audit covering security issues, code quality, bugs, race conditions, test flakiness, and maintainability.
+description: Review a pull request or current branch with six parallel review dimensions. Use only when the user explicitly asks for sub-agents, parallel review, or a six-way PR/branch audit covering security, code quality, bugs, race conditions, test flakiness, and maintainability.
 ---
 
 # Parallel PR Review

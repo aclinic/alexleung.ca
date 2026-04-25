@@ -1,11 +1,13 @@
 ---
 name: repo-maintainability-audit
-description: Audit a code repository for maintainability and correctness issues. Use when asked to identify potential bugs or undefined behavior, find overly complex or duplicated code, suggest refactors for readability/modularity, detect outdated/deprecated patterns, and produce a prioritized report with diffs plus impact/risk estimates.
+description: Broad repository audit for maintainability and correctness risks. Use when asked for a repo health review, prioritized bug/complexity findings, architectural cleanup opportunities, or remediation diffs with impact/risk estimates. Prefer specialized skills for security audits, dependency upgrades, dead-code sweeps, PR parallel reviews, or targeted AI-code simplification.
 ---
 
 # Repository Maintainability & Correctness Audit
 
 Execute this workflow when producing a high-signal engineering audit.
+
+Use this as the broad audit skill. If the user's request is mainly about vulnerabilities, dependency/framework versions, unused code, or a parallel PR review, use the matching specialized skill instead.
 
 ## Workflow
 
@@ -22,7 +24,7 @@ Execute this workflow when producing a high-signal engineering audit.
    - Identify likely bugs, undefined behavior, weak error handling, stale assumptions, and edge-case gaps.
    - Flag unnecessary complexity (long functions, high branching, tight coupling, mixed concerns).
    - Detect duplication and recommend consolidation opportunities.
-   - Detect outdated patterns and modern alternatives aligned with project standards.
+   - Detect outdated patterns when they affect maintainability; leave full upgrade planning to `dependency-framework-upgrade-planner`.
 
 4. Prioritize findings.
    - Prioritize by user impact, likelihood, blast radius, and remediation effort.

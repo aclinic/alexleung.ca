@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security Audit"
+  short_description: "Find vulnerabilities with patch-ready fixes"
+  default_prompt: "Use $security-audit to review this repository for concrete security vulnerabilities, prioritize risk, and propose patch-ready fixes."

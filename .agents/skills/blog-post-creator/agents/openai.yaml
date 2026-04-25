@@ -1,4 +1,4 @@
 interface:
   display_name: "Blog Post Creator"
-  short_description: "Draft posts + cover prompts in Alex Leung house style"
+  short_description: "Draft alexleung.ca posts and cover prompts"
   default_prompt: "Use $blog-post-creator to draft a new post for alexleung.ca and generate a Ghibli-style cover image prompt using my reference photo."
