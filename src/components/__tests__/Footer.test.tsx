@@ -20,6 +20,18 @@ describe("Footer", () => {
     });
   });
 
+  it("keeps footer social links visible across breakpoints", () => {
+    const { container } = render(<Footer />);
+
+    const socialListItems = container.querySelectorAll("li");
+    expect(socialListItems).toHaveLength(data.length);
+
+    socialListItems.forEach((item) => {
+      expect(item).toHaveClass("inline-block");
+      expect(item).not.toHaveClass("lg:hidden");
+    });
+  });
+
   it("should render RSS subscription link", () => {
     render(<Footer />);
 

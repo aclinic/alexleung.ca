@@ -9,7 +9,6 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { AppBackground } from "@/components/AppBackground";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import SocialLinks from "@/components/SocialLinks";
 import { BASE_URL } from "@/constants";
 import {
   buildPersonSchema,
@@ -97,7 +96,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={`${lato.className} flex min-h-screen flex-col`}>
         <AppBackground />
         <Header />
-        <SocialLinks />
         <main className="flex grow flex-col">{children}</main>
         <Footer />
         <JsonLd item={buildPersonSchema({ description })} />
