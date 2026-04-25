@@ -136,6 +136,31 @@ describe("validateLoadFlowCase", () => {
     );
   });
 
+  it("flags invalid optional branch numeric values", () => {
+    const result = validateLoadFlowCase(
+      createCase({
+        branches: [
+          {
+            id: "branch-1",
+            fromBusId: "bus-1",
+            toBusId: "bus-1",
+            r: 0.01,
+            x: 0.03,
+            bHalf: Number.NaN,
+            thermalLimitMVA: -10,
+          },
+        ],
+      })
+    );
+
+    expect(result.errors).toContain(
+      "Branch branch-1 has invalid shunt susceptance (must be a finite number)."
+    );
+    expect(result.errors).toContain(
+      "Branch branch-1 has invalid thermal limit (must be a finite number greater than zero)."
+    );
+  });
+
   it("flags duplicate bus identifiers", () => {
     const result = validateLoadFlowCase(
       createCase({
@@ -157,6 +182,38 @@ describe("validateLoadFlowCase", () => {
     );
 
     expect(result.errors).toContain("Duplicate bus id detected: bus-1.");
+  });
+
+  it("flags invalid bus voltage fields", () => {
+    const result = validateLoadFlowCase(
+      createCase({
+        buses: [
+          {
+            id: "bus-1",
+            name: "Bus 1",
+            baseKV: Number.NaN,
+            type: "SLACK",
+            voltageMagnitudeSetpoint: Number.NaN,
+            voltageAngleSetpointDeg: Number.POSITIVE_INFINITY,
+            voltageMagnitudeMin: 1.1,
+            voltageMagnitudeMax: 0.9,
+          },
+        ],
+      })
+    );
+
+    expect(result.errors).toContain(
+      "Bus bus-1 has invalid base kV (must be a finite number greater than or equal to zero)."
+    );
+    expect(result.errors).toContain(
+      "Bus bus-1 has invalid voltage magnitude setpoint (must be a finite number greater than zero)."
+    );
+    expect(result.errors).toContain(
+      "Bus bus-1 has invalid voltage angle setpoint (must be a finite number in degrees)."
+    );
+    expect(result.errors).toContain(
+      "Bus bus-1 has invalid voltage limits (minimum cannot exceed maximum)."
+    );
   });
 
   it("requires PV buses to have online generator associations", () => {
@@ -192,6 +249,58 @@ describe("validateLoadFlowCase", () => {
 
     expect(result.errors).toContain(
       "PV bus bus-2 must be associated with an online generator."
+    );
+  });
+
+  it("flags invalid generator, load, and shunt numeric fields", () => {
+    const result = validateLoadFlowCase(
+      createCase({
+        generators: [
+          {
+            id: "gen-1",
+            busId: "bus-1",
+            pSet: Number.NaN,
+            vSet: 0,
+            qMin: 10,
+            qMax: -10,
+            status: "ON",
+          },
+        ],
+        loads: [
+          {
+            id: "load-1",
+            busId: "bus-1",
+            p: Number.POSITIVE_INFINITY,
+            q: 1,
+            status: "ON",
+          },
+        ],
+        shunts: [
+          {
+            id: "shunt-1",
+            busId: "bus-1",
+            kind: "CAPACITOR",
+            bPu: Number.NaN,
+            status: "ON",
+          },
+        ],
+      })
+    );
+
+    expect(result.errors).toContain(
+      "Generator gen-1 has invalid active power setpoint (must be a finite number)."
+    );
+    expect(result.errors).toContain(
+      "Generator gen-1 has invalid voltage setpoint (must be a finite number greater than zero)."
+    );
+    expect(result.errors).toContain(
+      "Generator gen-1 has invalid reactive limits (qMin cannot exceed qMax)."
+    );
+    expect(result.errors).toContain(
+      "Load load-1 has invalid power values (p and q must be finite numbers)."
+    );
+    expect(result.errors).toContain(
+      "Shunt shunt-1 has invalid susceptance (must be a finite number)."
     );
   });
 });

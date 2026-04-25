@@ -34,6 +34,21 @@ export const runLoadFlow = (
     };
   }
 
+  if (resolvedOptions.enforceReactiveLimits) {
+    return {
+      diagnostics: {
+        converged: false,
+        algorithm: resolvedOptions.algorithm,
+        initialization: resolvedOptions.initialization,
+        message:
+          "Reactive generator limit enforcement is not implemented for this solver yet.",
+        iterationsCompleted: 0,
+        maxMismatchPu: null,
+        iterationMaxMismatchPu: [],
+      },
+    };
+  }
+
   const algorithmDecision = selectSolverAlgorithm(
     loadFlowCase,
     resolvedOptions

@@ -103,6 +103,22 @@ describe("blogApi front matter validation", () => {
     );
   });
 
+  test("throws when date front matter is not a real ISO calendar date", async () => {
+    const tempDir = setupTempPosts({
+      "bad-date": `---\ntitle: "Bad date"\ndate: "2026-02-30"\n---\nBody`,
+      "bad-updated": `---\ntitle: "Bad updated"\ndate: "2026-02-16"\nupdated: "2026-13-01"\n---\nBody`,
+    });
+
+    const { getPostBySlug } = await loadBlogApiAtCwd(tempDir);
+
+    expect(() => getPostBySlug("bad-date")).toThrow(
+      'Invalid date in post "bad-date": 2026-02-30'
+    );
+    expect(() => getPostBySlug("bad-updated")).toThrow(
+      'Invalid updated in post "bad-updated": 2026-13-01'
+    );
+  });
+
   test("excludes draft posts by default", async () => {
     const tempDir = setupTempPosts({
       published: `---\ntitle: "Published"\ndate: "2026-02-16"\n---\nBody`,

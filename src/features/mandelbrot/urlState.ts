@@ -101,21 +101,3 @@ export function parseSettingsFromQuery(
         : fallback.renderBackendPreference,
   };
 }
-
-export function serializeExplorerState(
-  viewport: PreciseViewport,
-  settings: MandelbrotSettings
-): string {
-  const searchParams = new URLSearchParams();
-
-  searchParams.set("cx", viewport.centerX.toString());
-  searchParams.set("cy", viewport.centerY.toString());
-  searchParams.set("w", viewport.width.toString());
-  searchParams.set("iter", String(settings.maxIterations));
-  searchParams.set("palette", settings.paletteId);
-  searchParams.set("mode", settings.coloringMode);
-  searchParams.set("quality", settings.resolutionScale.toFixed(2));
-  searchParams.set("backend", settings.renderBackendPreference);
-
-  return searchParams.toString();
-}
