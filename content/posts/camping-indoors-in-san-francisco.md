@@ -8,32 +8,30 @@ tags:
   - "Lifestyle"
 ---
 
-I have been in San Francisco for about a week now, and most of it has been the unglamorous part of moving: getting an SSN, setting up bank accounts, buying small things I need, and waiting for the rest of my stuff to arrive.
+I have been in San Francisco for about a week now. I came early so I could handle the practical things before work takes up more of my day: getting an SSN, setting up bank accounts, buying apartment basics, and waiting for the rest of my stuff to arrive.
 
-I came early for that reason. I wanted the first layer of life here to feel a little less fragile before work starts taking more of my attention. It still does not feel fully settled, but it does feel like the move is becoming more real one small task at a time.
+Right now the apartment is still mostly a sleeping pad, a sleeping bag, a few cat things, and whatever has arrived from Amazon. My furniture is still in transit, so the week has been paperwork, deliveries, outdoor runs, and making the place usable enough for the cats and me.
 
 ## Camping Indoors
 
-The apartment is still mostly empty. Until my stuff arrives, hopefully next week, I am basically camping inside it with a pad and a sleeping bag. There is something funny about having an address, keys, and a place of my own, while still living in it like I am waiting out a very mild indoor expedition.
+The apartment is still mostly empty. Until my stuff arrives, hopefully next week, I am basically camping inside it with a pad and a sleeping bag. I have an address and keys, but most of my day-to-day setup is still on the floor.
 
-It is not uncomfortable in a dramatic way. It is just sparse. Everything I have with me is doing a job, because there is not much else around. I am here, but the apartment still has a temporary quality to it.
+It is not uncomfortable in a dramatic way. It is just sparse. Everything I have with me is doing a job because there is not much else around.
 
 ## Getting the Cats Here
 
-One of the bigger pieces was getting the cats over. We used a pet taxi service, which turned out to be the right call for a few reasons. We did not want them to be apart, I did not want either of them in cargo when I could only bring one in the cabin myself, and having them travel that way gave me time to make the apartment more comfortable for them.
+The cats needed their own plan. We used a pet taxi service, which turned out to be the right call for a few reasons. We did not want them to be apart, and I did not want either of them in cargo when I could only bring one in the cabin myself.
 
-That meant getting a few things ready first, like cat trees and cat beds, before they showed up. The apartment is still unfinished, but having them here changes it immediately. Even without furniture, it feels less abstract once they are in the space.
-
-## Filling the Gaps
-
-I have also been relying on Amazon more than I expected. Compared with Waterloo, it is just much better here. That has been useful in a very ordinary way: small things can get solved quickly while most of my things are still in transit.
-
-I have noticed the tap water too. It tastes good, and apparently San Francisco water is snowmelt water. That is a small detail, but it makes the place feel easier to live in more quickly.
+Conveniently, having them come by pet taxi also gave me time to set up cat trees and cat beds before they arrived. The apartment is still unfinished, but having them here changes it immediately. Their beds and trees make the place feel occupied even before the furniture arrives.
 
 ## Environment
+
+I have been noticing small everyday differences too. Amazon is much better here than it was in Waterloo, which has been useful while most of my things are still in transit.
+
+The tap water also tastes good. Apparently San Francisco water is snowmelt water, which makes drinking from the tap unusually pleasant.
 
 I have been enjoying the outdoor runs, especially along the Bay Trail. It has been a nice way to get out of the apartment between errands and setup tasks.
 
 I also often overhear people talking about tech: startups, AI, infrastructure, products, companies, jobs. It is a little odd, but also not surprising here. For now it is mostly just part of the environment.
 
-Overall, I am enjoying it. This first week has been more about setup than rhythm. That is fine. I came early for that reason. But I am also looking forward to the coming week, when hopefully more of my attention can move from getting established here to the work I came here to do.
+Overall, I am enjoying it. This first week has mostly been paperwork, deliveries, empty rooms, and figuring out what the cats need. I am also looking forward to the coming week, when hopefully more of my attention can move from getting established here to the work I came here to do.
