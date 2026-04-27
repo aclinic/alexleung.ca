@@ -75,6 +75,35 @@
         }
       }
     },
+    "/assets/blog/camping-indoors-in-san-francisco/cover.webp": {
+      "variants": {
+        "card": {
+          "path": "/assets/blog/camping-indoors-in-san-francisco/cover-card.webp",
+          "width": 768,
+          "height": 433
+        },
+        "card-md": {
+          "path": "/assets/blog/camping-indoors-in-san-francisco/cover-card-md.webp",
+          "width": 640,
+          "height": 361
+        },
+        "card-sm": {
+          "path": "/assets/blog/camping-indoors-in-san-francisco/cover-card-sm.webp",
+          "width": 480,
+          "height": 271
+        },
+        "hero": {
+          "path": "/assets/blog/camping-indoors-in-san-francisco/cover-hero.webp",
+          "width": 1280,
+          "height": 721
+        },
+        "hero-sm": {
+          "path": "/assets/blog/camping-indoors-in-san-francisco/cover-hero-sm.webp",
+          "width": 640,
+          "height": 361
+        }
+      }
+    },
     "/assets/blog/deep-learning-part-1-review/cover.webp": {
       "variants": {
         "card": {

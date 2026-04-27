@@ -173,6 +173,8 @@ yarn deploy           # Build and deploy to GitHub Pages
 - For metadata and machine-facing summaries, prefer durable wording over quickly stale current-state details unless the surface is intentionally time-stamped, such as the body of the Now page.
 - Use credentials, project history, and domain experience as factual context when relevant, but avoid turning them into a pitch.
 - Prefer direct, literal phrasing over abstract framing when editing prose. If the concrete mechanism, limitation, UI behavior, or comparison can be named directly, name it.
+- For personal reflections and lifestyle posts, open from concrete lived details before interpretation. Avoid polished thesis scaffolding, rhetorical contrast templates, and decorative atmosphere labels unless the user explicitly asks for a more essayistic style.
+- If the user corrects tone more than once, stop making local sentence swaps. Reread the whole section, name the repeated pattern, and revise from the user-provided facts outward.
 - Avoid draft-scaffolding phrases such as `the third thread`, `interesting middle ground`, or similar meta-organizing language when the actual point can be stated plainly.
 - Avoid rhetorical contrast templates like `it is one thing ... it is another ...` unless the user explicitly wants a more essayistic style.
 - Avoid pairing near-synonyms in the same sentence just for polish; if two clauses do not add distinct meaning, collapse them.

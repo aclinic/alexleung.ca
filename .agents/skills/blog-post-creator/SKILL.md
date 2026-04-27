@@ -19,6 +19,7 @@ Load references only when needed:
 - Keep tone warm, direct, and measured; avoid hype, slogans, and recruiter-style positioning.
 - Show experience through concrete observations, trade-offs, mechanisms, and limits.
 - Prefer literal phrasing over abstract framing when the concrete system, UI behavior, or comparison can be named.
+- For personal reflections, lead with the lived detail before the interpretation. Do not manufacture thesis energy with polished setup phrases.
 - Let significance emerge from facts and consequences instead of declaring that something "matters" or is "important".
 
 ## Hard Constraints
@@ -29,7 +30,9 @@ Load references only when needed:
 4. Prefer concise titles and specific excerpts over authority-oriented positioning.
 5. Use section headings that name the idea of the section, not generic scaffolds like `What`, `How`, `Why`, `The Goal`, or `The Implementation`.
 6. Do not turn learning notes, project writeups, or personal reflections into portfolio pitches.
-7. For new-post drafts, include cover prompts by default unless the user asks for post-only output.
+7. Avoid intro scaffolding that announces a thesis before showing the experience: rhetorical contrast, abstract significance framing, or decorative labels for mood/place/context.
+8. If the user corrects tone more than once, stop incremental patching. Reread the full piece, identify the repeated failure pattern, and revise the affected section from concrete facts outward.
+9. For new-post drafts, include cover prompts by default unless the user asks for post-only output.
 
 ## Workflow
 
@@ -47,6 +50,7 @@ Load references only when needed:
 3. Draft or revise in house voice.
    - Prefer cohesive multi-sentence paragraphs.
    - Replace broad framing with the exact constraint, mechanism, symptom, or comparison.
+   - For personal updates, keep the opening close to the actual scene, action, object, constraint, or observation before adding a conclusion.
    - Use lists only when they improve scanning.
    - Keep technical trade-offs and limitations explicit.
 
@@ -76,4 +80,5 @@ Load references only when needed:
 - Titles, excerpts, headings, and intro copy are specific and modest.
 - No inferred facts, inflated claims, or unsupported practice claims were introduced.
 - No slogan-like phrasing, draft scaffolding, or repeated synonym pairs remain.
+- Personal-reflection openings begin with specific lived details, not abstract contrast or significance framing.
 - Cover prompt output includes both `Cover Prompt (Primary)` and `Cover Prompt (Backup)` unless waived.

@@ -11,6 +11,7 @@
 - Explain trade-offs and constraints instead of presenting absolute claims.
 - Prefer direct mechanism over framing language; if a sentence can name the actual behavior, constraint, or operation, do that instead of abstract setup.
 - Avoid polished contrast templates or thesis-scaffolding phrases when a plain statement will carry the point more honestly.
+- In personal reflections, do not make the first paragraph carry a grand interpretive frame. Start with the actual scene, action, object, constraint, or observation, then let the interpretation arrive later.
 
 ## Cadence Guardrails
 
@@ -18,6 +19,14 @@
 - Avoid repeated one-sentence paragraph cadence.
 - Prefer cohesive argument flow over social-post pacing.
 - Use bullet lists only for genuinely scannable sets (steps, trade-offs, outcomes).
+
+## Personal Reflection Failure Modes
+
+- Avoid openings that summarize the essay's meaning before showing the experience. Personal reflections should earn interpretation through specific details.
+- Avoid rhetorical contrast or pivot templates when a plain statement would be more honest.
+- Avoid decorative labels for atmosphere, identity, or place when a sensory detail, object, action, limitation, or observed behavior can do the work.
+- If a user pushes back on tone repeatedly, treat it as evidence that the governing voice is wrong, not that one sentence needs a synonym swap.
+- For travel, lifestyle, career, project, or personal-update posts, prefer ordinary nouns and verbs drawn from the user's facts.
 
 ## Common Post Shapes
 
@@ -28,7 +37,7 @@
 - Close: summarize durable takeaway or operating principle.
 
 2. Reflection post
-- Opening: anchor on a concrete observation or recent experience.
+- Opening: anchor on a concrete observation or recent experience before adding interpretation.
 - Middle sections: articulate tension, reasoning, and implications.
 - Close: leave a specific question or grounded forward-looking point.
 
