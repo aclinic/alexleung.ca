@@ -27,7 +27,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "perf:lighthouse": "lhci autorun --config=.lighthouserc.json",
-    "lint": "eslint . && prettier --check '{src,docs,playwright,scripts,.github}/**/*.{js,jsx,ts,tsx,css,md,json,yml,mjs}' '*.{js,mjs,ts,json,md,yml}'",
+    "lint": "eslint . && prettier --check '{src,docs,playwright,scripts,.github}/**/*.{js,jsx,ts,tsx,css,md,json,yml,mjs}' '*.{js,mjs,ts,json,md,yml}' && yarn lint:unused",
     "lint:unused": "knip --reporter compact",
     "lint:fix": "eslint --fix . && prettier --write '{src,docs,playwright,scripts,.github}/**/*.{js,jsx,ts,tsx,css,md,json,yml,mjs}' '*.{js,mjs,ts,json,md,yml}'",
     "predeploy": "yarn build:prod",
