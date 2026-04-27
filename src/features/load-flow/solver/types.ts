@@ -1,5 +1,3 @@
-import { LoadFlowCase } from "@/features/load-flow/model/types";
-
 /**
  * Keep the public surface area intentionally narrow until the first
  * numerical kernel is production-ready.
@@ -42,7 +40,7 @@ export interface BranchFlowSolution {
   qLossMVar: number;
 }
 
-export interface LoadFlowDiagnostics {
+interface LoadFlowDiagnostics {
   converged: boolean;
   algorithm: SolverAlgorithm;
   initialization: InitializationMode;
@@ -56,13 +54,6 @@ export interface LoadFlowResult {
   diagnostics: LoadFlowDiagnostics;
   buses?: BusSolution[];
   branchFlows?: BranchFlowSolution[];
-}
-
-export interface LoadFlowEngine {
-  solve: (
-    loadFlowCase: LoadFlowCase,
-    options?: Partial<SolveOptions>
-  ) => LoadFlowResult;
 }
 
 export const DEFAULT_SOLVE_OPTIONS: SolveOptions = {

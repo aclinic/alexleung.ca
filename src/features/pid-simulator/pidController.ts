@@ -1,13 +1,13 @@
 import { PidControllerConfig } from "@/features/pid-simulator/types";
 import { clamp } from "@/features/pid-simulator/utils";
 
-export type PidTerms = {
+type PidTerms = {
   proportional: number;
   integral: number;
   derivative: number;
 };
 
-export type PidStepResult = {
+type PidStepResult = {
   output: number;
   error: number;
   terms: PidTerms;

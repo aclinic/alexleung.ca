@@ -1,6 +1,6 @@
 import { SimulatorPreset } from "@/features/pid-simulator/types";
 
-export const PID_SIMULATOR_DEFAULT_SETPOINT = 1;
+const PID_SIMULATOR_DEFAULT_SETPOINT = 1;
 
 export const PID_SIMULATOR_PRESETS: readonly SimulatorPreset[] = [
   {

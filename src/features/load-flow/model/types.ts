@@ -1,6 +1,6 @@
 export type BusType = "SLACK" | "PV" | "PQ";
 
-export type ShuntDeviceKind = "REACTOR" | "INDUCTOR" | "CAPACITOR";
+type ShuntDeviceKind = "REACTOR" | "INDUCTOR" | "CAPACITOR";
 
 export interface Bus {
   id: string;

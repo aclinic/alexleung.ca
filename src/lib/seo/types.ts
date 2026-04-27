@@ -1,4 +1,4 @@
-export type SeoImage = {
+type SeoImage = {
   alt?: string;
   height?: number;
   url: string;

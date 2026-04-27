@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { LinkText } from "@/components/LinkText";
 
-export interface ExternalLinkProps {
+interface ExternalLinkProps {
   href: string;
   children: ReactNode;
   className?: string;

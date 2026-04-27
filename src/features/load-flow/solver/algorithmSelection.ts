@@ -2,7 +2,7 @@ import { LoadFlowCase } from "@/features/load-flow/model/types";
 
 import { SolveOptions, SolverAlgorithm } from "./types";
 
-export interface AlgorithmSelectionDecision {
+interface AlgorithmSelectionDecision {
   selected: SolverAlgorithm;
   reason: string;
 }

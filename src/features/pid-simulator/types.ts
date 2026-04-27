@@ -4,7 +4,7 @@ export type SimulatorPresetId =
   | "overdamped"
   | "oscillatory";
 
-export type PidGains = {
+type PidGains = {
   kp: number;
   ki: number;
   kd: number;

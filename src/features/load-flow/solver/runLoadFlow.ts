@@ -3,12 +3,7 @@ import { validateLoadFlowCase } from "@/features/load-flow/model/validation";
 
 import { selectSolverAlgorithm } from "./algorithmSelection";
 import { solveWithNewtonRaphson } from "./newtonRaphsonSolver";
-import {
-  DEFAULT_SOLVE_OPTIONS,
-  LoadFlowEngine,
-  LoadFlowResult,
-  SolveOptions,
-} from "./types";
+import { DEFAULT_SOLVE_OPTIONS, LoadFlowResult, SolveOptions } from "./types";
 
 export const runLoadFlow = (
   loadFlowCase: LoadFlowCase,
@@ -69,8 +64,4 @@ export const runLoadFlow = (
       iterationMaxMismatchPu: [],
     },
   };
-};
-
-export const loadFlowEngine: LoadFlowEngine = {
-  solve: runLoadFlow,
 };

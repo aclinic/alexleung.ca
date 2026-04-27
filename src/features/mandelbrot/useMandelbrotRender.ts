@@ -13,9 +13,9 @@ import {
   RenderBackend,
 } from "@/features/mandelbrot/types";
 
-export type RenderPhase = "idle" | "preview" | "refining" | "ready" | "error";
+type RenderPhase = "idle" | "preview" | "refining" | "ready" | "error";
 
-export type RenderState = {
+type RenderState = {
   phase: RenderPhase;
   progress: number;
   message: string;

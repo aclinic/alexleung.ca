@@ -26,7 +26,7 @@ export type SurfaceDefinition = {
   gradient: (point: Vector2) => Vector2;
 };
 
-export type OptimizerTuning = {
+type OptimizerTuning = {
   learningRate: number;
   momentum: number;
   beta1: number;

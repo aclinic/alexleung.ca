@@ -9,11 +9,7 @@ import {
   SurfaceDefinition,
   Vector2,
 } from "@/features/optimizer-lab/types";
-import {
-  magnitude,
-  maxAbsComponent,
-  ZERO_VECTOR,
-} from "@/features/optimizer-lab/vector";
+import { magnitude, maxAbsComponent } from "@/features/optimizer-lab/vector";
 
 const CONVERGENCE_GRADIENT_THRESHOLD = 0.035;
 const PLATEAU_GRADIENT_THRESHOLD = 0.08;
@@ -85,7 +81,7 @@ export function classifyRunStatus({
   return "optimizing";
 }
 
-export function createRunSnapshot(
+function createRunSnapshot(
   surface: SurfaceDefinition,
   config: RunConfig,
   startPoint: Vector2
@@ -186,24 +182,4 @@ export function hasAnyActiveRun(
     const matchingConfig = configs.find((config) => config.id === run.id);
     return matchingConfig?.enabled && run.status === "optimizing";
   });
-}
-
-export function createEmptyRunSnapshot(config: RunConfig): RunSnapshot {
-  return {
-    id: config.id,
-    label: config.label,
-    color: config.color,
-    enabled: config.enabled,
-    optimizerId: config.optimizerId,
-    step: 0,
-    position: ZERO_VECTOR,
-    gradient: ZERO_VECTOR,
-    gradientMagnitude: 0,
-    loss: 0,
-    initialLoss: 0,
-    status: "optimizing",
-    memory: createOptimizerMemory(),
-    trail: [ZERO_VECTOR],
-    recentLosses: [0],
-  };
 }

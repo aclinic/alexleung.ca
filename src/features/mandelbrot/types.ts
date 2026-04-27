@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 
-export type PreciseDecimal = Decimal;
+type PreciseDecimal = Decimal;
 
 export type ComplexPoint = {
   real: PreciseDecimal;
@@ -51,7 +51,7 @@ export type EscapeResult = {
   smoothIteration: number;
 };
 
-export type RenderChunk = {
+type RenderChunk = {
   startRow: number;
   rowCount: number;
   pixels: Uint8ClampedArray;

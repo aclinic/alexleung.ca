@@ -1,13 +1,13 @@
 import { getAllPosts } from "@/lib/blogApi";
 
-export type TagEntry = {
+type TagEntry = {
   count: number;
   latestModified: string;
   name: string;
   slug: string;
 };
 
-export function toTagSlug(tag: string): string {
+function toTagSlug(tag: string): string {
   return tag
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")

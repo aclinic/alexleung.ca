@@ -4,12 +4,12 @@ import { BreadcrumbList } from "schema-dts";
 
 import { toCanonical } from "@/lib/seo";
 
-export type JsonLdBreadcrumbItem = {
+type JsonLdBreadcrumbItem = {
   name: string;
   item: string;
 };
 
-export type JsonLdBreadcrumbsProps = {
+type JsonLdBreadcrumbsProps = {
   items: JsonLdBreadcrumbItem[];
 };
 

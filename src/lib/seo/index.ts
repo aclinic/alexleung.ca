@@ -13,5 +13,4 @@ export {
   buildWebPageSchema,
   buildWebsiteSchema,
 } from "./jsonld";
-export type { SeoImage, SeoInput } from "./types";
 export { toAbsoluteUrl, toCanonical } from "./url";

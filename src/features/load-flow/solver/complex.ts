@@ -10,11 +10,6 @@ export const addComplex = (a: Complex, b: Complex): Complex => ({
   im: a.im + b.im,
 });
 
-export const subtractComplex = (a: Complex, b: Complex): Complex => ({
-  re: a.re - b.re,
-  im: a.im - b.im,
-});
-
 export const multiplyComplex = (a: Complex, b: Complex): Complex => ({
   re: a.re * b.re - a.im * b.im,
   im: a.re * b.im + a.im * b.re,

@@ -1,6 +1,6 @@
 import { LoadFlowCase } from "@/features/load-flow/model/types";
 
-export interface LoadFlowValidationResult {
+interface LoadFlowValidationResult {
   errors: string[];
 }
 
