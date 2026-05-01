@@ -234,7 +234,11 @@ describe("seo jsonld builders", () => {
         "rootpanda",
       ])
     );
-    expect(person.worksFor).toBeUndefined();
+    expect(person.worksFor).toMatchObject({
+      "@type": "Organization",
+      name: "OpenAI",
+      url: "https://openai.com/",
+    });
   });
 
   it("builds blog posting schema with normalized urls and keywords", () => {

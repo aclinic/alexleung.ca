@@ -5,6 +5,7 @@ import type {
   ContactPage,
   ItemList,
   Occupation,
+  Organization,
   Person,
   ProfilePage,
   SiteNavigationElement,
@@ -35,6 +36,11 @@ const SOCIAL_PROFILES = [
   "https://www.instagram.com/rootpanda",
   "https://scholar.google.ca/citations?user=NcOOsPIAAAAJ",
 ];
+const OPENAI_ORGANIZATION: Organization = {
+  "@type": "Organization",
+  name: "OpenAI",
+  url: "https://openai.com/",
+};
 type PersonReference = {
   "@type": "Person";
   "@id": string;
@@ -335,6 +341,7 @@ export function buildPersonSchema(input: {
     ],
     jobTitle: "Software Engineer",
     hasOccupation: currentOccupation,
+    worksFor: OPENAI_ORGANIZATION,
     description: input.description,
     disambiguatingDescription:
       "San Francisco-based software engineer writing notes on software systems, AI tools, and small experiments.",

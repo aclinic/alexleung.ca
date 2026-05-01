@@ -16,7 +16,7 @@ import { SectionBlock } from "@/components/SectionBlock";
 import { getAllPosts } from "@/lib/blogApi";
 import { buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
-export const NOW_PAGE_LAST_UPDATED_ISO = "2026-04-21";
+export const NOW_PAGE_LAST_UPDATED_ISO = "2026-05-01";
 
 const nowPageLastUpdatedDate = new Date(
   `${NOW_PAGE_LAST_UPDATED_ISO}T00:00:00Z`
@@ -74,13 +74,18 @@ export default function NowPage() {
             <div className="text-body space-y-8 text-left leading-relaxed">
               <IconTextRow icon="🚀" title="Top of Mind" headingLevel="h2">
                 <p>
-                  I&apos;m now based in San Francisco and getting settled after
-                  a recent move.
+                  I&apos;m spending most of my time getting settled into my new
+                  role at{" "}
+                  <ExternalLink href="https://openai.com/">OpenAI</ExternalLink>
+                  .
                 </p>
                 <p>
-                  There&apos;s a lot of logistics to sort through right now, so
-                  most of my attention has gone into getting settled after the
-                  transition.
+                  Outside of that, I&apos;m still finding my rhythm in San
+                  Francisco after the recent move. Most of my attention is on
+                  building context at work, getting the rest of life into a
+                  steadier shape, and waiting for my possessions to arrive.
+                  I&apos;m hoping everything can be delivered and unloaded by
+                  Thursday, May 7.
                 </p>
               </IconTextRow>
 
@@ -111,6 +116,7 @@ export default function NowPage() {
               <IconTextRow icon="🎯" title="Current Goals" headingLevel="h2">
                 <ul className="list-outside list-disc space-y-1 pl-6">
                   <li>Finish the Deep Learning book and write notes as I go</li>
+                  <li>Build context in my new role</li>
                   <li>Get settled in San Francisco</li>
                   <li>Keep improving at tennis</li>
                   <li>Get to A2 proficiency in Chinese</li>
