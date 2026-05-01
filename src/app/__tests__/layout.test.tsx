@@ -98,7 +98,11 @@ describe("RootLayout", () => {
 
       expect(schema.alumniOf).toBeDefined();
       expect(schema.alumniOf.length).toBe(2);
-      expect(schema.worksFor).toBeUndefined();
+      expect(schema.worksFor).toMatchObject({
+        "@type": "Organization",
+        name: "OpenAI",
+        url: "https://openai.com/",
+      });
       expect(schema.knowsAbout).toEqual(
         expect.arrayContaining([
           "AI and Machine Learning Systems",
